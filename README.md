@@ -1,3 +1,6 @@
+<br/>
+<br/>
+
 <p align="middle" >
   <img width="100px;" src="src/images/calculator_icon.png"/>
 </p>
