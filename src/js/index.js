@@ -1,6 +1,8 @@
 class App {
   constructor (app) {
-    this.app = app
+    this.app = app;
+    this.result = 0;
+    this.$total = app.querySelector('#total');
     this.$digit = app.querySelector('div.digits')
     this.$modifier = app.querySelector('div.modifiers')
     this.$operation = app.querySelector('div.operations')
