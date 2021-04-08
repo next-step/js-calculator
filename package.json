@@ -1,0 +1,16 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/yujo11/js-calculator.git",
+  "author": "yujo <bedro27@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "cypress": "^7.0.1",
+    "eslint": "^7.23.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "prettier": "^2.2.1"
+  }
+}
