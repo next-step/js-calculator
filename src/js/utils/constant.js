@@ -5,10 +5,10 @@ export const DISPLAY = $('#total');
 export const MAX_DIGIT_LENGTH = 3;
 export const INITIAL_VALUE = '0';
 
-const PLUS = '+';
-const MINUS = '-';
-const MULTIPLICATION = 'X';
-const DIVISION = '/';
+export const PLUS = '+';
+export const MINUS = '-';
+export const MULTIPLICATION = 'X';
+export const DIVISION = '/';
 
 export const OPERATORS = [PLUS, MINUS, MULTIPLICATION, DIVISION];
 
