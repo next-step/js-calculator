@@ -6,66 +6,43 @@ describe('calculator', () => {
     cy.visit('http://localhost:8080/');
   });
 
-  it('2개의 숫자에 대해 덧셈이 가능해야 한다.', () => {
-    cy.get('.digits').contains('9').click();
-    cy.get('.digits').contains('9').click();
-    cy.get('.digits').contains('9').click();
-    cy.contains(PLUS).click();
-    cy.get('.digits').contains('9').click();
-    cy.get('.digits').contains('9').click();
-    cy.get('.digits').contains('9').click();
-    cy.contains('=').click();
+  const clickNumberAndCalculation = ({ num1 = '999', num2 = '999', operator = '' }) => {
+    if (!operator) {
+      throw Error(MESSAGE.NEED_OPERATOR);
+    }
 
+    num1.split('').map((number) => {
+      cy.get('.digits').contains(number).click();
+    });
+    cy.contains(operator).click();
+    num2.split('').map((number) => {
+      cy.get('.digits').contains(number).click();
+    });
+    cy.contains('=').click();
+  };
+
+  it('2개의 숫자에 대해 덧셈이 가능해야 한다.', () => {
+    clickNumberAndCalculation({ operator: PLUS });
     cy.get('#total').should('have.text', calculation({ num1: 999, num2: 999, operator: PLUS }));
   });
 
   it('2개의 숫자에 대해 뺄셈이 가능해야 한다.', () => {
-    cy.get('.digits').contains('9').click();
-    cy.get('.digits').contains('9').click();
-    cy.get('.digits').contains('9').click();
-    cy.contains(MINUS).click();
-    cy.get('.digits').contains('9').click();
-    cy.get('.digits').contains('9').click();
-    cy.get('.digits').contains('9').click();
-    cy.contains('=').click();
-
+    clickNumberAndCalculation({ operator: MINUS });
     cy.get('#total').should('have.text', calculation({ num1: 999, num2: 999, operator: MINUS }));
   });
 
   it('2개의 숫자에 대해 곱셈이 가능해야 한다.', () => {
-    cy.get('.digits').contains('9').click();
-    cy.get('.digits').contains('9').click();
-    cy.get('.digits').contains('9').click();
-    cy.contains(MULTIPLICATION).click();
-    cy.get('.digits').contains('9').click();
-    cy.get('.digits').contains('9').click();
-    cy.get('.digits').contains('9').click();
-    cy.contains('=').click();
-
+    clickNumberAndCalculation({ operator: MULTIPLICATION });
     cy.get('#total').should('have.text', calculation({ num1: 999, num2: 999, operator: MULTIPLICATION }));
   });
 
   it('2개의 숫자에 대해 나눗셈이 가능해야 한다.', () => {
-    cy.get('.digits').contains('9').click();
-    cy.get('.digits').contains('9').click();
-    cy.get('.digits').contains('9').click();
-    cy.contains(DIVISION).click();
-    cy.get('.digits').contains('9').click();
-    cy.get('.digits').contains('9').click();
-    cy.get('.digits').contains('9').click();
-    cy.contains('=').click();
-
+    clickNumberAndCalculation({ operator: DIVISION });
     cy.get('#total').should('have.text', calculation({ num1: 999, num2: 999, operator: DIVISION }));
   });
 
   it('나눗셈을 할 때 소수점 이하는 버려야 한다.', () => {
-    cy.get('.digits').contains('9').click();
-    cy.get('.digits').contains('9').click();
-    cy.get('.digits').contains('9').click();
-    cy.contains(DIVISION).click();
-    cy.get('.digits').contains('8').click();
-    cy.contains('=').click();
-
+    clickNumberAndCalculation({ num2: '8', operator: DIVISION });
     cy.get('#total').should('have.text', Math.round(999 / 8));
   });
 
