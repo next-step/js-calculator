@@ -10,6 +10,10 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
   },
+
+  devServer: {
+    port: 8080,
+  },
   devtool: 'source-map',
   module: {
     rules: [
@@ -26,18 +30,18 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/i,
+        test: /\.css$/,
         include: [path.resolve(__dirname, 'src/css')],
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
     ],
   },
   plugins: [
-    new MiniCssExtractPlugin({
-      filename: 'style.css',
-    }),
     new HtmlWebpackPlugin({
       template: './index.html',
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'style.css',
     }),
     new CleanWebpackPlugin({
       cleanAfterEveryBuildPatterns: ['dist'],
