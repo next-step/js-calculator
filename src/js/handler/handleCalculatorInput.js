@@ -1,4 +1,5 @@
-import { DISPLAY, MAX_DIGIT_LENGTH, MESSAGE, OPERATORS } from '../utils/constant';
+import { DISPLAY, INITIAL_VALUE, MAX_DIGIT_LENGTH, MESSAGE, OPERATORS } from '../utils/constant';
+import { calculation } from '../utils/calculation';
 
 const isValidDigitLength = () => {
   const displayValue = DISPLAY.innerText;
@@ -8,7 +9,7 @@ const isValidDigitLength = () => {
     return displayValue.length < MAX_DIGIT_LENGTH;
   }
 
-  return displayValue.split(operator).pop().length < MAX_DIGIT_LENGTH;
+  return displayValue.split(operator)?.pop().length < MAX_DIGIT_LENGTH;
 };
 
 const putNumber = (num) => {
@@ -17,21 +18,52 @@ const putNumber = (num) => {
     return;
   }
 
-  if (DISPLAY.innerText === '0') {
+  if (DISPLAY.innerText === INITIAL_VALUE) {
     DISPLAY.innerText = num;
   } else {
     DISPLAY.innerText += num;
   }
 };
+
+const isAbleAddOperator = () => {
+  if (DISPLAY.innerText === INITIAL_VALUE) {
+    return false;
+  }
+  return !Number.isNaN(Number(DISPLAY.innerText[DISPLAY.innerText.length - 1]));
+};
+
+const putResult = () => {
+  const operator = DISPLAY.innerText.split('').find((v) => OPERATORS.includes(v));
+  const operands = DISPLAY.innerText.split(operator);
+
+  DISPLAY.innerText = calculation({ num1: Number(operands[0]), num2: Number(operands[1]), operator });
+};
+
+const putOperator = (operator) => {
+  if (operator === '=') {
+    putResult();
+    return;
+  }
+
+  if (!isAbleAddOperator()) {
+    alert(MESSAGE.NEED_ENTER_NUMBER);
+    return;
+  }
+
+  DISPLAY.innerText += operator;
+};
+
 export const handleCalculatorInput = ({ target }) => {
   if (target.classList.contains('digit')) {
     putNumber(target.innerText);
     return;
   }
   if (target.classList.contains('operation')) {
+    putOperator(target.innerText);
     return;
   }
-  if (target.classList.contains('modifiers')) {
+  if (target.classList.contains('modifier')) {
+    DISPLAY.innerText = INITIAL_VALUE;
     return;
   }
 };
