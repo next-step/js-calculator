@@ -35,8 +35,10 @@ const isAbleAddOperator = () => {
 const putResult = () => {
   const operator = DISPLAY.innerText.split('').find((v) => OPERATORS.includes(v));
   const operands = DISPLAY.innerText.split(operator);
+  const num1 = operands.shift();
+  const num2 = operands.shift();
 
-  DISPLAY.innerText = calculation({ num1: Number(operands[0]), num2: Number(operands[1]), operator });
+  DISPLAY.innerText = calculation({ num1, num2, operator });
 };
 
 const putOperator = (operator) => {
