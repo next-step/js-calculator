@@ -1,0 +1,11 @@
+{
+  "name": "cypress-basic",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://imakerjun@github.com/imakerjun/cypress-basic.git",
+  "author": "im1 <im1@woowahan.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "cypress": "^6.2.1"
+  }
+}
