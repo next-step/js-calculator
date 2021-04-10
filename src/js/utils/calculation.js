@@ -5,6 +5,10 @@ export const calculation = ({ num1 = 0, num2 = 0, operator = '' }) => {
     throw Error(MESSAGE.NEED_OPERATOR);
   }
 
+  if (Number.isNaN(Number(num1)) || Number.isNaN(Number(num2))) {
+    throw Error(MESSAGE.CHECK_INPUT_TYPE);
+  }
+
   const operators = {
     [PLUS]: () => Number(num1) + Number(num2),
     [MINUS]: () => Number(num1) - Number(num2),
