@@ -6,9 +6,9 @@ export const calculation = ({ num1 = 0, num2 = 0, operator = '' }) => {
   }
 
   const operators = {
-    [PLUS]: () => num1 + num2,
-    [MINUS]: () => num1 - num2,
-    [MULTIPLICATION]: () => num1 * num2,
+    [PLUS]: () => Number(num1) + Number(num2),
+    [MINUS]: () => Number(num1) - Number(num2),
+    [MULTIPLICATION]: () => Number(num1) * Number(num2),
     [DIVISION]: () => Math.round(num1 / num2),
   };
 
