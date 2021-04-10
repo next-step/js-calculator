@@ -1,20 +1,20 @@
 import { input_flag, output, calculator } from "./index.js"
 import { calculation } from "./calculation.js"
 import { check_flag } from "./checkFlag.js"
-
-const cal_op = document.querySelector(".operations");
+import { ERR_MSG } from "./utils.js"
 
 export const initPressOperation = () => {
-    cal_op.addEventListener("click", PressOperation);
+        calculator.addEventListener("click", PressOperation);
 }
 
-const PressOperation = (e) =>{
-    
-    let operator = e.target.innerHTML
+const PressOperation = ({ target }) =>{
+    if (!target.classList.contains("operation"))
+        return ;
+    let operator = target.innerHTML
     let str = output.innerHTML;
 
     if (!input_flag[0])
-        alert("숫자를 먼저 입력한 후 연산자를 입력해주세요!");
+        alert(ERR_MSG.OP_INPUT_ORDER);
     else if(operator != "=" && input_flag[0] && !input_flag[1])
     {
         output.innerHTML += operator;
@@ -54,9 +54,9 @@ const PressOperation = (e) =>{
         arr.push(str.substring(matchres + 1));
         arr.push(str[matchres]);
         output.innerHTML = calculation(arr);
-        
+
         check_flag(output.innerHTML);
     }
     else
-        alert("이 계산기는 두 개의 수에 대한 계산만 가능합니다!");
+        alert(ERR_MSG.INPUT_ONLYTWO);
 }

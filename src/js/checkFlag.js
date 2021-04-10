@@ -9,5 +9,4 @@ export const check_flag = (str) => {
         input_flag[0] = str.length;
     input_flag[1] = 0;
     input_flag[2] = 0;
-    console.log(input_flag);
 }

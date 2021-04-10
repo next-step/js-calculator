@@ -1,21 +1,22 @@
 import { input_flag, output, calculator } from "./index.js"
-
-const cal_nums = document.querySelector(".digits");
+import { ERR_MSG, INPUT_LENGTH } from "./utils.js"
 
 export const initPressNumber = () => {
-    cal_nums.addEventListener("click", PressNumber);
+    calculator.addEventListener("click", PressNumber);
 }
 
-const PressNumber = (e) => {
-    let num = e.target.innerHTML;
+const PressNumber = ({ target }) => {
+    if (!target.classList.contains("digit"))
+        return ;
+    let num = target.innerHTML;
     if (output.innerHTML == "0")
     {
         input_flag[0]++;
         output.innerHTML = num;
     }
-    else if ((input_flag[0] == 3 && !input_flag[1]) 
-                || (input_flag[2] == 3 && input_flag[1]))
-        alert("숫자는 세 자리까지만 입력 가능합니다!");
+    else if ((input_flag[0] == INPUT_LENGTH && !input_flag[1]) 
+                || (input_flag[2] == INPUT_LENGTH && input_flag[1]))
+        alert(ERR_MSG.INPUT_SIZE);
     else
     {
         if (!input_flag[1])

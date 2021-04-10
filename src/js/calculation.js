@@ -17,22 +17,15 @@ export const calculation = (arr) => {
         left = parseFloat(arr[0]);
     if (isNaN(right))
         right = 0;
-        console.log(left, right);
-    if (arr[2] == "+")
-        res = left + right;
-    else if(arr[2] == "-")
-        res = left - right;
-    else if(arr[2] == "X")
-        res = left * right;
-    else if(arr[2] == "/")
-        res = left / right;
+
+    res = Math.floor(change_cal[arr[2]]?.(left, right));
     
-    res = Math.floor(res);
-    if (res != Infinity && res > Number.MAX_VALUE)
-    {
-        console.log(res);
-        alert("Number 범위를 벗어난 결과값입니다!");
-        return 0;
-    }
     return res;
 }
+
+const change_cal = {
+    ["+"]: (left, right) => left + right,
+    ["-"]: (left, right) => left - right,
+    ["X"]: (left, right) => left * right,
+    ["/"]: (left, right) => left / right,
+  };
