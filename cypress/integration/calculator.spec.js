@@ -28,4 +28,26 @@ describe("calculator", () => {
 
     cy.get("#total").should("have.text", 0);
   });
+
+  ["+", "-", "X", "/", "="].forEach((operator) => {
+    it(`숫자 클릭 후 ${operator} 클릭 시 다음 숫자는 추가되지 않고 덮어씌움`, () => {
+      cy.get(".digit").contains(1).click();
+
+      cy.get(".operation").contains(operator).click();
+      cy.get(".digit").contains(3).click();
+
+      cy.get("#total").should("have.text", 3);
+    });
+  });
+
+  it("연산자 클릭 후 두번째는 덮어씌워지지 않고 추가", () => {
+    cy.get(".digit").contains(1).click();
+    cy.get(".operation").contains("+").click();
+    cy.get(".digit").contains(3).click();
+    cy.get("#total").should("have.text", 3);
+
+    cy.get(".digit").contains(4).click();
+
+    cy.get("#total").should("have.text", 34);
+  });
 });

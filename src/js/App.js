@@ -1,19 +1,24 @@
 export default function App() {
+  let flag = false;
+
   const dom = document.querySelector("#app");
   const total = dom.querySelector("#total");
   const digits = dom.querySelector(".digits");
   const reset = dom.querySelector(".modifier");
+  const operators = dom.querySelector(".operations");
 
   const init = () => {
     digits.addEventListener("click", onClickDigit);
     reset.addEventListener("click", onClickReset);
+    operators.addEventListener("click", onClickOperator);
   };
 
   const onClickDigit = ({ target }) => {
     const value = target.innerText;
 
-    if (total.innerText === "0") {
+    if (total.innerText === "0" || flag) {
       total.innerText = value;
+      flag = false;
       return;
     }
 
@@ -22,6 +27,10 @@ export default function App() {
 
   const onClickReset = () => {
     total.innerText = 0;
+  };
+
+  const onClickOperator = () => {
+    flag = true;
   };
 
   init();
