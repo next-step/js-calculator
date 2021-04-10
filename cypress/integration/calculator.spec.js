@@ -20,4 +20,12 @@ describe("calculator", () => {
 
     cy.get("#total").should("have.text", before + after);
   });
+
+  it("AC 버튼 클릭 시 0으로 복귀", () => {
+    cy.get(".digit").contains(1).click();
+
+    cy.get(".modifier").click();
+
+    cy.get("#total").should("have.text", 0);
+  });
 });
