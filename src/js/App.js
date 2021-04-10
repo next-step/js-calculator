@@ -8,7 +8,14 @@ export default function App() {
   };
 
   const onClickDigit = ({ target }) => {
-    total.innerText = target.innerText;
+    const value = target.innerText;
+
+    if (total.innerText === "0") {
+      total.innerText = value;
+      return;
+    }
+
+    total.innerText += value;
   };
 
   init();
