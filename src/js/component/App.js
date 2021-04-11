@@ -12,7 +12,13 @@ export function App($app) {
       totalNumber: 0,
     }
 
-    this.calculator = new Calculator({ $calculatorDom: this.$calculatorDom, initState: this.state })
+    this.calculator = new Calculator({
+      $calculatorDom: this.$calculatorDom,
+      initState: this.state,
+      onDigitsClick: (e) => {
+        this.setState({ totalNumber: this.state.totalNumber + e.target.innerText })
+      },
+    })
   }
 
   this.setState = (newState) => {
