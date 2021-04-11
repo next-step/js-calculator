@@ -3,20 +3,55 @@ describe('js-calculator', () => {
         cy.visit('http://127.0.0.1:5501/js-calculator/')
     })
 
-    it('2개의 숫자에 대해 덧셈이 가능하다.', () => {
-        cy.get('.digit').contains('4').click();
-        cy.get('.operation').contains('+').click();
-        cy.get('.digit').contains('2').click();
-        cy.get('.operation').contains('=').click();
-        cy.get('#total').should('have.text', '6');
+    context('2개의 숫자에 대해 덧셈이 가능하다.', () => {
+        it('4 + 2 = 6', () => {
+            cy.get('.digit').contains('4').click();
+            cy.get('.operation').contains('+').click();
+            cy.get('.digit').contains('2').click();
+            cy.get('.operation').contains('=').click();
+            cy.get('#total').should('have.text', '6');
+        })
+
+        it('99 + 1 = 100', () => {
+            cy.get('.digit').contains('9').click();
+            cy.get('.digit').contains('9').click();
+            cy.get('.operation').contains('+').click();
+            cy.get('.digit').contains('1').click();
+            cy.get('.operation').contains('=').click();
+            cy.get('#total').should('have.text', '100');
+        })
+
+        it('123 + 456 = 579', () => {
+            cy.get('.digit').contains('1').click();
+            cy.get('.digit').contains('2').click();
+            cy.get('.digit').contains('3').click();
+            cy.get('.operation').contains('+').click();
+            cy.get('.digit').contains('4').click();
+            cy.get('.digit').contains('5').click();
+            cy.get('.digit').contains('6').click();
+            cy.get('.operation').contains('=').click();
+            cy.get('#total').should('have.text', '579');
+        })
     });
 
-    it('2개의 숫자에 대해 뺄셈이 가능하다.', () => {
-        cy.get('.digit').contains('4').click();
-        cy.get('.operation').contains('-').click();
-        cy.get('.digit').contains('2').click();
-        cy.get('.operation').contains('=').click();
-        cy.get('#total').should('have.text', '2');
+    context('2개의 숫자에 대해 뺄셈이 가능하다.', () => {
+        it('4 + 2 = 6', () => {
+            cy.get('.digit').contains('4').click();
+            cy.get('.operation').contains('-').click();
+            cy.get('.digit').contains('2').click();
+            cy.get('.operation').contains('=').click();
+            cy.get('#total').should('have.text', '2');
+        })
+
+        it('30 - 40 = -10', () => {
+            cy.get('.digit').contains('3').click();
+            cy.get('.digit').contains('0').click();
+            cy.get('.operation').contains('-').click();
+            cy.get('.digit').contains('4').click();
+            cy.get('.digit').contains('0').click();
+            cy.get('.operation').contains('=').click();
+            cy.get('#total').should('have.text', '-10');
+        })
     });
 
     it('2개의 숫자에 대해 곱셈이 가능하다.', () => {
