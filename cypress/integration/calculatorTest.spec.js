@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 
 import { times, random } from 'lodash'
+import { parseNumericalExpression } from '../support/util.js'
 
 describe('계산기 테스트', () => {
   beforeEach(() => {
@@ -36,7 +37,7 @@ describe('계산기 테스트', () => {
     cy.get('#total').contains(/^-?[0-9]+[+/X-]$/gim)
   })
 
-  it.only('= 연산자를 경우 표시하지 않는다', () => {
+  it('= 연산자를 경우 표시하지 않는다', () => {
     times(4, () => {
       cy.get('.digit').then((ele) => {
         ele[random(0, 9)].click()
@@ -55,5 +56,32 @@ describe('계산기 테스트', () => {
 
     cy.get('.operation:nth-child(5)').click()
     cy.get('#total').should('not.contain.text', '=')
+  })
+
+  // 기능 요구사항
+  // - 2개의 숫자에 대해 덧셈이 가능
+  it.only('2개의 숫자에 대해 덧셈이 가능.', () => {
+    times(4, () => {
+      cy.get('.digit').then((ele) => {
+        ele[random(0, 9)].click()
+      })
+    })
+
+    cy.get('.operation').contains('+').click()
+
+    times(4, () => {
+      cy.get('.digit').then((ele) => {
+        ele[random(0, 9)].click()
+      })
+    })
+
+    cy.get('#total').then((ele) => {
+      const result = parseNumericalExpression(ele.text())
+      cy.get('.operation:nth-child(5)').click()
+
+      cy.get('#total')
+        .invoke('text')
+        .should((text) => expect(parseInt(text)).equal(result))
+    })
   })
 })
