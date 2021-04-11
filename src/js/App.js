@@ -1,4 +1,7 @@
+import Calculator from "./Calculator.js";
+
 export default function App() {
+  const calculator = Calculator();
   let flag = false;
 
   const dom = document.querySelector("#app");
@@ -29,8 +32,13 @@ export default function App() {
     total.innerText = 0;
   };
 
-  const onClickOperator = () => {
+  const onClickOperator = ({ target }) => {
     flag = true;
+
+    calculator.insertNumber(total.innerText);
+    total.innerText = calculator.run();
+
+    calculator.insertOperator(target.innerText);
   };
 
   init();

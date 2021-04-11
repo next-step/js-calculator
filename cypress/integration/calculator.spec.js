@@ -49,11 +49,25 @@ describe("calculator", () => {
       cy.get(".digit").contains(1).click();
       cy.get(".operation").contains("+").click();
       cy.get(".digit").contains(3).click();
-      cy.get("#total").should("have.text", 3);
 
       cy.get(".digit").contains(4).click();
 
       cy.get("#total").should("have.text", 34);
+    });
+  });
+
+  describe("연산", () => {
+    it("더하기 연산", () => {
+      const num1 = 1;
+      const num2 = 3;
+      const operator = "+";
+
+      cy.get(".digit").contains(num1).click();
+      cy.get(".operation").contains(operator).click();
+      cy.get(".digit").contains(num2).click();
+      cy.get(".operation").contains("=").click();
+
+      cy.get("#total").should("have.text", num1 + num2);
     });
   });
 });
