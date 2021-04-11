@@ -23,11 +23,18 @@ export function App($app) {
         this.setState({ totalNumber: this.state.totalNumber === '0' ? e.target.innerText : this.state.totalNumber + e.target.innerText })
       },
       onOperationsClick: (e) => {
+        const newStr = this.state.totalNumber + e.target.innerText
+        const operList = newStr.match(/[+/X-]{2,}/gim)
+
+        if (Array.isArray(operList) && operList.length > 0) {
+          alert('연산자는 연속해서 입력 불가')
+          return
+        }
+
         if (e.target.innerText === '=' && isRightNumericalExpression(this.state.totalNumber)) {
           return this.setState({ totalNumber: parseNumericalExpression(this.state.totalNumber) })
         }
 
-        const newStr = this.state.totalNumber + e.target.innerText
         const reg = /-?[0-9]+[+/X-]/gim
 
         if (!reg.test(newStr)) return
