@@ -54,20 +54,44 @@ describe('js-calculator', () => {
         })
     });
 
-    it('2개의 숫자에 대해 곱셈이 가능하다.', () => {
-        cy.get('.digit').contains('4').click();
-        cy.get('.operation').contains('X').click();
-        cy.get('.digit').contains('2').click();
-        cy.get('.operation').contains('=').click();
-        cy.get('#total').should('have.text', '8');
+    context('2개의 숫자에 대해 곱셈이 가능하다.', () => {
+        it('4 x 2 = 8', () => {
+            cy.get('.digit').contains('4').click();
+            cy.get('.operation').contains('X').click();
+            cy.get('.digit').contains('2').click();
+            cy.get('.operation').contains('=').click();
+            cy.get('#total').should('have.text', '8');
+        })
+
+        it('100 x 0 = 0', () => {
+            cy.get('.digit').contains('1').click();
+            cy.get('.digit').contains('0').click();
+            cy.get('.digit').contains('0').click();
+            cy.get('.operation').contains('X').click();
+            cy.get('.digit').contains('0').click();
+            cy.get('.operation').contains('=').click();
+            cy.get('#total').should('have.text', '0');
+        })
     });
 
-    it('2개의 숫자에 대해 나눗셈이 가능하다.', () => {
-        cy.get('.digit').contains('4').click();
-        cy.get('.operation').contains('/').click();
-        cy.get('.digit').contains('2').click();
-        cy.get('.operation').contains('=').click();
-        cy.get('#total').should('have.text', '2');
+    context('2개의 숫자에 대해 나눗셈이 가능하다.', () => {
+        it('4 / 2 = 2', () => {
+            cy.get('.digit').contains('4').click();
+            cy.get('.operation').contains('/').click();
+            cy.get('.digit').contains('2').click();
+            cy.get('.operation').contains('=').click();
+            cy.get('#total').should('have.text', '2');
+        })
+
+        it('0으로 나눌 수 없다', () => {
+            cy.get('.digit').contains('4').click();
+            cy.get('.operation').contains('/').click();
+            cy.get('.digit').contains('0').click();
+            cy.get('.operation').contains('=').click();
+            cy.on('window:alert',(message) => {
+                expect(message).to.equals('0으로 나눌 수 없습니다!');
+             })
+        })
     });
 
     it('AC(All Clear)버튼을 누르면 0으로 초기화 한다.', () => {
