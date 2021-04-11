@@ -64,7 +64,7 @@ describe('My first test', () => {
         cy.get('#total').should('have.text', '0');
     });
     
-    it('2자릿수 2개의 숫자 덧셈', () => {
+    it('2개의 숫자 +', () => {
         let numbers = [];
         cy.get('.digit').contains('1').click();
         cy.get('.digit').contains('9').click();
@@ -76,7 +76,7 @@ describe('My first test', () => {
         cy.get('#total').should('have.text', '40');    
     });
 
-    it('2자릿수 2개의 숫자 뺄셈', () => {
+    it('2개의 숫자 -', () => {
         let numbers = [];
         cy.get('.digit').contains('2').click();
         cy.get('.digit').contains('9').click();
@@ -88,16 +88,28 @@ describe('My first test', () => {
         cy.get('#total').should('have.text', '17');
     })
 
-    it('2자릿수 2개의 숫자 뺄셈', () => {
+    it('2개의 숫자 X', () => {
         let numbers = [];
         cy.get('.digit').contains('2').click();
         cy.get('.digit').contains('9').click();
-        cy.get('.operation').contains('-').click();
+        cy.get('.operation').contains('X').click();
         cy.get('.digit').contains('1').click();
+        cy.get('.digit').contains('0').click();
+        cy.get('.operation').contains('=').click();
+
+        cy.get('#total').should('have.text', '290');
+    });
+
+
+    it('2개의 숫자 /', () => {
+        let numbers = [];
+        cy.get('.digit').contains('2').click();
+        cy.get('.digit').contains('8').click();
+        cy.get('.operation').contains('/').click();
         cy.get('.digit').contains('2').click();
         cy.get('.operation').contains('=').click();
 
-        cy.get('#total').should('have.text', '17');
+        cy.get('#total').should('have.text', '14');
     })
 
     it('숫자 + 0', () => {
@@ -120,5 +132,18 @@ describe('My first test', () => {
         cy.get('.operation').contains('=').click();
 
         cy.get('#total').should('have.text', '0');
-    })
+    });
+
+    it('2개의 숫자 / (소수점버리기)', () => {
+        let numbers = [];
+        cy.get('.digit').contains('2').click();
+        cy.get('.digit').contains('9').click();
+        cy.get('.operation').contains('/').click();
+        cy.get('.digit').contains('2').click();
+        cy.get('.operation').contains('=').click();
+
+        cy.get('#total').should('have.text', '14');
+    });
+
+
 })
