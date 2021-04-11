@@ -33,6 +33,9 @@ export function App($app) {
 
         this.setState({ totalNumber: newStr })
       },
+      onAcClick: (e) => {
+        this.setState({ totalNumber: '0' })
+      },
     })
   }
 
