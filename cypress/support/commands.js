@@ -23,3 +23,51 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+import { times, random } from 'lodash'
+import { parseNumericalExpression } from './util.js'
+
+Cypress.Commands.add('inputNumber', (targetNumber = undefined) => {
+  targetNumber !== undefined ? cy.get('.digit').contains(targetNumber).click() : cy.get('.digit').contains(random(0, 9)).click()
+})
+
+Cypress.Commands.add('inputRepeatNumber', (maxDigit, targetNumber) => {
+  times(maxDigit, () => {
+    cy.inputNumber(targetNumber)
+  })
+})
+
+Cypress.Commands.add('inputRandomNumericalExpression', (operator, maxDigit = 4) => {
+  cy.inputRepeatNumber(maxDigit)
+
+  cy.get('.operation').contains(operator).click()
+
+  cy.inputRepeatNumber(maxDigit)
+})
+
+Cypress.Commands.add('inputIgnoreTargetNumber', (ignoreNumber) => {
+  const randomNum = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].filter((number) => number !== ignoreNumber)[random(0, 8)]
+  cy.get('.digit').contains(randomNum).click()
+})
+
+Cypress.Commands.add('inputOperator', (targetOperator = undefined) => {
+  targetOperator !== undefined ? cy.get('.operation').contains(targetOperator).click() : cy.get('.operation').contains(random(0, 4)).click()
+})
+
+Cypress.Commands.add('inputIgnoreTargetOperator', (ignoreOperator) => {
+  const randOperator = ['+', '-', 'X', '/', '='].filter((operator) => operator !== ignoreOperator)[random(0, 3)]
+  cy.get('.operation').contains(randOperator).click()
+})
+
+Cypress.Commands.add('calculateNumericalExpression', () => {
+  cy.get('#total')
+    .invoke('text')
+    .then((text) => {
+      const result = parseNumericalExpression(text)
+      cy.inputOperator('=')
+
+      cy.get('#total')
+        .invoke('text')
+        .should((text) => expect(parseInt(text)).equal(result))
+    })
+})
