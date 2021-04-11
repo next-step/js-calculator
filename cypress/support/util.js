@@ -22,7 +22,7 @@ const parseNumericalExpression = (rawStr) => {
 }
 
 const parseNumber = (num) => {
-  return parseInt(num)
+  return parseFloat(num)
 }
 
-export { parseNumericalExpression }
+export { parseNumericalExpression, parseNumber }

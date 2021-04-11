@@ -25,7 +25,7 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 import { times, random } from 'lodash'
-import { parseNumericalExpression } from './util.js'
+import { parseNumericalExpression, parseNumber } from './util.js'
 
 Cypress.Commands.add('inputNumber', (targetNumber = undefined) => {
   targetNumber !== undefined ? cy.get('.digit').contains(targetNumber).click() : cy.get('.digit').contains(random(0, 9)).click()
@@ -68,6 +68,6 @@ Cypress.Commands.add('calculateNumericalExpression', () => {
 
       cy.get('#total')
         .invoke('text')
-        .should((text) => expect(parseInt(text)).equal(result))
+        .should((text) => expect(parseNumber(text)).equal(result))
     })
 })
