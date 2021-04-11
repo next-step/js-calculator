@@ -1,0 +1,15 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/kode15333/js-calculator",
+  "author": "Will <kode15333@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "http-server .",
+    "test": "yarn dev & yarn run cypress open"
+  },
+  "devDependencies": {
+    "cypress": "^7.0.1"
+  }
+}
