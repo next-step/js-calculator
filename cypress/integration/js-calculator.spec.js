@@ -1,4 +1,4 @@
-import { id, opChr, text, msg } from '../../src/js/settings';
+import { id, txt, msg } from '../../src/js/settings';
 
 describe('js-calculator', () => {
   beforeEach(() => {
@@ -18,7 +18,7 @@ describe('js-calculator', () => {
   });
 
   it('2개의 숫자에 대해 곱셈이 가능하다.', () => {
-    const [cmds, expected] = [`999${opChr.multi}999=`, 999 * 999];
+    const [cmds, expected] = [`999${txt.multi}999=`, 999 * 999];
     [...cmds].forEach(cmd => cy.clkBtnByTxt(cmd));
     cy.getById(id.total).should('have.text', expected);
   });
@@ -33,7 +33,8 @@ describe('js-calculator', () => {
     const cmds = '999';
     [...cmds].forEach(cmd => cy.clkBtnByTxt(cmd));
     cy.getById(id.total).should('have.text', cmds);
-    cy.clkBtnByTxt(text.ac);
+
+    cy.clkBtnByTxt(txt.ac);
     cy.getById(id.total).should('have.text', 0);
   });
 
@@ -41,8 +42,9 @@ describe('js-calculator', () => {
     const [cmds, stub] = ['999', cy.stub()];
     cy.on('window:alert', stub);
     [...cmds].forEach(cmd => cy.clkBtnByTxt(cmd));
+
     cy.clkBtnByTxt(9).then(() => {
-      expect(stub.getCall(0)).to.be.calledWith(msg.alert);
+      expect(stub.getCall(0)).to.be.calledWith(msg.overflow);
       cy.getById(id.total).should('have.text', cmds);
     });
   });
