@@ -25,7 +25,9 @@ export default function App() {
       return;
     }
 
-    total.innerText += value;
+    if (total.innerText.length < 3) {
+      total.innerText += value;
+    }
   };
 
   const onClickReset = () => {

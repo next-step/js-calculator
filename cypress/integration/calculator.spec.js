@@ -23,6 +23,14 @@ describe("calculator", () => {
 
       cy.get("#total").should("have.text", before + after);
     });
+
+    it("네번째 자릿수 입력은 먹히지 않음", () => {
+      const digits = ["1", "2", "3", "4"];
+
+      digits.forEach((digit) => cy.get(".digit").contains(digit).click());
+
+      cy.get("#total").should("have.text", digits.slice(0, 3).join(""));
+    });
   });
 
   describe("AC 버튼", () => {
