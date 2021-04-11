@@ -90,7 +90,7 @@ describe("calculator", () => {
     });
 
     it("나누기 연산", () => {
-      const num1 = 10;
+      const num1 = 8;
       const num2 = 2;
       const operator = "/";
 

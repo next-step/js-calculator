@@ -104,6 +104,3 @@ dist
 .tern-port
 
 .idea
-
-cypress/*
-!cypress/integration
