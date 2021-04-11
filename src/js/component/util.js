@@ -7,6 +7,8 @@ const calculate = (strNum1, operator, strNum2) => {
       return num1 + num2
     case '-':
       return num1 - num2
+    case 'X':
+      return num1 * num2
   }
 }
 
