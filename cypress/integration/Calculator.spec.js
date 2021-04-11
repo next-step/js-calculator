@@ -1,6 +1,6 @@
 describe('js-calculator', () => {
     beforeEach(() => {
-        cy.visit('http://127.0.0.1:5501/js-calculator/')
+        cy.visit('http://localhost:8080/')
     })
 
     context('2개의 숫자에 대해 덧셈이 가능하다.', () => {

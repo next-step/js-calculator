@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "test": "yarn run cypress open",
+    "dev": "http-server -p 8080"
+  },
   "devDependencies": {
     "cypress": "^7.0.1"
   }
