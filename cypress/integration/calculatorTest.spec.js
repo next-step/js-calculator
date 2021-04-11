@@ -78,6 +78,7 @@ describe('계산기 테스트', () => {
   // - 숫자는 한번에 최대 3자리 수까지 입력 가능하다.
   it('숫자는 한번에 최대 3자리 수까지 입력 가능', () => {
     cy.inputRepeatNumber(4)
+
     cy.get('#total')
       .invoke('text')
       .then((text) => {
@@ -86,16 +87,37 @@ describe('계산기 테스트', () => {
   })
 
   // 연산자 연속으로 오는 경우 경고창
-  it.only('연산자 연속으로 오는 경우 경고창', () => {
+  it('연산자 연속으로 오는 경우 경고창', () => {
     cy.inputRepeatNumber(4)
     cy.inputIgnoreTargetOperator('=')
     cy.inputIgnoreTargetOperator('=')
     cy.inputIgnoreTargetOperator('=')
+
     cy.get('#total')
       .invoke('text')
       .then((text) => {
         const operList = text.match(/[+/X-]{2,}/gim)
         expect(Array.isArray(operList) && operList.length > 0).equal(false)
+      })
+  })
+
+  // 연산자는 젤 앞에 음수 기호 빼고 한개
+  it.only('연산자는 젤 앞에 음수 기호 빼고 한개', () => {
+    cy.inputRepeatNumber(4)
+    cy.inputIgnoreTargetOperator('=')
+    cy.inputIgnoreTargetOperator('=')
+    cy.inputRepeatNumber(4)
+    cy.inputIgnoreTargetOperator('=')
+    cy.inputIgnoreTargetOperator('=')
+    cy.inputRepeatNumber(4)
+    cy.inputIgnoreTargetOperator('=')
+    cy.inputIgnoreTargetOperator('=')
+
+    cy.get('#total')
+      .invoke('text')
+      .then((text) => {
+        const operList = text.match(/[0-9]+[+/X-]/gim)
+        expect(Array.isArray(operList) && operList.length > 1).equal(false)
       })
   })
 })
