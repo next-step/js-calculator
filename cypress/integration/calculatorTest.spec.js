@@ -28,11 +28,32 @@ describe('계산기 테스트', () => {
     cy.get('#total').contains(/^[0-9]$/gim)
   })
 
-  it.only('앞에 숫자가 하나 있고 /X-+연산자 버튼을 누르면 연산자가 표시 되게. =연산자 제외', () => {
+  it('앞에 숫자가 하나 있고 /X-+연산자 버튼을 누르면 연산자가 표시 되게. =연산자 제외', () => {
     cy.get('.operation').then((ele) => {
       ele[random(0, 3)].click()
     })
 
     cy.get('#total').contains(/^-?[0-9]+[+/X-]$/gim)
+  })
+
+  it.only('= 연산자를 경우 표시하지 않는다', () => {
+    times(4, () => {
+      cy.get('.digit').then((ele) => {
+        ele[random(0, 9)].click()
+      })
+    })
+
+    cy.get('.operation').then((ele) => {
+      ele[random(0, 3)].click()
+    })
+
+    times(4, () => {
+      cy.get('.digit').then((ele) => {
+        ele[random(0, 9)].click()
+      })
+    })
+
+    cy.get('.operation:nth-child(5)').click()
+    cy.get('#total').should('not.contain.text', '=')
   })
 })
