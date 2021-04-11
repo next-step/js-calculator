@@ -2,7 +2,8 @@ export const Operator = Object.freeze({
     plus: '+',
     minus: '-',
     multiply: 'X',
-    divide: '/'
+    divide: '/',
+    equalSign: '='
 });
 
 export const MAX_NUMBER = 999;
@@ -51,22 +52,24 @@ export class Calculator {
         this.setTotal(() => 0);
     }
 
-    handleOperationClick = (event) => {
+    handleOperationClick(event) {
         const operator = event.target.textContent;
 
-        if (operator === '=') {
-            console.log(this.prevValue, this.operator);
-            if (this.prevValue && this.operator) {
-                const result = this.calculate(this.operator, this.prevValue, this.currValue);
-                this.setState({ prevValue: null, currValue: result });
-                this.setTotal(() => result);
-                return;
-            }
+        if (operator === Operator.equalSign) {
+            return this.handleEqualSignClick();
         }
 
         if (!this.prevValue && this.currValue === 0) return alert('숫자를 먼저 입력한 후 연산자를 입력해주세요!');
         this.setState({ prevValue: this.currValue, currValue: 0, operator });
         this.setTotal((totalText) => totalText + operator);
+    }
+
+    handleEqualSignClick() {
+        if (this.prevValue && this.operator) {
+            const result = this.calculate(this.operator, this.prevValue, this.currValue);
+            this.setState({ prevValue: null, currValue: result });
+            this.setTotal(() => result);
+        }
     }
 
     calculate(operator, prevValue, currValue) {
