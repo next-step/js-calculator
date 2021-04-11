@@ -39,7 +39,7 @@ export default function Calculator() {
     num1 = result;
     num2 = null;
 
-    return result;
+    return Math.floor(result);
   };
 
   return {

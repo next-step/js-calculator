@@ -93,7 +93,7 @@ describe("calculator", () => {
 
         calculate({ num1, num2, operator });
 
-        cy.get("#total").should("have.text", num1 / num2);
+        cy.get("#total").should("have.text", Math.floor(num1 / num2));
       });
     });
   });
