@@ -1,5 +1,5 @@
 import { Calculator } from './Calculator.js'
-import { isRightNumericalExpression, parseNumericalExpression } from './util.js'
+import { isRightNumericalExpression, parseNumericalExpression, isLimitDigit } from './util.js'
 
 export function App($app) {
   const init = () => {
@@ -18,6 +18,7 @@ export function App($app) {
       initState: this.state,
       onDigitsClick: (e) => {
         if (this.state.totalNumber === '0' && e.target.innerText === '0') return
+        if (isLimitDigit(this.state.totalNumber + e.target.innerText)) return
 
         this.setState({ totalNumber: this.state.totalNumber === '0' ? e.target.innerText : this.state.totalNumber + e.target.innerText })
       },

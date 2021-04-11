@@ -30,4 +30,15 @@ const parseNumber = (num) => {
   return parseFloat(num)
 }
 
-export { isRightNumericalExpression, parseNumericalExpression }
+const isLimitDigit = (rawStr) => {
+  const regNumLength = /[+/X-]?[0-9]{4,}$/gim
+  const numList = rawStr.match(regNumLength)
+
+  if (Array.isArray(numList) && numList.length > 0) {
+    alert('숫자는 세 자리까지만 입력 가능합니다!')
+    return true
+  }
+  return false
+}
+
+export { isRightNumericalExpression, parseNumericalExpression, isLimitDigit }
