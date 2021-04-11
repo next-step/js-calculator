@@ -71,6 +71,6 @@ describe('계산기 테스트', () => {
     cy.inputOperator('=')
 
     cy.contains('AC').click()
-    cy.get('#total').invoke('text').should('equal', 0)
+    cy.get('#total').invoke('text').should('equal', '0')
   })
 })
