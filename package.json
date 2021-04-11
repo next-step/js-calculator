@@ -1,0 +1,23 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "description": "js-calculator",
+  "main": "index.js",
+  "dependencies": {
+    "cypress": "^7.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wnsrl56/js-calculator.git"
+  },
+  "author": "wnsrl56",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wnsrl56/js-calculator/issues"
+  },
+  "homepage": "https://github.com/wnsrl56/js-calculator#readme"
+}
