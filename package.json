@@ -6,10 +6,11 @@
   "author": "Will <kode15333@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "http-server .",
+    "dev": "yarn http-server . --port:8080",
     "test": "yarn dev & yarn run cypress open"
   },
   "devDependencies": {
-    "cypress": "^7.0.1"
+    "cypress": "^7.0.1",
+    "http-server": "^0.12.3"
   }
 }
