@@ -1,4 +1,5 @@
 import { Calculator } from './Calculator.js'
+import { calculate } from './util.js'
 
 export function App($app) {
   const init = () => {
@@ -21,6 +22,12 @@ export function App($app) {
         this.setState({ totalNumber: this.state.totalNumber === '0' ? e.target.innerText : this.state.totalNumber + e.target.innerText })
       },
       onOperationsClick: (e) => {
+        const regEual = /-?[0-9]+([+/X-])[0-9]+/gim
+
+        if (e.target.innerText === '=' && regEual.test(this.state.totalNumber)) {
+          return
+        }
+
         const newStr = this.state.totalNumber + e.target.innerText
         const reg = /-?[0-9]+[+/X-]/gim
 
