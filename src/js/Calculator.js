@@ -23,8 +23,6 @@ export default function Calculator() {
       return;
     }
     num1 = Number(value);
-
-    console.log(num1, num2);
   };
 
   const insertOperator = (value) => {
