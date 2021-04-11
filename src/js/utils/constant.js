@@ -18,4 +18,5 @@ export const MESSAGE = {
   CHECK_INPUT_TYPE: '올바른 숫자를 입력하셨는지 확인해주세요.',
   NEED_ENTER_NUMBER: '숫자를 먼저 입력해주세요.',
   NEED_OPERATOR: '계산을 하기 위해서는 연산자가 필요합니다.',
+  IS_NOT_NUMBER: '숫자 아님',
 };

@@ -9,6 +9,10 @@ export const calculation = ({ num1 = 0, num2 = 0, operator = '' }) => {
     throw Error(MESSAGE.CHECK_INPUT_TYPE);
   }
 
+  if (operator === DIVISION && num2 == 0) {
+    return MESSAGE.IS_NOT_NUMBER;
+  }
+
   const operators = {
     [PLUS]: () => Number(num1) + Number(num2),
     [MINUS]: () => Number(num1) - Number(num2),
