@@ -18,7 +18,7 @@ export function App($app) {
       onDigitsClick: (e) => {
         if (this.state.totalNumber === '0' && e.target.innerText === '0') return
 
-        this.setState({ totalNumber: this.state.totalNumber + e.target.innerText })
+        this.setState({ totalNumber: this.state.totalNumber === '0' ? e.target.innerText : this.state.totalNumber + e.target.innerText })
       },
     })
   }
