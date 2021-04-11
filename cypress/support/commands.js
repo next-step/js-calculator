@@ -23,8 +23,11 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-Cypress.Commands.add('getById', (id, ...args) => cy.get(`#${id}`, ...args));
+Cypress.Commands.add('getById', (id, ...args) => {
+  const [ops = {}, ...rest] = args;
+  return cy.get(`#${id}`, { timeout: 400, ...ops }, ...rest);
+});
 
 Cypress.Commands.add('clkBtnByTxt', (text, ...args) =>
-  cy.contains(text, ...args).click(),
+  cy.contains('button', text, ...args).click(),
 );
