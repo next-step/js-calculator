@@ -20,6 +20,14 @@ export function App($app) {
 
         this.setState({ totalNumber: this.state.totalNumber === '0' ? e.target.innerText : this.state.totalNumber + e.target.innerText })
       },
+      onOperationsClick: (e) => {
+        const newStr = this.state.totalNumber + e.target.innerText
+        const reg = /-?[0-9]+[+/X-]/gim
+
+        if (!reg.test(newStr)) return
+
+        this.setState({ totalNumber: newStr })
+      },
     })
   }
 

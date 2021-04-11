@@ -1,6 +1,6 @@
 import { calculatorTemplate } from '../template/calculatorTemplate.js'
 
-export function Calculator({ $calculatorDom, initState, onDigitsClick }) {
+export function Calculator({ $calculatorDom, initState, onDigitsClick, onOperationsClick }) {
   const init = () => {
     this.state = initState
 
@@ -9,6 +9,9 @@ export function Calculator({ $calculatorDom, initState, onDigitsClick }) {
 
     const digitBtns = document.querySelector('.digits.flex')
     digitBtns.addEventListener('click', onDigitsClick)
+
+    const operationBtns = document.querySelector('.operations.subgrid')
+    operationBtns.addEventListener('click', onOperationsClick)
 
     this.render()
   }
