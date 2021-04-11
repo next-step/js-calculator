@@ -61,4 +61,16 @@ describe('계산기 테스트', () => {
     cy.inputRandomNumericalExpression('/', 4)
     cy.calculateNumericalExpression()
   })
+
+  // 기능 요구사항
+  // - AC(All Clear)버튼을 누르면 0으로 초기화 한다.
+  it.only('AC(All Clear)버튼을 누르면 0으로 초기화 한다.', () => {
+    cy.inputRepeatNumber(4)
+    cy.inputIgnoreTargetOperator('=')
+    cy.inputRepeatNumber(4)
+    cy.inputOperator('=')
+
+    cy.contains('AC').click()
+    cy.get('#total').invoke('text').should('equal', 0)
+  })
 })
