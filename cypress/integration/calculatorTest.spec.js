@@ -3,7 +3,7 @@
 describe('계산기 테스트', () => {
   beforeEach(() => {
     cy.visit('http://127.0.0.1:5500/index.html')
-    cy.get('#total').contains('0')
+    cy.get('#total').contains(/^0$/gim)
   })
 
   it('숫자를 누르면 h1#total에 들어간다.', () => {
@@ -13,7 +13,7 @@ describe('계산기 테스트', () => {
 
   it('초기값 숫자가 0인 경우 0을 계속 눌러도 0으로 표시한다.', () => {
     cy.inputRepeatNumber(10, 0)
-    cy.get('#total').contains('0')
+    cy.get('#total').contains(/^0$/gim)
   })
 
   it('초기값 숫자가 0인 경우 0이 아닌 숫자를 누르면 제일 앞에 0을 지우고 변경하기', () => {
