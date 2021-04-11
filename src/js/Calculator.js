@@ -59,16 +59,18 @@ export class Calculator {
             return this.handleEqualSignClick();
         }
 
-        if (!this.prevValue && this.currValue === 0) return alert('숫자를 먼저 입력한 후 연산자를 입력해주세요!');
         this.setState({ prevValue: this.currValue, currValue: 0, operator });
         this.setTotal((totalText) => totalText + operator);
     }
 
     handleEqualSignClick() {
-        if (this.prevValue && this.operator) {
+        if (this.prevValue === null || this.operator === null) return;
+        try {
             const result = this.calculate(this.operator, this.prevValue, this.currValue);
             this.setState({ prevValue: null, currValue: result });
             this.setTotal(() => result);
+        } catch(err) {
+            alert(err.message);
         }
     }
 
@@ -81,9 +83,10 @@ export class Calculator {
             case Operator.multiply:
                 return prevValue * currValue;
             case Operator.divide:
+                if (currValue === 0) throw new Error('0으로 나눌 수 없습니다!');
                 return Math.floor(prevValue / currValue);
             default:
-                throw new Error('invalid operator');
+                throw new Error('유효하지 않은 연산자입니다!');
         }
     }
 }
