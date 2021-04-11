@@ -43,8 +43,15 @@ describe('계산기 테스트', () => {
 
   // 기능 요구사항
   // - 2개의 숫자에 대해 뺄셈이 가능
-  it.only('2개의 숫자에 대해 뺄셈이 가능.', () => {
+  it('2개의 숫자에 대해 뺄셈이 가능.', () => {
     cy.inputRandomNumericalExpression('-', 4)
+    cy.calculateNumericalExpression()
+  })
+
+  // 기능 요구사항
+  // - 2개의 숫자에 대해 곱셈이 가능
+  it.only('2개의 숫자에 대해 곱셈이 가능.', () => {
+    cy.inputRandomNumericalExpression('X', 4)
     cy.calculateNumericalExpression()
   })
 })
