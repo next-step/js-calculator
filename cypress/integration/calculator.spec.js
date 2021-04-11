@@ -59,44 +59,42 @@ describe("calculator", () => {
   });
 
   describe("연산", () => {
-    it("더하기 연산", () => {
-      const num1 = 1;
-      const num2 = 3;
-      const operator = "+";
+    [
+      { num1: 1, num2: 1 },
+      { num1: 121, num2: 11 },
+      { num1: 100, num2: 40 },
+    ].forEach(({ num1, num2 }) => {
+      it(`더하기 연산 (${num1}, ${num2})`, () => {
+        const operator = "+";
 
-      calculate({ num1, num2, operator });
+        calculate({ num1, num2, operator });
 
-      cy.get("#total").should("have.text", num1 + num2);
-    });
+        cy.get("#total").should("have.text", num1 + num2);
+      });
 
-    it("빼기 연산", () => {
-      const num1 = 3;
-      const num2 = 1;
-      const operator = "-";
+      it(`빼기 연산 (${num1}, ${num2})`, () => {
+        const operator = "-";
 
-      calculate({ num1, num2, operator });
+        calculate({ num1, num2, operator });
 
-      cy.get("#total").should("have.text", num1 - num2);
-    });
+        cy.get("#total").should("have.text", num1 - num2);
+      });
 
-    it("곱하기 연산", () => {
-      const num1 = 4;
-      const num2 = 9;
-      const operator = "X";
+      it(`곱하기 연산 (${num1}, ${num2})`, () => {
+        const operator = "X";
 
-      calculate({ num1, num2, operator });
+        calculate({ num1, num2, operator });
 
-      cy.get("#total").should("have.text", num1 * num2);
-    });
+        cy.get("#total").should("have.text", num1 * num2);
+      });
 
-    it("나누기 연산", () => {
-      const num1 = 8;
-      const num2 = 2;
-      const operator = "/";
+      it(`나누기 연산 (${num1}, ${num2})`, () => {
+        const operator = "/";
 
-      calculate({ num1, num2, operator });
+        calculate({ num1, num2, operator });
 
-      cy.get("#total").should("have.text", num1 / num2);
+        cy.get("#total").should("have.text", num1 / num2);
+      });
     });
   });
 });
