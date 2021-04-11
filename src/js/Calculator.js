@@ -18,11 +18,7 @@ export default function Calculator() {
   let operator;
 
   const insertNumber = (value) => {
-    if (num1) {
-      num2 = Number(value);
-      return;
-    }
-    num1 = Number(value);
+    num1 ? (num2 = Number(value)) : (num1 = Number(value));
   };
 
   const insertOperator = (value) => {
@@ -33,11 +29,12 @@ export default function Calculator() {
     if (!operator || operator === OPERATIONS.RESULT) {
       return num1;
     }
-    const result = operate[operator](num1, num2);
+
+    const result = Math.floor(operate[operator](num1, num2));
     num1 = result;
     num2 = null;
 
-    return Math.floor(result);
+    return result;
   };
 
   return {
