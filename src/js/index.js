@@ -10,11 +10,7 @@ let operation = '';
 let secondNumber = '';
 let result = 0;
 
-$allClear.addEventListener('click', allClear)
-$digits.addEventListener('click', digitClick);
-$operations.addEventListener('click', operationClick)
-
-function allClear(){
+const allClearClick = ()=>{
     firstNumber = '';
     secondNumber = '';
     operation = '';
@@ -22,7 +18,7 @@ function allClear(){
     display(true);
 }
 
-function digitClick(event) {
+const digitClick = (event) => {
     if(operation == ''){
         if(firstNumber.toString().length >= 3) {
             alert('숫자는 세 자리까지만 입력 가능합니다!')
@@ -40,7 +36,7 @@ function digitClick(event) {
     }
 }
 
-function operationClick (event) {
+const operationClick = (event) => {
     if(firstNumber===0) {
         alert(ALERT_MSG_WITH_OUT_NUMBER);
         return;
@@ -58,12 +54,12 @@ function operationClick (event) {
     display();
 }
 
-function display(isAC=false){
+const display = (isAC=false) => {
     $display.innerText = firstNumber+operation+secondNumber;
     if (isAC) $display.innerText = INITAIL_VALUE;
 }
 
-function calculation(firstNumber, secondNumber) {
+const calculation = (firstNumber, secondNumber) => {
     switch (operation) {
         case '+':
             result = firstNumber + secondNumber;
@@ -79,3 +75,7 @@ function calculation(firstNumber, secondNumber) {
             break;
     }
 }
+
+$allClear.addEventListener('click', allClearClick);
+$digits.addEventListener('click', digitClick);
+$operations.addEventListener('click', operationClick);
