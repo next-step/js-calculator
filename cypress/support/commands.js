@@ -27,6 +27,8 @@
 import { times, random } from 'lodash'
 import { parseNumericalExpression, parseNumber } from './util.js'
 
+const operators = ['+', '-', 'X', '/', '=']
+
 Cypress.Commands.add('inputNumber', (targetNumber = undefined) => {
   targetNumber !== undefined ? cy.get('.digit').contains(targetNumber).click() : cy.get('.digit').contains(random(0, 9)).click()
 })
@@ -51,11 +53,11 @@ Cypress.Commands.add('inputIgnoreTargetNumber', (ignoreNumber) => {
 })
 
 Cypress.Commands.add('inputOperator', (targetOperator = undefined) => {
-  targetOperator !== undefined ? cy.get('.operation').contains(targetOperator).click() : cy.get('.operation').contains(random(0, 4)).click()
+  targetOperator !== undefined ? cy.get('.operation').contains(targetOperator).click() : cy.get('.operation').contains(operators[random(0, 4)]).click()
 })
 
 Cypress.Commands.add('inputIgnoreTargetOperator', (ignoreOperator) => {
-  const randOperator = ['+', '-', 'X', '/', '='].filter((operator) => operator !== ignoreOperator)[random(0, 3)]
+  const randOperator = operators.filter((operator) => operator !== ignoreOperator)[random(0, 3)]
   cy.get('.operation').contains(randOperator).click()
 })
 
