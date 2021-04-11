@@ -76,12 +76,26 @@ describe('계산기 테스트', () => {
 
   // 기능 요구사항
   // - 숫자는 한번에 최대 3자리 수까지 입력 가능하다.
-  it.only('숫자는 한번에 최대 3자리 수까지 입력 가능', () => {
+  it('숫자는 한번에 최대 3자리 수까지 입력 가능', () => {
     cy.inputRepeatNumber(4)
     cy.get('#total')
       .invoke('text')
       .then((text) => {
         expect(text.length).lte(3)
+      })
+  })
+
+  // 연산자 연속으로 오는 경우 경고창
+  it.only('연산자 연속으로 오는 경우 경고창', () => {
+    cy.inputRepeatNumber(4)
+    cy.inputIgnoreTargetOperator('=')
+    cy.inputIgnoreTargetOperator('=')
+    cy.inputIgnoreTargetOperator('=')
+    cy.get('#total')
+      .invoke('text')
+      .then((text) => {
+        const oper = /[+/X-]{2,}/gim
+        expect(text.match(oper).length).not.equal(1)
       })
   })
 })
