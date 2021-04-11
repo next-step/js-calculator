@@ -94,8 +94,8 @@ describe('계산기 테스트', () => {
     cy.get('#total')
       .invoke('text')
       .then((text) => {
-        const oper = /[+/X-]{2,}/gim
-        expect(text.match(oper).length).not.equal(1)
+        const operList = text.match(/[+/X-]{2,}/gim)
+        expect(Array.isArray(operList) && operList.length > 0).equal(false)
       })
   })
 })
