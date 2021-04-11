@@ -1,3 +1,13 @@
+export const Operator = Object.freeze({
+    plus: '+',
+    minus: '-',
+    multiply: 'X',
+    divide: '/'
+});
+
+export const MAX_NUMBER = 999;
+
+
 export class Calculator {
     constructor() {
         this.currValue = 0;
@@ -9,62 +19,65 @@ export class Calculator {
         const modifiers = document.querySelector('.modifiers');
         const operations = document.querySelector('.operations');
 
-        digits.addEventListener('click', (event) => {
-            const digit = Number(event.target.textContent);
-            this.updateTotal(digit);
-        });
-
-        modifiers.addEventListener('click', () => {
-            
-            this.clear();
-        });
-
-        operations.addEventListener('click', (event) => {
-            const operator = event.target.textContent;
-
-            if (operator === '=') {
-                console.log(this.prevValue, this.operator);
-                if (this.prevValue && this.operator) {
-                    const result = this.calculate(this.operator, this.prevValue, this.currValue);
-                    this.total.textContent = result;
-                    this.prevValue = null;
-                    this.currValue = result
-                    return;
-                }
-            }
-
-            if (!this.prevValue && this.currValue === 0) return alert('숫자를 먼저 입력한 후 연산자를 입력해주세요!');
-            this.operator = operator;
-            this.total.textContent += event.target.textContent;
-            this.prevValue = this.currValue;
-            this.currValue = 0;
-        });
+        digits.addEventListener('click', this.handleDigitClick.bind(this));
+        modifiers.addEventListener('click', this.handleModifierClick.bind(this));
+        operations.addEventListener('click', this.handleOperationClick.bind(this));
     }
 
-    updateTotal(digit) {
+    setState({ prevValue, currValue, operator }) {
+        this.prevValue = prevValue ?? this.prevValue;
+        this.currValue = currValue ?? this.currValue;
+        this.operator = operator ?? this.operator;
+    }
+
+    setTotal(callback) {
+        console.log(callback(this.total.textContent));
+        this.total.textContent = callback(this.total.textContent);
+    }
+
+    handleDigitClick(event) {
+        const digit = Number(event.target.textContent);
+        const nextValue = (this.currValue * 10) + digit;
+
         // 최대 3자리 수까지 입력
-        if (this.currValue > 99) return;
-        this.currValue = (this.currValue * 10) + digit;
+        if (nextValue > MAX_NUMBER) return;
 
-        if (this.total.textContent == '0') this.total.textContent = digit;
-        else this.total.textContent += digit;
+        this.setState({ currValue: nextValue });
+        this.setTotal((totalText) => (totalText === '0'? '' : totalText) + digit);
     }
 
-    clear() {
-        this.currValue = 0;
-        this.prevValue = null;
-        this.total.textContent = this.currValue;
+    handleModifierClick() {
+        this.setState({ prevValue: null, currValue: 0 });
+        this.setTotal(() => 0);
+    }
+
+    handleOperationClick = (event) => {
+        const operator = event.target.textContent;
+
+        if (operator === '=') {
+            console.log(this.prevValue, this.operator);
+            if (this.prevValue && this.operator) {
+                const result = this.calculate(this.operator, this.prevValue, this.currValue);
+                this.setState({ prevValue: null, currValue: result });
+                this.setTotal(() => result);
+                return;
+            }
+        }
+
+        if (!this.prevValue && this.currValue === 0) return alert('숫자를 먼저 입력한 후 연산자를 입력해주세요!');
+        this.setState({ prevValue: this.currValue, currValue: 0, operator });
+        this.setTotal((totalText) => totalText + operator);
     }
 
     calculate(operator, prevValue, currValue) {
         switch(operator) {
-            case '+':
+            case Operator.plus:
                 return prevValue + currValue;
-            case '-':
+            case Operator.minus:
                 return prevValue - currValue;
-            case 'X':
+            case Operator.multiply:
                 return prevValue * currValue;
-            case '/':
+            case Operator.divide:
                 return Math.floor(prevValue / currValue);
             default:
                 throw new Error('invalid operator');
