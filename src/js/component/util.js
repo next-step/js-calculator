@@ -41,4 +41,14 @@ const isLimitDigit = (rawStr) => {
   return false
 }
 
-export { isRightNumericalExpression, parseNumericalExpression, isLimitDigit }
+const isDuplicateOperator = (rawStr) => {
+  const operList = rawStr.match(/[+/X-]{2,}/gim)
+
+  if (Array.isArray(operList) && operList.length > 0) {
+    alert('연산자는 연속해서 입력 불가')
+    return true
+  }
+  return false
+}
+
+export { isRightNumericalExpression, parseNumericalExpression, isLimitDigit, isDuplicateOperator }
