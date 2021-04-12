@@ -67,12 +67,11 @@ export default function Calculator() {
 
   const putNumber = (val) => {
     let num = nums[index];
-
-    if(index === 0 && val === '0') {
-      return;
-    }
-
+    
     if(!num) {
+      if(index === 0 && val === '0') {
+        return;
+      }
       nums[index] = val;
       appendDisplay(val);
       return;      
@@ -104,7 +103,7 @@ export default function Calculator() {
   const appendDisplay = (val) => {    
     const {display} = attributes;
     
-    if(display.innerText === '0') {
+    if(index === 0 && display.innerText === '0') {
       display.innerText = '';
     }
 
