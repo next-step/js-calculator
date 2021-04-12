@@ -69,4 +69,11 @@ const calculateNumericalExpression = (rawStr) => {
   return false
 }
 
-export { calculateNumericalExpression, isLimitDigit, isContinuousOperator, isDuplicateOperator }
+const covertZeroZero = (rawStr) => {
+  const reg = /([+/X-])0?0([0-9])$/gim
+
+  if (rawStr.match(reg)) return rawStr.replace(reg, '$1$2')
+  return rawStr
+}
+
+export { calculateNumericalExpression, isLimitDigit, isContinuousOperator, isDuplicateOperator, covertZeroZero }
