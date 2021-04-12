@@ -1,20 +1,17 @@
 class Calculator {
   constructor(displayElement) {
     this.displayElement = displayElement;
-    this.operatorCheck = true;
-    this.modifierCheck = false;
-    this.displayTmpValue = "";
+    this.tmpValue = "";
+    this.defaultState();
   }
   appendNumber(number) {
     if (this.modifierCheck) {
       this.modifierCheck = false;
-      this.displayElement.innerText = 0;
-      this.displayTmpValue = " ";
-      this.displayTmpValue += number;
-    } else {
-      this.operatorCheck = false;
-      this.displayTmpValue += number;
+      this.clear();
     }
+    this.operatorCheck = false;
+    this.tmpValue += number;
+    console.log(this.tmpValue);
   }
 
   appendOperator(operator) {
@@ -24,25 +21,30 @@ class Calculator {
       if (operator === "=") {
         this.compute();
       } else {
-        this.displayTmpValue += operator;
-        this.operatorCheck = true;
+        this.tmpValue += operator;
+        this.defaultState();
       }
     }
   }
 
   clear() {
-    this.displayTmpValue = " ";
+    this.tmpValue = " ";
     this.displayElement.innerText = 0;
   }
 
   compute() {
     this.modifierCheck = true;
-    this.displayTmpValue = eval(
-      this.displayTmpValue.replace("\u00D7", "*").replace("\u00F7", "/")
-    );
+    this.tmpValue = eval(this.tmpValue.replace("X", "*"));
+    this.tmpValue = parseInt(this.tmpValue);
   }
+
+  defaultState() {
+    this.operatorCheck = true;
+    this.modifierCheck = false;
+  }
+
   updateDisplay() {
-    this.displayElement.innerText = this.displayTmpValue;
+    this.displayElement.innerText = this.tmpValue;
   }
 }
 
