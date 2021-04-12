@@ -85,17 +85,21 @@ describe('계산기 테스트', () => {
 
   // 연산자 연속으로 오는 경우 경고창
   it('연산자 연속으로 오는 경우 경고창', () => {
-    cy.inputRepeatNumber()
+    cy.inputRepeatNumber(3)
     cy.inputIgnoreTargetOperator('=')
     cy.inputIgnoreTargetOperator('=')
     cy.inputIgnoreTargetOperator('=')
 
-    cy.get('#total')
-      .invoke('text')
-      .then((text) => {
-        const operList = text.match(/[+/X-]{2,}/gim)
-        expect(Array.isArray(operList) && operList.length > 0).equal(false)
-      })
+    cy.on('window:alert', (str) => {
+      expect(str).to.equal(`연산자는 연속해서 입력 불가`)
+    })
+
+    // cy.get('#total')
+    //   .invoke('text')
+    //   .then((text) => {
+    //     const operList = text.match(/[+/X-]{2,}/gim)
+    //     expect(Array.isArray(operList) && operList.length > 0).equal(false)
+    //   })
   })
 
   // 연산자는 젤 앞에 음수 기호 빼고 한개
@@ -133,10 +137,14 @@ describe('계산기 테스트', () => {
   })
 
   // 수식이 완성하지 않고 =연산자 누르면 경고
-  it.only('수식이 완성하지 않고 =연산자 누르면 경고', () => {
-    cy.inputRepeatNumber()
+  it('수식이 완성하지 않고 =연산자 누르면 경고', () => {
+    cy.inputRepeatNumber(3)
     cy.inputOperator('=')
 
     cy.get('#total').should('not.contain.text', '=')
+
+    cy.on('window:alert', (str) => {
+      expect(str).to.equal(`올바른 수식 입력`)
+    })
   })
 })
