@@ -3,7 +3,7 @@ import { PLUS, MINUS, MULTIPLICATION, DIVISION, MESSAGE, INITIAL_VALUE } from '.
 
 describe('calculator', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:63342/js-calculator/index.html?_ijt=c12dffg2pbnk564pdcmh4l7qa5');
+    cy.visit('http://localhost:63342/js-calculator/index.html?_ijt=de7c05ga4ik5gftiuune1ohejj');
   });
 
   const clickNumber = (number = 999) => {

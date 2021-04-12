@@ -4,9 +4,10 @@ const modifier = document.querySelector('.modifiers > .modifier');
 const operation = document.querySelectorAll('.operations > .operation');
 let saveValue = '',oper,result;
 
+
 const digitEventHandler = (digitElement)=>{
   if(saveValue.split(oper)[1] == undefined)
-      checkFirstValue(digitElement);
+    checkFirstValue(digitElement);
   else
     checkLastValue(digitElement);
 }
@@ -27,14 +28,24 @@ const operationEventListener = (i)=> {
 }
 
 const calculateEventListener = ()=>{
-  if(oper == 'X')
-    result = Math.floor(saveValue.split(oper)[0] * saveValue.split(oper)[1]);
-  else if(oper == '/')
-    result = Math.floor(saveValue.split(oper)[0] / saveValue.split(oper)[1]);
-  else if(oper == '+')
-    result = Number(saveValue.split(oper)[0]) + Number(saveValue.split(oper)[1]);
-  else if(oper == '-')
-    result = saveValue.split(oper)[0] - saveValue.split(oper)[1];
+  const firstValue = saveValue.split(oper)[0], secondValue = saveValue.split(oper)[1]
+  switch(oper){
+    case 'X':
+      result = Math.floor(firstValue * secondValue);
+      break;
+    case '/':
+      result = Math.floor(firstValue / secondValue);
+      break;
+    case '+':
+      result = Number(firstValue) + Number(secondValue);
+      break;
+    case '-':
+      result = firstValue - secondValue;
+      break;
+    default:
+      alert('ERROR');
+  }
+
   total.innerHTML = result;
   saveValue ='';
 }
