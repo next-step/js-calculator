@@ -1,7 +1,5 @@
 import { input_flag, output, calculator } from "./index.js"
 
-const cal_ac = document.querySelector(".modifiers");
-
 export const initPressAC = () =>{ 
         calculator.addEventListener("click", PressAC);
 }

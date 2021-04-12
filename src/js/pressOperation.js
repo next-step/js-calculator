@@ -26,37 +26,39 @@ const PressOperation = ({ target }) =>{
         output.innerHTML = str;
     }
     else if (operator == "=")
-    {
-        let arr = [];
-        let op_cnt;
-        let minus = "";
-        let matchres
-
-        if (!input_flag[1])
-        {
-            output.innerHTML = str;
-            return ;
-        }
-
-        if (str[0] == '-')
-        {
-            minus = "-";
-            str = str.substring(1);
-        }
-
-        op_cnt = str.match(/[\+\-X\/]/g);
-        if (op_cnt.length == 1)
-            matchres = str.lastIndexOf(op_cnt[0]);
-        else if (op_cnt.length == 2)
-            matchres = str.lastIndexOf(op_cnt[1]);
-
-        arr.push(minus + str.substring(0, matchres));
-        arr.push(str.substring(matchres + 1));
-        arr.push(str[matchres]);
-        output.innerHTML = calculation(arr);
-
-        check_flag(output.innerHTML);
-    }
+        PressEqual(str);
     else
         alert(ERR_MSG.INPUT_ONLYTWO);
+}
+
+const PressEqual = (str) => {
+    let arr = [];
+    let op_cnt;
+    let minus = "";
+    let matchres
+
+    if (!input_flag[1])
+    {
+        output.innerHTML = str;
+        return ;
+    }
+
+    if (str[0] == '-')
+    {
+        minus = "-";
+        str = str.substring(1);
+    }
+
+    op_cnt = str.match(/[\+\-X\/]/g);
+    if (op_cnt.length == 1)
+        matchres = str.lastIndexOf(op_cnt[0]);
+    else if (op_cnt.length == 2)
+        matchres = str.lastIndexOf(op_cnt[1]);
+
+    arr.push(minus + str.substring(0, matchres));
+    arr.push(str.substring(matchres + 1));
+    arr.push(str[matchres]);
+    output.innerHTML = calculation(arr);
+
+    check_flag(output.innerHTML);
 }
