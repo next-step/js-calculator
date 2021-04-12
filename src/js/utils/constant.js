@@ -1,7 +1,3 @@
-import { $ } from './querySelector';
-
-export const DISPLAY = $('#total');
-
 export const MAX_DIGIT_LENGTH = 3;
 export const INITIAL_VALUE = '0';
 

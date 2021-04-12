@@ -1,5 +1,6 @@
-import { DISPLAY, INITIAL_VALUE, MAX_DIGIT_LENGTH, MESSAGE, OPERATORS } from '../utils/constant';
+import { INITIAL_VALUE, MAX_DIGIT_LENGTH, MESSAGE, OPERATORS } from '../utils/constant';
 import { calculation } from '../utils/calculation';
+import { DISPLAY } from '../utils/DOM';
 
 const isValidDigitLength = () => {
   const displayValue = DISPLAY.innerText;
