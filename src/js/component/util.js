@@ -33,10 +33,9 @@ const parseNumber = (num) => {
 }
 
 const isLimitDigit = (rawStr) => {
-  const regNumLength = /[+/X-]?[0-9]{4,}$/gim
-  const numList = rawStr.match(regNumLength)
+  const numbers = rawStr.match(/[+/X-]?[0-9]{4,}$/gim)
 
-  if (Array.isArray(numList) && numList.length > 0) {
+  if (Array.isArray(numbers) && numbers.length > 0) {
     alert('숫자는 세 자리까지만 입력 가능합니다!')
     return true
   }
@@ -44,9 +43,9 @@ const isLimitDigit = (rawStr) => {
 }
 
 const isContinuousOperator = (rawStr) => {
-  const operList = rawStr.match(/[+/X-]{2,}/gim)
+  const operators = rawStr.match(/[+/X-]{2,}/gim)
 
-  if (Array.isArray(operList) && operList.length > 0) {
+  if (Array.isArray(operators) && operators.length > 0) {
     alert('연산자는 연속해서 입력 불가')
     return true
   }
@@ -54,8 +53,8 @@ const isContinuousOperator = (rawStr) => {
 }
 
 const isDuplicateOperator = (rawStr) => {
-  const operList = rawStr.match(/[0-9]+[+/X-]/gim)
-  if (Array.isArray(operList) && operList.length > 1) {
+  const operators = rawStr.match(/[0-9]+[+/X-]/gim)
+  if (Array.isArray(operators) && operators.length > 1) {
     alert('연산자는 한개만 가능')
     return true
   }
