@@ -111,6 +111,15 @@ describe('계산기 입력 테스트', () => {
         expect(text.match(/0?[0-9][0-9]$/gim))
       })
   })
+
+  it.only('0/0 인 경우 NaN 처리 - 팝업, 이전값으로 되돌리기?', () => {
+    cy.inputNumber(0)
+    cy.inputOperator('/')
+    cy.inputNumber(0)
+    cy.inputOperator('=')
+
+    cy.get('#total').contains(/NaN/gim)
+  })
 })
 
 describe('계산기 기능 요구사항 테스트', () => {
