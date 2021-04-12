@@ -21,7 +21,7 @@ const parseNumericalExpression = (rawStr) => {
   const operator = rawStr.replace(reg, '$2')
   const num2 = rawStr.replace(reg, '$3')
 
-  return parseNumber(calculate(num1, operator, num2))
+  return parseNumber(calculate(num1, operator, num2)).toString()
 }
 
 const parseNumber = (num) => {
