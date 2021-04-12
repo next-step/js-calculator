@@ -8,8 +8,6 @@ export function App($app) {
     $app.appendChild(this.$calculatorDom)
 
     this.state = {
-      firstNumber: '0',
-      secondNumber: '0',
       totalNumber: '0',
     }
 
