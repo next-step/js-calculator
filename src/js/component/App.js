@@ -25,11 +25,15 @@ export function App($app) {
         this.setState({ totalNumber: this.state.totalNumber === '0' ? e.target.innerText : newStr })
       },
       onOperationsClick: (e) => {
+        const newStr = this.state.totalNumber + e.target.innerText
+
         if (e.target.innerText === '=' && isRightNumericalExpression(this.state.totalNumber)) {
           return this.setState({ totalNumber: parseNumericalExpression(this.state.totalNumber) })
         }
 
-        const newStr = this.state.totalNumber + e.target.innerText
+        const operList = newStr.match(/[0-9]+[+/X-]/gim)
+        if (Array.isArray(operList) && operList.length > 1) return
+
         if (isDuplicateOperator(newStr)) return
 
         this.setState({ totalNumber: newStr })
