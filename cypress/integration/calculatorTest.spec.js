@@ -147,4 +147,12 @@ describe('계산기 테스트', () => {
       expect(str).to.equal(`올바른 수식 입력`)
     })
   })
+
+  // 계산 결과를 표현할 때 소수점 이하는 버림한다.
+  it.only('계산 결과 소수점 이하 버림', () => {
+    cy.inputRandomNumericalExpression('/')
+    cy.inputOperator('=')
+
+    cy.get('#total').should('not.contain.text', '.')
+  })
 })
