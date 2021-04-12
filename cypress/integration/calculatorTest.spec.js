@@ -131,4 +131,12 @@ describe('계산기 테스트', () => {
 
     cy.calculateNumericalExpression()
   })
+
+  // 수식이 완성하지 않고 =연산자 누르면 경고
+  it.only('수식이 완성하지 않고 =연산자 누르면 경고', () => {
+    cy.inputRepeatNumber()
+    cy.inputOperator('=')
+
+    cy.get('#total').should('not.contain.text', '=')
+  })
 })
