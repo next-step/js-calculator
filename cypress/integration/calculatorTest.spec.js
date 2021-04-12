@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe('계산기 테스트', () => {
+describe('계산기 입력 테스트', () => {
   beforeEach(() => {
     cy.visit('http://127.0.0.1:5500/index.html')
     cy.get('#total').contains(/^0$/gim)
@@ -34,7 +34,6 @@ describe('계산기 테스트', () => {
     cy.get('#total').should('not.contain.text', '=')
   })
 
-  // 연산자 연속으로 오는 경우 경고창
   it('연산자 연속으로 오는 경우 경고창', () => {
     cy.inputRepeatNumber(3)
     cy.inputIgnoreTargetOperator('=')
@@ -46,7 +45,6 @@ describe('계산기 테스트', () => {
     })
   })
 
-  // 연산자는 젤 앞에 음수 기호 빼고 한개
   it('연산자는 젤 앞에 음수 기호 빼고 한개', () => {
     cy.inputRepeatNumber()
     cy.inputIgnoreTargetOperator('=')
@@ -66,7 +64,6 @@ describe('계산기 테스트', () => {
       })
   })
 
-  // 앞의 숫자가 음수일때 계산 가능 여부 확인
   it('앞의 숫자가 음수일때 계산 가능 여부 확인', () => {
     cy.inputRepeatNumber(4, 3)
     cy.inputOperator('-')
@@ -80,7 +77,6 @@ describe('계산기 테스트', () => {
     cy.calculateNumericalExpression()
   })
 
-  // 수식이 완성하지 않고 =연산자 누르면 경고
   it('수식이 완성하지 않고 =연산자 누르면 경고', () => {
     cy.inputRepeatNumber(3)
     cy.inputOperator('=')
@@ -92,8 +88,7 @@ describe('계산기 테스트', () => {
     })
   })
 
-  // 두번째 숫자가 0이 먼저 오는 경우 표시
-  it.only('두번째 숫자가 0이 먼저 오는 경우 표시', () => {
+  it('두번째 숫자가 0이 먼저 오는 경우 표시', () => {
     cy.inputRepeatNumber(3)
 
     // 000
@@ -116,37 +111,34 @@ describe('계산기 테스트', () => {
         expect(text.match(/0?[0-9][0-9]$/gim))
       })
   })
+})
 
-  // 기능 요구사항
-  // - 2개의 숫자에 대해 덧셈이 가능
+describe('계산기 기능 요구사항 테스트', () => {
+  beforeEach(() => {
+    cy.visit('http://127.0.0.1:5500/index.html')
+    cy.get('#total').contains(/^0$/gim)
+  })
+
   it('2개의 숫자에 대해 덧셈이 가능.', () => {
     cy.inputRandomNumericalExpression('+')
     cy.calculateNumericalExpression()
   })
 
-  // 기능 요구사항
-  // - 2개의 숫자에 대해 뺄셈이 가능
   it('2개의 숫자에 대해 뺄셈이 가능.', () => {
     cy.inputRandomNumericalExpression('-')
     cy.calculateNumericalExpression()
   })
 
-  // 기능 요구사항
-  // - 2개의 숫자에 대해 곱셈이 가능
   it('2개의 숫자에 대해 곱셈이 가능.', () => {
     cy.inputRandomNumericalExpression('X')
     cy.calculateNumericalExpression()
   })
 
-  // 기능 요구사항
-  // - 2개의 숫자에 대해 나눗셈이 가능
   it('2개의 숫자에 대해 나눗셈이 가능.', () => {
     cy.inputRandomNumericalExpression('/', 4)
     cy.calculateNumericalExpression()
   })
 
-  // 기능 요구사항
-  // - AC(All Clear)버튼을 누르면 0으로 초기화 한다.
   it('AC(All Clear)버튼을 누르면 0으로 초기화 한다.', () => {
     cy.inputRandomNumericalExpression()
 
@@ -154,8 +146,6 @@ describe('계산기 테스트', () => {
     cy.get('#total').invoke('text').should('equal', '0')
   })
 
-  // 기능 요구사항
-  // - 숫자는 한번에 최대 3자리 수까지 입력 가능하다.
   it('숫자는 한번에 최대 3자리 수까지 입력 가능', () => {
     cy.inputRepeatNumber()
 
@@ -166,8 +156,6 @@ describe('계산기 테스트', () => {
       })
   })
 
-  // 기능 요구사항
-  // 계산 결과를 표현할 때 소수점 이하는 버림한다.
   it('계산 결과 소수점 이하 버림', () => {
     cy.inputRandomNumericalExpression('/')
     cy.inputOperator('=')
