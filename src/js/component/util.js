@@ -15,8 +15,7 @@ const calculate = (strNum1, operator, strNum2) => {
 }
 
 const isRightNumericalExpression = (rawStr) => {
-  const regEual = /-?[0-9]+([+/X-])[0-9]+/gim
-  return regEual.test(rawStr)
+  return /^-?[0-9]+([+/X-])[0-9]+$/gim.test(rawStr)
 }
 
 const parseNumericalExpression = (rawStr) => {
