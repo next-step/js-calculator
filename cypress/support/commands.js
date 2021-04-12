@@ -71,6 +71,6 @@ Cypress.Commands.add('calculateNumericalExpression', () => {
 
       cy.get('#total')
         .invoke('text')
-        .should((text) => expect(parseNumber(text)).equal(result))
+        .should((text) => expect(text).equal(result))
     })
 })
