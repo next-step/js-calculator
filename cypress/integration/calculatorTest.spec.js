@@ -92,6 +92,31 @@ describe('계산기 테스트', () => {
     })
   })
 
+  // 두번째 숫자가 0이 먼저 오는 경우 표시
+  it.only('두번째 숫자가 0이 먼저 오는 경우 표시', () => {
+    cy.inputRepeatNumber(3)
+
+    // 000
+    cy.inputIgnoreTargetOperator('=')
+    cy.inputRepeatNumber(3, 0)
+
+    // 000 ~ 009
+    // cy.inputNumber(0)
+    // cy.inputNumber(0)
+    // cy.inputNumber()
+
+    // 010 ~ 099
+    // cy.inputNumber(0)
+    // cy.inputNumber()
+    // cy.inputNumber()
+
+    cy.get('#total')
+      .invoke('text')
+      .then((text) => {
+        expect(text.match(/0?[0-9][0-9]$/gim))
+      })
+  })
+
   // 기능 요구사항
   // - 2개의 숫자에 대해 덧셈이 가능
   it('2개의 숫자에 대해 덧셈이 가능.', () => {
@@ -143,7 +168,7 @@ describe('계산기 테스트', () => {
 
   // 기능 요구사항
   // 계산 결과를 표현할 때 소수점 이하는 버림한다.
-  it.only('계산 결과 소수점 이하 버림', () => {
+  it('계산 결과 소수점 이하 버림', () => {
     cy.inputRandomNumericalExpression('/')
     cy.inputOperator('=')
 
