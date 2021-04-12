@@ -102,7 +102,7 @@ describe('계산기 테스트', () => {
   })
 
   // 연산자는 젤 앞에 음수 기호 빼고 한개
-  it.only('연산자는 젤 앞에 음수 기호 빼고 한개', () => {
+  it('연산자는 젤 앞에 음수 기호 빼고 한개', () => {
     cy.inputRepeatNumber(4)
     cy.inputIgnoreTargetOperator('=')
     cy.inputIgnoreTargetOperator('=')
@@ -119,5 +119,20 @@ describe('계산기 테스트', () => {
         const operList = text.match(/[0-9]+[+/X-]/gim)
         expect(Array.isArray(operList) && operList.length > 1).equal(false)
       })
+  })
+
+  // 앞의 숫자가 음수일때 계산 가능 여부 확인
+  it.only('앞의 숫자가 음수일때 계산 가능 여부 확인', () => {
+    cy.inputRepeatNumber(4, 3)
+    cy.inputOperator('-')
+    cy.inputRepeatNumber(4, 4)
+    cy.inputOperator('=')
+
+    // -111 에 랜던함 연산 수행
+    cy.inputIgnoreTargetOperator('=')
+    cy.inputRepeatNumber(4)
+    cy.inputOperator('=')
+
+    cy.calculateNumericalExpression()
   })
 })
