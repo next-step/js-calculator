@@ -27,7 +27,8 @@
 import { times, random } from 'lodash'
 import { parseNumericalExpression, parseNumber } from './util.js'
 
-const operators = ['+', '-', 'X', '/', '=']
+const OPERATORS = ['+', '-', 'X', '/', '=']
+const NUMBERS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 Cypress.Commands.add('inputNumber', (targetNumber) => {
   targetNumber !== undefined ? cy.get('.digit').contains(targetNumber).click() : cy.get('.digit').contains(random(0, 9)).click()
@@ -42,22 +43,22 @@ Cypress.Commands.add('inputRepeatNumber', (maxDigit = random(1, 4), targetNumber
 Cypress.Commands.add('inputRandomNumericalExpression', (operator, maxDigit) => {
   cy.inputRepeatNumber(maxDigit)
 
-  operator !== undefined ? cy.get('.operation').contains(operator).click() : cy.get('.operation').contains(operators[random(0, 4)]).click()
+  operator !== undefined ? cy.get('.operation').contains(operator).click() : cy.get('.operation').contains(OPERATORS[random(0, 4)]).click()
 
   cy.inputRepeatNumber(maxDigit)
 })
 
 Cypress.Commands.add('inputIgnoreTargetNumber', (ignoreNumber) => {
-  const randomNum = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].filter((number) => number !== ignoreNumber)[random(0, 8)]
+  const randomNum = NUMBERS.filter((number) => number !== ignoreNumber)[random(0, 8)]
   cy.get('.digit').contains(randomNum).click()
 })
 
 Cypress.Commands.add('inputOperator', (targetOperator) => {
-  targetOperator !== undefined ? cy.get('.operation').contains(targetOperator).click() : cy.get('.operation').contains(operators[random(0, 4)]).click()
+  targetOperator !== undefined ? cy.get('.operation').contains(targetOperator).click() : cy.get('.operation').contains(OPERATORS[random(0, 4)]).click()
 })
 
 Cypress.Commands.add('inputIgnoreTargetOperator', (ignoreOperator) => {
-  const randOperator = operators.filter((operator) => operator !== ignoreOperator)[random(0, 3)]
+  const randOperator = OPERATORS.filter((operator) => operator !== ignoreOperator)[random(0, 3)]
   cy.get('.operation').contains(randOperator).click()
 })
 
