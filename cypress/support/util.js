@@ -21,11 +21,11 @@ const parseNumericalExpression = (rawStr) => {
   const operator = rawStr.replace(reg, '$2')
   const num2 = rawStr.replace(reg, '$3')
 
-  return calculate(num1, operator, num2)
+  return parseNumber(calculate(num1, operator, num2))
 }
 
 const parseNumber = (num) => {
-  return parseFloat(num)
+  return parseInt(num)
 }
 
 export { parseNumericalExpression, parseNumber }
