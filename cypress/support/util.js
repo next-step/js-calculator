@@ -15,10 +15,13 @@ const calculate = (strNum1, operator, strNum2) => {
 }
 
 const parseNumericalExpression = (rawStr) => {
-  const regEual = /-?[0-9]+([+/X-])[0-9]+/gim
-  const operator = rawStr.replace(regEual, '$1')
+  const reg = /^(-?[0-9]+)([+/X-])([0-9]+)$/gim
 
-  return rawStr.split(/[+/X-]/).reduce((num1, num2) => calculate(num1, operator, num2))
+  const num1 = rawStr.replace(reg, '$1')
+  const operator = rawStr.replace(reg, '$2')
+  const num2 = rawStr.replace(reg, '$3')
+
+  return calculate(num1, operator, num2)
 }
 
 const parseNumber = (num) => {

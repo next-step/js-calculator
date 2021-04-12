@@ -131,7 +131,6 @@ describe('계산기 테스트', () => {
     // -111 에 랜던함 연산 수행
     cy.inputIgnoreTargetOperator('=')
     cy.inputRepeatNumber(4)
-    cy.inputOperator('=')
 
     cy.calculateNumericalExpression()
   })
