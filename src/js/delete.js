@@ -2,19 +2,11 @@ class Calculator {
   constructor(displayElement) {
     this.displayElement = displayElement;
     this.operatorCheck = true;
-    this.modifierCheck = false;
-    this.displayTmpValue = "";
+    this.clear();
   }
   appendNumber(number) {
-    if (this.modifierCheck) {
-      this.modifierCheck = false;
-      this.displayElement.innerText = 0;
-      this.displayTmpValue = " ";
-      this.displayTmpValue += number;
-    } else {
-      this.operatorCheck = false;
-      this.displayTmpValue += number;
-    }
+    this.displayContent += number;
+    this.operatorCheck = false;
   }
 
   appendOperator(operator) {
@@ -24,25 +16,23 @@ class Calculator {
       if (operator === "=") {
         this.compute();
       } else {
-        this.displayTmpValue += operator;
+        this.displayContent += operator;
         this.operatorCheck = true;
       }
     }
   }
 
   clear() {
-    this.displayTmpValue = " ";
+    this.displayContent = "";
     this.displayElement.innerText = 0;
   }
-
   compute() {
-    this.modifierCheck = true;
-    this.displayTmpValue = eval(
-      this.displayTmpValue.replace("\u00D7", "*").replace("\u00F7", "/")
+    this.displayContent = eval(
+      this.displayContent.replace("\u00D7", "*").replace("\u00F7", "/")
     );
   }
   updateDisplay() {
-    this.displayElement.innerText = this.displayTmpValue;
+    this.displayElement.innerText = this.displayContent;
   }
 }
 
@@ -58,8 +48,10 @@ buttons.forEach((button) => {
         calculator.updateDisplay();
         break;
       case "operation":
-        calculator.appendOperator(button.innerText);
-        calculator.updateDisplay();
+        if (calculator.displayElement.innerText) {
+          calculator.appendOperator(button.innerText);
+          calculator.updateDisplay();
+        }
         break;
       case "modifier":
         calculator.clear();
