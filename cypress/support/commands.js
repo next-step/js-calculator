@@ -29,20 +29,20 @@ import { parseNumericalExpression, parseNumber } from './util.js'
 
 const operators = ['+', '-', 'X', '/', '=']
 
-Cypress.Commands.add('inputNumber', (targetNumber = undefined) => {
+Cypress.Commands.add('inputNumber', (targetNumber) => {
   targetNumber !== undefined ? cy.get('.digit').contains(targetNumber).click() : cy.get('.digit').contains(random(0, 9)).click()
 })
 
-Cypress.Commands.add('inputRepeatNumber', (maxDigit, targetNumber) => {
+Cypress.Commands.add('inputRepeatNumber', (maxDigit = random(1, 4), targetNumber) => {
   times(maxDigit, () => {
     cy.inputNumber(targetNumber)
   })
 })
 
-Cypress.Commands.add('inputRandomNumericalExpression', (operator, maxDigit = 4) => {
+Cypress.Commands.add('inputRandomNumericalExpression', (operator, maxDigit) => {
   cy.inputRepeatNumber(maxDigit)
 
-  cy.get('.operation').contains(operator).click()
+  operator !== undefined ? cy.get('.operation').contains(operator).click() : cy.get('.operation').contains(operators[random(0, 4)]).click()
 
   cy.inputRepeatNumber(maxDigit)
 })
@@ -52,7 +52,7 @@ Cypress.Commands.add('inputIgnoreTargetNumber', (ignoreNumber) => {
   cy.get('.digit').contains(randomNum).click()
 })
 
-Cypress.Commands.add('inputOperator', (targetOperator = undefined) => {
+Cypress.Commands.add('inputOperator', (targetOperator) => {
   targetOperator !== undefined ? cy.get('.operation').contains(targetOperator).click() : cy.get('.operation').contains(operators[random(0, 4)]).click()
 })
 
