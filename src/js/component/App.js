@@ -1,5 +1,5 @@
 import { Calculator } from './Calculator.js'
-import { isRightNumericalExpression, parseNumericalExpression, isLimitDigit, isDuplicateOperator } from './util.js'
+import { isRightNumericalExpression, parseNumericalExpression, isLimitDigit, isContinuousOperator, isDuplicateOperator } from './util.js'
 
 export function App($app) {
   const init = () => {
@@ -31,10 +31,8 @@ export function App($app) {
           return this.setState({ totalNumber: parseNumericalExpression(this.state.totalNumber) })
         }
 
-        const operList = newStr.match(/[0-9]+[+/X-]/gim)
-        if (Array.isArray(operList) && operList.length > 1) return
-
         if (isDuplicateOperator(newStr)) return
+        if (isContinuousOperator(newStr)) return
 
         this.setState({ totalNumber: newStr })
       },

@@ -41,7 +41,7 @@ const isLimitDigit = (rawStr) => {
   return false
 }
 
-const isDuplicateOperator = (rawStr) => {
+const isContinuousOperator = (rawStr) => {
   const operList = rawStr.match(/[+/X-]{2,}/gim)
 
   if (Array.isArray(operList) && operList.length > 0) {
@@ -51,4 +51,13 @@ const isDuplicateOperator = (rawStr) => {
   return false
 }
 
-export { isRightNumericalExpression, parseNumericalExpression, isLimitDigit, isDuplicateOperator }
+const isDuplicateOperator = (rawStr) => {
+  const operList = rawStr.match(/[0-9]+[+/X-]/gim)
+  if (Array.isArray(operList) && operList.length > 1) {
+    alert('연산자는 한개만 가능')
+    return true
+  }
+  return false
+}
+
+export { isRightNumericalExpression, parseNumericalExpression, isLimitDigit, isContinuousOperator, isDuplicateOperator }
