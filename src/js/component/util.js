@@ -62,4 +62,11 @@ const isDuplicateOperator = (rawStr) => {
   return false
 }
 
-export { isRightNumericalExpression, parseNumericalExpression, isLimitDigit, isContinuousOperator, isDuplicateOperator }
+const calculateNumericalExpression = (rawStr) => {
+  if (isRightNumericalExpression(rawStr)) return parseNumericalExpression(rawStr)
+
+  alert('올바른 수식 입력')
+  return false
+}
+
+export { calculateNumericalExpression, isLimitDigit, isContinuousOperator, isDuplicateOperator }

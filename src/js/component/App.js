@@ -1,5 +1,5 @@
 import { Calculator } from './Calculator.js'
-import { isRightNumericalExpression, parseNumericalExpression, isLimitDigit, isContinuousOperator, isDuplicateOperator } from './util.js'
+import { isLimitDigit, isContinuousOperator, isDuplicateOperator, calculateNumericalExpression } from './util.js'
 
 export function App($app) {
   const init = () => {
@@ -27,8 +27,9 @@ export function App($app) {
       onOperationsClick: (e) => {
         const newStr = this.state.totalNumber + e.target.innerText
 
-        if (e.target.innerText === '=' && isRightNumericalExpression(this.state.totalNumber)) {
-          return this.setState({ totalNumber: parseNumericalExpression(this.state.totalNumber) })
+        if (e.target.innerText === '=') {
+          const result = calculateNumericalExpression(this.state.totalNumber)
+          return result !== false && this.setState({ totalNumber: result })
         }
 
         if (isDuplicateOperator(newStr)) return
