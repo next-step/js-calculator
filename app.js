@@ -1,8 +1,15 @@
 const express = require("express");
 const app = express();
 
+app.set("views", __dirname);
+
+app.set("view engine", "ejs");
+app.engine("html", require("ejs").renderFile);
+
+app.use(express.static(__dirname));
+
 app.get("/", (req, res) => {
-  res.send("<h1>Hello</h1>");
+  res.render("./index.html");
 });
 
 app.listen(3000, () => {
