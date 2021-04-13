@@ -53,12 +53,13 @@ context("Calculator", () => {
     cy.get("#total").should("have.text", "3");
   });
 
-  it("should set total to 0 if AC is clicked", () => {
+  it("should set total to 0 if AC is clicked", async () => {
     $digitBtnDict["1"].click();
     $digitBtnDict["+"].click();
     $digitBtnDict["1"].click();
     $digitBtnDict["="].click();
     cy.get("#total").should("have.text", "2");
+    await cy.wait(1000);
     $digitBtnDict["AC"].click();
     cy.get("#total").should("have.text", "0");
   });
