@@ -1,3 +1,3 @@
-import { Calculator } from './Calculator.js';
+import { Calculator } from "./Calculator.js";
 
 new Calculator();
