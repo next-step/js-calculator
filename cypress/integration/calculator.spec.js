@@ -1,4 +1,4 @@
-import { MESSAGES } from "../../src/js/constant.js";
+import { MESSAGES, NUM } from "../../src/js/constant.js";
 
 describe("calculator", () => {
   beforeEach(() => {
@@ -44,14 +44,14 @@ describe("calculator", () => {
     const test = "200+100=";
     [...test].forEach(calculatorClick);
     cy.get(".modifiers").click();
-    cy.get("#total").should("have.text", 0);
+    cy.get("#total").should("have.text", NUM.DEFAULT);
   });
 
   it("숫자는 한번에 최대 3자리 수까지 입력 가능하다.", () => {
     const test = "1234";
-    cy.window().then((w) => cy.stub(w, 'alert').as('wAlert'));
+    cy.window().then((w) => cy.stub(w, "alert").as("wAlert"));
     [...test].forEach(calculatorClick);
-    cy.get('@wAlert').should('be.calledWith', MESSAGES.INVALID_LENGTH);
+    cy.get("@wAlert").should("be.calledWith", MESSAGES.INVALID_LENGTH);
   });
 
   it("계산 결과를 표현할 때 소수점 이하는 버림한다.", () => {
