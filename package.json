@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/seungdeng17/js-calculator/issues"
   },
-  "homepage": "https://github.com/seungdeng17/js-calculator#readme"
+  "homepage": "https://github.com/seungdeng17/js-calculator#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "cypress": "^7.1.0"
+  }
 }
