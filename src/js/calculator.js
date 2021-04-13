@@ -1,4 +1,4 @@
-import { NUM, OPERATOR, MESSAGES } from "./constant.js";
+import { NUM, OPERATOR, MESSAGES, PANEL_TYPE } from "./constant.js";
 import { getEl } from "./util.js";
 
 class Calculator {
@@ -7,19 +7,24 @@ class Calculator {
     this.currNum = NUM.DEFAULT;
     this.operator = OPERATOR.DEFAULT;
     this.totalEl = getEl("#total");
-    this.digitsEl = getEl(".digits");
-    this.modifierEl = getEl(".modifier");
-    this.operationsEl = getEl(".operations");
     this.init();
   }
 
   init() {
-    this.digitsEl.addEventListener("click", this.digitsHandler.bind(this));
-    this.modifierEl.addEventListener("click", this.modifierHandler.bind(this));
-    this.operationsEl.addEventListener("click", this.operationsHandler.bind(this));
+    getEl(".calculator").addEventListener('click', this.clickDelegationHandler.bind(this));
   }
 
-  digitsHandler({ target }) {
+  clickDelegationHandler({ target }) {
+    const panel = target.closest('.panel');
+    if (!panel) return;
+
+    const [type] = panel.classList;
+    if (type === PANEL_TYPE.DIGITS) return this._digitsHandler(target);
+    if (type === PANEL_TYPE.MODIFIERS) return this._modifierHandler();
+    if (type === PANEL_TYPE.OPERATIONS) return this._operationsHandler(target);
+  }
+
+  _digitsHandler(target) {
     const num = this.currNum + target.innerText;
     if (+num > NUM.MAX || +num < NUM.MIN) return alert(MESSAGES.INVALID_LENGTH);
     if (+num === NUM.DEFAULT && this.operator === OPERATOR.DIV) return alert(MESSAGES.INVALID_NUMBER);
@@ -27,14 +32,14 @@ class Calculator {
     this._updateView();
   }
 
-  modifierHandler() {
+  _modifierHandler() {
     this.prevNum = NUM.DEFAULT;
     this.currNum = NUM.DEFAULT;
     this.operator = OPERATOR.DEFAULT;
     this._updateView();
   }
 
-  operationsHandler({ target }) {
+  _operationsHandler(target) {
     const operator = target.innerText;
     if (operator === OPERATOR.EQUAL) return this._calculate();
     if (operator !== OPERATOR.EQUAL && this.currNum === "") return alert(MESSAGES.INVALID_OPERATOR);
