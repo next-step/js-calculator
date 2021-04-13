@@ -36,14 +36,8 @@ class Calculator {
   operationsHandler({ target }) {
     const operator = target.innerText;
     if (operator === OPERATOR.EQUAL) return this._calculate();
-    if (operator !== OPERATOR.EQUAL && this.currNum === "")
-      return alert(MESSAGES.INVALID_OPERATOR);
-    if (
-      operator !== OPERATOR.EQUAL &&
-      this.currNum !== "" &&
-      this.prevNum !== ""
-    )
-      return this._calculate(operator);
+    if (operator !== OPERATOR.EQUAL && this.currNum === "") return alert(MESSAGES.INVALID_OPERATOR);
+    if (operator !== OPERATOR.EQUAL && this.currNum !== "" && this.prevNum !== "") return this._calculate(operator);
 
     this.prevNum = this.currNum;
     this.currNum = "";
