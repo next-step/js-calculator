@@ -41,12 +41,11 @@ export default class Calculator {
     }
     this.formula += digit;
     this.$total.innerText = this.formula;
-    this.isValidDigit();
   }
 
   renderOperator(operator) {
     if (operator === '=') {
-      this.calcFormula();
+      this.renderResult();
       return;
     }
     if (!this.isValidNumberOfOperator()) {
@@ -62,8 +61,7 @@ export default class Calculator {
     this.$total.innerText = this.formula;
   }
 
-  calcFormula() {
-    console.log('calcFormula');
+  renderResult() {
     const operator = this.formula
       .split('')
       .find(value => OPERATORS.includes(value));
@@ -104,6 +102,6 @@ export default class Calculator {
       [MULTIPLICATION]: (num1, num2) => num1 * num2,
       [DIVISION]: (num1, num2) => Math.floor(num1 / num2),
     };
-    return operation[operator](num1, num2, operator);
+    return operation[operator](num1, num2);
   }
 }
