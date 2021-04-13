@@ -17,11 +17,9 @@ class Calculator {
   clickDelegationHandler({ target }) {
     const panel = target.closest('.panel');
     if (!panel) return;
-
-    const [type] = panel.classList;
-    if (type === PANEL_TYPE.DIGITS) return this._digitsHandler(target);
-    if (type === PANEL_TYPE.MODIFIERS) return this._modifierHandler();
-    if (type === PANEL_TYPE.OPERATIONS) return this._operationsHandler(target);
+    if (panel.classList.contains(PANEL_TYPE.DIGITS)) return this._digitsHandler(target);
+    if (panel.classList.contains(PANEL_TYPE.MODIFIERS)) return this._modifierHandler();
+    if (panel.classList.contains(PANEL_TYPE.OPERATIONS)) return this._operationsHandler(target);
   }
 
   _digitsHandler(target) {
