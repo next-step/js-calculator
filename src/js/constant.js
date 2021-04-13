@@ -15,5 +15,6 @@ export const OPERATOR = {
 
 export const MESSAGES = {
     INVALID_LENGTH: '숫자는 세 자리까지만 입력 가능합니다!',
-    INVALID_OPERATOR: '숫자를 먼저 입력한 후 연산자를 입력해주세요!'
+    INVALID_OPERATOR: '숫자를 먼저 입력한 후 연산자를 입력해주세요!',
+    INVALID_NUMBER: '올바른 숫자를 입력하세요!'
 };

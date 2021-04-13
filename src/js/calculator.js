@@ -22,6 +22,7 @@ class Calculator {
   digitsHandler({ target }) {
     const num = this.currNum + target.innerText;
     if (+num > NUM.MAX || +num < NUM.MIN) return alert(MESSAGES.INVALID_LENGTH);
+    if (+num === NUM.DEFAULT && this.operator === OPERATOR.DIV) return alert(MESSAGES.INVALID_NUMBER);
     this.currNum = +num;
     this._updateView();
   }
