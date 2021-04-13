@@ -1,17 +1,23 @@
 class Calculator {
   constructor(displayElement) {
     this.displayElement = displayElement;
-    this.tmpValue = "";
+    this.tmpValue = " ";
     this.defaultState();
   }
+
   appendNumber(number) {
     if (this.modifierCheck) {
       this.modifierCheck = false;
       this.clear();
     }
+    if (this.displayElement.innerText === "0") {
+      if (number === "0") {
+        return;
+      }
+    }
     this.operatorCheck = false;
     this.tmpValue += number;
-    console.log(this.tmpValue);
+    this.updateDisplay();
   }
 
   appendOperator(operator) {
@@ -24,12 +30,14 @@ class Calculator {
         this.tmpValue += operator;
         this.defaultState();
       }
+      this.updateDisplay();
     }
   }
 
   clear() {
     this.tmpValue = " ";
     this.displayElement.innerText = 0;
+    this.defaultState();
   }
 
   compute() {
@@ -57,11 +65,9 @@ buttons.forEach((button) => {
     switch (button.className) {
       case "digit":
         calculator.appendNumber(button.innerText);
-        calculator.updateDisplay();
         break;
       case "operation":
         calculator.appendOperator(button.innerText);
-        calculator.updateDisplay();
         break;
       case "modifier":
         calculator.clear();
