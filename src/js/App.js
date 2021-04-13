@@ -56,7 +56,7 @@ const App = (({ tag, id, txt, evType, opChr, defVal, msg }) => {
       const appEl = qs(self.sel);
       if (!appEl) err(`${msg.noElem} (${self.sel})`);
       const totalEl = qsById(id.total, appEl);
-      if (!appEl) err(`${msg.noElem} (#${id.total})`);
+      if (!totalEl) err(`${msg.noElem} (#${id.total})`);
 
       self.totalEl = totalEl;
       appEl.addEventListener(evType.click, this.click.bind(this));
