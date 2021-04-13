@@ -16,10 +16,7 @@ class Calculator {
   init() {
     this.digitsEl.addEventListener("click", this.digitsHandler.bind(this));
     this.modifierEl.addEventListener("click", this.modifierHandler.bind(this));
-    this.operationsEl.addEventListener(
-      "click",
-      this.operationsHandler.bind(this)
-    );
+    this.operationsEl.addEventListener("click", this.operationsHandler.bind(this));
   }
 
   digitsHandler({ target }) {
@@ -59,20 +56,15 @@ class Calculator {
     const b = this.currNum;
 
     switch (this.operator) {
-      case OPERATOR.ADD:
-        this.currNum = a + b;
+      case OPERATOR.ADD: this.currNum = a + b;
         break;
-      case OPERATOR.SUB:
-        this.currNum = a - b;
+      case OPERATOR.SUB: this.currNum = a - b;
         break;
-      case OPERATOR.MUL:
-        this.currNum = a * b;
+      case OPERATOR.MUL: this.currNum = a * b;
         break;
-      case OPERATOR.DIV:
-        this.currNum = Math.floor(a / b);
+      case OPERATOR.DIV: this.currNum = Math.floor(a / b);
         break;
-      default:
-        break;
+      default: break;
     }
 
     this.prevNum = nextOperator ? this.currNum : "";
