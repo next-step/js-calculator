@@ -1,0 +1,23 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "description": "<br/> <br/>",
+  "main": "index.js",
+  "dependencies": {
+    "cypress": "^7.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zel0rd/js-calculator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zel0rd/js-calculator/issues"
+  },
+  "homepage": "https://github.com/zel0rd/js-calculator#readme"
+}
