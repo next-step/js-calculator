@@ -4,7 +4,7 @@
 <p align="middle" >
   <img width="100px;" src="src/images/calculator_icon.png"/>
 </p>
-<h2 align="middle">level1 - 자바스크립트 계산기</h2>
+<h2 align="middle">자바스크립트 계산기</h2>
 <p align="middle">자바스크립트 계산기로 익혀보는 Cypress</p>
 <p align="middle">
   <img src="https://img.shields.io/badge/version-1.0.0-blue?style=flat-square" alt="template version"/>
@@ -15,6 +15,7 @@
 </p>
 
 ## 🔥 Projects!
+
 <p align="middle">
   <img width="300" src="src/images/calculator_ui.png">
 </p>
@@ -22,7 +23,6 @@
 <p align="middle">
   <a href="https://next-step.github.io/js-calculator/">🖥️ 데모 링크</a>
 </p>
-
 
 ## 🎯 기능 요구사항
 
@@ -43,19 +43,29 @@
 <br/>
 
 ## 📄 참고 사항
-* 숫자 입력은 **클릭**으로만 가능하다.
 
-<br/>
-
-## 👏 Contributing
-만약 미션 수행 중에 개선사항이 보인다면, 언제든 자유롭게 PR을 보내주세요. 
-
-<br/>
-
-## 🐞 Bug Report
-버그를 발견한다면, [Issues](https://github.com/next-step/js-calculator/issues) 에 등록 후 @eastjun에게 dm을 보내주세요.
+- 숫자 입력은 **클릭**으로만 가능하다.
 
 <br/>
 
 ## 📝 License
+
 This project is [MIT](https://github.com/next-step/js-calculator/blob/master/LICENSE) licensed.
+
+<br/>
+
+## 🔎 확인 방법
+
+### 페이지 열기
+
+yarn add 패키지 설치 후
+
+1. index.html  
+   yarn build (/dist/index.html 생성)
+
+2. localhost:8080  
+   yarn dev (로컬서버 띄우기)
+
+### cypress 실행 방법
+
+yarn test (2번 실행 후)
