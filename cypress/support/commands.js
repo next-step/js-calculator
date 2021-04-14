@@ -43,7 +43,7 @@ Cypress.Commands.add('inputRepeatNumber', (maxDigit = random(1, 4), targetNumber
 Cypress.Commands.add('inputRandomNumericalExpression', (operator, maxDigit) => {
   cy.inputRepeatNumber(maxDigit)
 
-  operator !== undefined ? cy.get('.operation').contains(operator).click() : cy.get('.operation').contains(OPERATORS[random(0, 4)]).click()
+  operator ? cy.get('.operation').contains(operator).click() : cy.get('.operation').contains(OPERATORS[random(0, 4)]).click()
 
   cy.inputRepeatNumber(maxDigit)
 })
@@ -54,7 +54,7 @@ Cypress.Commands.add('inputIgnoreTargetNumber', (ignoreNumber) => {
 })
 
 Cypress.Commands.add('inputOperator', (targetOperator) => {
-  targetOperator !== undefined ? cy.get('.operation').contains(targetOperator).click() : cy.get('.operation').contains(OPERATORS[random(0, 4)]).click()
+  targetOperator ? cy.get('.operation').contains(targetOperator).click() : cy.get('.operation').contains(OPERATORS[random(0, 4)]).click()
 })
 
 Cypress.Commands.add('inputIgnoreTargetOperator', (ignoreOperator) => {
