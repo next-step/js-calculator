@@ -10,7 +10,7 @@ const calculate = (strNum1, operator, strNum2) => {
     case 'X':
       return num1 * num2
     case '/':
-      return num1 / num2
+      return Math.floor(num1 / num2)
   }
 }
 
@@ -21,11 +21,11 @@ const parseNumericalExpression = (rawStr) => {
   const operator = rawStr.replace(reg, '$2')
   const num2 = rawStr.replace(reg, '$3')
 
-  return parseNumber(calculate(num1, operator, num2)).toString()
+  return calculate(num1, operator, num2).toString()
 }
 
 const parseNumber = (num) => {
-  return parseInt(num)
+  return parseFloat(num)
 }
 
 export { parseNumericalExpression, parseNumber }

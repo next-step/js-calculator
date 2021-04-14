@@ -112,7 +112,7 @@ describe('계산기 입력 테스트', () => {
       })
   })
 
-  it.only('0/0 인 경우 NaN 처리 - 팝업, 이전값으로 되돌리기?', () => {
+  it('0/0 인 경우 NaN 처리 - 팝업, 이전값으로 되돌리기?', () => {
     cy.inputNumber(0)
     cy.inputOperator('/')
     cy.inputNumber(0)
