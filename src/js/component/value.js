@@ -1,5 +1,6 @@
 import { deleteLastOperator, matchOperation, validNoNumber, validOverNumber } from "../util/stringUtil.js";
-import Operator from "./operator.js";
+import Operator from "../module/operation.js";
+import { Message } from "../util/Message.js";
 
 export default function Value(value='0') {
     this.value = value;
@@ -12,7 +13,7 @@ export default function Value(value='0') {
 
   this.operator = input => {
     if (validNoNumber(this.value)) {
-      alert("숫자를 먼저 입력한 후 연산자를 입력해주세요!");
+      alert(Message.ILLEGAL_INPUT_OPERATOR);
       return;
     }
     this.concat(input);

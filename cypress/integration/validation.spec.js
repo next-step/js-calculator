@@ -1,3 +1,5 @@
+import { Message } from "../../src/js/util/Message.js"
+
 describe('validation-test', () => {
 
   beforeEach(() => {
@@ -14,7 +16,7 @@ describe('validation-test', () => {
     cy.get(`[data-cy=6]`)
         .click()
         .then(() => {
-          expect(stub.getCall(0)).to.be.calledWith("숫자는 세 자리까지만 입력 가능합니다!")
+          expect(stub.getCall(0)).to.be.calledWith(Message.ILLEGAL_OVER_OPERAND)
         }) 
     
   })
@@ -26,7 +28,7 @@ describe('validation-test', () => {
     cy.get(`[data-cy='+']`)
         .click()
         .then(() => {
-          expect(stub.getCall(0)).to.be.calledWith("숫자를 먼저 입력한 후 연산자를 입력해주세요!")
+          expect(stub.getCall(0)).to.be.calledWith(Message.ILLEGAL_INPUT_OPERATOR)
         })
   })
   

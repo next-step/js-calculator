@@ -1,7 +1,6 @@
 import Value from "../component/value.js";
 import CalculatorPad from "../component/view/calculatorPad.js";
 import CalculatorResult from "../component/view/calculatorResult.js";
-import { validOverNumber } from "../util/stringUtil.js";
 
 export default function CalculatorApp() {
   this.value;
