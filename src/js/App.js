@@ -37,7 +37,7 @@ const App = (({ tag, id, txt, evType, opChr, defVal, msg }) => {
       case validator.isDigit(input) && acc === defVal.total:
         return input;
       case input === opChr.eq:
-        return floor(evaluate(acc.replaceAll(txt.multi, opChr.multi)));
+        return `${floor(evaluate(acc.replaceAll(txt.multi, opChr.multi)))}`;
       default:
         return acc + input;
     }
