@@ -1,6 +1,6 @@
 import { Calculator } from './Calculator.js'
 import { ERR_MSG } from './constant.js'
-import { isLimitDigit, isContinuousOperator, isDuplicateOperator, isRightNumericalExpression, parseNumericalExpression, convertZeroZero } from './util.js'
+import { isNotNumber, isLimitDigit, isContinuousOperator, isDuplicateOperator, isRightNumericalExpression, parseNumericalExpression, convertZeroZero } from './util.js'
 
 export function App($app) {
   const init = () => {
@@ -17,7 +17,7 @@ export function App($app) {
       initState: this.state,
       onDigitsClick: ({ target: { innerText: digitChar } }) => {
         const rawStr = this.state.rawStr
-        if (rawStr === '0') return this.setState({ rawStr: digitChar })
+        if (rawStr === '0' || isNotNumber(rawStr)) return this.setState({ rawStr: digitChar })
 
         const newStr = convertZeroZero(rawStr + digitChar)
         if (isLimitDigit(newStr)) return alert(ERR_MSG.MAX_DIGIT_THREE)

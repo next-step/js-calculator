@@ -14,6 +14,10 @@ const calculate = (strNum1, operator, strNum2) => {
   }
 }
 
+const isNotNumber = (rawStr) => {
+  return /(Infinity)|(NaN)/gim.test(rawStr)
+}
+
 const isRightNumericalExpression = (rawStr) => {
   return /^-?[0-9]+([+/X-])[0-9]+$/gim.test(rawStr)
 }
@@ -57,4 +61,4 @@ const addClickEvent = (selector, func) => {
   targetDom.addEventListener('click', func)
 }
 
-export { isLimitDigit, isContinuousOperator, isDuplicateOperator, isRightNumericalExpression, convertZeroZero, parseNumericalExpression, addClickEvent }
+export { isNotNumber, isLimitDigit, isContinuousOperator, isDuplicateOperator, isRightNumericalExpression, convertZeroZero, parseNumericalExpression, addClickEvent }
