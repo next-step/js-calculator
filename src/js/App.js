@@ -1,5 +1,5 @@
 import SETTINGS from './settings.js';
-import { err, warn, qs, qsById, values, floor } from './utils.js';
+import { err, warn, qs, qsById, values, floor, evaluate } from './utils.js';
 
 const App = (({ tag, id, txt, evType, opChr, defVal, msg }) => {
   const validator = {
@@ -37,7 +37,7 @@ const App = (({ tag, id, txt, evType, opChr, defVal, msg }) => {
       case validator.isDigit(input) && acc === defVal.total:
         return input;
       case input === opChr.eq:
-        return floor(eval(acc.replaceAll(txt.multi, opChr.multi)));
+        return floor(evaluate(acc.replaceAll(txt.multi, opChr.multi)));
       default:
         return acc + input;
     }
