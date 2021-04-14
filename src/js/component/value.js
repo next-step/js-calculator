@@ -21,7 +21,7 @@ export default function Value(value=0) {
         const result = Operator(operator, operand1, operand2);
         this.value = result + this.value.slice(total.length + 1, );
       }
-      this.value = this.value.replace(/[-+\/X]/, "");
+      this.value = this.value.replace(/(\d+)[-+\/X]/, "");
     }
 
 }

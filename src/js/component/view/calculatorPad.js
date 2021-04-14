@@ -11,20 +11,20 @@ export default function CalculatorPad(app) {
 
 
 function select(app, event) {
-  const text = event.target.textContent;
+  const value = event.target.textContent;
 
   const category = {
-    digit: () => app.operand(text),
-    operation: () => operator[text](),
+    digit: () => app.operand(value),
+    operation: () => operator[value](),
     modifier: () => app.modify()
   }
 
   const operator = {
     '=': () => app.operate(), 
-    '+': () => app.operator(text),
-    '-': () => app.operator(text),
-    '/': () => app.operator(text),
-    'X': () => app.operator(text)
+    '+': () => app.operator(value),
+    '-': () => app.operator(value),
+    '/': () => app.operator(value),
+    'X': () => app.operator(value)
   }
   
   category[event.target.className]();
