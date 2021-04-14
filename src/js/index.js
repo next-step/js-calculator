@@ -1,17 +1,19 @@
-const digits = document.querySelectorAll('.digit');
-const operations = document.querySelectorAll('.operation');
-const total = document.getElementById('total');
-let tempNumString = '';
+const digits = document.querySelector(".digits");
+const operations = document.querySelector(".operations");
+const total = document.getElementById("total");
+let tempNumString = "";
 const calculatorParam = [];
 
 function onClickDigit(e) {
+  if (!e.target.classList.contains("digit")) return;
+
   if (tempNumString.length === 3) {
-    alert('숫자는 세 자리까지만 입력 가능합니다!');
+    alert("숫자는 세 자리까지만 입력 가능합니다!");
     return false;
   }
   const inputValue = e.target.innerText;
 
-  if (tempNumString === '' && inputValue === '0') {
+  if (tempNumString === "" && inputValue === "0") {
     return false;
   }
 
@@ -26,12 +28,12 @@ function getCalculationResult() {
       break;
     }
     case 2: {
-      if (tempNumString === '') {
+      if (tempNumString === "") {
         total.innerText = calculatorParam[0];
         break;
       } else {
         calculatorParam.push(parseInt(tempNumString));
-        tempNumString = '';
+        tempNumString = "";
       }
     }
     case 3: {
@@ -44,45 +46,50 @@ function getCalculationResult() {
 }
 
 function onClickOperation(e) {
+  if (!e.target.classList.contains("operation")) return;
+
   const inputValue = e.target.innerText;
 
-  if (inputValue === '=') {
+  if (inputValue === "=") {
     getCalculationResult();
     return false;
   }
 
   if (tempNumString.length === 0) {
-    alert('숫자를 먼저 입력한 후 연산자를 입력해주세요!');
+    alert("숫자를 먼저 입력한 후 연산자를 입력해주세요!");
     return false;
   }
 
-  if (calculatorParam.length === 3 || (calculatorParam.length === 2 && num !== '')) {
-    alert('2개의 숫자에 대해서만 계산 가능합니다.');
+  if (
+    calculatorParam.length === 3 ||
+    (calculatorParam.length === 2 && num !== "")
+  ) {
+    alert("2개의 숫자에 대해서만 계산 가능합니다.");
     return false;
   }
 
   calculatorParam.push(parseInt(tempNumString));
   calculatorParam.push(inputValue);
-  tempNumString = '';
+  tempNumString = "";
   displayInputValue(inputValue);
 }
 
 function calculator(first, operator, second) {
   let result = 0;
   switch (operator) {
-    case '/': {
+    case "/": {
       result = Math.floor(first / second);
       break;
     }
-    case 'X': {
+    case "X": {
       result = first * second;
       break;
     }
-    case '-': {
+    case "-": {
       result = first - second;
       break;
     }
-    case '+': {
+    case "+": {
       result = first + second;
       break;
     }
@@ -92,25 +99,21 @@ function calculator(first, operator, second) {
 
 function displayInputValue(text) {
   const currentTotal = total.innerText;
-  total.innerText = currentTotal === '0' ? text : currentTotal + text;
+  total.innerText = currentTotal === "0" ? text : currentTotal + text;
 }
 
 function reset() {
-  total.innerText = '0';
-  tempNumString = '';
+  total.innerText = "0";
+  tempNumString = "";
   calculatorParam.length = 0;
 }
 
 function init() {
-  digits.forEach((digit) => {
-    digit.addEventListener('click', onClickDigit);
-  });
+  digits.addEventListener("click", onClickDigit);
 
-  operations.forEach((operation) => {
-    operation.addEventListener('click', onClickOperation);
-  });
+  operations.addEventListener("click", onClickOperation);
 
-  document.querySelector('.modifier').addEventListener('click', reset);
+  document.querySelector(".modifier").addEventListener("click", reset);
 }
 
 init();
