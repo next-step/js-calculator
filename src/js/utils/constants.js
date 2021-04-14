@@ -4,6 +4,7 @@ export const PLUS = '+';
 export const MINUS = '-';
 export const MULTIPLICATION = 'X';
 export const DIVISION = '/';
+export const MAX_NUMBER = 3;
 
 export const OPERATORS = [PLUS, MINUS, MULTIPLICATION, DIVISION];
 

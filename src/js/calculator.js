@@ -8,6 +8,7 @@ import {
   MINUS,
   MULTIPLICATION,
   DIVISION,
+  MAX_NUMBER,
 } from './utils/constants.js';
 
 export default class Calculator {
@@ -89,7 +90,7 @@ export default class Calculator {
       .find(value => OPERATORS.includes(value));
     const numbers = this.formula.split(operator);
     const number = numbers.pop();
-    if (number.length >= 3) {
+    if (number.length >= MAX_NUMBER) {
       return false;
     }
     return true;
