@@ -1,4 +1,8 @@
-import { OPERATORS, MAXIMUM_DIGITS_LENGTH } from "./utils/constants.js";
+import {
+  OPERATORS,
+  MESSAGE,
+  MAXIMUM_DIGITS_LENGTH,
+} from "./utils/constants.js";
 
 export default class Calculator {
   constructor(displayElement) {
@@ -10,16 +14,17 @@ export default class Calculator {
 
   putNumber(number) {
     if (!this.isValidLength()) {
-      return alert("숫자는 세 자리까지만 입력 가능합니다!");
+      return alert(MESSAGE.INVALID_DIGIT_LENGTH);
     }
 
     if (this.modifierCheck) {
       this.modifierCheck = false;
       this.clear();
     }
+
     if (this.displayElement.innerText === "0") {
       if (number === "0") {
-        return;
+        return alert(MESSAGE.CHECK_INPUT_TYPE);
       }
     }
     this.operatorCheck = false;
@@ -29,7 +34,7 @@ export default class Calculator {
 
   putOperator(operator) {
     if (this.operatorCheck) {
-      return;
+      return alert(MESSAGE.NEED_ENTER_NUMBER);
     } else {
       if (operator === "=") {
         this.compute();
