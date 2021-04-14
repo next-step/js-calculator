@@ -2,27 +2,22 @@ export default function CalculatorPad(app) {
   this.pad = document.querySelector(".calculator");
 
   const onClick = (event) => {
-    const value = event.target.textContent;
-    if(isdigit(event)) {
-      app.operand(value);
-    }
-    if(isOperation(event)) {
-      app.operator(value);
-    }
-    
+    select(app, event);    
   };
 
   this.pad.addEventListener("click", onClick);
 }
 
-function isdigit(e) {
-  return e.target.className === "digit";
-}
 
-function isOperation(e) {
-  return e.target.className === "operation";
-}
 
-function isModifier(e) {
-  return e.target.className === "modifier";
+function select(app, event) {
+  const text = event.target.textContent;
+
+  const category = {
+    digit: value => app.operand(value),
+    operation: value => app.operator(value), 
+    modifier: value => app.modify()
+  }
+  
+  category[event.target.className](text);
 }

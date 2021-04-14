@@ -24,4 +24,8 @@ export default function CalculatorApp() {
     this.value.concat(op);
     this.setState();
   }
+
+  this.modify = () => {
+    
+  }
 }
