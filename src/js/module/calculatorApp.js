@@ -1,6 +1,7 @@
 import Value from "../component/value.js";
 import CalculatorPad from "../component/view/calculatorPad.js";
 import CalculatorResult from "../component/view/calculatorResult.js";
+import { validOverNumber } from "../util/stringUtil.js";
 
 export default function CalculatorApp() {
   this.value;
@@ -17,12 +18,12 @@ export default function CalculatorApp() {
   }
 
   this.operand = op => {
-    this.value.concat(op);
+    this.value.operand(op);
     this.setState();
   }
 
   this.operator = op => {
-    this.value.concat(op);
+    this.value.operator(op);
     this.setState();
   }
 

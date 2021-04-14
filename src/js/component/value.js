@@ -1,19 +1,30 @@
+import { validOverNumber } from "../util/stringUtil.js";
 import Operator from "./operator.js";
 
-export default function Value(value=0) {
+export default function Value(value='0') {
     this.value = value;
     
     const delimiter = /([0-9]+)([-+\/X])([0-9]+)/;
 
-    this.concat = input => {
-        if (this.value != 0) {
-            this.value += input;
-        }
-        
-        if (this.value == 0) {
-            this.value = input;
-        }
+  this.operand = input => {
+    if(validOverNumber(this.value)) {
+      this.concat(input);
     }
+  }
+
+  this.operator = input => {
+    this.concat(input);
+  }
+
+  this.concat = input => {      
+    if (this.value !== '0') {
+      this.value += input;
+    }  
+    
+    if (this.value === '0') {
+      this.value = input;
+    }
+  }
 
     this.calculate = () => {
       while (this.value.match(delimiter) !== null) {
