@@ -7,31 +7,19 @@ describe('calculator test', () => {
 
   const calculate = (valueList) => {
     const [num1, operator, num2] = valueList;
-    let result;
-    switch (operator) {
-      case OPERATOR.PLUS:
-        result = num1 + num2;
-        break;
-      case OPERATOR.MINUS:
-        result = num1 - num2;
-        break;
-      case OPERATOR.MULTIPLIED:
-        result = num1 * num2;
-        break;
-      case OPERATOR.DIVIDED:
-        result = Math.floor(num1 / num2);
-        break;
-      default:
-        break;
+    const calculation = {
+      [OPERATOR.PLUS]: (num1, num2) => (num1 + num2),
+      [OPERATOR.MINUS]: (num1, num2) => (num1 - num2),
+      [OPERATOR.MULTIPLIED]: (num1, num2) => (num1 * num2),
+      [OPERATOR.DIVIDED]: (num1, num2) => (Math.floor(num1 / num2)),
     }
-    return result;
+    return calculation[operator](num1, num2);
   };
 
   const clickNumber = (num) => {
-    const str = num.toString();
-    for (let ix = 0; ix < str.length; ix++) {
-      cy.get('.digit').contains(str[ix]).click();
-    }
+    [...`${num}`].map((str) => {
+      cy.get('.digit').contains(str).click();
+    })
   };
 
   const testCalculate = (num1, num2, operator) => {
@@ -70,11 +58,11 @@ describe('calculator test', () => {
       cy.on('window:alert', (str) => {
         expect(str).should('not.be.empty');
       });
+      cy.get('#total').should('have.text', 111);
     });
   });
 
   it('계산 결과를 표현할 때 소수점 이하는 버림한다.', () => {
     testCalculate(10, 3, OPERATOR.DIVIDED);
-    cy.get('#total').should('not.contain', '.');
   });
 });

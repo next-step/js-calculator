@@ -1,4 +1,4 @@
-import { OPERATOR, MODIFIER } from './common/define.js';
+import { OPERATOR, MODIFIER, MSG } from './common/define.js';
 
 const warnMsg = msg => alert(msg);
 
@@ -7,47 +7,36 @@ export default class Calculator {
     this.maxNum = 999;
     this.valueList = [];
     this.container = container;
-  }
-  init() {
-    this.digits = this.container.getElementsByClassName('digit');
-    this.operations = this.container.getElementsByClassName('operation');
-    this.modifiers = this.container.getElementsByClassName('modifier');
-    this.total = this.container.getElementsByClassName('total')[0];
+    this.total = this.container.querySelector('.total');
     this.addEvent();
   }
   addEvent() {
-    for (let ix = 0; ix < this.digits.length; ix++) {
-      this.digits[ix].addEventListener('click', this.clickDigit.bind(this));
-    }
-    for (let ix = 0; ix < this.operations.length; ix++) {
-      this.operations[ix].addEventListener('click', this.clickOperation.bind(this));
-    }
-    for (let ix = 0; ix < this.modifiers.length; ix++) {
-      this.modifiers[ix].addEventListener('click', this.clickModifier.bind(this));
-    }
+    const digits = this.container.querySelector('.digits');
+    const operations = this.container.querySelector('.operations');
+    const modifiers = this.container.querySelector('.modifiers');
+
+    digits.addEventListener('click', this.clickDigit.bind(this));
+    operations.addEventListener('click', this.clickOperation.bind(this));
+    modifiers.addEventListener('click', this.clickModifier.bind(this));
   }
   clickDigit(e) {
     const digit = +e.target.textContent;
-    const valueList = this.valueList;
     if (isNaN(digit)) {
       return;
     }
 
-    if (!valueList.length) {
-      valueList.push(digit);
+    const last = this.valueList[this.valueList.length -1];
+    if (!last || isNaN(last)) {
+      this.valueList.push(digit);
     } else {
-      const last = valueList[valueList.length -1];
-      if (isNaN(last)) {
-        valueList.push(digit);
+      const tempNum = +`${last}${digit}`;
+      if (tempNum > this.maxNum) {
+        warnMsg(MSG.OVER_MAX_NUM);
       } else {
-        const tempNum = +(last.toString() + digit.toString());
-        if (tempNum > 999) {
-          warnMsg('계산기 최대 입력값은 999입니다');
-        } else {
-          valueList[valueList.length -1] = tempNum;
-        }
+        this.valueList[this.valueList.length -1] = tempNum;
       }
     }
+
     this.setTotal();
   }
   clickOperation(e) {
@@ -59,12 +48,9 @@ export default class Calculator {
     const last = this.valueList[this.valueList.length -1];
     if (isNaN(last)) {
       this.valueList[this.valueList.length - 1] = operator;
-    } else if (operator === OPERATOR.EQUAL) {
+    } else if (operator === OPERATOR.EQUAL || this.valueList.length > 2) {
       this.calculate();
     } else {
-      if (this.valueList.length > 2) {
-        this.calculate();
-      }
       this.valueList.push(operator);
     }
 
@@ -82,36 +68,22 @@ export default class Calculator {
     if (valueList.length < 3) {
       return;
     }
-    const [num1, operator, num2] = valueList;
-    let result;
 
-    switch (operator) {
-      case OPERATOR.PLUS:
-        result = num1 + num2;
-        break;
-      case OPERATOR.MINUS:
-        result = num1 - num2;
-        break;
-      case OPERATOR.MULTIPLIED:
-        result = num1 * num2;
-        break;
-      case OPERATOR.DIVIDED:
-        result = Math.floor(num1 / num2);
-        break;
-      default:
-        break;
+    const [num1, operator, num2] = valueList;
+    if (operator === OPERATOR.DIVIDED && num2 === 0) {
+      warnMsg(MSG.NOT_ALLOW_DIVIDED_BY_0);
+      return;
     }
 
-    this.valueList = [result];
+    const calculation = {
+      [OPERATOR.PLUS]: (num1, num2) => (num1 + num2),
+      [OPERATOR.MINUS]: (num1, num2) => (num1 - num2),
+      [OPERATOR.MULTIPLIED]: (num1, num2) => (num1 * num2),
+      [OPERATOR.DIVIDED]: (num1, num2) => (Math.floor(num1 / num2)),
+    }
+    this.valueList = [calculation[operator](num1, num2)];
   }
   setTotal() {
-    let result;
-    if (!this.valueList.length) {
-      result = 0;
-    } else {
-      result = this.valueList.join(' ');
-    }
-
-    this.total.textContent = result;
+    this.total.textContent = this.valueList.length ? this.valueList.join(' ') : 0;
   }
 }
