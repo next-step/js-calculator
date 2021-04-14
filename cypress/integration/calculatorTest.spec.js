@@ -122,7 +122,11 @@ describe('계산기 입력 테스트', () => {
     cy.inputRandomNumericalExpression('')
     cy.inputOperator('=')
 
-    cy.get('#total').should('not.have.text', 'NaN')
+    cy.get('#total')
+      .invoke('text')
+      .then((text) => {
+        expect(!text.match(/NaN/gim)).equal(true)
+      })
   })
 })
 
