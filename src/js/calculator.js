@@ -73,7 +73,7 @@ class Calculator {
 
   _updateView() {
     this.totalEl.innerText = `
-        ${this.prevNum ? this.prevNum : this.operator ? this.prevNum : ""}\
+        ${this.prevNum || this.operator ? this.prevNum : ""}\
         ${this.operator ? this.operator : ""}\
         ${this.currNum}
         `.trim();
