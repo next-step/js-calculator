@@ -10,7 +10,7 @@ const calculate = (strNum1, operator, strNum2) => {
     case 'X':
       return num1 * num2
     case '/':
-      return num1 / num2
+      return Math.floor(num1 / num2)
   }
 }
 
@@ -25,54 +25,43 @@ const parseNumericalExpression = (rawStr) => {
   const operator = rawStr.replace(reg, '$2')
   const num2 = rawStr.replace(reg, '$3')
 
-  return parseNumber(calculate(num1, operator, num2)).toString()
+  return calculate(num1, operator, num2).toString()
 }
 
 const parseNumber = (num) => {
-  return parseInt(num)
+  return parseFloat(num)
 }
 
-const isLimitDigit = (rawStr) => {
-  const numbers = rawStr.match(/[+/X-]?[0-9]{4,}$/gim)
+const isLimitDigit = (tempStr) => {
+  const numbers = tempStr.match(/[+/X-]?[0-9]{4,}$/gim)
 
-  if (Array.isArray(numbers) && numbers.length > 0) {
-    alert('숫자는 세 자리까지만 입력 가능합니다!')
-    return true
-  }
+  if (Array.isArray(numbers) && numbers.length > 0) return true
   return false
 }
 
 const isContinuousOperator = (rawStr) => {
   const operators = rawStr.match(/[+/X-]{2,}/gim)
 
-  if (Array.isArray(operators) && operators.length > 0) {
-    alert('연산자는 연속해서 입력 불가')
-    return true
-  }
+  if (Array.isArray(operators) && operators.length > 0) return true
   return false
 }
 
 const isDuplicateOperator = (rawStr) => {
   const operators = rawStr.match(/[0-9]+[+/X-]/gim)
-  if (Array.isArray(operators) && operators.length > 1) {
-    alert('연산자는 한개만 가능')
-    return true
-  }
+  if (Array.isArray(operators) && operators.length > 1) return true
   return false
 }
 
-const calculateNumericalExpression = (rawStr) => {
-  if (isRightNumericalExpression(rawStr)) return parseNumericalExpression(rawStr)
-
-  alert('올바른 수식 입력')
-  return false
-}
-
-const covertZeroZero = (rawStr) => {
+const convertZeroZero = (rawStr) => {
   const reg = /([+/X-])0?0([0-9])$/gim
 
   if (rawStr.match(reg)) return rawStr.replace(reg, '$1$2')
   return rawStr
 }
 
-export { calculateNumericalExpression, isLimitDigit, isContinuousOperator, isDuplicateOperator, covertZeroZero }
+const addClickEvent = (selector, func) => {
+  const targetDom = document.querySelector(selector)
+  targetDom.addEventListener('click', func)
+}
+
+export { isLimitDigit, isContinuousOperator, isDuplicateOperator, isRightNumericalExpression, convertZeroZero, parseNumericalExpression, addClickEvent }

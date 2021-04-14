@@ -1,4 +1,5 @@
 import { calculatorTemplate } from '../template/calculatorTemplate.js'
+import { addClickEvent } from './util.js'
 
 export function Calculator({ $calculatorDom, initState, onDigitsClick, onOperationsClick, onAcClick }) {
   const init = () => {
@@ -7,25 +8,20 @@ export function Calculator({ $calculatorDom, initState, onDigitsClick, onOperati
     $calculatorDom.innerHTML = calculatorTemplate
     this.$totalDom = document.querySelector('#total')
 
-    const digitBtns = document.querySelector('.digits.flex')
-    digitBtns.addEventListener('click', onDigitsClick)
-
-    const operationBtns = document.querySelector('.operations.subgrid')
-    operationBtns.addEventListener('click', onOperationsClick)
-
-    const modifierBtn = document.querySelector('.modifier')
-    modifierBtn.addEventListener('click', onAcClick)
+    addClickEvent('.digits.flex', onDigitsClick)
+    addClickEvent('.operations.subgrid', onOperationsClick)
+    addClickEvent('.modifier', onAcClick)
 
     this.render()
   }
 
   this.setState = (newState) => {
-    this.state = newState
+    this.state = { ...this.state, ...newState }
     this.render()
   }
 
   this.render = () => {
-    this.$totalDom.innerHTML = this.state.totalNumber
+    this.$totalDom.innerHTML = this.state.rawStr
   }
 
   init()

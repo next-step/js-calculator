@@ -1,51 +1,48 @@
 import { Calculator } from './Calculator.js'
-import { isLimitDigit, isContinuousOperator, isDuplicateOperator, calculateNumericalExpression, covertZeroZero } from './util.js'
+import { isLimitDigit, isContinuousOperator, isDuplicateOperator, isRightNumericalExpression, parseNumericalExpression, convertZeroZero } from './util.js'
 
 export function App($app) {
   const init = () => {
-    this.$calculatorDom = document.createElement('div')
-    this.$calculatorDom.classList.add('calculator')
-    $app.appendChild(this.$calculatorDom)
+    const $calculatorDom = document.createElement('div')
+    $calculatorDom.classList.add('calculator')
+    $app.appendChild($calculatorDom)
 
     this.state = {
-      totalNumber: '0',
+      rawStr: '0',
     }
 
     this.calculator = new Calculator({
-      $calculatorDom: this.$calculatorDom,
+      $calculatorDom,
       initState: this.state,
-      onDigitsClick: (e) => {
-        let newStr = this.state.totalNumber + e.target.innerText
+      onDigitsClick: ({ target: { innerText: digitChar } }) => {
+        const rawStr = this.state.rawStr
+        if (rawStr === '0') return this.setState({ rawStr: digitChar })
 
-        if (this.state.totalNumber === '0' && e.target.innerText === '0') return
+        const newStr = convertZeroZero(rawStr + digitChar)
+        if (isLimitDigit(newStr)) return alert('숫자는 세 자리까지만 입력 가능합니다!')
 
-        newStr = covertZeroZero(newStr)
-
-        if (isLimitDigit(newStr)) return
-
-        this.setState({ totalNumber: this.state.totalNumber === '0' ? e.target.innerText : newStr })
+        this.setState({ rawStr: newStr })
       },
-      onOperationsClick: (e) => {
-        const newStr = this.state.totalNumber + e.target.innerText
+      onOperationsClick: ({ target: { innerText: operatorChar } }) => {
+        const rawStr = this.state.rawStr
 
-        if (e.target.innerText === '=') {
-          const result = calculateNumericalExpression(this.state.totalNumber)
-          return result !== false && this.setState({ totalNumber: result })
-        }
+        if (operatorChar === '=') return isRightNumericalExpression(rawStr) ? this.setState({ rawStr: parseNumericalExpression(rawStr) }) : alert('올바른 수식 입력')
 
-        if (isDuplicateOperator(newStr)) return
-        if (isContinuousOperator(newStr)) return
+        const newStr = rawStr + operatorChar
 
-        this.setState({ totalNumber: newStr })
+        if (isDuplicateOperator(newStr)) return alert('연산자는 한개만 가능')
+        if (isContinuousOperator(newStr)) return alert('연산자는 연속해서 입력 불가')
+
+        this.setState({ rawStr: newStr })
       },
       onAcClick: (e) => {
-        this.setState({ totalNumber: '0' })
+        this.setState({ rawStr: '0' })
       },
     })
   }
 
   this.setState = (newState) => {
-    this.state = newState
+    this.state = { ...this.state, ...newState }
     this.calculator.setState(this.state)
   }
 
