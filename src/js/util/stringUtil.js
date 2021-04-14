@@ -7,3 +7,10 @@ export function validOverNumber(input) {
   }
   return true;
 }
+
+export function validNoNumber(input) {
+  if (input === '0') {
+    return true;
+  }
+  return false;
+}
