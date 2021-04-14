@@ -10,35 +10,30 @@ describe('ui-calculator', () => {
       .map((num) => cy.get('.digits').contains(num).click())
   }
 
-  it('2개의 숫자에 대해 덧셈이 가능하다', () => {
-    clickNumber(444)
-    cy.get('.operations').contains('+').click()
-    clickNumber(444)
+  const getCalcurlatorResult = ({num1, operator, num2}) => {
+    clickNumber(num1)
+    cy.get('.operations').contains(operator).click()
+    clickNumber(num2)
     cy.get('.operations').contains('=').click()
+  }
+
+  it('2개의 숫자에 대해 덧셈이 가능하다', () => {
+    getCalcurlatorResult({num1: 444, operator: '+', num2: 444})
     cy.get('#total').should('have.text', '888')
   })
 
   it('2개의 숫자에 대해 뺄셈이 가능하다', () => {
-    clickNumber(23)
-    cy.get('.operations').contains('-').click()
-    clickNumber(100)
-    cy.get('.operations').contains('=').click()
+    getCalcurlatorResult({num1: 23, operator: '-', num2: 100})
     cy.get('#total').should('have.text', '-77')
   })
 
   it('2개의 숫자에 대해 곱셈이 가능하다.', () => {
-    clickNumber(444)
-    cy.get('.operations').contains('X').click()
-    clickNumber(444)
-    cy.get('.operations').contains('=').click()
+    getCalcurlatorResult({num1: 444, operator: 'X', num2: 444})
     cy.get('#total').should('have.text', '197136')
   })
 
   it('2개의 숫자에 대해 나눗셈이 가능하다.', () => {
-    clickNumber(444)
-    cy.get('.operations').contains('/').click()
-    clickNumber(444)
-    cy.get('.operations').contains('=').click()
+    getCalcurlatorResult({num1: 444, operator: '/', num2: 444})
     cy.get('#total').should('have.text', '1')
   })
 
@@ -65,11 +60,7 @@ describe('ui-calculator', () => {
   })
 
   it('계산 결과를 표현할 때 소수점 이하는 버림한다.', () => {
-    clickNumber(3)
-    cy.get('.operations').contains('/').click()
-    clickNumber(15)
-    cy.get('.operations').contains('=').click()
-
+    getCalcurlatorResult({num1: 3, operator: '/', num2: 15})
     cy.get('#total').should('have.text', '0')
   })
 
