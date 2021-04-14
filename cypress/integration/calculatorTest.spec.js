@@ -112,7 +112,7 @@ describe('계산기 입력 테스트', () => {
       })
   })
 
-  it.only('0/0 인 경우 NaN 처리', () => {
+  it('0/0 인 경우 NaN 처리', () => {
     cy.inputNumber(0)
     cy.inputOperator('/')
     cy.inputNumber(0)
@@ -126,6 +126,47 @@ describe('계산기 입력 테스트', () => {
       .invoke('text')
       .then((text) => {
         expect(!text.match(/NaN/gim)).equal(true)
+      })
+  })
+
+  it.only('1/0 인 경우 Infinity 처리', () => {
+    cy.inputNumber(1)
+    cy.inputOperator('/')
+    cy.inputNumber(0)
+    cy.inputOperator('=')
+
+    cy.inputOperator('=')
+    cy.inputRandomNumericalExpression('')
+    cy.inputOperator('=')
+
+    cy.get('#total')
+      .invoke('text')
+      .then((text) => {
+        expect(!text.match(/Infinity/gim)).equal(true)
+      })
+  })
+
+  it.only('-1/0 인 경우 -Infinity 처리', () => {
+    // -1 만들어서
+    cy.inputNumber(1)
+    cy.inputOperator('-')
+    cy.inputNumber(2)
+    cy.inputOperator('=')
+
+    // -1/0 계산
+    cy.inputOperator('/')
+    cy.inputNumber(0)
+    cy.inputOperator('=')
+
+    // 이후에 입력 검증
+    cy.inputOperator('=')
+    cy.inputRandomNumericalExpression('')
+    cy.inputOperator('=')
+
+    cy.get('#total')
+      .invoke('text')
+      .then((text) => {
+        expect(!text.match(/-Infinity/gim)).equal(true)
       })
   })
 })
