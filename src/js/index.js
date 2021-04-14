@@ -1,10 +1,12 @@
-const digits = document.querySelectorAll('.digit');
-const operations = document.querySelectorAll('.operation');
+const digits = document.querySelector('.digits');
+const operations = document.querySelector('.operations');
 const total = document.getElementById('total');
 let tempNumString = '';
 const calculatorParam = [];
 
 function onClickDigit(e) {
+  if (!e.target.classList.contains('digit')) return;
+
   if (tempNumString.length === 3) {
     alert('숫자는 세 자리까지만 입력 가능합니다!');
     return false;
@@ -45,6 +47,8 @@ function getCalculationResult() {
 }
 
 function onClickOperation(e) {
+  if (!e.target.classList.contains('operation')) return;
+
   const inputValue = e.target.innerText;
 
   if (inputValue === '=') {
@@ -95,13 +99,8 @@ function reset() {
 }
 
 function init() {
-  digits.forEach((digit) => {
-    digit.addEventListener('click', onClickDigit);
-  });
-  operations.forEach((operation) => {
-    operation.addEventListener('click', onClickOperation);
-  });
-
+  digits.addEventListener('click', onClickDigit);
+  operations.addEventListener('click', onClickOperation);
   document.querySelector('.modifier').addEventListener('click', reset);
 }
 
