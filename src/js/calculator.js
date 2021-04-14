@@ -1,4 +1,4 @@
-import { OPERATOR, MODIFIER, MSG } from './common/define.js';
+import { OPERATOR, MODIFIER, MSG, $ } from './common/define.js';
 
 const warnMsg = msg => alert(msg);
 
@@ -7,13 +7,13 @@ export default class Calculator {
     this.maxNum = 999;
     this.valueList = [];
     this.container = container;
-    this.total = this.container.querySelector('.total');
+    this.total = $('.total', this.container);
     this.addEvent();
   }
   addEvent() {
-    const digits = this.container.querySelector('.digits');
-    const operations = this.container.querySelector('.operations');
-    const modifiers = this.container.querySelector('.modifiers');
+    const digits = $('.digits', this.container);
+    const operations = $('.operations', this.container);
+    const modifiers = $('.modifiers', this.container);
 
     digits.addEventListener('click', this.clickDigit.bind(this));
     operations.addEventListener('click', this.clickOperation.bind(this));
