@@ -1,11 +1,18 @@
-class Calculator {
+import { OPERATORS, MAXIMUM_DIGITS_LENGTH } from "./utils/constants.js";
+
+export default class Calculator {
   constructor(displayElement) {
+    this.operator = "";
+    this.tmpValue = "";
     this.displayElement = displayElement;
-    this.tmpValue = " ";
     this.defaultState();
   }
 
-  appendNumber(number) {
+  putNumber(number) {
+    if (!this.isValidLength()) {
+      return alert("숫자는 세 자리까지만 입력 가능합니다!");
+    }
+
     if (this.modifierCheck) {
       this.modifierCheck = false;
       this.clear();
@@ -20,7 +27,7 @@ class Calculator {
     this.updateDisplay();
   }
 
-  appendOperator(operator) {
+  putOperator(operator) {
     if (this.operatorCheck) {
       return;
     } else {
@@ -34,7 +41,7 @@ class Calculator {
     }
   }
 
-  clear() {
+  clearDisplay() {
     this.tmpValue = " ";
     this.displayElement.innerText = 0;
     this.defaultState();
@@ -44,6 +51,19 @@ class Calculator {
     this.modifierCheck = true;
     this.tmpValue = eval(this.tmpValue.replace("X", "*"));
     this.tmpValue = parseInt(this.tmpValue);
+  }
+
+  isValidLength() {
+    this.operator = this.displayElement.innerText
+      .split("")
+      .find((v) => OPERATORS.includes(v));
+    if (!this.operator) {
+      return this.displayElement.innerText.length < MAXIMUM_DIGITS_LENGTH;
+    }
+    return (
+      this.displayElement.innerText.split(this.operator)[1].length <
+      MAXIMUM_DIGITS_LENGTH
+    );
   }
 
   defaultState() {
@@ -57,20 +77,20 @@ class Calculator {
 }
 
 const buttons = document.querySelectorAll("button");
-const displayElement = document.querySelector("#total");
-const calculator = new Calculator(displayElement);
+const displayValue = document.querySelector("#total");
+const calculator = new Calculator(displayValue);
 
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
     switch (button.className) {
       case "digit":
-        calculator.appendNumber(button.innerText);
+        calculator.putNumber(button.innerText);
         break;
       case "operation":
-        calculator.appendOperator(button.innerText);
+        calculator.putOperator(button.innerText);
         break;
       case "modifier":
-        calculator.clear();
+        calculator.clearDisplay();
         break;
       default:
         console.log("default");
