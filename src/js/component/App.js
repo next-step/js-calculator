@@ -1,4 +1,5 @@
 import { Calculator } from './Calculator.js'
+import { ERR_MSG } from './constant.js'
 import { isLimitDigit, isContinuousOperator, isDuplicateOperator, isRightNumericalExpression, parseNumericalExpression, convertZeroZero } from './util.js'
 
 export function App($app) {
@@ -19,7 +20,7 @@ export function App($app) {
         if (rawStr === '0') return this.setState({ rawStr: digitChar })
 
         const newStr = convertZeroZero(rawStr + digitChar)
-        if (isLimitDigit(newStr)) return alert('숫자는 세 자리까지만 입력 가능합니다!')
+        if (isLimitDigit(newStr)) return alert(ERR_MSG.MAX_DIGIT_THREE)
 
         this.setState({ rawStr: newStr })
       },
@@ -30,8 +31,8 @@ export function App($app) {
 
         const newStr = rawStr + operatorChar
 
-        if (isDuplicateOperator(newStr)) return alert('연산자는 한개만 가능')
-        if (isContinuousOperator(newStr)) return alert('연산자는 연속해서 입력 불가')
+        if (isDuplicateOperator(newStr)) return alert(ERR_MSG.MAX_OPERATOR_ONE)
+        if (isContinuousOperator(newStr)) return alert(ERR_MSG.CONTINUOUS_OPERATOR_ONE)
 
         this.setState({ rawStr: newStr })
       },
