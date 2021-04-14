@@ -30,6 +30,6 @@ export const calculation = () => {
   if (OPERATORS.includes(total.slice(total.length - 1))) {
     return alert(MSG.IMPERFECT_EXPRESSION);
   }
-  console.log(expression, expression.join(''));
+
   $TOTAL.innerText = Math.floor(eval(expression.join('')));
 };
