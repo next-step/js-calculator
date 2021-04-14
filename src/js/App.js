@@ -22,7 +22,8 @@ const App = (({ tag, id, txt, evType, opChr, defVal, msg }) => {
   };
 
   const calc = (input, acc) => {
-    if (!validator.validateInput(input)) err(msg.invalidChr);
+    if (![input, ...acc].every(validator.validateInput.bind(validator)))
+      err(msg.invalidChr);
 
     switch (true) {
       case input === txt.ac:
@@ -36,8 +37,6 @@ const App = (({ tag, id, txt, evType, opChr, defVal, msg }) => {
       case validator.isDigit(input) && acc === defVal.total:
         return input;
       case input === opChr.eq:
-        if (![...acc].every(validator.validateInput.bind(validator)))
-          err(msg.invalidChr);
         return floor(eval(acc.replaceAll(txt.multi, opChr.multi)));
       default:
         return acc + input;
