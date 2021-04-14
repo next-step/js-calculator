@@ -1,4 +1,3 @@
-import { OPERATORS, MAXIMUM_DIGITS_LENGTH } from "./utils/constants.js";
 import Calculator from "./Calculator.js";
 
 const buttons = document.querySelectorAll("button");
