@@ -41,6 +41,7 @@ function getCalculationResult() {
       calculatorParam.length = 0;
     }
   }
+  return false;
 }
 
 function onClickOperation(e) {
@@ -68,26 +69,18 @@ function onClickOperation(e) {
 }
 
 function calculator(first, operator, second) {
-  let result = 0;
   switch (operator) {
-    case '/': {
-      result = Math.floor(first / second);
-      break;
-    }
-    case 'X': {
-      result = first * second;
-      break;
-    }
-    case '-': {
-      result = first - second;
-      break;
-    }
-    case '+': {
-      result = first + second;
-      break;
-    }
+    case '/':
+      return Math.floor(first / second);
+    case 'X':
+      return first * second;
+    case '-':
+      return first - second;
+    case '+':
+      return first + second;
+    default:
+      return;
   }
-  return result;
 }
 
 function displayInputValue(text) {
@@ -105,7 +98,6 @@ function init() {
   digits.forEach((digit) => {
     digit.addEventListener('click', onClickDigit);
   });
-
   operations.forEach((operation) => {
     operation.addEventListener('click', onClickOperation);
   });
