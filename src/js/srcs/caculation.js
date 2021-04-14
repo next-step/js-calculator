@@ -1,5 +1,5 @@
 import { $TOTAL } from '../util/DOM';
-import { OPERATORS, MULTIPLICATION, MSG } from './../util/constant';
+import { OPERATORS, MULTIPLICATION, MSG } from '../util/constants';
 
 export const calculation = () => {
   const total = $TOTAL.innerText;

@@ -1,5 +1,5 @@
 import { $TOTAL } from '../util/DOM';
-import { OPERATORS, MAX_NUMBERS, MSG } from './../util/constant';
+import { OPERATORS, MAX_NUMBERS, MSG } from '../util/constants';
 import { calculation } from './caculation';
 
 export const pressOperation = (operation) => {
