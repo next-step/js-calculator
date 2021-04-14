@@ -112,13 +112,17 @@ describe('계산기 입력 테스트', () => {
       })
   })
 
-  it('0/0 인 경우 NaN 처리 - 팝업, 이전값으로 되돌리기?', () => {
+  it.only('0/0 인 경우 NaN 처리', () => {
     cy.inputNumber(0)
     cy.inputOperator('/')
     cy.inputNumber(0)
     cy.inputOperator('=')
 
-    cy.get('#total').contains(/NaN/gim)
+    cy.inputOperator('=')
+    cy.inputRandomNumericalExpression('')
+    cy.inputOperator('=')
+
+    cy.get('#total').should('not.have.text', 'NaN')
   })
 })
 
