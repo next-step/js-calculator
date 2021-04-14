@@ -4,9 +4,8 @@ import { calculation } from './caculation';
 
 export const pressOperation = (operation) => {
   const total = $TOTAL.innerText;
-  const fixTotalSplit = OPERATORS.includes(total.split('')[0])
-    ? total.split('').slice(1)
-    : total.split('');
+  const fixTotalSplit =
+    total[0] === '-' ? total.split('').slice(1) : total.split('');
   const operator = fixTotalSplit.filter((e) => OPERATORS.includes(e));
   const lastNumber = total.slice(
     total.lastIndexOf(operator[operator.length - 1]) + 1,
