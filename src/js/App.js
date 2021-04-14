@@ -43,21 +43,21 @@ const App = (({ tag, id, txt, evType, opChr, defVal, msg }) => {
     }
   };
 
-  const insMap = new WeakMap();
+  const privatesMap = new WeakMap();
   return class {
     constructor(sel) {
-      insMap.set(this, { sel, acc: defVal.total });
+      privatesMap.set(this, { sel, acc: defVal.total });
     }
 
     init() {
-      const self = insMap.get(this);
+      const privates = privatesMap.get(this);
 
-      const appEl = qs(self.sel);
-      if (!appEl) err(`${msg.noElem} (${self.sel})`);
+      const appEl = qs(privates.sel);
+      if (!appEl) err(`${msg.noElem} (${privates.sel})`);
       const totalEl = qsById(id.total, appEl);
       if (!totalEl) err(`${msg.noElem} (#${id.total})`);
 
-      self.totalEl = totalEl;
+      privates.totalEl = totalEl;
       appEl.addEventListener(evType.click, this.click.bind(this));
       this.render();
     }
@@ -65,15 +65,15 @@ const App = (({ tag, id, txt, evType, opChr, defVal, msg }) => {
     click({ target }) {
       if (target?.tagName !== tag.button) return;
 
-      const self = insMap.get(this);
+      const privates = privatesMap.get(this);
       const input = target.innerText;
 
-      self.acc = calc(input, self.acc);
+      privates.acc = calc(input, privates.acc);
       this.render();
     }
 
     render() {
-      const { totalEl, acc } = insMap.get(this);
+      const { totalEl, acc } = privatesMap.get(this);
       totalEl.innerText = acc;
     }
   };
