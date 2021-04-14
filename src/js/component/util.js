@@ -33,30 +33,23 @@ const parseNumber = (num) => {
 }
 
 const isLimitDigit = (tempStr) => {
-  const numbers = tempStr.match(/[+/X-]?[0-9]{4,}$/gim)
-
-  if (Array.isArray(numbers) && numbers.length > 0) return true
-  return false
+  const numbers = tempStr.match(/[+/X-]?[0-9]{4,}$/gim) ?? []
+  return numbers.length > 0
 }
 
 const isContinuousOperator = (rawStr) => {
-  const operators = rawStr.match(/[+/X-]{2,}/gim)
-
-  if (Array.isArray(operators) && operators.length > 0) return true
-  return false
+  const operators = rawStr.match(/[+/X-]{2,}/gim) ?? []
+  return operators.length > 0
 }
 
 const isDuplicateOperator = (rawStr) => {
-  const operators = rawStr.match(/[0-9]+[+/X-]/gim)
-  if (Array.isArray(operators) && operators.length > 1) return true
-  return false
+  const operators = rawStr.match(/[0-9]+[+/X-]/gim) ?? []
+  return operators.length > 1
 }
 
 const convertZeroZero = (rawStr) => {
   const reg = /([+/X-])0?0([0-9])$/gim
-
-  if (rawStr.match(reg)) return rawStr.replace(reg, '$1$2')
-  return rawStr
+  return rawStr.match(reg) ? rawStr.replace(reg, '$1$2') : rawStr
 }
 
 const addClickEvent = (selector, func) => {
