@@ -31,6 +31,7 @@ export function App($app) {
 
         const newStr = rawStr + operatorChar
 
+        if (isNotNumber(rawStr)) return alert(ERR_MSG.RESTART_NUMERICAL_EXPRESSION)
         if (isDuplicateOperator(newStr)) return alert(ERR_MSG.MAX_OPERATOR_ONE)
         if (isContinuousOperator(newStr)) return alert(ERR_MSG.CONTINUOUS_OPERATOR_ONE)
 
