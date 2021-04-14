@@ -15,22 +15,31 @@ describe('four-rule-calculations', () => {
   })
 
   
-    operandData1.forEach(n1 => {
-      operandData2.forEach(n2 => {
-        operator.forEach(op => { 
-          it('한자리 숫자 두 개의 사칙연산', () => {
-            cy.get(`[data-cy=${n1}]`).click()
-            cy.get(`[data-cy='${op}']`).click()
-            cy.get(`[data-cy=${n2}]`).click()
-            cy.get(`[data-cy='=']`).click()
-            cy.get('#total').should(($total) => {
-              expect(parseInt($total.get(0).innerText)).to.eq(operators[op](n1, n2))
-            })
-          })
-        }) 
-    })
+//   operandData1.forEach(n1 => {
+//     operandData2.forEach(n2 => {
+//       operator.forEach(op => { 
+//         it('한자리 숫자 두 개의 사칙연산', () => {
+//           cy.get(`[data-cy=${n1}]`).click()
+//           cy.get(`[data-cy='${op}']`).click()
+//           cy.get(`[data-cy=${n2}]`).click()
+//           cy.get(`[data-cy='=']`).click()
+//           cy.get('#total').should(($total) => {
+//             expect(parseInt($total.get(0).innerText)).to.eq(operators[op](n1, n2))
+//           })
+//         })
+//       }) 
+//   })
+// })
+
+it('AC(All Clear)버튼을 누르면 0으로 초기화 한다.', () => {
+  cy.get(`[data-cy=3]`).click() 
+  cy.get(`[data-cy='+']`).click()
+
+  cy.get(`[data-cy="AC"]`).click()
+
+  cy.get('#total').should(($total) => {
+    expect(parseInt($total.get(0).innerText)).to.eq(0)
   })
+})
 
-
-  
 })

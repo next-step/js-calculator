@@ -3,7 +3,7 @@ import CalculatorPad from "../component/view/calculatorPad.js";
 import CalculatorResult from "../component/view/calculatorResult.js";
 
 export default function CalculatorApp() {
-  this.value = new Value();
+  this.value;
   this.result = new CalculatorResult();
   this.pad = new CalculatorPad(this);
 
@@ -12,6 +12,7 @@ export default function CalculatorApp() {
   }
 
   this.init = () => {
+    this.value = new Value();
     this.setState();
   }
 
@@ -31,6 +32,6 @@ export default function CalculatorApp() {
   }
 
   this.modify = () => {
-
+    this.init();
   }
 }
