@@ -25,7 +25,12 @@ export default function CalculatorApp() {
     this.setState();
   }
 
+  this.operate = () => {
+    this.value.calculate();
+    this.setState();
+  }
+
   this.modify = () => {
-    
+
   }
 }
