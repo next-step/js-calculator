@@ -14,3 +14,11 @@ export function validNoNumber(input) {
   }
   return false;
 }
+
+export function deleteLastOperator(input) {
+  return input.replace(/(\d+)[-+\/X]/, "");
+}
+
+export function matchOperation(input) {
+  return input.match(/([0-9]+)([-+\/X])([0-9]+)/);
+}
