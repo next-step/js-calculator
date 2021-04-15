@@ -8,7 +8,7 @@ export default class Calculator {
   constructor(displayElement) {
     this.operator = "";
     this.tmpValue = "";
-    this.displayElement = displayElement;
+    this.displayElement = displayElement.innerText;
     this.defaultState();
   }
 
@@ -19,7 +19,7 @@ export default class Calculator {
 
     if (this.modifierCheck) {
       this.modifierCheck = false;
-      this.clear();
+      this.clearDisplay();
     }
 
     if (this.displayElement.innerText === "0") {
