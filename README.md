@@ -42,20 +42,10 @@
 
 <br/>
 
-## 📄 참고 사항
-* 숫자 입력은 **클릭**으로만 가능하다.
+## 📄 코드 리뷰
 
-<br/>
-
-## 👏 Contributing
-만약 미션 수행 중에 개선사항이 보인다면, 언제든 자유롭게 PR을 보내주세요. 
-
-<br/>
-
-## 🐞 Bug Report
-버그를 발견한다면, [Issues](https://github.com/next-step/js-calculator/issues) 에 등록 후 @eastjun에게 dm을 보내주세요.
-
-<br/>
-
-## 📝 License
-This project is [MIT](https://github.com/next-step/js-calculator/blob/master/LICENSE) licensed.
+[x] body와 html 사이에 개행을 주어야 파일의 끝 (EOF) 를 인식 할 수 있다.
+[x] 불필요한 중복을 최소화 하는 것이 중요하다.
+[x] DOM 자체가 필요한건지, 내부의 text 가 필요한건지 "정확히" 구분해서 사용하자.
+[x] 빈 split을 하면 사람이 인식을 할 수 없는 형태인 (UTF-18)로 대체 되기 때문에 지양하자.
+[ ] 계산기 객체에서 연산과 렌더링을 나누는 작업 진행
