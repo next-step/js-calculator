@@ -6,6 +6,10 @@ export const calculation = (cypressTotal) => {
   let expression = [];
   let num = '';
 
+  for (let i = 0; i < total.split('').length; i++) {
+    if (`${total[i - 1]}${total[i]}` === '/0') return alert(MSG.DIVISION_0);
+  }
+
   total.split('').forEach((v, i) => {
     if (OPERATORS.includes(v)) {
       if (v === MULTIPLICATION) v = '*';
@@ -16,13 +20,6 @@ export const calculation = (cypressTotal) => {
       if (total.length - 1 === i) {
         expression.push(num);
       }
-    }
-  });
-
-  // 0으로 나눌 때
-  total.split('').forEach((e, i) => {
-    if (`${total[i - 1]}${total[i]}` === '/0') {
-      return alert(MSG.DIVISION_0);
     }
   });
 
