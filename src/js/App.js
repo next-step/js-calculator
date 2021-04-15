@@ -1,5 +1,8 @@
 import Calculator from "./Calculator.js";
 
+const INITIAL_NUMBER = 0;
+const MAX_NUMBER_LENGTH = 3;
+
 export default function App() {
   const calculator = Calculator();
   let isFirstNumber = true;
@@ -25,13 +28,13 @@ export default function App() {
       return;
     }
 
-    if (total.innerText.length < 3) {
+    if (total.innerText.length < MAX_NUMBER_LENGTH) {
       total.innerText += value;
     }
   };
 
   const onClickReset = () => {
-    total.innerText = 0;
+    total.innerText = INITIAL_NUMBER;
   };
 
   const onClickOperator = ({ target }) => {
