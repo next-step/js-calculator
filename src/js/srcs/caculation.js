@@ -19,14 +19,12 @@ export const calculation = (cypressTotal) => {
     }
   });
 
-  // 0으로 나눌 때
   for (let i = 0; i < total.length; i++) {
     if (`${total[i - 1]}${total[i]}` === '/0') {
       return alert(MSG.DIVISION_0);
     }
   }
 
-  // 수식이 완성되지 않았을 때
   if (OPERATORS.includes(total.slice(total.length - 1))) {
     return alert(MSG.IMPERFECT_EXPRESSION);
   }
