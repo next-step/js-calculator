@@ -1,4 +1,4 @@
-import {INITAIL_VALUE, ALERT_MSG_OVER_THREE_NUMBER, ALERT_MSG_WITH_OUT_NUMBER} from './constant.js'
+import { Message } from './constant.js'
 
 const $display = document.querySelector('#total');
 const $allClear = document.querySelector('.modifier');
@@ -28,7 +28,7 @@ const digitClick = (event) => {
         display();
     }else{
         if(secondNumber.toString().length >= 3) {
-            alert(ALERT_MSG_OVER_THREE_NUMBER)
+            alert(Message.ALERT_MSG_OVER_THREE_NUMBER)
             return;
         }
         secondNumber = parseInt(secondNumber + event.target.innerText);
@@ -38,7 +38,7 @@ const digitClick = (event) => {
 
 const operationClick = (event) => {
     if(firstNumber===0) {
-        alert(ALERT_MSG_WITH_OUT_NUMBER);
+        alert(Message.ALERT_MSG_WITH_OUT_NUMBER);
         return;
     }
     if(event.target.innerText==='='){
@@ -47,7 +47,7 @@ const operationClick = (event) => {
         firstNumber = result;
         secondNumber = '';
         operation = '';
-        result = INITAIL_VALUE;
+        result = Message.INITAIL_VALUE;
         return;
     }
     operation = event.target.innerText;
@@ -56,7 +56,7 @@ const operationClick = (event) => {
 
 const display = (isAC=false) => {
     $display.innerText = firstNumber+operation+secondNumber;
-    if (isAC) $display.innerText = INITAIL_VALUE;
+    if (isAC) $display.innerText = Message.INITAIL_VALUE;
 }
 
 const calculation = (firstNumber, secondNumber) => {
