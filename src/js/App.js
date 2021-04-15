@@ -10,7 +10,7 @@ export default function App() {
   const reset = dom.querySelector(".modifier");
   const operators = dom.querySelector(".operations");
 
-  const init = () => {
+  const initEventListener = () => {
     digits.addEventListener("click", onClickDigit);
     reset.addEventListener("click", onClickReset);
     operators.addEventListener("click", onClickOperator);
@@ -43,5 +43,5 @@ export default function App() {
     calculator.setOperator(target.innerText);
   };
 
-  init();
+  initEventListener();
 }
