@@ -22,7 +22,7 @@ describe('My first test', () => {
         let numbers = [];
         numbers.push('1');
         numbers.push('9');
-        numbers.forEach(no => {
+        [1, 9].forEach(no => {
             cy.get('.digit').contains(no).click();
         });
 
