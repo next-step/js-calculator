@@ -17,11 +17,11 @@ export default function Calculator() {
   let num1, num2;
   let operator;
 
-  const insertNumber = (value) => {
+  const setNumber = (value) => {
     num1 ? (num2 = Number(value)) : (num1 = Number(value));
   };
 
-  const insertOperator = (value) => {
+  const setOperator = (value) => {
     operator = value;
   };
 
@@ -38,8 +38,8 @@ export default function Calculator() {
   };
 
   return {
-    insertNumber,
-    insertOperator,
+    setNumber,
+    setOperator,
     run,
   };
 }

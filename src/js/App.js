@@ -37,10 +37,10 @@ export default function App() {
   const onClickOperator = ({ target }) => {
     flag = true;
 
-    calculator.insertNumber(total.innerText);
+    calculator.setNumber(total.innerText);
     total.innerText = calculator.run();
 
-    calculator.insertOperator(target.innerText);
+    calculator.setOperator(target.innerText);
   };
 
   init();
