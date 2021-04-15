@@ -19,11 +19,12 @@ export const calculation = (cypressTotal) => {
     }
   });
 
-  for (let i = 0; i < total.length; i++) {
+  // 0으로 나눌 때
+  total.split('').forEach((e, i) => {
     if (`${total[i - 1]}${total[i]}` === '/0') {
       return alert(MSG.DIVISION_0);
     }
-  }
+  });
 
   if (OPERATORS.includes(total.slice(total.length - 1))) {
     return alert(MSG.IMPERFECT_EXPRESSION);

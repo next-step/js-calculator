@@ -21,15 +21,11 @@ describe('calculator', () => {
   };
 
   const pressButton = (expression) => {
-    const exp = expression.split('');
-
-    for (let i = 0; i < exp.length; i++) {
-      if (exp[i] === 'C') {
+    for (let exp of expression) {
+      if (exp === 'C') {
         clickModifier();
       } else {
-        OPERATORS.includes(exp[i])
-          ? clickOperation(exp[i])
-          : clickNumber(exp[i]);
+        OPERATORS.includes(exp) ? clickOperation(exp) : clickNumber(exp);
       }
     }
   };
