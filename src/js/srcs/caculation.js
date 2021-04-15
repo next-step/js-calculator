@@ -1,8 +1,8 @@
 import { $TOTAL } from '../util/DOM';
 import { OPERATORS, MULTIPLICATION, MSG } from '../util/constants';
 
-export const calculation = () => {
-  const total = $TOTAL.innerText;
+export const calculation = (cypressTotal) => {
+  const total = cypressTotal ? cypressTotal : $TOTAL.innerText;
   let expression = [];
   let num = '';
 
@@ -30,6 +30,8 @@ export const calculation = () => {
   if (OPERATORS.includes(total.slice(total.length - 1))) {
     return alert(MSG.IMPERFECT_EXPRESSION);
   }
+
+  if (!!cypressTotal) return Math.floor(eval(expression.join('')));
 
   $TOTAL.innerText = Math.floor(eval(expression.join('')));
 };
