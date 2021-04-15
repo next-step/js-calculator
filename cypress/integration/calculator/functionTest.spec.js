@@ -19,10 +19,9 @@ describe('My first test', () => {
 	});
 
 	it('숫자 2개 클릭시 total에 2자리 숫자가 표시되어야 한다.', () => {
-		let numbers = [];
 		numbers.push('1');
 		numbers.push('9');
-		numbers.forEach(no => {
+		[1,9].forEach(no => {
 				cy.get('.digit').contains(no).click();
 		});
 
@@ -30,10 +29,7 @@ describe('My first test', () => {
 	});
 
 	it('0으로 시작하는 숫자 2개 클릭시 total에 한자리 숫자만 표시되야 한다.', () => {
-		let numbers = [];
-		numbers.push('0');
-		numbers.push('3');
-		numbers.forEach(no => {
+		[0,3].forEach(no => {
 				cy.get('.digit').contains(no).click();
 		});
 
