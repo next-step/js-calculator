@@ -2,7 +2,7 @@ import Calculator from "./Calculator.js";
 
 export default function App() {
   const calculator = Calculator();
-  let flag = false;
+  let isFirstNumber = true;
 
   const dom = document.querySelector("#app");
   const total = dom.querySelector("#total");
@@ -19,9 +19,9 @@ export default function App() {
   const onClickDigit = ({ target }) => {
     const value = target.innerText;
 
-    if (total.innerText === "0" || flag) {
+    if (isFirstNumber) {
       total.innerText = value;
-      flag = false;
+      isFirstNumber = false;
       return;
     }
 
@@ -35,7 +35,7 @@ export default function App() {
   };
 
   const onClickOperator = ({ target }) => {
-    flag = true;
+    isFirstNumber = true;
 
     calculator.setNumber(total.innerText);
     total.innerText = calculator.run();
