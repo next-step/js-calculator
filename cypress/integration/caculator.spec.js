@@ -1,4 +1,4 @@
-import { OPERATORS, MAX_NUMBERS, MSG } from './../../src/js/util/constants';
+import { OPERATORS, MAX_NUMBERS, MSG } from './../../src/js/utils/constants';
 import { calculation } from './../../src/js/srcs/caculation';
 
 describe('calculator', () => {

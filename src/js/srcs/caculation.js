@@ -1,5 +1,5 @@
-import { $TOTAL } from '../util/DOM';
-import { OPERATORS, MULTIPLICATION, MSG } from '../util/constants';
+import { $TOTAL } from '../utils/DOM';
+import { OPERATORS, MULTIPLICATION, MSG } from '../utils/constants';
 
 export const calculation = (cypressTotal) => {
   const total = cypressTotal ? cypressTotal : $TOTAL.innerText;

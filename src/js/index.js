@@ -1,6 +1,6 @@
 import '../css/index.css';
-import { $ } from './util/querySelector';
-import { $TOTAL } from './util/DOM';
+import { $ } from './utils/querySelector';
+import { $TOTAL } from './utils/DOM';
 import { pressDigit } from './srcs/pressDigit';
 import { pressOperation } from './srcs/pressOperation';
 

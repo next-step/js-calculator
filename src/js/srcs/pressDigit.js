@@ -1,6 +1,6 @@
-import { $TOTAL } from '../util/DOM';
-import { MAX_NUMBER_LENGTH, MSG } from '../util/constants';
-import { OPERATORS } from '../util/constants';
+import { $TOTAL } from '../utils/DOM';
+import { MAX_NUMBER_LENGTH, MSG } from '../utils/constants';
+import { OPERATORS } from '../utils/constants';
 
 export const pressDigit = (digit) => {
   const operator = $TOTAL.innerText
