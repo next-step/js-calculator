@@ -40,7 +40,7 @@ module.exports = {
       template: './index.html',
     }),
     new MiniCssExtractPlugin({
-      filename: 'style.css',
+      filename: 'index.css',
     }),
     new CleanWebpackPlugin(),
   ],
