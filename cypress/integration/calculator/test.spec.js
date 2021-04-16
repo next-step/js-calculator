@@ -7,6 +7,4 @@ describe('My first test', () => {
     it('click number 1', () => {
         cy.get('.digit').contains('1').click();
     });
-
-    
-})
+});
