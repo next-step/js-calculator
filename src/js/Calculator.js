@@ -25,9 +25,9 @@ export class Calculator {
   }
 
   setState({ prevValue, currValue, operator }) {
-    this.prevValue = prevValue ?? this.prevValue;
-    this.currValue = currValue ?? this.currValue;
-    this.operator = operator ?? this.operator;
+    this.prevValue = prevValue === undefined ? this.prevValue : prevValue;
+    this.currValue = currValue === undefined ? this.currValue : currValue;
+    this.operator = operator === undefined ? this.operator : operator;
   }
 
   setTotal(callback) {
@@ -57,6 +57,8 @@ export class Calculator {
       return this.handleEqualSignClick();
     }
 
+    if (this.operator) return;
+
     this.setState({ prevValue: this.currValue, currValue: 0, operator });
     this.setTotal((totalText) => totalText + operator);
   }
@@ -65,7 +67,7 @@ export class Calculator {
     if (this.prevValue === null || this.operator === null) return;
     try {
       const result = this.calculate();
-      this.setState({ prevValue: null, currValue: result });
+      this.setState({ prevValue: null, currValue: result, operator: null });
       this.setTotal(() => result);
     } catch (err) {
       alert(err.message);
