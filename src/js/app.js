@@ -8,13 +8,14 @@ export default function App() {
   const _store = store();
   const component = calculator($calculator);
 
-  function calculate() {
-    const state = _store.getState();
-
-    return OPERATIONS[state.operation](
+  function calculate(state) {
+    const result = OPERATIONS[state.operation](
       state.operand,
       Number.parseInt(state.buffer)
     );
+
+    _store.setResult(result);
+    component.render(result);
   }
 
   $calculator.addEventListener('digits', ({ detail }) => {
@@ -23,19 +24,21 @@ export default function App() {
   });
 
   $calculator.addEventListener('op', ({ detail }) => {
+    const state = _store.getState();
+    if (state.operation) {
+      calculate(state);
+    }
+
     _store.setOperation(detail);
   });
 
   $calculator.addEventListener('ac', () => {
     _store.flush();
-
     component.render('0');
   });
 
   $calculator.addEventListener('calculate', () => {
-    const result = calculate();
-
-    _store.setResult(result);
-    component.render(result);
+    const state = _store.getState();
+    calculate(state);
   });
 }

@@ -25,10 +25,10 @@ function initEventListeners(rootComponent, $total) {
 
   function operationsClickEventListener({ target }) {
     const operation = target.textContent;
+    clearOperations($operations);
 
     if (operation === '=') {
       rootComponent.dispatchEvent(new CustomEvent('calculate'));
-      clearOperations($operations);
       return;
     }
 
