@@ -7,7 +7,7 @@ const seperator = /(?=[+X/-])|(?<=[+X/-])/g;
 
 const getHistory = () => {
   const expression = $(SELECTORS.RESULT);
-  const prevResult = parseExpression(result.innerText);
+  const prevResult = parseExpression(expression.innerText);
   const lastValue = prevResult[prevResult.length - 1];
   return { expression, prevResult, lastValue };
 };
@@ -31,7 +31,7 @@ const digitHanlder = (target) => {
 
 const operatorHanlder = (target) => {
   const { expression, prevResult, lastValue } = getHistory();
-  if (lastValue === 0 || operators.indexOf(lastValue) !== -1)
+  if (expression.length === 1 || operators.indexOf(lastValue) !== -1)
     return alert(ERROR_MESSAGES.OPERATOR_OVER_ERROR);
   if (lastValue >= 1000) return alert(ERROR_MESSAGES.DIGIT_OVER_ERROR);
   if (target.innerText === "=") {
