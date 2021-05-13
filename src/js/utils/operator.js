@@ -15,7 +15,6 @@ const operator = (expression) => {
         const num1 = expression[index - 1];
         const num2 = expression[index + 1];
         const result = handler(num1, num2, value);
-        console.log(num1, num2, result);
         expression.splice(index - 1, 3, result);
       }
     });

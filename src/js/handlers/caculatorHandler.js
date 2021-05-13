@@ -1,9 +1,16 @@
 import { SELECTORS, ERROR_MESSAGES, CLASS_NAMES } from "../utils/constants.js";
-import operator from "../utils/operator.js";
 import { $ } from "../utils/dom.js";
+import operator from "../utils/operator.js";
 
 const operators = ["+", "X", "-", "/"];
 const seperator = /(?=[+X/-])|(?<=[+X/-])/g;
+
+const getHistory = () => {
+  const expression = $(SELECTORS.RESULT);
+  const prevResult = parseExpression(result.innerText);
+  const lastValue = prevResult[prevResult.length - 1];
+  return { expression, prevResult, lastValue };
+};
 
 const parseExpression = (expression) =>
   expression.split(seperator).map((value) => {
@@ -12,31 +19,28 @@ const parseExpression = (expression) =>
   });
 
 const digitHanlder = (target) => {
-  const result = $(SELECTORS.RESULT);
-  const prevResult = parseExpression(result.innerText);
-  const lastValue = prevResult[prevResult.length - 1];
+  const { expression, prevResult, lastValue } = getHistory();
   if (lastValue > 100) return alert(ERROR_MESSAGES.DIGIT_OVER_ERROR);
   const input = target.innerText;
   if (prevResult.length === 1 && prevResult[0] === 0) {
-    result.innerText = input;
+    expression.innerText = input;
   } else {
-    result.innerText += input;
+    expression.innerText += input;
   }
 };
 
 const operatorHanlder = (target) => {
-  const result = $(SELECTORS.RESULT);
-  const prevResult = parseExpression(result.innerText);
-  const lastValue = prevResult[prevResult.length - 1];
+  const { expression, prevResult, lastValue } = getHistory();
   if (lastValue === 0 || operators.indexOf(lastValue) !== -1)
     return alert(ERROR_MESSAGES.OPERATOR_OVER_ERROR);
+  if (lastValue >= 1000) return alert(ERROR_MESSAGES.DIGIT_OVER_ERROR);
   if (target.innerText === "=") {
     const operationResult = operator(prevResult);
-    result.innerText = operationResult;
+    expression.innerText = operationResult;
     return;
   }
   const input = target.innerText;
-  result.innerText += input;
+  expression.innerText += input;
 };
 
 const modifierHandler = () => {
