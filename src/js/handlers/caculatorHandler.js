@@ -1,4 +1,5 @@
 import { SELECTORS, ERROR_MESSAGES, CLASS_NAMES } from "../utils/constants.js";
+import operator from "../utils/operator.js";
 import { $ } from "../utils/dom.js";
 
 const operators = ["+", "X", "-", "/"];
@@ -29,6 +30,11 @@ const operatorHanlder = (target) => {
   const lastValue = prevResult[prevResult.length - 1];
   if (lastValue === 0 || operators.indexOf(lastValue) !== -1)
     return alert(ERROR_MESSAGES.OPERATOR_OVER_ERROR);
+  if (target.innerText === "=") {
+    const operationResult = operator(prevResult);
+    result.innerText = operationResult;
+    return;
+  }
   const input = target.innerText;
   result.innerText += input;
 };

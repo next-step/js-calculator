@@ -1,13 +1,37 @@
-const operator = (number1, number2, operator) => {
-  number1 = parseInt(number1);
-  number2 = parseInt(number2);
-  const operations = {
-    "+": () => number1 + number2,
-    "-": () => number1 - number2,
-    "/": () => number1 / number2,
-    "*": () => number1 * number2,
+const handler = (num1, num2, operator) => {
+  const actions = {
+    X: () => num1 * num2,
+    "+": () => num1 + num2,
+    "-": () => num1 - num2,
+    "/": () => num1 / num2,
   };
-  return operations[operator];
+  return actions[operator]();
+};
+
+const operator = (expression) => {
+  if (expression.indexOf("X") !== -1 || expression.indexOf("/") !== -1) {
+    expression.forEach((value, index) => {
+      if (value === "X" || value === "/") {
+        const num1 = expression[index - 1];
+        const num2 = expression[index + 1];
+        const result = handler(num1, num2, value);
+        console.log(num1, num2, result);
+        expression.splice(index - 1, 3, result);
+      }
+    });
+  }
+
+  if (expression.indexOf("-") !== -1 || expression.indexOf("+") !== -1) {
+    expression.forEach((value, index) => {
+      if (value === "-" || value === "+") {
+        const num1 = expression[index - 1];
+        const num2 = expression[index + 1];
+        const result = handler(num1, num2, value);
+        expression.splice(index - 1, 3, result);
+      }
+    });
+  }
+  return expression[0];
 };
 
 export default operator;
