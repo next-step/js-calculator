@@ -1,6 +1,7 @@
 import { SELECTORS, ERROR_MESSAGES, CLASS_NAMES } from "../utils/constants.js";
 import { $ } from "../utils/dom.js";
 
+const operators = ["+", "X", "-", "/"];
 const seperator = /(?=[+X/-])|(?<=[+X/-])/g;
 
 const parseExpression = (expression) =>
@@ -23,18 +24,24 @@ const digitHanlder = (target) => {
 };
 
 const operatorHanlder = (target) => {
-  const input = target.innerText;
   const result = $(SELECTORS.RESULT);
+  const prevResult = parseExpression(result.innerText);
+  const lastValue = prevResult[prevResult.length - 1];
+  if (lastValue === 0 || operators.indexOf(lastValue) !== -1)
+    return alert(ERROR_MESSAGES.OPERATOR_OVER_ERROR);
+  const input = target.innerText;
   result.innerText += input;
 };
 
-const modifierHandler = (target) => {};
+const modifierHandler = () => {
+  $(SELECTORS.RESULT).innerText = "0";
+};
 
 const calculatorHandler = ({ target }) => {
   const { className } = target;
   const assingAction = {
     [CLASS_NAMES.DIGIT]: () => digitHanlder(target),
-    [CLASS_NAMES.MODIFIER]: () => modifierHandler(target),
+    [CLASS_NAMES.MODIFIER]: () => modifierHandler(),
     [CLASS_NAMES.OPERATION]: () => operatorHanlder(target),
   };
   assingAction[className] && assingAction[className]();
