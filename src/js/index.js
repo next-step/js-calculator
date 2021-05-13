@@ -1,15 +1,9 @@
 import { $ } from "./utils/dom.js";
 import { SELECTORS } from "./utils/constants.js";
+import calculatorHandler from "./handlers/caculatorHandler.js";
 
-class App {
-  constructor() {
-    this.target = $(SELECTORS.APP);
-    this.bindEvents();
-  }
+const app = () => {
+  $(SELECTORS.CACULATOR).addEventListener("click", calculatorHandler);
+};
 
-  bindEvents() {
-    this.target.addEventListener("click", ({ target }) => {});
-  }
-}
-
-new App();
+window.addEventListener("DOMContentLoaded", app);

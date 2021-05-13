@@ -4,8 +4,8 @@ export const ERROR_MESSAGES = {
 };
 
 export const SELECTORS = {
-  APP: "#app",
   RESULT: "#total",
+  CACULATOR: ".calculator",
 };
 
 export const CLASS_NAMES = {
