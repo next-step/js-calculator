@@ -5,25 +5,27 @@ const operations = {
   '/': (a, b) => Math.floor(Number(a) / Number(b)),
 }
 
-const OPERATORS = ['/', 'X', '-', '+']
+const OPERATORS = ['/', 'X', '-', '+'];
 
-class App {
+const NUMBER_LENGTH_LIMIT = 3;
+
+class Calculator {
   constructor (app) {
     this.$total = app.querySelector('#total')
     this.$digit = app.querySelector('div.digits')
     this.$modifier = app.querySelector('div.modifiers')
     this.$operation = app.querySelector('div.operations')
-    this.addDomEvent()
+    this._addDomEvent()
   }
 
-  addDomEvent () {
-    this.$digit.addEventListener('click', this.handleDigit)
-    this.$modifier.addEventListener('click', this.handleModifier)
-    this.$operation.addEventListener('click', this.handleOperation)
+  _addDomEvent () {
+    this.$digit.addEventListener('click', this._handleDigit)
+    this.$modifier.addEventListener('click', this._clearPanel)
+    this.$operation.addEventListener('click', this._handleOperation)
   }
 
-  handleDigit = ({ target }) => {
-    if (!this.isValidLength()) {
+  _handleDigit = ({ target }) => {
+    if (!this._isValidLength()) {
       return alert('숫자는 세 자리까지만 입력 가능합니다!')
     }
     if (this.$total.innerText === '0') {
@@ -32,30 +34,28 @@ class App {
     return (this.$total.innerText += target.innerText)
   }
 
-  isValidLength = () => {
+  _isValidLength = () => {
     const displayValue = this.$total.innerText
-    const operator = displayValue.split('').find((v) => OPERATORS.includes(v))
+    const operator = this._getOperator()
 
     if (!operator) {
       return displayValue.length < 3
     }
-    return displayValue.split(operator)[1].length < 3
+    return displayValue.split(operator)[1].length < NUMBER_LENGTH_LIMIT
   }
 
-  handleModifier = () => {
+  _clearPanel = () => {
     this.$total.innerText = 0
   }
 
-  handleOperation = ({target}) => {
+  _handleOperation = ({target}) => {
     const operateValue = target.innerText
-    const displayValue = this.$total.innerText
-    const operator = displayValue.split('').find((v) => OPERATORS.includes(v))
+    const operator = this._getOperator()
     const total = this.$total.innerText
-    if (!operator && operateValue === '=') {
-      return false
-    }
+    if (!operator && operateValue === '=') return false
 
-    if (total === '0' || isNaN(total[total.length - 1])) {
+    const isValidTotalValue = (total === '0' || isNaN(total[total.length - 1]))
+    if (isValidTotalValue) {
       alert('숫자를 먼저 입력한 후 연산자를 입력해주세요!')
       return false
     }
@@ -70,6 +70,12 @@ class App {
 
   }
 
+  _getOperator () {
+    const displayValue = this.$total.innerText
+    return displayValue.split('').find((v) => OPERATORS.includes(v))
+  }
 }
 
-new App(document.querySelector('#app'))
+window.addEventListener('DOMContentLoaded', () => {
+  new Calculator(document.querySelector('#app'))
+});
