@@ -1,0 +1,29 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "description": "<br/> <br/>",
+  "main": "index.js",
+  "scripts": {
+    "start": "live-server",
+    "test": "npx cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hwookim/js-calculator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hwookim/js-calculator/issues"
+  },
+  "homepage": "https://github.com/hwookim/js-calculator#readme",
+  "devDependencies": {
+    "cypress": "^7.0.1",
+    "eslint": "^7.24.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-cypress": "^2.11.2",
+    "eslint-plugin-prettier": "^3.3.1",
+    "live-server": "^1.2.1",
+    "prettier": "^2.2.1"
+  }
+}
