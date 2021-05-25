@@ -8,31 +8,33 @@
     </head>
     <body>
         <div id="app">
+            <script type="module" src="src/js/index.js"></script>
             <div class="calculator">
-                <h1 id="total">0</h1>
+                <h1 id="total"></h1>
                 <div class="digits flex">
-                    <button class="digit">9</button>
-                    <button class="digit">8</button>
-                    <button class="digit">7</button>
-                    <button class="digit">6</button>
-                    <button class="digit">5</button>
-                    <button class="digit">4</button>
-                    <button class="digit">3</button>
-                    <button class="digit">2</button>
-                    <button class="digit">1</button>
-                    <button class="digit">0</button>
+                    <button class="digit" data-cy="9">9</button>
+                    <button class="digit" data-cy="8">8</button>
+                    <button class="digit" data-cy="7">7</button>
+                    <button class="digit" data-cy="6">6</button>
+                    <button class="digit" data-cy="5">5</button>
+                    <button class="digit" data-cy="4">4</button>
+                    <button class="digit" data-cy="3">3</button>
+                    <button class="digit" data-cy="2">2</button>
+                    <button class="digit" data-cy="1">1</button>
+                    <button class="digit" data-cy="0">0</button>
                 </div>
                 <div class="modifiers subgrid">
-                    <button class="modifier">AC</button>
+                    <button class="modifier" data-cy="AC">AC</button>
                 </div>
                 <div class="operations subgrid">
-                    <button class="operation">/</button>
-                    <button class="operation">X</button>
-                    <button class="operation">-</button>
-                    <button class="operation">+</button>
-                    <button class="operation">=</button>
+                    <button class="operation" data-cy="/">/</button>
+                    <button class="operation" data-cy="X">X</button>
+                    <button class="operation" data-cy="-">-</button>
+                    <button class="operation" data-cy="+">+</button>
+                    <button class="operation" data-cy="=">=</button>
                 </div>
             </div>
         </div>
     </body>
 </html>
+    
