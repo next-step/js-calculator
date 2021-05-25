@@ -1,0 +1,25 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "description": "js-calculator",
+  "main": "index.js",
+  "scripts": {
+    "live": "live-server --port=8888 --browser=chrome",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/next-step/js-calculator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/next-step/js-calculator/issues"
+  },
+  "homepage": "https://github.com/next-step/js-calculator#readme",
+  "devDependencies": {
+    "cypress": "^7.0.1",
+    "eslint": "^7.2.0",
+    "live-server": "^1.2.1"
+  }
+}
