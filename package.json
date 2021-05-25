@@ -1,0 +1,22 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "description": "<br/> <br/>",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lsw1164/js-calculator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lsw1164/js-calculator/issues"
+  },
+  "homepage": "https://github.com/lsw1164/js-calculator#readme",
+  "devDependencies": {
+    "cypress": "^7.0.1"
+  }
+}
