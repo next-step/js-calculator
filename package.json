@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "start": "browser-sync start --directory --server --files \"*.css, *.html, *.js\"",
+    "test": "cypress open"
+  },
+  "devDependencies": {
+    "cypress": "^7.0.1"
+  }
+}
