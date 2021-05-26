@@ -38,10 +38,12 @@ button {
 
 .operations button {
 	background-color: orange;
+	cursor:pointer;
 }
 
 .digits button {
 	background-color: #efefef;
+	cursor:pointer;
 }
 
 #total {
@@ -76,6 +78,11 @@ button {
 	grid-area: modif;
 	grid-auto-flow: column;
 	grid-auto-columns: 1fr;
+	
+}
+
+.modifier { 
+	cursor: pointer;
 }
 
 .operations {
