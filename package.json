@@ -4,6 +4,7 @@
   "description": "<br/>\r <br/>",
   "main": "index.js",
   "devDependencies": {
+    "cypress": "^7.4.0",
     "eslint": "^7.27.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-cypress": "^2.11.3",
@@ -17,7 +18,7 @@
     "start": "live-server",
     "test": "yarn run cypress open",
     "prepare": "husky install",
-    "pre-commit":"lint-staged"
+    "pre-commit": "lint-staged"
   },
   "repository": {
     "type": "git",
