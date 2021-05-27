@@ -11,6 +11,7 @@ export const TEXTS = {
   sum: "+",
   sub: "-",
   div: "/",
+  result: "=",
 };
 
 export const ERROR_MESSAGES = {
