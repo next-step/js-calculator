@@ -4,11 +4,20 @@
   "description": "<br/>\r <br/>",
   "main": "index.js",
   "devDependencies": {
-    "live-server": "^1.2.1"
+    "eslint": "^7.27.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-cypress": "^2.11.3",
+    "eslint-plugin-prettier": "^3.4.0",
+    "husky": "^6.0.0",
+    "lint-staged": "^10.0.0-1",
+    "live-server": "^1.2.1",
+    "prettier": "^2.3.0"
   },
   "scripts": {
-    "start":"live-server",
-    "test": "yarn run cypress open"
+    "start": "live-server",
+    "test": "yarn run cypress open",
+    "prepare": "husky install",
+    "pre-commit":"lint-staged"
   },
   "repository": {
     "type": "git",
@@ -19,5 +28,10 @@
   "bugs": {
     "url": "https://github.com/moonheekim0118/js-calculator/issues"
   },
-  "homepage": "https://github.com/moonheekim0118/js-calculator#readme"
+  "homepage": "https://github.com/moonheekim0118/js-calculator#readme",
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write"
+    ]
+  }
 }
