@@ -10,16 +10,16 @@ describe("calculator", () => {
   });
 
   it("숫자를 누르면 표시되는 값이 변한다.", () => {
-    cy.get(SELECTORS.$digit).contains(9).click();
-    cy.get(SELECTORS.$digit).contains(1).click();
+    [9, 1].forEach((number) =>
+      cy.get(SELECTORS.$digit).contains(number).click()
+    );
     cy.get(SELECTORS.$total).should("have.text", "91");
   });
 
   it("숫자는 4자리 이상을 입력할 수 없다.", () => {
-    cy.get(SELECTORS.$digit).contains(1).click();
-    cy.get(SELECTORS.$digit).contains(2).click();
-    cy.get(SELECTORS.$digit).contains(3).click();
-    cy.get(SELECTORS.$digit).contains(4).click();
+    [1, 2, 3, 4].forEach((number) =>
+      cy.get(SELECTORS.$digit).contains(number).click()
+    );
     cy.on("window:alert", (txt) => {
       expect(txt).to.contains(ERROR_MESSAGES.DIGIT_OVER_ERROR);
     });
@@ -27,8 +27,9 @@ describe("calculator", () => {
   });
 
   it("연산자만 연속으로 입력할 수 없다.", () => {
-    cy.get(SELECTORS.$operation).contains(TEXTS.mult).click();
-    cy.get(SELECTORS.$operation).contains(TEXTS.sum).click();
+    [TEXTS.mult, TEXTS.sub].forEach((opers) =>
+      cy.get(SELECTORS.$operation).contains(opers).click()
+    );
     cy.on("window:alert", (txt) => {
       expect(txt).to.contains(ERROR_MESSAGES.OPERATOR_OVER_ERROR);
     });
@@ -64,7 +65,7 @@ describe("calculator", () => {
     cy.get(SELECTORS.$total).should("have.text", "1");
   });
 
-  it("뺄셈 연산을 수행하며, 소숫점 이하는 버림한다.", () => {
+  it("뺄셈 연산을 수행한다.", () => {
     cy.get(SELECTORS.$digit).contains(6).click();
     cy.get(SELECTORS.$operation).contains(TEXTS.sub).click();
     cy.get(SELECTORS.$digit).contains(5).click();
@@ -73,24 +74,29 @@ describe("calculator", () => {
   });
 
   it("두 자리 이상의 숫자 연산을 수행한다.", () => {
-    cy.get(SELECTORS.$digit).contains(6).click();
-    cy.get(SELECTORS.$digit).contains(6).click();
+    [6, 6].forEach((number) =>
+      cy.get(SELECTORS.$digit).contains(number).click()
+    );
     cy.get(SELECTORS.$operation).contains(TEXTS.mult).click();
-    cy.get(SELECTORS.$digit).contains(1).click();
-    cy.get(SELECTORS.$digit).contains(0).click();
+    [1, 0].forEach((number) =>
+      cy.get(SELECTORS.$digit).contains(number).click()
+    );
     cy.get(SELECTORS.$operation).contains(TEXTS.result).click();
     cy.get(SELECTORS.$total).should("have.text", "660");
   });
 
   it("사칙 연산을 적용한다.", () => {
-    cy.get(SELECTORS.$digit).contains(6).click();
-    cy.get(SELECTORS.$digit).contains(6).click();
+    [6, 6].forEach((number) =>
+      cy.get(SELECTORS.$digit).contains(number).click()
+    );
     cy.get(SELECTORS.$operation).contains(TEXTS.mult).click();
-    cy.get(SELECTORS.$digit).contains(1).click();
-    cy.get(SELECTORS.$digit).contains(0).click();
+    [1, 0].forEach((number) =>
+      cy.get(SELECTORS.$digit).contains(number).click()
+    );
     cy.get(SELECTORS.$operation).contains(TEXTS.sub).click();
-    cy.get(SELECTORS.$digit).contains(1).click();
-    cy.get(SELECTORS.$digit).contains(0).click();
+    [1, 0].forEach((number) =>
+      cy.get(SELECTORS.$digit).contains(number).click()
+    );
     cy.get(SELECTORS.$operation).contains(TEXTS.result).click();
     cy.get(SELECTORS.$total).should("have.text", "650");
   });
