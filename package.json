@@ -1,0 +1,23 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "description": "<br/>\r <br/>",
+  "main": "index.js",
+  "devDependencies": {
+    "live-server": "^1.2.1"
+  },
+  "scripts": {
+    "start":"live-server",
+    "test": "yarn run cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moonheekim0118/js-calculator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/moonheekim0118/js-calculator/issues"
+  },
+  "homepage": "https://github.com/moonheekim0118/js-calculator#readme"
+}
