@@ -1,26 +1,4 @@
-function randomVal(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min)) + min;
-}
-
-function randomOp() {
-  const ops = ['+', '-', 'X', '/'];
-  return ops[randomVal(0, 5)];
-}
-
-function clickLog(displayName, value) {
-  Cypress.log({
-    name: '무엇을 눌렀을까요~?!',
-    displayName,
-    message: `${value}`,
-    consoleProps: () => {
-      return {
-        '눌려진 값은....!!!': value,
-      }
-    },
-  })
-}
+import { randomVal, randomOp, clickLog } from './functions.js'
 
 Cypress.Commands.add('plusTest', (times) => {
   cy.calculatorTest('+', times);
@@ -53,6 +31,7 @@ Cypress.Commands.add('any', { prevSubject: 'element' }, (subject, size = 1) => {
 });
 
 Cypress.Commands.add('clickOp', (op = randomOp()) => {
+  console.log(op)
   cy.get('.operations').contains(op).click();
 })
 
