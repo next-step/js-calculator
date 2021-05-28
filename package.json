@@ -4,7 +4,7 @@
   "description": "<br/> <br/>",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "cy": "cypress open"
   },
   "repository": {
     "type": "git",
@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/simian114/js-calculator/issues"
   },
-  "homepage": "https://github.com/simian114/js-calculator#readme"
+  "homepage": "https://github.com/simian114/js-calculator#readme",
+  "devDependencies": {
+    "cypress": "^7.4.0"
+  }
 }
