@@ -33,7 +33,7 @@ function Result() {
       X: () => +this.leftSide * +this.rightSide,
       '/': () => +this.leftSide / +this.rightSide,
     };
-    const res = String(options[this.op]());
+    const res = String(Math.floor(options[this.op]()));
     this.render(res);
     this.init();
     this.leftSide = res;
