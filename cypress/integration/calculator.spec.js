@@ -1,3 +1,15 @@
+import { operation } from '../../src/utils/utils'
+
+Cypress.Commands.add('calculate', (type) => {
+  cy.get('.digits').contains(1).click()
+  cy.get('.digits').contains(1).click()
+  cy.get('.operations').contains(type).click()
+  cy.get('.digits').contains(1).click()
+  cy.get('#total').should('have.text', `11${type}1`)
+  cy.get('.operations').contains('=').click()
+  cy.get('#total').should('have.text', operation[type]('11', '1'))
+})
+
 context('calculator', () => {
   beforeEach(() => {
     cy.visit('http://127.0.0.1:5500/')
@@ -8,11 +20,6 @@ context('calculator', () => {
   })
 
   it('2개의 숫자에 대해 덧셈이 가능하다.', () => {
-    cy.get('.digits').contains(1).click()
-    cy.get('.operations').contains('+').click()
-    cy.get('.digits').contains(1).click()
-    cy.get('#total').should('have.text', '1+1')
-    cy.get('.operations').contains('=').click()
-    cy.get('#total').should('have.text', '2')
+    cy.calculate('+')
   })
 })
