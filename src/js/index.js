@@ -40,10 +40,15 @@ const clickDigit = ({ target: el }) => {
   display === '0' ? total.innerText = digit : total.innerText += digit
 }
 
+const clickAllClear = () => {
+  total.innerText = '0'
+}
+
 const init = () => {
   console.log('init calculator using cypress!')
   addEvent({ el: digits, type: 'click', callback: clickDigit })
   addEvent({ el: operations, type: 'click', callback: clickOperation })
+  addEvent({ el: modifier, type: 'click', callback: clickAllClear })
 }
 
 document.addEventListener('DOMContentLoaded', () => {
