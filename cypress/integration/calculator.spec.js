@@ -22,4 +22,8 @@ context('calculator', () => {
   it('2개의 숫자에 대해 덧셈이 가능하다.', () => {
     cy.calculate('+')
   })
+
+  it('2개의 숫자에 대해 뺄셈이 가능하다.', () => {
+    cy.calculate('-')
+  })
 })
