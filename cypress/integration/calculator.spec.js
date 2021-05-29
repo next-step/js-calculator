@@ -3,11 +3,12 @@ import { operation } from '../../src/utils/utils'
 Cypress.Commands.add('calculate', (type) => {
   cy.get('.digits').contains(1).click()
   cy.get('.digits').contains(1).click()
+  cy.get('.digits').contains(2).click()
   cy.get('.operations').contains(type).click()
-  cy.get('.digits').contains(1).click()
-  cy.get('#total').should('have.text', `11${type}1`)
+  cy.get('.digits').contains(5).click()
+  cy.get('#total').should('have.text', `112${type}5`)
   cy.get('.operations').contains('=').click()
-  cy.get('#total').should('have.text', operation[type]('11', '1'))
+  cy.get('#total').should('have.text', operation[type]('112', '5'))
 })
 
 context('calculator', () => {
@@ -25,5 +26,13 @@ context('calculator', () => {
 
   it('2개의 숫자에 대해 뺄셈이 가능하다.', () => {
     cy.calculate('-')
+  })
+
+  it('2개의 숫자에 대해 곱셈이 가능하다.', () => {
+    cy.calculate('X')
+  })
+
+  it(' 2개의 숫자에 대해 나눗셈이 가능하다.', () => {
+    cy.calculate('/')
   })
 })
