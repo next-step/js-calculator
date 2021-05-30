@@ -29,7 +29,7 @@ const calculate = () => {
                         break;
                     }
 
-                    case '*': {
+                    case 'X': {
                         total *= parseInt(buttons[i], 10);
                         break;
                     }
@@ -43,7 +43,7 @@ const calculate = () => {
         }
     }
 
-    $total.innerHTML = total;
+    $total.innerHTML = total.toString();
     if (total !== 0) {
         display = total.toString();
         buttons = [total.toString()];
@@ -82,18 +82,21 @@ const clickOperation = (event) => {
     if (value === '=') {
         calculate();
     } else {
+        if (!buttons[buttons.length-1]) {
+            alert('숫자를 먼저 입력한 후 연산자를 입력해주세요!');
+            return;
+        }
         changeDisplay(value);
         buttons.push(value);
         buttons.push('');
     }
 };
 
-const clickAllClear = (event) => {
-    const value = event.target.textContent;
+const clickAllClear = () => {
     display = '';
     buttons = [];
     total = 0;
-    $total.innerHTML = 0;
+    $total.innerHTML = total.toString();
 };
 
 $digits.addEventListener('click', clickDigit);
