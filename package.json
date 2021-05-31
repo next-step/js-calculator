@@ -1,0 +1,12 @@
+{
+    "name": "js-calculator",
+    "version": "1.0.0",
+    "description": "blackcoffee level2 mission1",
+    "main": "index.js",
+    "repository": "https://github.com/mmtos/js-calculator",
+    "author": "mmtos <js223kr92@naver.com>",
+    "license": "MIT",
+    "devDependencies": {
+        "cypress": "^7.4.0"
+    }
+}
