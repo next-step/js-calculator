@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "cypress": "^7.4.0"
+  },
+  "name": "js-calculator",
+  "description": "<br/> <br/>",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hyewon3938/js-calculator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hyewon3938/js-calculator/issues"
+  },
+  "homepage": "https://github.com/hyewon3938/js-calculator#readme"
+}
