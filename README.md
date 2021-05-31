@@ -16,9 +16,7 @@
 
 ## 🔥 Projects!
 
-<p align="middle">
-  <img width="300" src="src/images/calculator_ui.png">
-</p>
+[![Netlify Status](https://api.netlify.com/api/v1/badges/e9909aac-1bf0-4cf5-b054-01bccc5ca382/deploy-status)](https://app.netlify.com/sites/mmtos-calculator/deploys)
 
 <p align="middle">
   <a href="https://next-step.github.io/js-calculator/">🖥️ 데모 링크</a>
