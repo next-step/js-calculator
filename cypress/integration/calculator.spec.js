@@ -1,4 +1,4 @@
-import { operation } from '../../src/utils/utils'
+import { operation, MESSAGE } from '../../src/utils/utils'
 
 Cypress.Commands.add('calculate', (type) => {
   cy.get('.digits').contains(1).click()
@@ -40,5 +40,18 @@ context('calculator', () => {
     cy.get('.digits').contains(1).click()
     cy.get('.modifier').click()
     cy.get('#total').should('have.text', 0)
+  })
+
+  it('숫자는 한번에 최대 3자리 수까지 입력 가능하다.', () => {
+    cy.get('.digits').contains(1).click()
+    cy.get('.digits').contains(1).click()
+    cy.get('.digits').contains(1).click()
+
+    const stub = cy.stub()
+    cy.on('window:alert', stub)
+    cy.get('.digits').contains(1).click()
+      .then(() => {
+        expect(stub.getCall(0)).to.be.calledWith(MESSAGE.DIGITS_ALERT_MESSAGE)
+      })
   })
 })
