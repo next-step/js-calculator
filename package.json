@@ -1,0 +1,11 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "cypress": "^6.2.1",
+    "http-server": "^0.12.3"
+  },
+  "repository": "https://github.com/inhyuck/js-calculator.git",
+  "license": "MIT"
+}
