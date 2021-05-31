@@ -1,48 +1,56 @@
 describe('test calculator', () => {
+    const clickDigit = (num) => {
+        cy.get('.digit').contains(num.toString()).click();
+    };
+
+    const clickOperator = (operator) => {
+        cy.get('.operation').contains(operator).click();
+    };
+
     before(() => {
         cy.visit('../../index.html');
     });
 
     it('click four digits', () => {
-        cy.get('.digit').contains('1').click();
-        cy.get('.digit').contains('2').click();
-        cy.get('.digit').contains('3').click();
-        cy.get('.digit').contains('4').click();
+        clickDigit(1);
+        clickDigit(2);
+        clickDigit(3);
+        clickDigit(4);
         cy.get('#total').should('have.text', '123');
     });
 
     it('test + operation', () => {
-        cy.get('.operation').contains('+').click();
-        cy.get('.digit').contains('5').click();
-        cy.get('.operation').contains('=').click();
+        clickOperator('+');
+        clickDigit(5);
+        clickOperator('=');
         cy.get('#total').should('have.text', '128');
     });
 
     it('test - operation', () => {
-        cy.get('.operation').contains('-').click();
-        cy.get('.digit').contains('6').click();
-        cy.get('.operation').contains('=').click();
+        clickOperator('-');
+        clickDigit(6);
+        clickOperator('=');
         cy.get('#total').should('have.text', '122');
     });
 
     it('test * operation', () => {
-        cy.get('.operation').contains('X').click();
-        cy.get('.digit').contains('7').click();
-        cy.get('.operation').contains('=').click();
+        clickOperator('X');
+        clickDigit(7);
+        clickOperator('=');
         cy.get('#total').should('have.text', '854');
     });
 
     it('test / operation', () => {
-        cy.get('.operation').contains('/').click();
-        cy.get('.digit').contains('7').click();
-        cy.get('.operation').contains('=').click();
+        clickOperator('/');
+        clickDigit(7);
+        clickOperator('=');
         cy.get('#total').should('have.text', '122');
     });
 
     it('test decimal point', () => {
-        cy.get('.operation').contains('/').click();
-        cy.get('.digit').contains('3').click();
-        cy.get('.operation').contains('=').click();
+        clickOperator('/');
+        clickDigit(3);
+        clickOperator('=');;
         cy.get('#total').should('have.text', '40');
     });
 
@@ -57,6 +65,4 @@ describe('test calculator', () => {
         cy.get('.modifiers').click();
         cy.get('#total').should('have.text', '0');
     });
-
-    // it('remove decimal point', () => {});
 });
