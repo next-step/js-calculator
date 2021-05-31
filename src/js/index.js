@@ -1,4 +1,4 @@
-import { $, operation } from '../utils/utils.js'
+import { $, operation, MESSAGE } from '../utils/utils.js'
 
 const total = $('#total')
 const digits = $('.digits')
@@ -16,6 +16,10 @@ const calculator = ({ operationArray, numberArray }) => {
     number = operation[operator](number, numberArray.shift())
   }
   total.innerText = number
+}
+
+const checkDigits= (digits) => {
+  return digits.split(/[+/X-]/).pop().length >= 3 ? true : false
 }
 
 const splitExpression = (expression) => {
@@ -37,6 +41,10 @@ const clickOperation = ({ target: el }) => {
 const clickDigit = ({ target: el }) => {
   const digit = el.innerText
   const display = total.innerText
+  if (checkDigits(display)) {
+    alert(MESSAGE.DIGITS_ALERT_MESSAGE)
+    return
+  }
   display === '0' ? total.innerText = digit : total.innerText += digit
 }
 
