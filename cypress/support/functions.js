@@ -17,9 +17,9 @@ function clickLog(displayName, value) {
     consoleProps: () => {
       return {
         '눌려진 값은....!!!': value,
-      }
+      };
     },
-  })
+  });
 }
 
 export { randomVal, randomOp, clickLog };

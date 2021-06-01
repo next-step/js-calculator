@@ -1,5 +1,4 @@
 import { $on, qs } from './utils/helpers.js';
-import { EVENT_TYPE } from './utils/constants.js';
 import Screen from './screen.js';
 
 export default function calculator() {
@@ -17,5 +16,5 @@ export default function calculator() {
     option[button.className](button.innerText);
   };
 
-  $on($calculator, EVENT_TYPE.CLICK, eventHandling);
+  $on($calculator, 'click', eventHandling);
 }
