@@ -1,4 +1,4 @@
-describe('js-calculator', () => {
+describe('plus', () => {
     beforeEach(() => {
         cy.visit('http://localhost:8080/');
     });
@@ -6,11 +6,11 @@ describe('js-calculator', () => {
     it('2개의 숫자에 대해 덧셈이 가능하다.', () => {
         cy.get('.digit + [value="7"]')
           .click();
-        cy.get('.operation + [value="+"]')
+        cy.get('[data-cy="plus"]')
           .click();
         cy.get('.digit + [value="3"]')
           .click();
-        cy.get('.operation + [value="="]')
+        cy.get('[data-cy="calculate"]')
           .click();
 
         cy.get('#total')

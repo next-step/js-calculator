@@ -105,3 +105,4 @@ dist
 
 # Cypress
 cypress/integration/examples/
+cypress/videos/

@@ -32,11 +32,11 @@ export default function Calculator({$el}) {
                     <button class="modifier">AC</button>
                 </div>
                 <div class="operations subgrid" data-click="operations">
-                    <button class="operation" value="${OPERATIONS.DIVIDE}">${OPERATIONS.DIVIDE}</button>
-                    <button class="operation" value="${OPERATIONS.MULTIPLY}">${OPERATIONS.MULTIPLY}</button>
-                    <button class="operation" value="${OPERATIONS.MINUS}">${OPERATIONS.MINUS}</button>
-                    <button class="operation" value="${OPERATIONS.PLUS}">${OPERATIONS.PLUS}</button>
-                    <button class="operation" value="${OPERATIONS.CALCULATE}">${OPERATIONS.CALCULATE}</button>
+                    <button class="operation" value="${OPERATIONS.DIVIDE}" data-cy="divide">${OPERATIONS.DIVIDE}</button>
+                    <button class="operation" value="${OPERATIONS.MULTIPLY}" data-cy="multiply">${OPERATIONS.MULTIPLY}</button>
+                    <button class="operation" value="${OPERATIONS.MINUS}" data-cy="minus">${OPERATIONS.MINUS}</button>
+                    <button class="operation" value="${OPERATIONS.PLUS}" data-cy="plus">${OPERATIONS.PLUS}</button>
+                    <button class="operation" value="${OPERATIONS.CALCULATE}" data-cy="calculate">${OPERATIONS.CALCULATE}</button>
                 </div>
             </div>
         `;
