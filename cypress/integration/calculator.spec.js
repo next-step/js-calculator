@@ -176,7 +176,37 @@ context("Calculator", () => {
     });
 
     it("계산 결과를 표현할 때 소수점 이하는 버림한다.", () => {
-      cy.get("#total").should(($total) => {
+      let lValue = "",
+        rValue = "";
+      for (let i = 0; i < 3; i++) {
+        cy.get(".digits")
+          .children()
+          .eq(Math.floor(Math.random() * 10))
+          .then(($number) => {
+            $number.trigger("click");
+            lValue += $number.text();
+          });
+      }
+
+      cy.get(".operation").each(($operation) => {
+        if ($operation.text().includes("/")) $operation.trigger("click");
+      });
+
+      for (let i = 0; i < 3; i++) {
+        cy.get(".digits")
+          .children()
+          .eq(Math.floor(Math.random() * 10))
+          .then(($number) => {
+            $number.trigger("click");
+            rValue += $number.text();
+          });
+      }
+
+      cy.get(".operation").each(($operation) => {
+        if ($operation.text().includes("=")) $operation.trigger("click");
+      });
+
+      cy.get("#total").then(($total) => {
         const result = Number($total.text());
         expect(Number.isInteger(result)).to.equal(true);
       });
