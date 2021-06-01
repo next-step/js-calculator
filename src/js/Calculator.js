@@ -1,3 +1,5 @@
+import { BUTTON_TYPE, ERROR_MESSAGES, OPERATOR, VALUE } from "./constants.js";
+
 const $ = (target) => {
   return document.querySelector(target);
 };
@@ -16,15 +18,16 @@ class Calculator {
 
   registerButtonClickHandler = () => {
     const buttons = document.querySelectorAll("button");
+    const { DIGIT, OPERATION, MODIFIER } = BUTTON_TYPE;
 
     buttons.forEach((button) => {
-      if (button.classList.contains("digit")) {
+      if (button.classList.contains(DIGIT)) {
         button.addEventListener("click", () => this._onClickDigit(button));
       }
-      if (button.classList.contains("operation")) {
+      if (button.classList.contains(OPERATION)) {
         button.addEventListener("click", () => this._onClickOperator(button));
       }
-      if (button.classList.contains("modifier")) {
+      if (button.classList.contains(MODIFIER)) {
         button.addEventListener("click", this._onClickModifier);
       }
     });
@@ -39,19 +42,19 @@ class Calculator {
       $("#total").innerHTML = `${this.curNumber}${this.operator}`;
       return;
     }
-    $("#total").innerHTML = "0";
+    $("#total").innerHTML = VALUE.DEFAULT_VALUE;
   }
 
   _onClickDigit = (target) => {
-    if (this.curNumber.length >= 3) {
-      return alert("숫자는 최대 3자리 수까지 입력 가능합니다.");
+    if (this.curNumber.length >= VALUE.DIGIT_LIMIT_LENGTH) {
+      return alert(ERROR_MESSAGES.DIGIT_LIMIT);
     }
     this.curNumber += target.innerHTML;
     this._render();
   };
 
   _onClickOperator = (target) => {
-    if (target.innerHTML === "=") {
+    if (target.innerHTML === OPERATOR.EQUAL) {
       const total = this._calculate(this.operator);
       this.curNumber = parseInt(total);
       this.prevNumber = "";
@@ -73,20 +76,22 @@ class Calculator {
   };
 
   _calculate = (operator) => {
-    const curNumber = this.curNumber ? parseInt(this.curNumber) : 0;
+    const curNumber = this.curNumber ? parseInt(this.curNumber) : VALUE.DEFAULT_VALUE;
     const prevNumber = parseInt(this.prevNumber);
 
+    const { SUM, SUB, MULTI, DIV } = OPERATOR;
+
     const calculate = {
-      "+": () => {
+      [SUM]: () => {
         return prevNumber + curNumber;
       },
-      "-": () => {
+      [SUB]: () => {
         return prevNumber - curNumber;
       },
-      X: () => {
+      [MULTI]: () => {
         return prevNumber * curNumber;
       },
-      "/": () => {
+      [DIV]: () => {
         return prevNumber / curNumber;
       },
     };
