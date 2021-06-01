@@ -1,57 +1,86 @@
-const calculator = document.querySelector('.calculator');
-const total = document.querySelector('#total');
-const modifier = document.querySelector('.modifier');
-const buttons = document.getElementsByClassName('digit');
-const operations = document.getElementsByClassName('operation');
+function calculator() {
+  const total = document.querySelector('#total');
+  const modifier = document.querySelector('.modifier');
+  const buttons = document.getElementsByClassName('digit');
+  const operations = document.getElementsByClassName('operation');
+  const result = document.querySelector('.result');
 
-let num1 = 0;
-let opertaion = null;
+  let num = '';
+  let prev = null;
+  let next = null;
+  let operation = null;
 
-function addNumber(e) {
-  if (total.innerText === '0') {
-    total.innerText = e.target.innerText;
-  } else if (total.innerText.length + 1 <= 3) {
-    total.innerText += e.target.innerText;
+  const reset = () => {
+    prev = null;
+    next = null;
+    operation = null;
+    total.innerText = '0';
+  };
+
+  const calculate = (prev, next, operation) => {
+    switch (operation) {
+      case '+':
+        return Number(prev) + Number(next);
+      case '-':
+        return Number(prev) - Number(next);
+      case 'X':
+        return Number(prev) * Number(next);
+      case '/':
+        return Number(prev) / Number(next);
+    }
+  };
+
+  const checkNumber = e => {
+    let input = e.target.innerText;
+    if (typeof Number(input) === 'number') {
+      num += input;
+    }
+
+    if (total.innerText === '0') {
+      total.innerText = input;
+    } else if (num.length <= 3) {
+      total.innerText += input;
+    } else {
+      window.alert('숫자는 3자리까지 입력가능합니다.');
+    }
+  };
+
+  const checkOperation = e => {
+    operation = e.target.innerText;
+    if (
+      total.innerText === '0' ||
+      isNaN(Number(total.innerText[total.innerText.length - 1]))
+    ) {
+      window.alert('숫자를 먼저 입력한 후 연산자를 입력해주세요.');
+    } else {
+      if (prev) {
+        prev = calculate(prev, num, operation);
+        console.log(prev);
+      } else {
+        prev = num;
+      }
+
+      total.innerText += operation;
+      num = '';
+    }
+  };
+
+  const showResult = () => {
+    let result = calculate(prev, num, operation);
+    total.innerText = `${result}`;
+  };
+
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('click', checkNumber);
   }
-}
 
-function resetNumber() {
-  total.innerText = '0';
-}
-
-function operateNumber(e) {
-  let selected = e.target.innerText;
-  console.log(opertaion);
-  switch (selected) {
-    case '+':
-      num1 = Number(total.innerText);
-      operation = selected;
-      break;
-    case '-':
-      console.log('빼기');
-      break;
-    case 'X':
-      console.log('곱하기');
-      break;
-    case '/':
-      console.log('나누기');
-      break;
-    case '=':
-      console.log('는?');
-      break;
-    default:
-      console.error('없는 연산자');
-      break;
+  for (let i = 0; i < operations.length; i++) {
+    operations[i].addEventListener('click', checkOperation);
   }
-  console.log(opertaion);
+
+  modifier.addEventListener('click', reset);
+
+  result.addEventListener('click', showResult);
 }
 
-for (let i = 0; i < buttons.length; i++) {
-  buttons[i].addEventListener('click', addNumber);
-}
-
-for (let i = 0; i < operations.length; i++) {
-  operations[i].addEventListener('click', operateNumber);
-}
-
-modifier.addEventListener('click', resetNumber);
+calculator();
