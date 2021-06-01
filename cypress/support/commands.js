@@ -31,22 +31,29 @@ Cypress.Commands.add('any', { prevSubject: 'element' }, (subject, size = 1) => {
 });
 
 Cypress.Commands.add('clickOp', (op = randomOp()) => {
-  console.log(op);
-  cy.get('.operations').contains(op).click();
+  cy.get('.operations', { log: false })
+    .contains(op, { log: false })
+    .click({ log: false });
+  clickLog('연산', op);
 });
 
-Cypress.Commands.add('run', () => {
-  cy.get('.operations').contains('=').click();
+Cypress.Commands.add('run', (answer) => {
+  cy.get('.operations', { log: false })
+    .contains('=', { log: false })
+    .click({ log: false });
 });
 
 Cypress.Commands.add('clickDigits', (digits) => {
   String(digits)
     .split('')
-    .forEach((digit) => cy.get(`[data-cy=${digit}]`).click());
+    .forEach((digit) =>
+      cy.get(`[data-cy=${digit}]`, { log: false }).click({ log: false })
+    );
+  clickLog('value', digits);
 });
 
 Cypress.Commands.add('clear', () => {
-  cy.get('[data-cy="AC"]').click();
+  cy.get('[data-cy="AC"]', { log: false }).click({ log: false });
 });
 
 Cypress.Commands.add('calculatorTest', (op, times) => {
@@ -60,8 +67,8 @@ Cypress.Commands.add('calculatorTest', (op, times) => {
     cy.clickDigits(leftSide);
     cy.clickOp(op);
     cy.clickDigits(rightSide);
-    cy.run();
-    cy.get('#total').should('have.text', String(answer));
+    cy.run(answer);
+    cy.get('#total', { log: false }).should('have.text', String(answer));
   }
 });
 
@@ -69,6 +76,6 @@ Cypress.Commands.add('allClearTest', (times) => {
   for (let i = 0; i < times; i++) {
     cy.clickDigits(randomVal(0, 1000));
     cy.clear();
-    cy.get('#total').should('have.text', '0');
+    cy.get('#total', { log: false }).should('have.text', '0');
   }
 });
