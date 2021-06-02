@@ -1,5 +1,5 @@
 describe('사칙 연산 테스트', () => {
-  const REPEAT = Cypress.env('REPEAT');
+  const REPEAT = +Cypress.env('REPEAT');
   beforeEach(() => {
     cy.visit('/');
   });

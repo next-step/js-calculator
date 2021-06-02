@@ -1,7 +1,7 @@
 {
   "baseUrl": "http://localhost:5500",
   "env": {
-    "REPEAT": "2",
+    "REPEAT": "5",
     "DIGIT_FIRST": "숫자를 먼저 입력한 후 연산자를 입력해주세요!",
     "ALERT": {
       "OVER": "no more 3",

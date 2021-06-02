@@ -1,19 +1,27 @@
 import { randomVal, randomOp, clickLog } from './functions.js';
 
 Cypress.Commands.add('plusTest', (times) => {
-  cy.calculatorTest('+', times);
+  [...Array(times).keys()].forEach(() => {
+    cy.calculatorTest('+');
+  });
 });
 
 Cypress.Commands.add('minusTest', (times) => {
-  cy.calculatorTest('-', times);
+  [...Array(times).keys()].forEach(() => {
+    cy.calculatorTest('-');
+  });
 });
 
 Cypress.Commands.add('multiplyTest', (times) => {
-  cy.calculatorTest('X', times);
+  [...Array(times).keys()].forEach(() => {
+    cy.calculatorTest('X');
+  });
 });
 
 Cypress.Commands.add('divideTest', (times) => {
-  cy.calculatorTest('/', times);
+  [...Array(times).keys()].forEach(() => {
+    cy.calculatorTest('/');
+  });
 });
 
 Cypress.Commands.add('any', { prevSubject: 'element' }, (subject, size = 1) => {
@@ -56,26 +64,24 @@ Cypress.Commands.add('clear', () => {
   cy.get('[data-cy="AC"]', { log: false }).click({ log: false });
 });
 
-Cypress.Commands.add('calculatorTest', (op, times) => {
-  for (let i = 0; i < times; i++) {
-    cy.clear();
-    const leftSide = randomVal(0, 1000);
-    const rightSide = randomVal(0, 1000);
-    const answer = Math.floor(
-      eval(`${leftSide} ${op === 'X' ? '*' : op} ${rightSide}`)
-    );
-    cy.clickDigits(leftSide);
-    cy.clickOp(op);
-    cy.clickDigits(rightSide);
-    cy.run(answer);
-    cy.get('#total', { log: false }).should('have.text', String(answer));
-  }
+Cypress.Commands.add('calculatorTest', (op) => {
+  cy.clear();
+  const leftSide = randomVal(0, 1000);
+  const rightSide = randomVal(0, 1000);
+  const answer = Math.floor(
+    eval(`${leftSide} ${op === 'X' ? '*' : op} ${rightSide}`)
+  );
+  cy.clickDigits(leftSide);
+  cy.clickOp(op);
+  cy.clickDigits(rightSide);
+  cy.run(answer);
+  cy.get('#total', { log: false }).should('have.text', String(answer));
 });
 
 Cypress.Commands.add('allClearTest', (times) => {
-  for (let i = 0; i < times; i++) {
+  [...Array(times).keys()].forEach(() => {
     cy.clickDigits(randomVal(0, 1000));
     cy.clear();
     cy.get('#total', { log: false }).should('have.text', '0');
-  }
+  });
 });
