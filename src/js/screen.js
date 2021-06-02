@@ -1,3 +1,5 @@
+import { maxLength } from './utils/constants.js';
+
 export default function Screen(result) {
   this.leftSide = '';
   this.rightSide = '';
@@ -12,7 +14,7 @@ export default function Screen(result) {
 
   this.setOperand = (digit) => {
     let current = this.op ? this.rightSide : this.leftSide;
-    if (current.length >= 3) return alert('no more 3');
+    if (current.length >= maxLength) return alert('no more 3');
     else if (current === '' && digit === '0') return;
     current += digit;
     this.op ? (this.rightSide = current) : (this.leftSide = current);
