@@ -11,8 +11,6 @@ const changeExpression = ({ display }, expression) => {
   return display + expression
 }
 
-const expressions = ['+', '-', 'X', '/']
-
 const calculateDisplay = (display) => {
   if (isLastInsertedExpression(display)) {
     display = parseLastExpression(display)
