@@ -17,6 +17,11 @@
   },
   "homepage": "https://github.com/seows2/js-calculator#readme",
   "devDependencies": {
-    "cypress": "^7.6.0"
+    "babel-eslint": "^10.1.0",
+    "cypress": "^7.6.0",
+    "eslint": "^7.30.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "2.3.2"
   }
 }
