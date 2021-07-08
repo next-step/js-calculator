@@ -1,0 +1,22 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "description": "level2 JS with TEST",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seows2/js-calculator.git"
+  },
+  "author": "SeoWS2",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/seows2/js-calculator/issues"
+  },
+  "homepage": "https://github.com/seows2/js-calculator#readme",
+  "devDependencies": {
+    "cypress": "^7.6.0"
+  }
+}
