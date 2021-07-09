@@ -30,6 +30,7 @@ body {
 button {
   font-size: 2rem;
   border: 0.5px solid #98999b;
+  cursor: pointer;
 }
 
 .modifiers button {
