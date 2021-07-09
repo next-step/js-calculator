@@ -15,38 +15,29 @@ export default function Calculator() {
     onClickAC();
   };
 
-  const digits = document.querySelector(".digits");
-  const operations = document.querySelector(".operations");
-  const modifier = document.querySelector(".modifier");
-  const total = document.querySelector("#total");
+  const $ = selector => document.querySelector(selector);
+  const $digits = $(".digits");
+  const $operations = $(".operations");
+  const $modifier = $(".modifier");
 
   const onClickDigit = () => {
-    digits.addEventListener("click", e => {
+    $digits.addEventListener("click", e => {
       addDigit(e.target.value);
     });
   };
 
   const onClickOperation = () => {
-    operations.addEventListener("click", e => {
+    $operations.addEventListener("click", e => {
       if (
         !!state.clickedDigits[1] &&
-        e.target.innerText === OPERATIONS.CALCULATE
+        e.target.textContent === OPERATIONS.CALCULATE
       ) {
         calculateDigits();
+        displayState();
+        return;
       }
-      addOperation(e.target.innerText);
+      addOperation(e.target.textContent);
     });
-  };
-
-  const calculateDigits = () => {
-    const result = ComputedData(
-      state.operation,
-      state.clickedDigits[0],
-      state.clickedDigits[1]
-    );
-    resetState();
-    state.result = result;
-    displayState();
   };
 
   const addDigit = digit => {
@@ -59,19 +50,38 @@ export default function Calculator() {
       return;
     }
 
-    clickedDigits[hasOperation] = parseInt(clickedDigits[hasOperation] + digit);
+    if (!!result && !operation) {
+      resetState();
+    }
+
+    state.clickedDigits[hasOperation] = Number(
+      state.clickedDigits[hasOperation] + digit
+    );
+
     displayState();
   };
 
   const addOperation = operation => {
     if (operation !== OPERATIONS.CALCULATE) {
-      if (state.clickedDigits[0] === 0 && !!state.result) {
-        state.clickedDigits[0] = state.result;
-        state.result = "";
+      if (!!state.clickedDigits[1] && state.operation) {
+        calculateDigits();
       }
+
       state.operation = operation;
     }
     displayState();
+  };
+
+  const calculateDigits = () => {
+    const result = ComputedData(
+      state.operation,
+      state.clickedDigits[0],
+      state.clickedDigits[1]
+    );
+    resetState();
+    state.clickedDigits[0] = result;
+    state.result = result;
+    return result;
   };
 
   const resetState = () => {
@@ -81,7 +91,7 @@ export default function Calculator() {
   };
 
   const onClickAC = () => {
-    modifier.addEventListener("click", e => {
+    $modifier.addEventListener("click", e => {
       resetState();
       displayState();
     });
