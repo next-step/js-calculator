@@ -8,10 +8,20 @@ const calculate = {
   '/': (number1, number2) => parseInt(number1 / number2),
 };
 
+function renderTotal() {
+  let text = '';
+  for (let i = 0; i < stack.length; i++) {
+    text += stack[i];
+  }
+  console.log(text);
+  $total.textContent = text === '' ? 0 : text;
+}
+
 function clickNumber({ target }) {
   const number = target.textContent;
   if (stack.length === 0 || !/\d+/.test(stack[stack.length - 1])) {
     stack.push(number);
+    renderTotal();
     console.log(stack);
     return;
   } else {
@@ -23,8 +33,11 @@ function clickNumber({ target }) {
         alert('숫자는 3글자까지만 가능');
         return;
       }
+
+      if (value == 0) value = '';
       value = '' + value + number;
       stack.push(value);
+      renderTotal();
     } else {
       stack.push(value);
     }
@@ -38,16 +51,22 @@ const clickOperation = ({ target }) => {
 
   if (operation === '=') {
     console.log(stack);
+    if (stack.length < 3) {
+      if (!/\d+/gi.test(stack[stack.length - 1])) stack.pop();
+      renderTotal();
+
+      return;
+    }
     const number2 = stack.pop();
     const oper = stack.pop();
     const number1 = stack.pop();
 
-    console.log(number1, oper, number2, '=', calculate[oper](+number1, +number2));
-
-    stack.push(calculate[oper](+number1, +number2));
+    const result = calculate[oper](+number1, +number2);
+    console.log(number1, oper, number2, '=', result);
+    stack.push(result);
+    renderTotal();
 
     console.log(stack);
-
     return;
   }
 
@@ -61,6 +80,7 @@ const clickOperation = ({ target }) => {
   console.log(stack, operation);
 
   console.log('click', target.textContent);
+  renderTotal();
 };
 
 const clickAllClear = ({ target }) => {
@@ -68,6 +88,7 @@ const clickAllClear = ({ target }) => {
     stack.pop();
   }
   console.log('click', target.textContent, stack);
+  renderTotal();
 };
 
 console.log('Hello JS');
@@ -75,6 +96,8 @@ console.log('Hello JS');
 const $digits = $('.digits');
 const $modifier = $('.modifier');
 const $operations = $('.operations');
+const $total = $('#total');
+// console.log($total);
 
 $digits.addEventListener('click', clickNumber);
 $operations.addEventListener('click', clickOperation);
