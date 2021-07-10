@@ -1,6 +1,6 @@
 describe('My Calculator Test', () => {
   beforeEach(()=>{
-    cy.visit('http://192.168.40.78:5500/index.html');
+    cy.visit('http://192.168.35.80:5500/index.html');
   })
   
   it('두 개의 숫자를 더한다', () => {
