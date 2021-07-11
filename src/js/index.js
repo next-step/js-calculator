@@ -8,6 +8,7 @@ class Calculator{
 
     constructor({digitArr, operArr, modifier, total}){
         this.total = total;
+        this.init();
 
         digitArr.forEach(digit => digit.addEventListener('click', (e) => {
             const num = e.currentTarget.textContent;
@@ -42,7 +43,7 @@ class Calculator{
                             break;
                         //equals
                         case "=":
-                            this.store.calculate();
+                            this.calculate();
                             break;
                     }
                 }
@@ -53,7 +54,6 @@ class Calculator{
         modifier.addEventListener('click', (e) => {
             this.store.allClear();
         });
-        this.init();
     }
 
     init(){
@@ -71,32 +71,6 @@ class Calculator{
                 this.store.equationStack.push(oper);
                 this.display();
             },
-            calculate : () => {
-                if(this.store.equationStack.length === 2) {
-                    const prev = Number.parseInt(this.store.equationStack[0]);
-                    const oper = this.store.equationStack[1];
-                    const next = Number.parseInt(this.store.digitStack.join(''));
-                    this.store.allClear();
-                    switch(oper){
-                        //division
-                        case "/":
-                            this.display(Math.floor(prev/next));
-                            break;
-                        //multiply
-                        case "X":
-                            this.display(prev*next);
-                            break;
-                        //minus
-                        case "-":
-                            this.display(prev-next);
-                            break;
-                        //plus
-                        case "+":
-                            this.display(prev+next);
-                            break;
-                    }
-                }
-            },
             allClear : () => {
                 this.store.digitStack = [];
                 this.store.equationStack = [];
@@ -104,7 +78,32 @@ class Calculator{
             },
         };
     }
-
+    calculate(){
+        if(this.store.equationStack.length === 2) {
+            const prev = Number.parseInt(this.store.equationStack[0]);
+            const oper = this.store.equationStack[1];
+            const next = Number.parseInt(this.store.digitStack.join(''));
+            this.store.allClear();
+            switch(oper){
+                //division
+                case "/":
+                    this.display(Math.floor(prev/next));
+                    break;
+                //multiply
+                case "X":
+                    this.display(prev*next);
+                    break;
+                //minus
+                case "-":
+                    this.display(prev-next);
+                    break;
+                //plus
+                case "+":
+                    this.display(prev+next);
+                    break;
+            }
+        }
+    }
 
     validDigit(){
         
