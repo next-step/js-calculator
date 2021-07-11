@@ -1,0 +1,11 @@
+{
+  "extends": "../tsconfig",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"],
+    },
+    "types": ["cypress", "node"]
+  },
+  "include": ["**/*.ts"]
+}
