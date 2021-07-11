@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "@testing-library/cypress": "^7.0.6",
+    "cypress": "^7.7.0"
+  },
+  "dependencies": {
+    "global": "^4.4.0",
+    "parcel-bundler": "^1.12.5"
+  }
+}
