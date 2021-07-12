@@ -27,9 +27,15 @@ class NumberInput {
     return this.currentValue.length < MAX_NUMBERS_LENGTH;
   }
 
+  alertError() {
+    if(this.isValid()) return;
+    alert('숫자는 세 자리까지만 입력 가능합니다!');
+  }
+
   input(num) {
     this.currentValue = DISPLAY.innerText;
     if (!this.isValid()) {
+      this.alertError();
       return;
     }
 
@@ -43,17 +49,22 @@ class NumberInput {
 }
 
 class OperatorInput {
-
   isValid() {
     this.currentValue = DISPLAY.innerText;
     const lastIndex = this.currentValue.length - 1;
     const lastChar = this.currentValue[lastIndex];
 
-    return !isNaN(lastChar);
+    return !isNaN(lastChar) && this.currentValue !== '0';
+  }
+
+  alertError() {
+    if (this.isValid()) return;
+    alert('숫자를 먼저 입력한 후 연산자를 입력해주세요!');
   }
 
   input(operator) {
     if (!this.isValid()) {
+      this.alertError();
       return;
     }
     DISPLAY.innerText += operator;
@@ -83,7 +94,7 @@ class Calculate{
 
 class Calculator{
   constructor(targetElem) {
-    this.$ttargetElem = $(targetElem);
+    this.$targetElem = $(targetElem);
     this.$targetElem.addEventListener('click', this.handleClickBtn.bind(this));
 
     this.numberInput = new NumberInput();
