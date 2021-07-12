@@ -12,10 +12,6 @@ const OPERATOR_ARR = Object.keys(OPERATOR_OBJ);
 const MAX_NUMBERS_LENGTH = 3;
 
 class NumberInput {
-  constructor() {
-    this.currentValue = DISPLAY.innerText;
-  }
-
   isValid() {
     this.currentValue = DISPLAY.innerText;
     const operator = [...this.currentValue]
@@ -47,9 +43,6 @@ class NumberInput {
 }
 
 class OperatorInput {
-  constructor() {
-    this.currentValue = DISPLAY.innerText;
-  }
 
   isValid() {
     this.currentValue = DISPLAY.innerText;
@@ -89,14 +82,13 @@ class Calculate{
 }
 
 class Calculator{
-  constructor(target) {
-    this.display = DISPLAY;
-    this.$target = $(target);
+  constructor(targetElem) {
+    this.$ttargetElem = $(targetElem);
+    this.$targetElem.addEventListener('click', this.handleClickBtn.bind(this));
+
     this.numberInput = new NumberInput();
     this.operatorInput = new OperatorInput();
     this.calculateObj = new Calculate();
-
-    this.$target.addEventListener('click', this.handleClickBtn.bind(this))
   }
 
   input(value) {
@@ -112,7 +104,7 @@ class Calculator{
   }
 
   clearAll() {
-
+    DISPLAY.innerText = '0';
   }
 
   handleClickBtn({target}) {
