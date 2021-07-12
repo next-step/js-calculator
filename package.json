@@ -1,0 +1,23 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "description": "<br/> <br/>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server -p 8088"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soso01/js-calculator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/soso01/js-calculator/issues"
+  },
+  "homepage": "https://github.com/soso01/js-calculator#readme",
+  "dependencies": {
+    "http-server": "^0.12.3"
+  }
+}
