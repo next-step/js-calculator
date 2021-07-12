@@ -6,88 +6,92 @@ describe('My Calculator Test', () => {
   })
   
   it('두 개의 숫자를 더한다', () => {
-    cy.get('.digit6').click();
-    cy.get('.operation').contains('+').click();
-    cy.get('.digit3').click();
+    const [testExpression, result] = ['61+35', 61+35];
+
+    inputExpression(testExpression);
 
     cy.contains('=').click();
 
-    cy.get('#total').should('have.text', 9);
+    sholudDisplay(result);
 
   })
 
   it('두 개의 숫자를 뺀다', () => {
-    cy.get('.digit1').click();
-    cy.get('.operation').contains('-').click();
-    cy.get('.digit3').click();
+    const [testExpression, result] = ['21-15', 21-15];
+
+    inputExpression(testExpression);
 
     cy.contains('=').click();
-    cy.get('#total').should('have.text', -2);
+
+    sholudDisplay(result);
   })
 
   it('두 개의 숫자를 곱한다', () => {
-    cy.get('.digit5').click();
-    cy.get('.operation').contains('X').click();
-    cy.get('.digit7').click();
+    const [testExpression, result] = ['16X31', 16*31];
+
+    inputExpression(testExpression);
 
     cy.contains('=').click();
-    cy.get('#total').should('have.text', 35);
+
+    sholudDisplay(result);
   })
 
   it('두 개의 숫자를 나눈다', () => {
-    cy.get('.digit9').click();
-    cy.get('.operation').contains('/').click();
-    cy.get('.digit3').click();
+    const [testExpression, result] = ['125/5', 125/5];
+
+    inputExpression(testExpression);
 
     cy.contains('=').click();
-    cy.get('#total').should('have.text', 3);
+
+    sholudDisplay(result);
   })
 
   it('AC버튼읗 누르면 디스플레이 값이 0으로 초기화 된다', () => {
     cy.get('.modifier').click();
     
     cy.contains('=').click();
-    cy.get('#total').should('have.text', 0);
+    sholudDisplay(0);
   })
 
   it('숫자는 연속해서 최대 3자리 수까지만 입력가능하다 ', () => {
-    cy.get('.digit1').click();
-    cy.get('.digit2').click();
-    cy.get('.digit3').click();
-    cy.get('.digit4').click();
+    const [testExpression, result] = ['1234', 123];
+    inputExpression(testExpression);
 
     cy.on('window: alert', (txt) => {
       expect(txt).to.contains(MAX_LENGTH_NUMBERS_EXCEEDED_ERROR)
     })
-    cy.get('#total').should('have.text', 123);
+
+    sholudDisplay(result);
   })
 
-  it('계산 결과가 음수가 나왔을 때 "-" 연산자를 입력후 숫자를 입력해도 최대  3자리 수까지만 입력 가능하다', () => {
-    cy.get('.digit3').click();
-    cy.get('.operation').contains('-').click();
-    cy.get('.digit9').click();
-    cy.contains('=').click();
-
-    cy.get('.operation').contains('-').click();
-    
-    cy.get('.digit4').click();
-    cy.get('.digit5').click();
-    cy.get('.digit6').click();
-    cy.get('.digit9').click();
-
-    cy.on('window: alert', (txt) => {
-      expect(txt).to.contains(MAX_LENGTH_NUMBERS_EXCEEDED_ERROR)
-    })
-    cy.get('#total').should('have.text', '-6-456');
-  })
-  
   it('계산 결과를 표현할 때 소수점이하는 버린다.', () => {
-    cy.get('.digit1').click();
-    cy.get('.operation').get('.digit2').click();
-    cy.contains('/').click();
-    cy.get('.digit5').click();
+
+    const [testExpression, result] = ['123/10', Math.floor(123/10)];
+
+    inputExpression(testExpression);
 
     cy.contains('=').click();
-    cy.get('#total').should('have.text', 2);
+
+    sholudDisplay(result);
   })
 })
+
+function inputExpression(testExpression) {
+  [...testExpression].forEach(char => clickChar(char));
+
+}
+
+function clickChar(char) {
+  if (isNaN(char)) {
+    const operator = char;
+    cy.get('.operation').contains(operator).click();
+    return;
+  }
+  const number = char;
+  cy.get('.digit').contains(number).click();
+  return;
+}
+
+function sholudDisplay(result) {
+  cy.get('#total').should('have.text', result);
+}
