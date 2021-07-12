@@ -12,6 +12,7 @@ export const digitClickHandler = {
         return operland.length < MAX_RESULT_LEN;
     },
     handle(target, $result) {
+        // 3자리 다 입력했는지 체크
         if (!this.isAcceptable())
             return;
         if (!target.textContent)
@@ -40,6 +41,7 @@ export const operationClickHandler = {
             result = lValue / rValue;
         else
             return;
+        // 소수점 버림
         this.$result.textContent = `${Math.floor(result)}`;
     },
     shouldAcceptLOperand() {
@@ -50,15 +52,18 @@ export const operationClickHandler = {
     },
     handle(target, $result) {
         this.$result = $result;
+        // 계산결과 확인
         if (target.textContent === "=" /* Eq */) {
             return this.handleClickEq();
         }
+        // 음수 입력
         if (target.textContent === "-" /* Sub */) {
             if (this.shouldAcceptLOperand())
                 return (lSign *= -1 /* Minus */);
             if (this.shouldAcceptROperland())
                 return (rSign *= -1 /* Minus */);
         }
+        // 그 외의 경우, 연산자 입력
         operator = target.textContent;
     },
 };
