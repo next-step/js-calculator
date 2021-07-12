@@ -37,3 +37,4 @@ export default class NumberInput {
     DISPLAY.innerText += num;
   }
 }
+

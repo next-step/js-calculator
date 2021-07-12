@@ -20,3 +20,4 @@ export default class Calculate{
     DISPLAY.innerText = calculatedValue;
   }
 }
+
