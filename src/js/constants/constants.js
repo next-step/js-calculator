@@ -9,3 +9,11 @@ export const OPERATOR = {
   DIVIDE: '/',
   EQUAL: '=',
 };
+
+export const OPERATION = {
+  [OPERATOR.PLUS]: 'plus',
+  [OPERATOR.MINUS]: 'minus',
+  [OPERATOR.MULTIPLY]: 'multiply',
+  [OPERATOR.DIVIDE]: 'divide',
+  [OPERATOR.EQUAL]: 'equal',
+}
