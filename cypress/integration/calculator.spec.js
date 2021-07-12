@@ -2,7 +2,7 @@ import {INPUT_OPERATION_WITHOUT_NUMBER_ERROR, MAX_LENGTH_NUMBERS_EXCEEDED_ERROR}
 
 describe('My Calculator Test', () => {
   beforeEach(()=>{
-    cy.visit('http://192.168.56.1:5500/index.html');
+    cy.visit('/');
   })
   
   it('두 개의 숫자를 더한다', () => {
