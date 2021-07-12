@@ -68,9 +68,9 @@ This project is [MIT](https://github.com/next-step/js-calculator/blob/master/LIC
 
 ### cypess with testing-library
 
--   테스팅 라이브러리를 사이프레스와 함께 사용하기로 했다 그 이유는
-    1. react testing에서도 testing-library를 폭넓게 사용하기 때문. 현재 리액트를 주로 사용하는 기업에 재직중 이기 때문에 해당 스택이 나에게 맞는것 같다.
-    2. 구현의존적이지 않는 query 동작방식 - cy.get()은 기본적으로 선택자를 기준으로 dom을 탐색하는 방식이므로 구현 상황에서 선택자의 구조가 바뀔때마다 test code 역시 depency가 강하계 엮여있어 수정해야한다. 반면 testing-library는 user-interface 중심의 접근 방식으로(role을 이용한 접근 혹은 textValue로 접근하는 방식 등) 구현의존적이지 않아 실제 코드가 변경되어도 test code를 바꾸지 않아도 된다.
+-   `testing-library`를 'cypress'와 함께 사용하기로 했다 그 이유는
+    1. `react testing`에서도 `testing-library`를 폭넓게 사용하기 때문. 현재 리액트를 주로 사용하는 기업에 재직중 이기 때문에 해당 스택이 나에게 맞는것 같다.
+    2. 구현의존적이지 않는` query` 동작방식 - `cy.get()`은 기본적으로 선택자를 기준으로` dom`을 탐색하는 방식이므로 구현 상황에서 선택자의 구조가 바뀔때마다 `test code` 역시 `dependency`가 강하게 엮여있어 수정해야한다. 반면 `testing-library`는 `user-interface` 중심의 접근 방식으로(`role`을 이용한 접근 혹은 `textValue`로 접근하는 방식 등) 구현의존적이지 않아 실제 코드가 변경되어도 `test code`를 바꾸지 않아도 된다.
 
 ### 테스트 시작 방법
 

@@ -1,9 +1,11 @@
+import {DIGIT_REGEX, EMPTY_VALUE, MAX_LENGTH, OPERATIONS_REGEX} from './constant';
+
 const add = (a, b) => a + b;
 const substract = (a, b) => a - b;
 const multiple = (a, b) => a * b;
 const divide = (a, b) => a / b;
 
-export const isDigit = (value) => /[0-9]/.test(value);
+const isDigit = (value) => DIGIT_REGEX.test(value);
 
 export const calMapper = {
 	x: multiple,
@@ -13,18 +15,19 @@ export const calMapper = {
 	'/': divide,
 };
 
-export const isDigitValid = ($total) => {
-	const {b} = parseTotal($total);
-	return !b || b.length < 3;
-};
-export const hasOperation = ($total) => {
-	return /[\/X\-\+]/i.test($total.innerHTML);
-};
 export const parseTotal = ($total) => {
 	if (!hasOperation($total)) {
-		return {a: '', operation: '', b: $total.innerHTML};
+		return {a: EMPTY_VALUE, operation: EMPTY_VALUE, b: $total.innerHTML};
 	}
-	const operation = $total.innerHTML.match(/[\/X\-\+]/i)[0];
-	const [a, b] = $total.innerHTML.split(/[\/X\-\+]/i);
+	const operation = $total.innerHTML.match(OPERATIONS_REGEX)[0];
+	const [a, b] = $total.innerHTML.split(OPERATIONS_REGEX);
 	return {a, operation, b};
+};
+
+export const isDigitValid = ($total) => {
+	const {b} = parseTotal($total);
+	return !b || b.length < MAX_LENGTH;
+};
+export const hasOperation = ($total) => {
+	return OPERATIONS_REGEX.test($total.innerHTML);
 };

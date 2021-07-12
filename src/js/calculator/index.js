@@ -1,16 +1,21 @@
+import {
+	INIT_TOTAL,
+	MAX_SIZE_DIGIT_INPUT_MESSAGE,
+	CALCULATE_ONE_AT_ONCE_MESSAGE,
+} from './constant.js';
 import {isDigit, calMapper, isDigitValid, hasOperation, parseTotal} from './helper.js';
 
 const resetTotal = ($total) => {
-	$total.innerHTML = '0';
+	$total.innerHTML = INIT_TOTAL;
 };
 
 const appendDigitToTotal = ($total, value) => {
 	if (!isDigitValid($total)) {
-		alert('숫자는 최대 3자리수만 입력 가능합니다.');
+		alert(MAX_SIZE_DIGIT_INPUT_MESSAGE);
 		return;
 	}
 	const {a, operation, b} = parseTotal($total);
-	if (b == '0') {
+	if (b == INIT_TOTAL) {
 		$total.innerHTML = a + operation + value;
 		return;
 	}
@@ -18,7 +23,7 @@ const appendDigitToTotal = ($total, value) => {
 };
 const appendOperatorToTotal = ($total, value) => {
 	if (hasOperation($total)) {
-		alert('한 번에 하나의 연산만 할 수 있습니다.');
+		alert(CALCULATE_ONE_AT_ONCE_MESSAGE);
 		return false;
 	}
 	$total.innerHTML += value;
