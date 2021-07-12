@@ -1,32 +1,36 @@
 const $ = (selector) => document.querySelector(selector);
+
 const DISPLAY = $('#total');
 const OPERATORS = ['+', '-', 'X', '/'];
 const MAX_NUMBERS_LENGTH = 3;
 
-class NumberInput{
+class NumberInput {
   constructor() {
     this.currentValue = DISPLAY.innerText;
   }
 
   isValid() {
-    const operator = [...this.currentValue].find(char => OPERATORS.includes(char))
+    this.currentValue = DISPLAY.innerText;
+    const operator = [...this.currentValue]
+                      .reverse()                                          
+                      .find(char => OPERATORS.includes(char));
     
     if (operator) {
       const splitedValues = this.currentValue.split(operator);
-      return splitedValues[1].length < MAX_NUMBERS_LENGTH-1; 
+      console.log(splitedValues[1].length < MAX_NUMBERS_LENGTH)
+      return splitedValues[1].length < MAX_NUMBERS_LENGTH; 
     }
 
-    return this.currentValue.length < MAX_NUMBERS_LENGTH-1;
+    return this.currentValue.length < MAX_NUMBERS_LENGTH;
   }
 
   input(num) {
+    this.currentValue = DISPLAY.innerText;
     if (!this.isValid()) {
       return;
     }
 
-    this.currentValue = DISPLAY.innerText;
-    
-    if (!(+this.currentValue)) {
+    if (this.currentValue === '0') {
       DISPLAY.innerText = num;
       return;
     }
@@ -35,15 +39,42 @@ class NumberInput{
   }
 }
 
+class OperatorInput {
+  constructor() {
+    this.currentValue = DISPLAY.innerText;
+  }
+
+  isValid() {
+    this.currentValue = DISPLAY.innerText;
+    const lastIndex = this.currentValue.length - 1;
+    const lastChar = this.currentValue[lastIndex];
+
+    return !isNaN(lastChar);
+  }
+
+  input(operator) {
+    if (!this.isValid()) {
+      return;
+    }
+    DISPLAY.innerText += operator;
+  }
+}
+
 class Calculator{
   constructor(target) {
     this.display = DISPLAY;
     this.$target = $(target);
     this.numberInput = new NumberInput();
+    this.operatorInput = new OperatorInput();
+
     this.$target.addEventListener('click', this.handleClickBtn.bind(this))
   }
 
   input(value) {
+    if (isNaN(value)) {
+      this.operatorInput.input(value);
+      return;  
+    }
     this.numberInput.input(value);
   }
 
