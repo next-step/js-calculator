@@ -1,0 +1,24 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "description": "<br/>\r <br/>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "e2e": "./node_modules/.bin/cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KIMSEUNGGYU/js-calculator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KIMSEUNGGYU/js-calculator/issues"
+  },
+  "homepage": "https://github.com/KIMSEUNGGYU/js-calculator#readme",
+  "devDependencies": {
+    "cypress": "^7.7.0"
+  }
+}
