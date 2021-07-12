@@ -1,3 +1,5 @@
+const { chownSync } = require('fs');
+
 describe('My Calculator Test', () => {
   beforeEach(()=>{
     cy.visit('http://192.168.56.1:5500/index.html');
@@ -54,10 +56,30 @@ describe('My Calculator Test', () => {
     cy.get('.digit3').click();
     cy.get('.digit4').click();
 
-    cy.contains('=').click();
+    cy.on('window: alert', (txt) => {
+      expect(txt).to.contains('숫자는 세 자리까지만 입력 가능합니다!')
+    })
     cy.get('#total').should('have.text', 123);
   })
 
+  it('계산 결과가 음수가 나왔을 때 "-" 연산자를 입력후 숫자를 입력해도 최대  3자리 수까지만 입력 가능하다', () => {
+    cy.get('.digit3').click();
+    cy.contains('-').click();
+    cy.get('.digit9').click();
+    cy.contains('=').click();
+
+    cy.contains('-').click();
+    cy.get('.digit4').click();
+    cy.get('.digit5').click();
+    cy.get('.digit6').click();
+    cy.get('.digit9').click();
+
+    cy.on('window: alert', (txt) => {
+      expect(txt).to.contains('숫자는 세 자리까지만 입력 가능합니다!')
+    })
+    cy.get('#total').should('have.text', 456);
+  })
+  
   it('계산 결과를 표현할 때 소수점이하는 버린다.', () => {
     cy.get('.digit1').click();
     cy.get('.digit2').click();
