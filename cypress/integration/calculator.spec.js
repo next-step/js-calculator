@@ -1,5 +1,3 @@
-const { chownSync } = require('fs');
-
 describe('My Calculator Test', () => {
   beforeEach(()=>{
     cy.visit('http://192.168.56.1:5500/index.html');
@@ -7,7 +5,7 @@ describe('My Calculator Test', () => {
   
   it('두 개의 숫자를 더한다', () => {
     cy.get('.digit6').click();
-    cy.contains('+').click();
+    cy.get('.operation').contains('+').click();
     cy.get('.digit3').click();
 
     cy.contains('=').click();
@@ -18,7 +16,7 @@ describe('My Calculator Test', () => {
 
   it('두 개의 숫자를 뺀다', () => {
     cy.get('.digit1').click();
-    cy.contains('-').click();
+    cy.get('.operation').contains('-').click();
     cy.get('.digit3').click();
 
     cy.contains('=').click();
@@ -27,7 +25,7 @@ describe('My Calculator Test', () => {
 
   it('두 개의 숫자를 곱한다', () => {
     cy.get('.digit5').click();
-    cy.contains('X').click();
+    cy.get('.operation').contains('X').click();
     cy.get('.digit7').click();
 
     cy.contains('=').click();
@@ -36,7 +34,7 @@ describe('My Calculator Test', () => {
 
   it('두 개의 숫자를 나눈다', () => {
     cy.get('.digit9').click();
-    cy.contains('/').click();
+    cy.get('.operation').contains('/').click();
     cy.get('.digit3').click();
 
     cy.contains('=').click();
@@ -64,11 +62,12 @@ describe('My Calculator Test', () => {
 
   it('계산 결과가 음수가 나왔을 때 "-" 연산자를 입력후 숫자를 입력해도 최대  3자리 수까지만 입력 가능하다', () => {
     cy.get('.digit3').click();
-    cy.contains('-').click();
+    cy.get('.operation').contains('-').click();
     cy.get('.digit9').click();
     cy.contains('=').click();
 
-    cy.contains('-').click();
+    cy.get('.operation').contains('-').click();
+    
     cy.get('.digit4').click();
     cy.get('.digit5').click();
     cy.get('.digit6').click();
@@ -77,12 +76,12 @@ describe('My Calculator Test', () => {
     cy.on('window: alert', (txt) => {
       expect(txt).to.contains('숫자는 세 자리까지만 입력 가능합니다!')
     })
-    cy.get('#total').should('have.text', 456);
+    cy.get('#total').should('have.text', '-6-456');
   })
   
   it('계산 결과를 표현할 때 소수점이하는 버린다.', () => {
     cy.get('.digit1').click();
-    cy.get('.digit2').click();
+    cy.get('.operation').get('.digit2').click();
     cy.contains('/').click();
     cy.get('.digit5').click();
 

@@ -14,14 +14,14 @@ const MAX_NUMBERS_LENGTH = 3;
 class NumberInput {
   isValid() {
     this.currentValue = DISPLAY.innerText;
-    const operator = [...this.currentValue]
-                      .reverse()                                          
-                      .find(char => OPERATOR_ARR.includes(char));
+    const operators = [...this.currentValue]                                          
+                      .filter(char => OPERATOR_ARR.includes(char));
+    const lastOperator = operators[operators.length -1]; 
     
-    if (operator) {
-      const splitedValues = this.currentValue.split(operator);
-      console.log(splitedValues[1].length < MAX_NUMBERS_LENGTH)
-      return splitedValues[1].length < MAX_NUMBERS_LENGTH; 
+    if (operators.length) {
+      const splitedValues = this.currentValue.split(lastOperator);
+      const lastIndex = splitedValues.length -1;
+      return splitedValues[lastIndex].length < MAX_NUMBERS_LENGTH; 
     }
 
     return this.currentValue.length < MAX_NUMBERS_LENGTH;
