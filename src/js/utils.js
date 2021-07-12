@@ -1,5 +1,6 @@
 import {
   MAX_DIGIT,
+  MAX_OPERAND_LENGTH,
   MAX_OPERATORS_LENGTH,
   ERROR,
   OPERATOR,
@@ -27,7 +28,7 @@ export const validateOperator = (operands, operators) => {
   }
 
   if (operators.length === MAX_OPERATORS_LENGTH) {
-    alert(ERROR.OVER_MAX_OPERAND_COUNT(MAX_OPERATORS_LENGTH + 1));
+    alert(ERROR.OVER_MAX_OPERAND_COUNT(MAX_OPERAND_LENGTH));
     isValid = false;
   }
 
