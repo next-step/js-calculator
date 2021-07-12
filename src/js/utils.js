@@ -1,6 +1,11 @@
-import { MAX_DIGIT, ERROR, OPERATOR } from './constants/index.js';
+import {
+  MAX_DIGIT,
+  MAX_OPERATORS_LENGTH,
+  ERROR,
+  OPERATOR,
+} from './constants/index.js';
 
-export const validateDigit = (digit, operands, operators) => {
+export const validateDigit = (operands, operators) => {
   let isValid = true;
 
   const lastOperand = operands[operators.length] || '';
@@ -13,11 +18,16 @@ export const validateDigit = (digit, operands, operators) => {
   return isValid;
 };
 
-export const validateOperator = (operands) => {
+export const validateOperator = (operands, operators) => {
   let isValid = true;
 
   if (operands.length === 0) {
     alert(ERROR.DIGIT_FIRST);
+    isValid = false;
+  }
+
+  if (operators.length === MAX_OPERATORS_LENGTH) {
+    alert(ERROR.OVER_MAX_OPERAND_COUNT(MAX_OPERATORS_LENGTH + 1));
     isValid = false;
   }
 
@@ -28,7 +38,7 @@ const getInteger = (num) => {
   return num < 0 ? Math.ceil(num) : Math.floor(num);
 };
 
-const cal = (num1, num2, operator) => {
+const calculate = (num1, num2, operator) => {
   switch (operator) {
     case OPERATOR.PLUS:
       return num1 + num2;
@@ -41,6 +51,6 @@ const cal = (num1, num2, operator) => {
   }
 };
 
-export const calculate = (operands, operators) => {
-  return cal(operands[0], operands[1], operators[0]);
+export const calculateData = (operands, operators) => {
+  return calculate(operands[0], operands[1], operators[0]);
 };

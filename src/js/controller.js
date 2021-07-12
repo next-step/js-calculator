@@ -1,7 +1,7 @@
 import Model from './model.js';
 import View from './view.js';
 import { EVENT_TYPE, OPERATOR } from './constants/index.js';
-import { validateDigit, validateOperator, calculate } from './utils.js';
+import { validateDigit, validateOperator, calculateData } from './utils.js';
 
 function Controller() {
   this.model = new Model();
@@ -35,7 +35,7 @@ Controller.prototype.addOperands = function (e) {
 
   const { operands, operators } = this.model;
 
-  const isValid = validateDigit(digit, operands, operators);
+  const isValid = validateDigit(operands, operators);
   if (!isValid) return;
 
   this.model.addOperand(digit);
@@ -50,7 +50,9 @@ Controller.prototype.addOperator = function (e) {
     return;
   }
 
-  const isValid = validateOperator(this.model.operands);
+  const { operands, operators } = this.model;
+
+  const isValid = validateOperator(operands, operators);
   if (!isValid) return;
 
   this.model.addOperator(operator);
@@ -58,7 +60,7 @@ Controller.prototype.addOperator = function (e) {
 };
 
 Controller.prototype.executeCalculation = function () {
-  const result = calculate(this.model.operands, this.model.operators);
+  const result = calculateData(this.model.operands, this.model.operators);
   this.model.resetData();
   this.model.addOperand(result);
   this.view.renderResult(result);

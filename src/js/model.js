@@ -3,14 +3,6 @@ function Model() {
   this.operators = [];
 }
 
-Model.prototype.setOperand = function (digit) {
-  if (this.operand === 0) {
-    this.operand = digit;
-  } else {
-    this.operand = +(String(this.operand) + String(digit));
-  }
-};
-
 Model.prototype.addOperand = function (operand) {
   const index = this.operators.length;
   let lastOperand = this.operands[index] || '';
