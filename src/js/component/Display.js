@@ -5,8 +5,6 @@ export default class Display {
   }
   mount() {}
   render() {
-    this.$app.innerHTML = `<h1 id="total">
-            ${this.store.getTotal()}
-            </h1>`;
+    this.$app.innerHTML = `<h1 id="total">${this.store.getTotal()}</h1>`;
   }
 }
