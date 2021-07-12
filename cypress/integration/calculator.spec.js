@@ -1,12 +1,14 @@
 describe('My Calculator Test', () => {
   beforeEach(()=>{
-    cy.visit('http://192.168.35.80:5500/index.html');
+    cy.visit('http://192.168.56.1:5500/index.html');
   })
   
   it('두 개의 숫자를 더한다', () => {
     cy.get('.digit6').click();
     cy.contains('+').click();
     cy.get('.digit3').click();
+
+    cy.contains('=').click();
 
     cy.get('#total').should('have.text', 9);
 
@@ -17,6 +19,7 @@ describe('My Calculator Test', () => {
     cy.contains('-').click();
     cy.get('.digit3').click();
 
+    cy.contains('=').click();
     cy.get('#total').should('have.text', -2);
   })
 
@@ -25,6 +28,7 @@ describe('My Calculator Test', () => {
     cy.contains('X').click();
     cy.get('.digit7').click();
 
+    cy.contains('=').click();
     cy.get('#total').should('have.text', 35);
   })
 
@@ -33,12 +37,14 @@ describe('My Calculator Test', () => {
     cy.contains('/').click();
     cy.get('.digit3').click();
 
+    cy.contains('=').click();
     cy.get('#total').should('have.text', 3);
   })
 
   it('AC버튼읗 누르면 디스플레이 값이 0으로 초기화 된다', () => {
     cy.get('.modifier').click();
-  
+    
+    cy.contains('=').click();
     cy.get('#total').should('have.text', 0);
   })
 
@@ -48,6 +54,7 @@ describe('My Calculator Test', () => {
     cy.get('.digit3').click();
     cy.get('.digit4').click();
 
+    cy.contains('=').click();
     cy.get('#total').should('have.text', 123);
   })
 
@@ -57,6 +64,7 @@ describe('My Calculator Test', () => {
     cy.contains('/').click();
     cy.get('.digit5').click();
 
+    cy.contains('=').click();
     cy.get('#total').should('have.text', 2);
   })
 })

@@ -1,7 +1,14 @@
 const $ = (selector) => document.querySelector(selector);
 
 const DISPLAY = $('#total');
-const OPERATORS = ['+', '-', 'X', '/'];
+const OPERATOR_OBJ = {
+  '+': (a, b) => a + b,
+  '-': (a, b) => a - b,
+  'X': (a, b) => a * b,
+  '/': (a, b) => Math.floor(a / b),
+}
+const OPERATOR_ARR = Object.keys(OPERATOR_OBJ);
+
 const MAX_NUMBERS_LENGTH = 3;
 
 class NumberInput {
@@ -13,7 +20,7 @@ class NumberInput {
     this.currentValue = DISPLAY.innerText;
     const operator = [...this.currentValue]
                       .reverse()                                          
-                      .find(char => OPERATORS.includes(char));
+                      .find(char => OPERATOR_ARR.includes(char));
     
     if (operator) {
       const splitedValues = this.currentValue.split(operator);
@@ -60,12 +67,34 @@ class OperatorInput {
   }
 }
 
+class Calculate{
+  calculate() {
+    this.currentValue = DISPLAY.innerText;
+    const operators = [...this.currentValue].filter(char => OPERATOR_ARR.includes(char)); 
+    const numbers = this.currentValue
+                    .replace(/\D/g, '#')
+                    .split('#')
+                    .map(el => Number(el));
+
+    const calculatedValue = numbers.reduce((result, number, index) => {
+      if (index === 0) {
+        return result + number;
+      }
+      const currOperator = operators[index-1];
+      return OPERATOR_OBJ[currOperator](result, number);
+    }, 0);
+
+    DISPLAY.innerText = calculatedValue;
+  }
+}
+
 class Calculator{
   constructor(target) {
     this.display = DISPLAY;
     this.$target = $(target);
     this.numberInput = new NumberInput();
     this.operatorInput = new OperatorInput();
+    this.calculateObj = new Calculate();
 
     this.$target.addEventListener('click', this.handleClickBtn.bind(this))
   }
@@ -79,7 +108,7 @@ class Calculator{
   }
 
   calculate() {
-
+    this.calculateObj.calculate();
   }
 
   clearAll() {
