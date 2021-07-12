@@ -1,4 +1,4 @@
-import { $get } from './utils.js'
+import { $get, checkOnlyNum } from './utils.js'
 
 window.addEventListener('DOMContentLoaded', init)
 
@@ -22,6 +22,10 @@ class Calculator {
 		this.$digits.addEventListener('click', (e) => {
 			this.clickDigit(e)
 		})
+
+		this.$operations.addEventListener('click', (e) => {
+			this.clickOperation(e)
+		})
 	}
 
 	clickDigit(e) {
@@ -33,5 +37,21 @@ class Calculator {
 		}
 
 		this.$total.innerText += digit
+	}
+
+	clickOperation(e) {
+		const operation = e.target.closest('.operation').innerText
+
+		if (operation === '=') {
+			this.calculate()
+			return
+		}
+
+		if (!checkOnlyNum(this.$total.innerText)) return
+		this.$total.innerText += operation
+	}
+
+	calculate() {
+		this.$total.innerText = eval(this.$total.innerText)
 	}
 }
