@@ -1,7 +1,7 @@
-import { ERROR } from '../../src/js/constants/index.js';
+import { ERROR, MAX_OPERAND_LENGTH } from '../../src/js/constants/index.js';
 
-describe('Test calculate', function () {
-  it('2개의 숫자에 대해 덧셈이 가능하다.', function () {
+describe('Test calculator', function () {
+  it('2개의 숫자에 대해 덧셈이 가능하다. (2 + 3 = 5)', function () {
     cy.visit('/');
     cy.get('.digit').contains('2').click();
     cy.get('#plus').click();
@@ -10,32 +10,43 @@ describe('Test calculate', function () {
     cy.contains('#total', '5');
   });
 
-  it('2개의 숫자에 대해 뺄셈이 가능하다.', function () {
+  it('2개의 숫자에 대해 뺄셈이 가능하다. (5 - 1 = 4)', function () {
     cy.get('#minus').click();
     cy.get('.digit').contains('1').click();
     cy.get('#equal').click();
     cy.contains('#total', '4');
   });
 
-  it('2개의 숫자에 대해 곱셈이 가능하다.', function () {
+  it('2개의 숫자에 대해 곱셈이 가능하다. (4 * 2 = 8)', function () {
     cy.get('#multiply').click();
     cy.get('.digit').contains('2').click();
     cy.get('#equal').click();
     cy.contains('#total', '8');
   });
 
-  it('2개의 숫자에 대해 나눗셈이 가능하다.', function () {
+  it('2개의 숫자에 대해 나눗셈이 가능하다. (8 / 2 = 4)', function () {
     cy.get('#divide').click();
     cy.get('.digit').contains('2').click();
     cy.get('#equal').click();
     cy.contains('#total', '4');
   });
 
-  it('계산 결과를 표현할 때 소수점 이하는 버림한다.', function () {
+  it('계산 결과를 표현할 때 소수점 이하는 버림한다. (4 / 3 = 1)', function () {
     cy.get('#divide').click();
     cy.get('.digit').contains('3').click();
     cy.get('#equal').click();
     cy.contains('#total', '1');
+  });
+
+  it('숫자는 한 번에 2개씩만 계산할 수 있다.', function () {
+    cy.get('#plus').click();
+    cy.get('.digit').contains('2').click();
+    cy.get('#plus').click();
+    cy.on('window:alert', (text) => {
+      expect(text).to.contains(
+        ERROR.OVER_MAX_OPERAND_COUNT(MAX_OPERAND_LENGTH)
+      );
+    });
   });
 
   it('AC(All Clear)버튼을 누르면 0으로 초기화 한다.', function () {
