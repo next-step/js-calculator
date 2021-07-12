@@ -1,3 +1,5 @@
+import {INPUT_OPERATION_WITHOUT_NUMBER_ERROR, MAX_LENGTH_NUMBERS_EXCEEDED_ERROR} from '../../src/js/constants/Messege.js'
+
 describe('My Calculator Test', () => {
   beforeEach(()=>{
     cy.visit('http://192.168.56.1:5500/index.html');
@@ -55,7 +57,7 @@ describe('My Calculator Test', () => {
     cy.get('.digit4').click();
 
     cy.on('window: alert', (txt) => {
-      expect(txt).to.contains('숫자는 세 자리까지만 입력 가능합니다!')
+      expect(txt).to.contains(MAX_LENGTH_NUMBERS_EXCEEDED_ERROR)
     })
     cy.get('#total').should('have.text', 123);
   })
@@ -74,7 +76,7 @@ describe('My Calculator Test', () => {
     cy.get('.digit9').click();
 
     cy.on('window: alert', (txt) => {
-      expect(txt).to.contains('숫자는 세 자리까지만 입력 가능합니다!')
+      expect(txt).to.contains(MAX_LENGTH_NUMBERS_EXCEEDED_ERROR)
     })
     cy.get('#total').should('have.text', '-6-456');
   })
