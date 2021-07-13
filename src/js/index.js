@@ -8,7 +8,7 @@ let inputList = []
 buttons.forEach(button => {
     button.addEventListener('click', () => {
         if (button.className === 'digit') {
-            if (this.formula === undefined) {
+            if (this.formula === undefined || this.formula === 0) {
                 this.formula = button.innerHTML
                 this.inputNumber = button.innerHTML
             } else {
