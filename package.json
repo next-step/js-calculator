@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "http-server -p 8088"
+    "start": "http-server -p 8088",
+    "cypress": "npx cypress open"
   },
   "repository": {
     "type": "git",
@@ -19,5 +20,8 @@
   "homepage": "https://github.com/soso01/js-calculator#readme",
   "dependencies": {
     "http-server": "^0.12.3"
+  },
+  "devDependencies": {
+    "cypress": "^7.7.0"
   }
 }

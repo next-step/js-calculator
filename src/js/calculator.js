@@ -5,7 +5,7 @@ export const calculator = (() => {
   let stack = []
   const total = $.get("#total")
 
-  const setTotal = () => {
+  const printTotal = () => {
     if (stack.length === 0) {
       total.innerHTML = 0
     } else {
@@ -29,7 +29,7 @@ export const calculator = (() => {
           stack[stack.length - 1] = lastEl + digit
         }
       }
-      setTotal()
+      printTotal()
     },
 
     pushOperation: (operation) => {
@@ -42,12 +42,12 @@ export const calculator = (() => {
       } else {
         stack.push(operation)
       }
-      setTotal()
+      printTotal()
     },
 
     clear: () => {
       stack = []
-      setTotal()
+      printTotal()
     },
   }
 })()
