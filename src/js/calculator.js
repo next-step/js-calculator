@@ -17,7 +17,6 @@ export function calculator() {
   };
 
   this.setEvents = () => {
-    console.log(this);
     this.$digits.addEventListener("click", (e) => clickDigits(e));
     this.$operations.addEventListener("click", (e) => clickOperators(e));
     this.$modifier.addEventListener("click", clickModifier);
