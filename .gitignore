@@ -102,3 +102,12 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Cypress file
+cypress/fixtures
+cypress/plugins
+cypress/support
+cypress/integration/examples
+cypress.json
+
+yarn.lock
