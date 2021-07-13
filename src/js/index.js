@@ -54,10 +54,12 @@ buttons.forEach(button => {
                     } else {
                         if (this.inputNumber.length > 0) {
                             this.inputList.push(this.inputNumber)
+                        }
+                        if (isNaN(this.inputList[this.inputList.length - 1])) {
+                            alert('숫자를 먼저 입력해주세요!')
+                        } else {
                             this.inputList.push(button.innerHTML)
                             this.formula += button.innerHTML
-                        } else {
-                            alert('숫자를 먼저 입력해주세요!')
                         }
                     }
                 }
