@@ -1,0 +1,23 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "description": "<br/> <br/>",
+  "main": "main.js",
+  "dependencies": {},
+  "devDependencies": {
+    "cypress": "^7.7.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HongKeunAhn/js-calculator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HongKeunAhn/js-calculator/issues"
+  },
+  "homepage": "https://github.com/HongKeunAhn/js-calculator#readme"
+}
