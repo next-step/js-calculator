@@ -14,56 +14,6 @@
   <img src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square"/>
 </p>
 
-## 🔥 Projects!
-
-<p align="middle">
-  <img width="300" src="src/images/calculator_ui.png">
-</p>
-
-<p align="middle">
-  <a href="https://next-step.github.io/js-calculator/">🖥️ 데모 링크</a>
-</p>
-
-## 🎯 기능 요구사항
-
--   [ ] 2개의 숫자에 대해 덧셈이 가능하다.
--   [ ] 2개의 숫자에 대해 뺄셈이 가능하다.
--   [ ] 2개의 숫자에 대해 곱셈이 가능하다.
--   [ ] 2개의 숫자에 대해 나눗셈이 가능하다.
--   [ ] AC(All Clear)버튼을 누르면 0으로 초기화 한다.
--   [ ] 숫자는 한번에 최대 3자리 수까지 입력 가능하다.
--   [ ] 계산 결과를 표현할 때 소수점 이하는 버림한다.
-
-<br/>
-
-## 📊 테스트 요구사항
-
-**기능 요구사항에 제시된 7개의 항목에 대해 테스트 케이스를 만든다.**
-
-<br/>
-
-## 📄 참고 사항
-
--   숫자 입력은 **클릭**으로만 가능하다.
-
-<br/>
-
-## 👏 Contributing
-
-만약 미션 수행 중에 개선사항이 보인다면, 언제든 자유롭게 PR을 보내주세요.
-
-<br/>
-
-## 🐞 Bug Report
-
-버그를 발견한다면, [Issues](https://github.com/next-step/js-calculator/issues) 에 등록 후 @eastjun에게 dm을 보내주세요.
-
-<br/>
-
-## 📝 License
-
-This project is [MIT](https://github.com/next-step/js-calculator/blob/master/LICENSE) licensed.
-
 ## sinho의 readme 공간!
 
 ### cypess with testing-library
@@ -122,3 +72,57 @@ const {appendDigitToTotal, appendOperatorToTotal, calculate, resetTotal} = Calcu
 
 1.  테스트 코드를 작성하기 위해서 선택자를 무엇으로 해야하는지에 대한고민이 깊어졌고, `testing-library`에서 권장하는 우선순위 판단 로직에 의거한 선택자 방식은 결국 `sementic`해야한다고 느껴졌다. 특히 `Role`에 의한 선택자 메커니즘을 이해하기 위해서 `aria-attribute`가 무엇인지 알아야 한다는 필요성을 느꼈다.
 2.  최대한 tdd의 방식을 고수하기 위해, 유저의 사용 시나리오를 작성해보고, 엣지케이스를 추가하며 커버리지를 넓히고 나서, 빨간불을 확인한 뒤 코드작성하였다. 켄트백의 tdd by example을 읽었을때는 테스트 코드의 필요성을 논리적으로 느끼기 보다는 절차를 따라하는 클론코딩의 느낌이 강했는데, 직접 간단한 앱을 만들면서 필요성에 의한 테스트코드작성->실패->코드작성->리팩터링의 사이클을 한번 느껴보니 tdd by example을 다시 꺼내 읽어봐야 겠다는 생각이 들었다.
+
+
+## 🔥 Projects!
+
+<p align="middle">
+  <img width="300" src="src/images/calculator_ui.png">
+</p>
+
+<p align="middle">
+  <a href="https://next-step.github.io/js-calculator/">🖥️ 데모 링크</a>
+</p>
+
+
+
+## 🎯 기능 요구사항
+
+-   [ ] 2개의 숫자에 대해 덧셈이 가능하다.
+-   [ ] 2개의 숫자에 대해 뺄셈이 가능하다.
+-   [ ] 2개의 숫자에 대해 곱셈이 가능하다.
+-   [ ] 2개의 숫자에 대해 나눗셈이 가능하다.
+-   [ ] AC(All Clear)버튼을 누르면 0으로 초기화 한다.
+-   [ ] 숫자는 한번에 최대 3자리 수까지 입력 가능하다.
+-   [ ] 계산 결과를 표현할 때 소수점 이하는 버림한다.
+
+<br/>
+
+## 📊 테스트 요구사항
+
+**기능 요구사항에 제시된 7개의 항목에 대해 테스트 케이스를 만든다.**
+
+<br/>
+
+## 📄 참고 사항
+
+-   숫자 입력은 **클릭**으로만 가능하다.
+
+<br/>
+
+## 👏 Contributing
+
+만약 미션 수행 중에 개선사항이 보인다면, 언제든 자유롭게 PR을 보내주세요.
+
+<br/>
+
+## 🐞 Bug Report
+
+버그를 발견한다면, [Issues](https://github.com/next-step/js-calculator/issues) 에 등록 후 @eastjun에게 dm을 보내주세요.
+
+<br/>
+
+## 📝 License
+
+This project is [MIT](https://github.com/next-step/js-calculator/blob/master/LICENSE) licensed.
+
