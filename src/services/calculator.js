@@ -22,14 +22,13 @@ export default class Calculator {
       text += this.stack[i];
     }
     $('#total').textContent = text === '' ? 0 : text;
-    // return text === '' ? 0 : text;
   }
 
   clickNumber({ target }) {
     const newNumber = target.textContent;
 
     // 스택이 비어있으면 숫자 추가, 스택의 마지막이 연산자면 숫자 추가
-    if (this.stack.length === 0 || !this.isNumber(this.stack[this.stack.length - 1])) {
+    if (!this.stack.length || !this.isNumber(this.stack[this.stack.length - 1])) {
       this.stack.push(newNumber);
       this.displayTotal();
       return;
@@ -54,7 +53,7 @@ export default class Calculator {
     const operation = target.textContent;
 
     // 숫자가 없는데 연산자를 클릭할 경우
-    if (this.stack.length === 0 && operation !== '=') {
+    if (!this.stack.length && operation !== '=') {
       alert(MESSAGE.NONE_OPERATION_WITHOUT_NUMBER_ERROR);
       return;
     }
