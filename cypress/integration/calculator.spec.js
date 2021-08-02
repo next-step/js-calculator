@@ -1,86 +1,91 @@
-import { ERROR_MESSEAGE, RESTRICTIONS } from "../../src/constants";
+import { ERROR_MESSEAGE, RESTRICTIONS, TEST } from '../../src/constants';
+import { setAliase } from '../support/util';
 
 describe('calculator', () => {
   beforeEach(() => {
     cy.visit('/');
+    setAliase();
   });
 
-  it("2개의 숫자에 대해 덧셈이 가능하다.", () => {
-    const test = "123+456=";
-    const result = 123+456;
+  it('2개의 숫자에 대해 덧셈이 가능하다.', () => {
+    const result = 123 + 456;
 
-    [...test].forEach(elm => {
-        cy.contains("button", elm).click();
+    [...TEST.PLUS_TEST].forEach((elm) => {
+      cy.contains('button', elm).click();
     });
 
-    cy.get("#total").should("have.text", result);
-  })
-  it("2개의 숫자에 대해 뺄셈이 가능하다.", () => {
-    const test = "123-456=";
-    const result = 123-456;
+    cy.get('@operationEqual').click();
 
-    [...test].forEach(elm => {
-        cy.contains("button", elm).click();
+    cy.get('@total').should('have.text', result);
+  });
+
+  it('2개의 숫자에 대해 뺄셈이 가능하다.', () => {
+    const result = 123 - 456;
+
+    [...TEST.MINUS_TEST].forEach((elm) => {
+      cy.contains('button', elm).click();
     });
 
-    cy.get("#total").should("have.text", result);
-  })
-  it("2개의 숫자에 대해 곱셈이 가능하다.", () => {
-    const test = "123X456=";
-    const result = 123*456;
+    cy.get('@operationEqual').click();
 
-    [...test].forEach(elm => {
-        cy.contains("button", elm).click();
+    cy.get('@total').should('have.text', result);
+  });
+
+  it('2개의 숫자에 대해 곱셈이 가능하다.', () => {
+    const result = 123 * 456;
+
+    [...TEST.MULTIPLY_TEST].forEach((elm) => {
+      cy.contains('button', elm).click();
     });
 
-    cy.get("#total").should("have.text", result);
-  })
-  it("2개의 숫자에 대해 나눗셈이 가능하다.", () => {
-    const test = "500/5=";
-    const result = 500/5;
+    cy.get('@operationEqual').click();
 
-    [...test].forEach(elm => {
-        cy.contains("button", elm).click();
+    cy.get('@total').should('have.text', result);
+  });
+
+  it('2개의 숫자에 대해 나눗셈이 가능하다.', () => {
+    const result = 500 / 5;
+
+    [...TEST.DIVIDE_TEST].forEach((elm) => {
+      cy.contains('button', elm).click();
     });
 
-    cy.get("#total").should("have.text", result);
-  })
-  it("AC(All Clear)버튼을 누르면 0으로 초기화 한다.", () => {
-    const test = "555";
-    const AC = "AC";
+    cy.get('@operationEqual').click();
+
+    cy.get('@total').should('have.text', result);
+  });
+  it('AC(All Clear)버튼을 누르면 0으로 초기화 한다.', () => {
     const result = RESTRICTIONS.INITAL_VALUE;
 
-    [...test].forEach(elm => {
-        cy.contains("button", elm).click();
+    [...TEST.AC_TEST].forEach((elm) => {
+      cy.contains('button', elm).click();
     });
-    cy.contains("button", AC).click();
+    cy.get('@modifier').click();
 
-    cy.get("#total").should("have.text", result);
+    cy.get('@total').should('have.text', result);
+  });
 
-  })
-  it("숫자는 한번에 최대 3자리 수까지 입력 가능하다.", () => {
-    const test = "123";
-    const alertStub = cy.stub();
-    cy.on("window:alert", alertStub);
-
-    [...test].forEach((s) => {
-      cy.contains("button", s).click();
+  it('숫자는 한번에 최대 3자리 수까지 입력 가능하다.', () => {
+    [...TEST.THREE_LENGTH_NUMBER].forEach((s) => {
+      cy.contains('button', s).click();
     });
 
-    cy.contains("button", "4").click().then(() => {
-        cy.on("window:alert", (txt) => {
-            expect(txt).to.equal(ERROR_MESSEAGE.INVAILD_DIGIT_LENGTH)
-        })
-    })
-  })
-  it("계산 결과를 표현할 때 소수점 이하는 버림한다.", () => {
-    const test = "5/2=";
-    const result = Math.floor(5/2);
+    cy.contains('button', '4').click();
 
-    [...test].forEach(elm => {
-        cy.contains("button", elm).click();
+    cy.get('@windowAlert').should(
+      'be.calledWith',
+      ERROR_MESSEAGE.INVAILD_DIGIT_LENGTH
+    );
+  });
+
+  it('계산 결과를 표현할 때 소수점 이하는 버림한다.', () => {
+    const result = Math.floor(5 / 2);
+
+    [...TEST.DIVIDE_TEST_FLOOR].forEach((elm) => {
+      cy.contains('button', elm).click();
     });
 
-    cy.get("#total").should("have.text", result);
-  })
+    cy.get('@operationEqual').click();
+    cy.get('@total').should('have.text', result);
+  });
 });
