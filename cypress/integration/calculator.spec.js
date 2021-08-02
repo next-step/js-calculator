@@ -7,14 +7,17 @@ describe('calculator', () => {
     setAliase();
   });
 
+  const typeTestAndShowResult = (testRex) => {
+    [...testRex].forEach((elm) => {
+      cy.contains('button', elm).click();
+    });
+    cy.get('@operationEqual').click();
+  };
+
   it('2개의 숫자에 대해 덧셈이 가능하다.', () => {
     const result = 123 + 456;
 
-    [...TEST.PLUS_TEST].forEach((elm) => {
-      cy.contains('button', elm).click();
-    });
-
-    cy.get('@operationEqual').click();
+    typeTestAndShowResult(TEST.PLUS_TEST);
 
     cy.get('@total').should('have.text', result);
   });
@@ -22,11 +25,7 @@ describe('calculator', () => {
   it('2개의 숫자에 대해 뺄셈이 가능하다.', () => {
     const result = 123 - 456;
 
-    [...TEST.MINUS_TEST].forEach((elm) => {
-      cy.contains('button', elm).click();
-    });
-
-    cy.get('@operationEqual').click();
+    typeTestAndShowResult(TEST.MINUS_TEST);
 
     cy.get('@total').should('have.text', result);
   });
@@ -34,11 +33,7 @@ describe('calculator', () => {
   it('2개의 숫자에 대해 곱셈이 가능하다.', () => {
     const result = 123 * 456;
 
-    [...TEST.MULTIPLY_TEST].forEach((elm) => {
-      cy.contains('button', elm).click();
-    });
-
-    cy.get('@operationEqual').click();
+    typeTestAndShowResult(TEST.MULTIPLY_TEST);
 
     cy.get('@total').should('have.text', result);
   });
@@ -46,14 +41,11 @@ describe('calculator', () => {
   it('2개의 숫자에 대해 나눗셈이 가능하다.', () => {
     const result = 500 / 5;
 
-    [...TEST.DIVIDE_TEST].forEach((elm) => {
-      cy.contains('button', elm).click();
-    });
-
-    cy.get('@operationEqual').click();
+    typeTestAndShowResult(TEST.DIVIDE_TEST);
 
     cy.get('@total').should('have.text', result);
   });
+
   it('AC(All Clear)버튼을 누르면 0으로 초기화 한다.', () => {
     const result = RESTRICTIONS.INITAL_VALUE;
 
@@ -81,11 +73,8 @@ describe('calculator', () => {
   it('계산 결과를 표현할 때 소수점 이하는 버림한다.', () => {
     const result = Math.floor(5 / 2);
 
-    [...TEST.DIVIDE_TEST_FLOOR].forEach((elm) => {
-      cy.contains('button', elm).click();
-    });
+    typeTestAndShowResult(TEST.DIVIDE_TEST_FLOOR);
 
-    cy.get('@operationEqual').click();
     cy.get('@total').should('have.text', result);
   });
 });
