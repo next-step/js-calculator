@@ -1,6 +1,6 @@
 import { OPERATIONS } from "./constants.js";
 
-export default function ComputedData(operation, num1, num2) {
+export default function computedData(operation, num1, num2) {
   switch (operation) {
     case OPERATIONS.ADD:
       return num1 + num2;

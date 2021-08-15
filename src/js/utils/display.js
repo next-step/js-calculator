@@ -1,4 +1,4 @@
-export default function Display({ state }) {
+export default function display({ state }) {
   const { clickedDigits, operation } = state;
   let newState = [];
   if (!clickedDigits[0] && !operation) {

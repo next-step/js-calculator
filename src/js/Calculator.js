@@ -1,6 +1,7 @@
-import { OPERATIONS, MESSAGES, MAX_NUMBER_LENGTH } from "./constants.js";
-import ComputedData from "./ComputedData.js";
-import Display from "./Display.js";
+import { OPERATIONS, MESSAGES, MAX_NUMBER_LENGTH } from "./utils/constants.js";
+import computedData from "./utils/computedData.js";
+import { $ } from "./utils/dom.js";
+import display from "./utils/display.js";
 
 export default function Calculator() {
   const state = {
@@ -15,14 +16,13 @@ export default function Calculator() {
     onClickAC();
   };
 
-  const $ = selector => document.querySelector(selector);
   const $digits = $(".digits");
   const $operations = $(".operations");
   const $modifier = $(".modifier");
 
   const onClickDigit = () => {
-    $digits.addEventListener("click", e => {
-      addDigit(e.target.value);
+    $digits.addEventListener("click", ({ target }) => {
+      addDigit(target.value);
     });
   };
 
@@ -73,7 +73,7 @@ export default function Calculator() {
   };
 
   const calculateDigits = () => {
-    const result = ComputedData(
+    const result = computedData(
       state.operation,
       state.clickedDigits[0],
       state.clickedDigits[1]
@@ -98,7 +98,7 @@ export default function Calculator() {
   };
 
   const displayState = () => {
-    Display({ state });
+    display({ state });
   };
 
   render();
