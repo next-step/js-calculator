@@ -2,7 +2,7 @@ import { OPERATIONS, MESSAGES } from "../../src/js/constants";
 
 describe("Calculator Test", () => {
   beforeEach(() => {
-    cy.visit("http://192.168.202.1:5502/");
+    cy.visit("/");
   });
 
   const clickNumber = length => {
