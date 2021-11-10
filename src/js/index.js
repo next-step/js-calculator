@@ -100,8 +100,14 @@ class Calculator extends HTMLElement {
 
     if (!operation) return;
 
+    const copiedOperations = [...operations];
+
+    if (currentKeyType === KEY_TYPE.OPERATION) {
+      copiedOperations.pop();
+    }
+
     this.setState({
-      operations: [...operations, operation],
+      operations: [...copiedOperations, operation],
       currentKeyType: KEY_TYPE.OPERATION,
     });
   }
