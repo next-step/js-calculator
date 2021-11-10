@@ -7,12 +7,18 @@ import { ALERT_MESSAGE } from "../../src/js/constants/messages.js";
 import { SAMPLE_NUMBER } from "../constants/numbers.js";
 
 before(() => {
-  cy.visit();
+  cy.visit("/");
 });
 
 describe("계산기 테스트", () => {
   beforeEach(() => {
-    cy.get("#total").then(($total) => ($total.textContent = DEFAULT_NUMBER));
+    cy.clickModifierButton(MODIFIER.ALL_CLEAR);
+  });
+
+  it("all clear 버튼을 누르면 결과창의 숫자가 default number를 나타낸다", () => {
+    cy.get("#total").then(($total) => ($total.textContent = 10));
+    cy.clickModifierButton(MODIFIER.ALL_CLEAR);
+    cy.calcTotalValueShouldBe(DEFAULT_NUMBER);
   });
 
   it("2개의 숫자에 대해 덧셈이 가능하다.", () => {
@@ -63,25 +69,6 @@ describe("계산기 테스트", () => {
     cy.calcTotalValueShouldBe(expectedResult);
   });
 
-  it("all clear 버튼을 누르면 결과창의 숫자가 default number를 나타낸다", () => {
-    cy.get("#total").then(($total) => ($total.textContent = 10));
-    cy.clickModifierButton(MODIFIER.ALL_CLEAR);
-    cy.calcTotalValueShouldBe(DEFAULT_NUMBER);
-  });
-
-  it("숫자는 한 번에 최대 3자리 수까지 입력 가능하다.", () => {
-    const [number] = SAMPLE_NUMBER;
-    const expectedResult = number * 100 + number * 10 + number;
-
-    [...Array(3)].forEach(() => cy.clickNumberButton(number));
-    cy.calcTotalValueShouldBe(expectedResult);
-
-    cy.clickNumberButton(number);
-    cy.on("window:alert", (text) =>
-      expect(text).to.be(ALERT_MESSAGE.EXCEEDED_MAX_DIGIT_COUNT(3))
-    );
-  });
-
   it("두 자리 수를 포함한 2개의 숫자에 대해 연산이 가능하다.", () => {
     const [firstNumber, secondNumber, thirdNumber] = SAMPLE_NUMBER;
     const expectedResult = firstNumber * 10 + secondNumber + thirdNumber;
@@ -110,12 +97,25 @@ describe("계산기 테스트", () => {
     cy.calcTotalValueShouldBe(expectedResult);
   });
 
+  it("숫자는 한 번에 최대 3자리 수까지 입력 가능하다.", () => {
+    const [number] = SAMPLE_NUMBER;
+    const expectedResult = number * 100 + number * 10 + number;
+
+    [...Array(3)].forEach(() => cy.clickNumberButton(number));
+    cy.calcTotalValueShouldBe(expectedResult);
+
+    cy.clickNumberButton(number);
+    cy.on("window:alert", (text) =>
+      expect(text).to.contains(ALERT_MESSAGE.EXCEEDED_MAX_DIGIT_COUNT(3))
+    );
+  });
+
   it("연산자는 한 번에 하나씩만 입력할 수 있다.", () => {
     cy.clickOperationButton(OPERATION.ADDITION);
     cy.clickOperationButton(OPERATION.ADDITION);
 
     cy.on("window:alert", (text) =>
-      expect(text).to.be(
+      expect(text).to.contains(
         ALERT_MESSAGE.INVALID_EXPRESSION.EXCEEDED_OPERATION_COUNT
       )
     );
@@ -128,7 +128,7 @@ describe("계산기 테스트", () => {
     cy.clickOperationButton(OPERATION.CALCULATION);
 
     cy.on("window:alert", (text) =>
-      expect(text).to.be(ALERT_MESSAGE.INVALID_EXPRESSION.NO_OPERATION)
+      expect(text).to.contains(ALERT_MESSAGE.INVALID_EXPRESSION.NO_OPERATION)
     );
   });
 
@@ -140,7 +140,7 @@ describe("계산기 테스트", () => {
     cy.clickOperationButton(OPERATION.CALCULATION);
 
     cy.on("window:alert", (text) =>
-      expect(text).to.be(ALERT_MESSAGE.INVALID_EXPRESSION.NO_RIGHT_VALUE)
+      expect(text).to.contains(ALERT_MESSAGE.INVALID_EXPRESSION.NO_RIGHT_VALUE)
     );
   });
 });
