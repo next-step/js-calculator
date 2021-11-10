@@ -1,12 +1,26 @@
 const TEST_URL = 'http://127.0.0.1:5500/';
 
+const digitClick = (digit) => {
+  cy.get('.digit').contains(digit).click();
+};
+
 describe('계산기', () => {
   beforeEach(() => {
     cy.visit(TEST_URL);
   });
 
   it('숫자 버튼을 누르면 결과화면에 나타난다.', () => {
-    cy.get('.digit').contains('1').click();
-    cy.get('#total').should('have.text', '1');
+    digitClick(1);
+    cy.get('#total').should('have.text', 1);
+  });
+
+  it('숫자는 한번에 최대 3자리 수까지 입력 가능하다.', () => {
+    const MAX_LENGTH = 3;
+
+    for (let i = 0; i <= MAX_LENGTH * 2; i++) {
+      digitClick(1);
+    }
+
+    cy.get('#total').should('have.text', '1'.repeat(MAX_LENGTH));
   });
 });
