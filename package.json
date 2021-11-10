@@ -1,0 +1,29 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "description": "<br/> <br/>",
+  "main": "index.js",
+  "dependencies": {
+    "http-server": "^0.12.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.2.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "2.4.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inhyuck/js-calculator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/inhyuck/js-calculator/issues"
+  },
+  "homepage": "https://github.com/inhyuck/js-calculator#readme"
+}
