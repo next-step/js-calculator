@@ -11,3 +11,4 @@ export const OPERATION = {
 };
 
 export const DEFAULT_NUMBER = 0;
+export const MAX_DIGIT_COUNT = 3;
