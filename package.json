@@ -1,0 +1,20 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:amorfati0310/js-calculator.git",
+  "author": "amorfati0310 <lyhy0310@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint src --fix"
+  },
+  "devDependencies": {
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^27.3.1",
+    "prettier": "^2.4.1"
+  }
+}
