@@ -10,6 +10,13 @@ const clickOperator = (operator) => {
   cy.get('.operation').contains(operator).click();
 };
 
+const calculate = (operand1, operator, operand2) => {
+  clickDigit(operand1);
+  clickOperator(operator);
+  clickDigit(operand2);
+  clickOperator(OPERATION.EQUAL);
+};
+
 describe('계산기', () => {
   beforeEach(() => {
     cy.visit(TEST_URL);
@@ -42,5 +49,27 @@ describe('계산기', () => {
     clickOperator(OPERATION.MULTIPLY);
 
     cy.get('#total').should('include.text', OPERATION.MULTIPLY);
+  });
+
+  describe('= 연산자 버튼을 누르면 사칙연산을 진행한다', () => {
+    it('덧셈', () => {
+      calculate(1, OPERATION.ADD, 2);
+      cy.get('#total').should('have.text', 3);
+    });
+
+    it('뺄셈', () => {
+      calculate(2, OPERATION.SUBTRACT, 2);
+      cy.get('#total').should('have.text', 0);
+    });
+
+    it('곱셈', () => {
+      calculate(3, OPERATION.MULTIPLY, 2);
+      cy.get('#total').should('have.text', 6);
+    });
+
+    it('나눗셈', () => {
+      calculate(1, OPERATION.DIVIDE, 2);
+      cy.get('#total').should('have.text', 0);
+    });
   });
 });
