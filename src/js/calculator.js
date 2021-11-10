@@ -42,19 +42,10 @@ class Calculator {
   onDigitClick({ target }) {
     const currentValueKey =
       this.state.operation === null ? "leftValue" : "rightValue";
-
-    if (
-      this.state[currentValueKey] &&
-      this.state[currentValueKey].toString().length === MAX_DIGIT_COUNT
-    ) {
-      alert(ALERT_MESSAGE.EXCEEDED_MAX_DIGIT_COUNT(MAX_DIGIT_COUNT));
-
-      return;
-    }
-
-    this.state[currentValueKey] =
+    const newValue =
       (this.state[currentValueKey] ?? 0) * 10 + Number(target.dataset.digit);
-    this.renderDisplay(this.state[currentValueKey]);
+
+    this.setCurrentValue(currentValueKey, newValue);
   }
 
   onOperationClick({ target }) {
@@ -62,17 +53,9 @@ class Calculator {
 
     if (operation === OPERATION.CALCULATION) {
       this.calculate();
-
-      return;
+    } else {
+      this.setOperation(operation);
     }
-
-    if (this.state.operation !== null) {
-      alert(ALERT_MESSAGE.INVALID_EXPRESSION.EXCEEDED_OPERATION_COUNT);
-
-      return;
-    }
-
-    this.state.operation = operation;
   }
 
   onModifierClick({ target }) {
@@ -81,6 +64,29 @@ class Calculator {
     };
 
     handlers[target.dataset.modifier]();
+  }
+
+  setCurrentValue(currentValueKey, newValue) {
+    const currentValue = this.state[currentValueKey];
+
+    if (currentValue && currentValue.toString().length === MAX_DIGIT_COUNT) {
+      alert(ALERT_MESSAGE.EXCEEDED_MAX_DIGIT_COUNT(MAX_DIGIT_COUNT));
+
+      return;
+    }
+
+    this.state[currentValueKey] = newValue;
+    this.renderDisplay(newValue);
+  }
+
+  setOperation(operation) {
+    if (this.state.operation !== null) {
+      alert(ALERT_MESSAGE.INVALID_EXPRESSION.EXCEEDED_OPERATION_COUNT);
+
+      return;
+    }
+
+    this.state.operation = operation;
   }
 
   calculate() {
