@@ -1,7 +1,13 @@
+import { OPERATION } from '../../src/js/constants/calculator.js';
+
 const TEST_URL = 'http://127.0.0.1:5500/';
 
-const digitClick = (digit) => {
+const clickDigit = (digit) => {
   cy.get('.digit').contains(digit).click();
+};
+
+const clickOperator = (operator) => {
+  cy.get('.operation').contains(operator).click();
 };
 
 describe('계산기', () => {
@@ -10,7 +16,7 @@ describe('계산기', () => {
   });
 
   it('숫자 버튼을 누르면 결과화면에 나타난다.', () => {
-    digitClick(1);
+    clickDigit(1);
     cy.get('#total').should('have.text', 1);
   });
 
@@ -18,9 +24,15 @@ describe('계산기', () => {
     const MAX_LENGTH = 3;
 
     for (let i = 0; i <= MAX_LENGTH * 2; i++) {
-      digitClick(1);
+      clickDigit(1);
     }
 
     cy.get('#total').should('have.text', '1'.repeat(MAX_LENGTH));
+  });
+
+  it('연산자 버튼을 누르면 결과화면에 나타난다.', () => {
+    clickOperator(OPERATION.ADD);
+
+    cy.get('#total').should('include.text', OPERATION.ADD);
   });
 });
