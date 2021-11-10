@@ -35,4 +35,12 @@ describe('계산기', () => {
 
     cy.get('#total').should('include.text', OPERATION.ADD);
   });
+
+  it('연산자 버튼을 여러 번 누르면 마지막에 누른 연산자로 갱신된다.', () => {
+    clickOperator(OPERATION.ADD);
+    clickOperator(OPERATION.DIVIDE);
+    clickOperator(OPERATION.MULTIPLY);
+
+    cy.get('#total').should('include.text', OPERATION.MULTIPLY);
+  });
 });
