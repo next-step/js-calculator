@@ -1,4 +1,5 @@
-import { KEY_TYPE, MODIFIER, OPERATION } from './constants/calculator.js';
+import { KEY_TYPE, MODIFIER, OPERATION, VALIDATION } from './constants/calculator.js';
+import { CALCULATOR_ERROR } from './constants/errorMessage.js';
 import { $ } from './utils/querySelector.js';
 
 const digits = [...Array(10).keys()].reverse();
@@ -66,8 +67,14 @@ class Calculator extends HTMLElement {
   onClickDigit({ target }) {
     const { numbers, currentKeyType } = this.state;
     const digit = Number(target.dataset.digit);
+    const lastNumber = [...numbers].pop();
 
     if (!digit) return;
+
+    if (lastNumber.toString().length >= VALIDATION.MAX_NUMBER_LENGTH) {
+      alert(CALCULATOR_ERROR.EXCEED_MAX_NUMBER_LENGTH);
+      return;
+    }
 
     let newNumbers;
 
