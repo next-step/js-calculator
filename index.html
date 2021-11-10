@@ -9,15 +9,15 @@
 <body>
 <div id="app">
 	<div class="calculator">
-		<h1 id="total">0</h1>
+		<h1 id="total" data-test="total">0</h1>
 		<div class="digits flex">
 			<button class="digit">9</button>
 			<button class="digit">8</button>
-			<button class="digit">7</button>
+			<button class="digit" data-test="seven">7</button>
 			<button class="digit">6</button>
 			<button class="digit">5</button>
 			<button class="digit">4</button>
-			<button class="digit">3</button>
+			<button class="digit" data-test="three">3</button>
 			<button class="digit">2</button>
 			<button class="digit">1</button>
 			<button class="digit">0</button>
@@ -29,8 +29,8 @@
 			<button class="operation">/</button>
 			<button class="operation">X</button>
 			<button class="operation">-</button>
-			<button class="operation">+</button>
-			<button class="operation">=</button>
+			<button class="operation" data-test="operator-plus">+</button>
+			<button class="operation" data-test="operator-equal">=</button>
 		</div>
 	</div>
 </div>

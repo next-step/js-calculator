@@ -14,7 +14,8 @@
     "prettier": "2.4.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test:e2e": "cypress run --spec 'cypress/integration/calculator/*' --config video=false",
+    "serve": "live-server ."
   },
   "repository": {
     "type": "git",
