@@ -62,6 +62,7 @@ class Calculator extends HTMLElement {
 
   bindEvents() {
     $('#digits').addEventListener('click', this.onClickDigit.bind(this));
+    $('#operations').addEventListener('click', this.onClickOperation.bind(this));
   }
 
   onClickDigit({ target }) {
@@ -91,6 +92,18 @@ class Calculator extends HTMLElement {
     }
 
     this.setState({ numbers: newNumbers, currentKeyType: KEY_TYPE.DIGIT });
+  }
+
+  onClickOperation({ target }) {
+    const { operations, currentKeyType } = this.state;
+    const { operation } = target.dataset;
+
+    if (!operation) return;
+
+    this.setState({
+      operations: [...operations, operation],
+      currentKeyType: KEY_TYPE.OPERATION,
+    });
   }
 }
 
