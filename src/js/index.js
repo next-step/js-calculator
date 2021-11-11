@@ -77,7 +77,7 @@ class Calculator extends HTMLElement {
     const { numbers, currentKeyType } = this.state;
     const digit = Number(target.dataset.digit);
 
-    if (!digit) return;
+    if (isNaN(digit)) return;
 
     if (currentKeyType === KEY_TYPE.DIGIT) {
       const lastNumberLength = [...numbers].pop().toString().length;
