@@ -128,16 +128,22 @@ class Calculator extends HTMLElement {
   }
 
   setOperation(operation) {
-    const { operations, currentKeyType } = this.state;
+    const { operations, numbers, currentKeyType } = this.state;
+    const isNumbersEmpty = numbers[0] === 0;
 
-    const copiedOperations = [...operations];
+    if (isNumbersEmpty) {
+      alert(CALCULATOR_ERROR.OPERATION_WITH_NO_NUMBER);
+      return;
+    }
+
+    const operationsCopied = [...operations];
 
     if (currentKeyType === KEY_TYPE.OPERATION) {
-      copiedOperations.pop();
+      operationsCopied.pop();
     }
 
     this.setState({
-      operations: [...copiedOperations, operation],
+      operations: [...operationsCopied, operation],
       currentKeyType: KEY_TYPE.OPERATION,
     });
   }
