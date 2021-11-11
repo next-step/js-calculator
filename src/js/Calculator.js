@@ -13,22 +13,27 @@ export function Calculator({$el}) {
     };
 
     function onClickDigit({digit}) {
+        renewNumber({digit});
+        refreshTotal();
+    }
+
+    function renewNumber({digit}) {
         const {prevNumber, operator, nextNumber} = state;
-        if (operator) {
-            state.nextNumber = Number(`${nextNumber || 0}${digit}`);
-            if (!isValidSizeOfDigits(state.nextNumber)) {
-                state.nextNumber = nextNumber;
-                alert('숫자는 세 자리까지만 입력 가능합니다!');
-            }
-        } else {
-            state.prevNumber = Number(`${prevNumber}${digit}`);
-            if (!isValidSizeOfDigits(state.prevNumber)) {
-                state.prevNumber = prevNumber;
-                alert('숫자는 세 자리까지만 입력 가능합니다!');
-            }
+
+        const newNumber = Number(!!operator
+            ? `${nextNumber || 0}${digit}`
+            : `${prevNumber}${digit}`);
+
+        if (!isValidSizeOfDigits({number: newNumber})) {
+            alert('숫자는 세 자리까지만 입력 가능합니다!');
+            return;
         }
 
-        refreshTotal();
+        if (!!operator) {
+            state.nextNumber = newNumber;
+            return;
+        }
+        state.prevNumber = newNumber;
     }
 
     function onClickModifier() {
