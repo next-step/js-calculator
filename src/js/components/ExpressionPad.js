@@ -7,7 +7,7 @@ export default class ExpressionPad extends Component {
     return Object.values(Expression)
       .map(
         (exp) =>
-          `<button class="operation" data-type="${DataSet.expression}">${exp}</button>`
+          `<button class="operation" data-type="${DataSet.expression}" data-test-expression="${exp}">${exp}</button>`
       )
       .join("");
   }

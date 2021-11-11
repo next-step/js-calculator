@@ -7,7 +7,7 @@ export default class NumberPad extends Component {
       .reverse()
       .map(
         (num) =>
-          `<button class="digit" data-type="${DataSet.number}">${num}</button>`
+          `<button class="digit" data-type="${DataSet.number}" data-test-number="${num}">${num}</button>`
       )
       .join("");
   }

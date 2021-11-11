@@ -4,17 +4,31 @@ import NumberPad from "./components/NumberPad.js";
 import ResultPanel from "./components/ResultPanel.js";
 import DataSet from "./constants/DataSet.js";
 import Event from "./constants/Event.js";
-import Component from "./core/Component.js";
 import Calculator from "./model/Calculator.js";
 import { $ } from "./utils/dom.util.js";
 
-export default class App extends Component {
+export default class App {
   _ResultPanel;
   _NumberPad;
   _ClearButton;
   _ExpressionPad;
 
   _calculator;
+
+  $target;
+  $props;
+  $state;
+
+  constructor($target, $props) {
+    this.$target = $target;
+    this.$props = $props;
+    this.render();
+  }
+
+  render() {
+    this.$target.innerHTML = this.template();
+    this.mounted();
+  }
 
   template() {
     return `
@@ -34,8 +48,7 @@ export default class App extends Component {
       this._NumberPad = new NumberPad($("#NumberPad"));
       this._ClearButton = new ClearButton($("#ClearButton"));
       this._ExpressionPad = new ExpressionPad($("#ExpressionPad"));
-
-      this.setLazyEvent().bind(this);
+      this.setLazyEvent();
     }
   }
 
