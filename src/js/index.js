@@ -24,16 +24,16 @@ const operationButtons = operations.reduce(
 const initialState = { numbers: [0], operations: [], currentKeyType: KEY_TYPE.DIGIT };
 
 class Calculator extends HTMLElement {
-  state = { ...initialState };
-
-  setState(newState) {
-    this.state = { ...this.state, ...newState };
-    this.update();
-  }
+  state;
 
   connectedCallback() {
     this.render();
     this.bindEvents();
+    this.setState(initialState);
+  }
+
+  setState(newState) {
+    this.state = { ...this.state, ...newState };
     this.update();
   }
 
