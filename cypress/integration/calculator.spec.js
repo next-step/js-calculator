@@ -1,18 +1,11 @@
 import { MODIFIER, OPERATION } from '../../src/js/constants/calculator.js';
+import { CALCULATOR_ERROR } from '../../src/js/constants/errorMessage.js';
 
 const TEST_URL = 'http://127.0.0.1:5500/';
 
-const clickDigit = (digit) => {
-  cy.get('.digit').contains(digit).click();
-};
-
-const clickOperator = (operator) => {
-  cy.get('.operation').contains(operator).click();
-};
-
-const clickModifier = (modifier) => {
-  cy.get('.modifier').contains(modifier).click();
-};
+const clickDigit = (digit) => cy.get('.digit').contains(digit).click();
+const clickOperator = (operator) => cy.get('.operation').contains(operator).click();
+const clickModifier = (modifier) => cy.get('.modifier').contains(modifier).click();
 
 const calculate = (operand1, operator, operand2) => {
   clickDigit(operand1);
@@ -42,12 +35,14 @@ describe('계산기', () => {
   });
 
   it('연산자 버튼을 누르면 결과화면에 나타난다.', () => {
+    clickDigit(1);
     clickOperator(OPERATION.ADD);
 
     cy.get('#total').should('include.text', OPERATION.ADD);
   });
 
   it('연산자 버튼을 여러 번 누르면 마지막에 누른 연산자로 갱신된다.', () => {
+    clickDigit(1);
     clickOperator(OPERATION.ADD);
     clickOperator(OPERATION.DIVIDE);
     clickOperator(OPERATION.MULTIPLY);
@@ -84,5 +79,14 @@ describe('계산기', () => {
     clickModifier(MODIFIER.AC);
 
     cy.get('#total').should('have.text', 0);
+  });
+
+  it('숫자를 입력하지 않고, 연산자를 입력할 수 없다.', () => {
+    const alertStub = cy.stub();
+    cy.on('window:alert', alertStub);
+
+    clickOperator(OPERATION.ADD).then(() => {
+      expect(alertStub.getCall(0)).to.be.calledWith(CALCULATOR_ERROR.OPERATION_WITH_NO_NUMBER);
+    });
   });
 });
