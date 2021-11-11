@@ -1,4 +1,5 @@
 "use strict";
+// test
 
 const $total = document.querySelector("#total");
 const $digits = document.querySelector(".digits");
