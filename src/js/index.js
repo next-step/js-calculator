@@ -2,6 +2,13 @@ import { KEY_TYPE, MODIFIER, OPERATION, VALIDATION } from './constants/calculato
 import { CALCULATOR_ERROR } from './constants/errorMessage.js';
 import { $ } from './utils/querySelector.js';
 
+const operationMap = {
+  [OPERATION.ADD]: (a, b) => a + b,
+  [OPERATION.SUBTRACT]: (a, b) => a - b,
+  [OPERATION.MULTIPLY]: (a, b) => a * b,
+  [OPERATION.DIVIDE]: (a, b) => Math.floor(a / b),
+};
+
 const digits = [...Array(10).keys()].reverse();
 const operations = Object.values(OPERATION);
 
@@ -95,10 +102,28 @@ class Calculator extends HTMLElement {
   }
 
   onClickOperation({ target }) {
-    const { operations, currentKeyType } = this.state;
     const { operation } = target.dataset;
 
     if (!operation) return;
+
+    if (operation === OPERATION.EQUAL) {
+      this.calculate();
+    } else {
+      this.setOperation(operation);
+    }
+  }
+
+  calculate() {
+    const [number1, number2] = this.state.numbers;
+    const [operation] = this.state.operations;
+    const operate = operationMap[operation];
+    const result = operate(number1, number2);
+
+    this.setState({ ...initialState, numbers: [result] });
+  }
+
+  setOperation(operation) {
+    const { operations, currentKeyType } = this.state;
 
     const copiedOperations = [...operations];
 
