@@ -73,4 +73,12 @@ describe("calculator", () => {
       cy.get("#total").should("have.text", "13");
     });
   });
+
+  it("AC 클릭시 디스플레이 값이 0으로 초기화된다.", () => {
+    cy.get(".digits").contains("1").click();
+    cy.get(".digits").contains("1").click();
+    cy.get(".modifier").click();
+
+    cy.get("#total").should("have.text", "0");
+  });
 });
