@@ -14,15 +14,9 @@
   <img src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square"/>
 </p>
 
-## 🔥 Projects!
+## 데모
 
-<p align="middle">
-  <img width="300" src="src/images/calculator_ui.png">
-</p>
-
-<p align="middle">
-  <a href="https://next-step.github.io/js-calculator/">🖥️ 데모 링크</a>
-</p>
+[데모 링크](https://roy-jung.github.io/js-calculator/)
 
 ## 웹 vscode 환경
 
@@ -34,6 +28,9 @@
 - [x] 2개의 숫자에 대해 뺄셈이 가능하다.
 - [x] 2개의 숫자에 대해 곱셈이 가능하다.
 - [x] 2개의 숫자에 대해 나눗셈이 가능하다.
+- [x] '음수인 두번째 피연산자의 부호 "-"는 "연산자 수정"으로 인식한다.
+- [x] 계산 결과를 표현할 때 소수점 이하는 버림한다.
 - [x] AC(All Clear)버튼을 누르면 0으로 초기화 한다.
 - [x] 숫자는 한번에 최대 3자리 수까지 입력 가능하다.
-- [x] 계산 결과를 표현할 때 소수점 이하는 버림한다.
+- [x] '두번째 숫자 입력후 다시 연산자를 누르면 앞의 계산 결과에 이어서 연산을 진행한다.'
+
