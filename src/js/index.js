@@ -122,6 +122,9 @@ class Calculator extends HTMLElement {
   calculate() {
     const [number1, number2] = this.state.numbers;
     const [operation] = this.state.operations;
+
+    if (!number1 || !number2 || !operation) return;
+
     const operate = operationMap[operation];
     const result = operate(number1, number2);
 
