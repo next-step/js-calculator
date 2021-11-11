@@ -1,0 +1,14 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/roy-jung/js-calculator.git",
+  "author": "roy-jung <power4ce@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "cypress": "^8.7.0"
+  },
+  "scripts": {
+    "test": "yarn run cypress open"
+  }
+}
