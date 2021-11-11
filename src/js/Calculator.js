@@ -1,31 +1,59 @@
 import {Digits} from './components/Digits.js';
 import {Modifier} from './components/Modifier.js';
 import {Operations} from './components/Operations.js';
+import {calculateDisplayText, calculateNumber} from './utils/math.js';
+import {OPERATOR} from './consts/operator.js';
 
 export function Calculator({$el}) {
 
     const state = {
         prevNumber: 0,
-        nextNumber: 0,
         operator: null,
+        nextNumber: null,
     };
 
     function onClickDigit({digit}) {
-        console.log(digit);
+        const {prevNumber, operator, nextNumber} = state;
+        if (operator) {
+            state.nextNumber = Number(`${nextNumber || 0}${digit}`);
+        } else {
+            state.prevNumber = Number(`${prevNumber}${digit}`);
+        }
+
+        refreshTotal();
     }
 
     function onClickModifier() {
         state.prevNumber = 0;
-        state.nextNumber = 0;
         state.operator = null;
+        state.nextNumber = null;
+        refreshTotal();
     }
 
-    function onClickOperation({operation}) {
-        refreshTotal({totalText: state.prevNumber++});
+    function onClickOperation({operator}) {
+        const {prevNumber, operator: prevOperator, nextNumber} = state;
+
+        if (operator === OPERATOR.EQUAL) {
+            state.operator = null;
+            state.nextNumber = null;
+            state.prevNumber = calculateNumber({prevNumber, operator: prevOperator, nextNumber});
+            refreshTotal();
+            return;
+        }
+
+        //이전 연산결과를 prevNumber 저장
+        if (nextNumber) {
+            state.prevNumber = calculateNumber({prevNumber, operator: prevOperator, nextNumber});
+            state.nextNumber = null;
+        }
+        state.operator = operator;
+        refreshTotal();
     }
 
-    function refreshTotal({totalText}) {
-        $el.querySelector('#total').innerHTML = totalText;
+    function refreshTotal() {
+        const {prevNumber, operator, nextNumber} = state;
+        const totalDisplayText = calculateDisplayText({prevNumber, operator, nextNumber});
+        $el.querySelector('#total').innerHTML = totalDisplayText;
     }
 
     function render() {
