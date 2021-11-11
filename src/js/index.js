@@ -70,6 +70,7 @@ class Calculator extends HTMLElement {
   bindEvents() {
     $('#digits').addEventListener('click', this.onClickDigit.bind(this));
     $('#operations').addEventListener('click', this.onClickOperation.bind(this));
+    $('#modifiers').addEventListener('click', this.onClickModifier.bind(this));
   }
 
   onClickDigit({ target }) {
@@ -135,6 +136,18 @@ class Calculator extends HTMLElement {
       operations: [...copiedOperations, operation],
       currentKeyType: KEY_TYPE.OPERATION,
     });
+  }
+
+  onClickModifier({ target }) {
+    const { modifier } = target.dataset;
+
+    if (!modifier) return;
+
+    if (modifier === MODIFIER.AC) this.reset();
+  }
+
+  reset() {
+    this.setState({ ...initialState });
   }
 }
 
