@@ -4,7 +4,6 @@ import NumberPad from "./components/NumberPad.js";
 import ResultPanel from "./components/ResultPanel.js";
 import DataSet from "./constants/DataSet.js";
 import Event from "./constants/Event.js";
-import Message from "./constants/Message.js";
 import Component from "./core/Component.js";
 import Calculator from "./model/Calculator.js";
 import { $ } from "./utils/dom.util.js";
@@ -70,7 +69,7 @@ export default class App extends Component {
     const isSuccess = this._calculator.setNumber(number);
 
     if (!isSuccess) {
-      alert(Message.numberValidationError);
+      alert(this._calculator.error);
       return;
     }
 
@@ -81,7 +80,7 @@ export default class App extends Component {
     const isSuccess = this._calculator.setExpression(expression);
 
     if (!isSuccess) {
-      alert(Message.expressionValidationError);
+      alert(this._calculator.error);
     }
 
     this.publishResult();

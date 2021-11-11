@@ -1,9 +1,12 @@
 import Expression from "../constants/Expression.js";
+import Message from "../constants/Message.js";
 
 export default class Calculator {
   _currentNumber;
+  _secondInserted;
   _expression;
   _buffer;
+  _error;
 
   constructor() {
     this.clear();
@@ -17,6 +20,7 @@ export default class Calculator {
 
       this._currentNumber = this.calculate();
 
+      this._secondInserted = false;
       this._expression = "";
       this._buffer = 0;
 
@@ -35,6 +39,12 @@ export default class Calculator {
   }
 
   setNumber(number) {
+    if (this._buffer) {
+      this._secondInserted = true;
+    } else {
+      this._secondInserted = false;
+    }
+
     if (!this.isAbleToSetNumber()) {
       return false;
     }
@@ -45,15 +55,26 @@ export default class Calculator {
   }
 
   isAbleToSetExpression() {
-    if (this._currentNumber === 0) {
+    if (this._expression) {
+      this._error = Message.aleradyExistExpression;
       return false;
     }
 
-    return !this._expression;
+    if (this._currentNumber === 0) {
+      this._error = Message.expressionValidationError;
+      return false;
+    }
+
+    return true;
   }
 
   isAbleToSetNumber() {
-    return this._currentNumber < 100;
+    if (this._currentNumber >= 100) {
+      this._error = Message.numberValidationError;
+      return false;
+    }
+
+    return true;
   }
 
   calculate() {
@@ -76,9 +97,11 @@ export default class Calculator {
   }
 
   clear() {
+    this._secondInserted = false;
     this._currentNumber = 0;
     this._expression = "";
     this._buffer = 0;
+    this._error = "";
   }
 
   get result() {
@@ -87,7 +110,14 @@ export default class Calculator {
     }
 
     return `${Math.floor(this._buffer)}${this._expression}${
-      this._currentNumber ? Math.floor(this._currentNumber) : ""
+      this._secondInserted ? Math.floor(this._currentNumber) : ""
     }`;
+  }
+
+  get error() {
+    const error = this._error;
+
+    this._error = "";
+    return error;
   }
 }
