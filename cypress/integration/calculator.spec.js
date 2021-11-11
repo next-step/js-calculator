@@ -8,13 +8,8 @@ before(() => {
 });
 
 describe('계산기 미션 테스트', () => {
-  const testCase = [
-    [77, 7],
-    [25, 8],
-    [123, 45],
-  ];
+  const testCase = [[77, 7]];
   const operator = (description, operationFunc, operation) => {
-    console.log(operationFunc);
     it(description, () => {
       testCase.forEach(([firstNumber, secondNumber]) => {
         cy.clickMultiNumber(firstNumber);
@@ -26,6 +21,10 @@ describe('계산기 미션 테스트', () => {
       });
     });
   };
+
+  beforeEach(() => {
+    cy.clickModifier();
+  });
 
   operator(
     '2개의 숫자에 대해 덧셈이 가능하다.',
@@ -68,6 +67,4 @@ describe('계산기 미션 테스트', () => {
       expect(alertStub.getCall(0)).to.be.calledWith(ALERT_MESSAGE.MAX_NUMBER);
     });
   });
-
-  it('계산 결과를 표현할 때 소수점 이하는 버림한다.', () => {});
 });

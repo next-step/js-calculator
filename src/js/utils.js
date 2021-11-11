@@ -1,4 +1,6 @@
-import { OPERATIONS } from './constants';
+import { OPERATIONS } from './constants.js';
+
+export const $ = (selector, el = document) => el.querySelector(selector);
 
 export const getRandomNumber = () => Math.floor(Math.random() * 9) + 1;
 
