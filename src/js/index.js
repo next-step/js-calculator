@@ -76,16 +76,17 @@ class Calculator extends HTMLElement {
   onClickDigit({ target }) {
     const { numbers, currentKeyType } = this.state;
     const digit = Number(target.dataset.digit);
-    const lastNumberLength = [...numbers].pop().toString().length;
 
     if (!digit) return;
 
-    if (lastNumberLength >= VALIDATION.MAX_NUMBER_LENGTH) {
-      alert(CALCULATOR_ERROR.EXCEED_MAX_NUMBER_LENGTH);
-      return;
-    }
-
     if (currentKeyType === KEY_TYPE.DIGIT) {
+      const lastNumberLength = [...numbers].pop().toString().length;
+
+      if (lastNumberLength >= VALIDATION.MAX_NUMBER_LENGTH) {
+        alert(CALCULATOR_ERROR.EXCEED_MAX_NUMBER_LENGTH);
+        return;
+      }
+
       this.appendDigit(digit);
     }
 
