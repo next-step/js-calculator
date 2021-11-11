@@ -77,7 +77,6 @@ describe('계산기', () => {
     clickDigit(2);
     clickDigit(3);
     clickModifier(MODIFIER.AC);
-
     cy.get('#total').should('have.text', 0);
   });
 
