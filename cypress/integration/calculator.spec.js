@@ -10,6 +10,28 @@ describe("calculator", () => {
     });
   });
 
+  it("세 자리를 넘어 숫자가 입력되면 alert창이 표시된다", () => {
+    const stub = cy.stub();
+
+    cy.on("window:alert", stub);
+
+    cy.get("#total").then(() => {
+      for (let i = 0; i < 3; i++) {
+        cy.get(".digits").contains("1").click();
+      }
+      cy.get(".digits")
+        .contains("1")
+        .click()
+        .then(() => {
+          expect(stub.getCall(0)).to.be.calledWith(
+            "3자리 수까지 입력 가능합니다."
+          );
+        });
+    });
+
+    cy.get("#total").should("have.text", "111");
+  });
+
   it("덧셈 테스트: 1, +, 2를 입력하면 3이 표시된다", () => {
     cy.get("#total").then(() => {
       cy.get(".digits").contains("1").click();
