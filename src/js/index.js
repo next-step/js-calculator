@@ -15,17 +15,17 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   function onClickDigit(e) {
-    if (state.mode === TARGET_NUM.NONE) changeMode(TARGET_NUM.FIRST_NUM);
-    if (!isValidLength(state[state.mode])) return;
-    state[state.mode] += e.target.textContent;
+    if (state.targetNum === TARGET_NUM.NONE) changeMode(TARGET_NUM.FIRST_NUM);
+    if (!isValidLength(state[state.targetNum])) return;
+    state[state.targetNum] += e.target.textContent;
     updateTotal(state.firstNum + state.operator + state.secondNum);
   }
 
 
   function onClickOperation(e) {
-    if (state.mode === TARGET_NUM.NONE) return;
+    if (state.targetNum === TARGET_NUM.NONE) return;
 
-    if (state.mode === TARGET_NUM.FIRST_NUM) {
+    if (state.targetNum === TARGET_NUM.FIRST_NUM) {
       if (e.target.textContent === OPERATION.EQUAL) return;
       setState({...state, operator: e.target.textContent})
       updateTotal(state.firstNum + state.operator + state.secondNum);
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function changeMode(newMode) {
-    state.mode = newMode
+    state.targetNum = newMode
   }
 
   function updateTotal(newTotal) {
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   addClickEventListeners(onClickDigit, onClickOperation, onClickModifier);
-  const initialState = {firstNum: '', secondNum: '', operator: '', mode: TARGET_NUM.NONE};
+  const initialState = {firstNum: '', secondNum: '', operator: '', targetNum: TARGET_NUM.NONE};
   let state;
   setState(initialState);
 });
