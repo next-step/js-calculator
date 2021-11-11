@@ -30,3 +30,9 @@ export function calculateNumber({prevNumber, operator, nextNumber}) {
 
     return calculateFn[operator](prevNumber, nextNumber);
 }
+
+export const MAX_SIZE_OF_DIGITS = 3;
+
+export function isValidSizeOfDigits({number}) {
+    return String(number).length <= MAX_SIZE_OF_DIGITS;
+}

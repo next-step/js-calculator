@@ -1,7 +1,7 @@
 import {Digits} from './components/Digits.js';
 import {Modifier} from './components/Modifier.js';
 import {Operations} from './components/Operations.js';
-import {calculateDisplayText, calculateNumber} from './utils/math.js';
+import {calculateDisplayText, calculateNumber, isValidSizeOfDigits} from './utils/math.js';
 import {OPERATOR} from './consts/operator.js';
 
 export function Calculator({$el}) {
@@ -16,8 +16,16 @@ export function Calculator({$el}) {
         const {prevNumber, operator, nextNumber} = state;
         if (operator) {
             state.nextNumber = Number(`${nextNumber || 0}${digit}`);
+            if (!isValidSizeOfDigits(state.nextNumber)) {
+                state.nextNumber = nextNumber;
+                alert('숫자는 세 자리까지만 입력 가능합니다!');
+            }
         } else {
             state.prevNumber = Number(`${prevNumber}${digit}`);
+            if (!isValidSizeOfDigits(state.prevNumber)) {
+                state.prevNumber = prevNumber;
+                alert('숫자는 세 자리까지만 입력 가능합니다!');
+            }
         }
 
         refreshTotal();
