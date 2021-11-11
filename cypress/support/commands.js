@@ -1,25 +1,21 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add('clickNumber', (number) => {
+  cy.get(`.digit[data-digit="${number}"]`).click();
+});
+
+Cypress.Commands.add('clickMultiNumber', (multiNumber) => {
+  String(multiNumber)
+    .split('')
+    .forEach((number) => cy.clickNumber(number));
+});
+
+Cypress.Commands.add('clickOperation', (operation) => {
+  cy.get(`.operation[data-operation="${operation}"]`).click();
+});
+
+Cypress.Commands.add('clickModifier', () => {
+  cy.get('.modifier').click();
+});
+
+Cypress.Commands.add('getResult', (result) => {
+  cy.get('#total').should('have.text', result);
+});
