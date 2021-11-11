@@ -1,4 +1,4 @@
-import { OPERATION } from '../../src/js/constants/calculator.js';
+import { MODIFIER, OPERATION } from '../../src/js/constants/calculator.js';
 
 const TEST_URL = 'http://127.0.0.1:5500/';
 
@@ -8,6 +8,10 @@ const clickDigit = (digit) => {
 
 const clickOperator = (operator) => {
   cy.get('.operation').contains(operator).click();
+};
+
+const clickModifier = (modifier) => {
+  cy.get('.modifier').contains(modifier).click();
 };
 
 const calculate = (operand1, operator, operand2) => {
@@ -71,5 +75,14 @@ describe('계산기', () => {
       calculate(1, OPERATION.DIVIDE, 2);
       cy.get('#total').should('have.text', 0);
     });
+  });
+
+  it('AC(All Clear)버튼을 누르면 0으로 초기화 한다.', () => {
+    clickDigit(1);
+    clickDigit(2);
+    clickDigit(3);
+    clickModifier(MODIFIER.AC);
+
+    cy.get('#total').should('have.text', 0);
   });
 });
