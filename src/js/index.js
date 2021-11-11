@@ -76,30 +76,34 @@ class Calculator extends HTMLElement {
   onClickDigit({ target }) {
     const { numbers, currentKeyType } = this.state;
     const digit = Number(target.dataset.digit);
-    const lastNumber = [...numbers].pop();
+    const lastNumberLength = [...numbers].pop().toString().length;
 
     if (!digit) return;
 
-    if (lastNumber.toString().length >= VALIDATION.MAX_NUMBER_LENGTH) {
+    if (lastNumberLength >= VALIDATION.MAX_NUMBER_LENGTH) {
       alert(CALCULATOR_ERROR.EXCEED_MAX_NUMBER_LENGTH);
       return;
     }
 
-    let newNumbers;
-
     if (currentKeyType === KEY_TYPE.DIGIT) {
-      const copiedNumbers = [...numbers];
-      const lastNumber = copiedNumbers.pop();
-      const appendedNumber = lastNumber * 10 + digit;
-
-      newNumbers = [...copiedNumbers, appendedNumber];
+      this.appendDigit(digit);
     }
 
     if (currentKeyType === KEY_TYPE.OPERATION) {
-      newNumbers = [...numbers, digit];
+      this.setDigit(digit);
     }
+  }
 
-    this.setState({ numbers: newNumbers, currentKeyType: KEY_TYPE.DIGIT });
+  appendDigit(digit) {
+    const numbersCopied = [...this.state.numbers];
+    const lastNumber = numbersCopied.pop();
+    const appendedNumber = lastNumber * 10 + digit;
+
+    this.setState({ numbers: [...numbersCopied, appendedNumber], currentKeyType: KEY_TYPE.DIGIT });
+  }
+
+  setDigit(digit) {
+    this.setState({ numbers: [...this.state.numbers, digit], currentKeyType: KEY_TYPE.DIGIT });
   }
 
   onClickOperation({ target }) {
