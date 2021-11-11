@@ -2,6 +2,7 @@ import ClearButton from "./components/ClearButton.js";
 import ExpressionPad from "./components/ExpressionPad.js";
 import NumberPad from "./components/NumberPad.js";
 import ResultPanel from "./components/ResultPanel.js";
+import Event from "./constants/Event.js";
 import Component from "./core/Component.js";
 import { $ } from "./utils/dom.util.js";
 
@@ -33,5 +34,23 @@ export default class App extends Component {
       this._ClearButton = new ClearButton($("#ClearButton"));
       this._ExpressionPad = new ExpressionPad($("#ExpressionPad"));
     }
+  }
+
+  setEvent() {
+    this.$target.addEventListener(Event.onClick, (event) => {
+      const clickedElement = event.target;
+
+      const isValid = this.validateEventElement(clickedElement);
+
+      console.log(isValid);
+    });
+  }
+
+  validateEventElement(clickedElement) {
+    if (!clickedElement) {
+      return false;
+    }
+
+    return !!clickedElement.dataset.type;
   }
 }
