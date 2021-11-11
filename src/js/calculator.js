@@ -46,13 +46,16 @@ class Calculator {
       (this.state[currentValueKey] ?? 0) * 10 + Number(target.dataset.digit);
 
     this.setCurrentValue(currentValueKey, newValue);
+    this.renderDisplay(newValue);
   }
 
   onOperationClick({ target }) {
     const { operation } = target.dataset;
 
     if (operation === OPERATION.CALCULATION) {
-      this.calculate();
+      this.calculateTotalValue();
+      this.renderDisplay(this.state.totalValue);
+      this.resetOperationStates();
     } else {
       this.setOperation(operation);
     }
@@ -76,7 +79,6 @@ class Calculator {
     }
 
     this.state[currentValueKey] = newValue;
-    this.renderDisplay(newValue);
   }
 
   setOperation(operation) {
@@ -89,7 +91,7 @@ class Calculator {
     this.state.operation = operation;
   }
 
-  calculate() {
+  calculateTotalValue() {
     const { leftValue, rightValue, operation, totalValue } = this.state;
 
     if (operation === null) {
@@ -110,8 +112,6 @@ class Calculator {
     );
 
     this.state.totalValue = calculatedValue;
-    this.renderDisplay(calculatedValue);
-    this.resetOperationStates();
   }
 
   resetOperationStates() {
