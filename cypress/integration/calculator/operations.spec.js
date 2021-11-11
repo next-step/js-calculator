@@ -71,6 +71,39 @@ describe('사칙 연산', () => {
           .should('have.text', '2');
     });
 
+    it('AC(All Clear)버튼을 누르면 0으로 초기화 한다.', () => {
+        //given
+        cy.get('[data-test="total"]')
+          .should('have.text', '0');
+
+        cy.get('[data-test="six"]')
+          .click();
+        cy.get('[data-test="total"]')
+          .should('have.text', '6');
+
+        //when
+        cy.get('[data-test="modifier"]')
+          .click();
+
+        //then
+        cy.get('[data-test="total"]')
+          .should('have.text', '0');
+
+        //given
+        cy.get('[data-test="six"]')
+          .click();
+        cy.get('[data-operator="DIVIDE"]')
+          .click();
+
+        //when
+        cy.get('[data-test="modifier"]')
+          .click();
+
+        //then
+        cy.get('[data-test="total"]')
+          .should('have.text', '0');
+    });
+
     it('계산 결과를 표현할 때 소수점 이하는 버림한다.', () => {
         cy.get('[data-test="total"]')
           .should('have.text', '0');
