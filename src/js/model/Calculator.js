@@ -1,6 +1,13 @@
 import Expression from "../constants/Expression.js";
 import Message from "../constants/Message.js";
 
+const calculateExpression = {
+  [Expression.plus]: (a, b) => a + b,
+  [Expression.minus]: (a, b) => a - b,
+  [Expression.multiply]: (a, b) => a * b,
+  [Expression.devide]: (a, b) => a / b,
+};
+
 export default class Calculator {
   _currentNumber;
   _secondInserted;
@@ -18,7 +25,10 @@ export default class Calculator {
         return true;
       }
 
-      this._currentNumber = this.calculate();
+      this._currentNumber = calculateExpression[this._expression](
+        this._buffer,
+        this._currentNumber
+      );
 
       this._secondInserted = false;
       this._expression = "";
@@ -75,25 +85,6 @@ export default class Calculator {
     }
 
     return true;
-  }
-
-  calculate() {
-    switch (this._expression) {
-      case Expression.plus:
-        return this._buffer + this._currentNumber;
-
-      case Expression.minus:
-        return this._buffer - this._currentNumber;
-
-      case Expression.multiply:
-        return this._buffer * this._currentNumber;
-
-      case Expression.devide:
-        return this._buffer / this._currentNumber;
-
-      default:
-        throw Error("Invalid Expression!");
-    }
   }
 
   clear() {

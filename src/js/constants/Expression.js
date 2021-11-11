@@ -1,7 +1,7 @@
 export default Object.freeze({
-  plus: "+",
-  minus: "-",
-  multiply: "X",
   devide: "/",
+  multiply: "X",
+  minus: "-",
+  plus: "+",
   calculate: "=",
 });
