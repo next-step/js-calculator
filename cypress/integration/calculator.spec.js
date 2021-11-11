@@ -59,13 +59,6 @@ describe('cc-1-js-calculator', () => {
   });
 
   it('첫번째 수가 입력되고, 두번째 수가 입력되지 않은 상태에서 = 를 누르면 무시한다..', () => {
-    const test = ['1', '2', '3', '=', '=']
-    const result = 123
-    clickButtonsTest(test);
-    totalIsResult(result);
-  });
-
-  it('첫번째 수가 입력되고, 두번째 수가 입력되지 않은 상태에서 = 를 누르면 무시한다..', () => {
     clickButtonsTest('123==');
     totalIsResult(123);
   });
