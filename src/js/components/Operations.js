@@ -7,8 +7,8 @@ export function Operations({$el, onClickOperation}) {
             <button class="operation" data-operator="${OPERATOR.DIVIDE}">/</button>
             <button class="operation" data-operator="${OPERATOR.MULTIPLE}">X</button>
             <button class="operation" data-operator="${OPERATOR.MINUS}">-</button>
-            <button class="operation" data-operator="${OPERATOR.PLUS}" data-test="operator-plus">+</button>
-            <button class="operation" data-operator="${OPERATOR.EQUAL}" data-test="operator-equal">=</button>
+            <button class="operation" data-operator="${OPERATOR.PLUS}">+</button>
+            <button class="operation" data-operator="${OPERATOR.EQUAL}">=</button>
         `;
 
         $el.addEventListener('click', ({target: {dataset: {operator}}}) => {
