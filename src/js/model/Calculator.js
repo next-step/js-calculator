@@ -25,6 +25,14 @@ export default class Calculator {
         return true;
       }
 
+      if (
+        this._expression === Expression.devide &&
+        this._buffer !== 0 &&
+        this._currentNumber === 0
+      ) {
+        this._error = Message.cannotDevideWithZero;
+        return false;
+      }
       this._currentNumber = calculateExpression[this._expression](
         this._buffer,
         this._currentNumber

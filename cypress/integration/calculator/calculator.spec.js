@@ -59,6 +59,18 @@ describe("계산기 요구조건을 만족한다.", () => {
     cy.calcShouldBe(expectedResult);
   });
 
+  it("0으로 나눌 수 없다", () => {
+    const [firstNumber] = SAMPLE_NUMBER;
+    cy.clickNumberButton(firstNumber.toString().split(""));
+    cy.clickExpressionButton(Expression.devide);
+    cy.clickNumberButton(["0"]);
+    cy.clickExpressionButton(Expression.calculate);
+
+    cy.on("window:alert", (txt) => {
+      expect(txt).to.contains(Message.cannotDevideWithZero);
+    });
+  });
+
   it("AC(All Clear)버튼을 누르면 0으로 초기화 한다.", () => {
     const [firstNumber] = SAMPLE_NUMBER;
 
@@ -72,7 +84,6 @@ describe("계산기 요구조건을 만족한다.", () => {
     const firstNumber = "1000";
     cy.clickNumberButton(firstNumber.split(""));
     cy.on("window:alert", (txt) => {
-      //Mocha assertions
       expect(txt).to.contains(Message.numberValidationError);
     });
   });
