@@ -1,0 +1,15 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "description": "javascript calculator",
+  "main": "index.js",
+  "repository": "https://github.com/next-step/js-calculator.git",
+  "author": "Sona <mojosoeun@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "cypress": "^9.0.0"
+  },
+  "scripts": {
+    "cypress:open": "cypress open"
+  }
+}
