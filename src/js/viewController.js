@@ -4,8 +4,8 @@ const viewController = executor => {
 
   const clickHandler = e => {
     try {
-      const { className, textContent } = e.target
-      const res = executor.execute(textContent, className)
+      const { className, dataset } = e.target
+      const res = executor.execute(dataset.value, className)
       if (res) $total.textContent = executor.state
     } catch (err) {
       console.error(err)
