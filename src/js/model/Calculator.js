@@ -83,11 +83,11 @@ export default class Calculator {
 
   get result() {
     if (!this._expression) {
-      return this._currentNumber;
+      return Math.floor(this._currentNumber);
     }
 
-    return `${this._buffer}${this._expression}${
-      this._currentNumber ? this._currentNumber : ""
+    return `${Math.floor(this._buffer)}${this._expression}${
+      this._currentNumber ? Math.floor(this._currentNumber) : ""
     }`;
   }
 }

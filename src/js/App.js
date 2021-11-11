@@ -74,7 +74,7 @@ export default class App extends Component {
       return;
     }
 
-    this._ResultPanel.setState({ result: this._calculator.result });
+    this.publishResult();
   }
 
   updateExpression(expression) {
@@ -84,11 +84,16 @@ export default class App extends Component {
       alert(Message.expressionValidationError);
     }
 
-    this._ResultPanel.setState({ result: this._calculator.result });
+    this.publishResult();
   }
 
   clearCalculator() {
-    console.log("clear!");
+    this._calculator.clear();
+    this.publishResult();
+  }
+
+  publishResult() {
+    this._ResultPanel.setState({ result: this._calculator.result });
   }
 
   validateEventElement(clickedElement) {
