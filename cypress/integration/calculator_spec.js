@@ -123,12 +123,42 @@ describe('js-calculator Test', () => {
   })
 
   it('2개의 숫자에 대해 나눗셈이 가능하다.', () => {
-    //given
+    const number9 = 9;
+    const number1 = 3;
+    const operationDiv = '/';
+    const operationEq = '=';
+    const total = 3;
 
     //when
+    cy.clickNumber(number9);
+    cy.clickOperation(operationDiv);
+    cy.clickNumber(number1);
+    cy.clickOperation(operationEq);
 
     //then
+    cy.get('#total').should('have.text', `${total}`)
   })
+
+  it('3개의 숫자에 대해 나눗셈이 가능하다.', () => {
+    const number8 = 8;
+    const number4 = 4;
+    const number2 = 2;
+    const operationDiv = '/';
+    const operationEq = '=';
+    const total = 1;
+
+    //when
+    cy.clickNumber(number8);
+    cy.clickOperation(operationDiv);
+    cy.clickNumber(number4);
+    cy.clickOperation(operationDiv);
+    cy.clickNumber(number2);
+    cy.clickOperation(operationEq);
+
+    //then
+    cy.get('#total').should('have.text', `${total}`)
+  })
+
   it('AC(All Clear)버튼을 누르면 0으로 초기화 한다.', () => {
     //given
 
@@ -156,10 +186,33 @@ describe('js-calculator Test', () => {
     cy.get('#total').should('have.text', `${total}`)
   })
   it('계산 결과를 표현할 때 소수점 이하는 버림한다.', () => {
-    //given
+    const number8 = 8;
+    const number4 = 4;
+    const number2 = 2;
+    const number3 = 3;
+    const number7 = 7;
+    const operationPlus = '+';
+    const operationSub = '-';
+    const operationMul = 'X';
+    const operationDiv = '/';
+    const operationEq = '=';
+    const total = 2;
 
     //when
+    cy.clickNumber(number8);
+    cy.clickOperation(operationMul);
+    cy.clickNumber(number4);
+    cy.clickOperation(operationDiv);
+    cy.clickNumber(number2);
+    cy.clickOperation(operationPlus);
+    cy.clickNumber(number3);
+    cy.clickOperation(operationSub);
+    cy.clickNumber(number3);
+    cy.clickOperation(operationDiv);
+    cy.clickNumber(number7);
+    cy.clickOperation(operationEq);
 
     //then
+    cy.get('#total').should('have.text', `${total}`)
   })
 })

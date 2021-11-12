@@ -67,6 +67,8 @@ class Model {
 
       } else if(operator === OPERATOR.MULTIPLY) {
         this.setTotal(num2 * num1);
+      } else if(operator === OPERATOR.DIVIDE) {
+        this.setTotal(Math.floor(num2 / num1))
       }
 
       this.numberStack.push(this.getTotal());
