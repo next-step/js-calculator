@@ -37,11 +37,14 @@ class Model {
 
   setCurrentOperator(operator) {
     this.initializeCurrentNumber()
+    if (this.operatorStack.length) {
+      this.initializeOperatorStack();
+    }
     this.currentOperator = operator;
+    this.operatorStack.push(this.currentOperator);
   }
 
   getCurrentOperator() {
-    this.operatorStack.push(this.currentOperator);
     return this.currentOperator;
   }
 
@@ -54,17 +57,15 @@ class Model {
   }
 
   calculate() {
-    if (this.operatorStack.length === 1) {
+    if (this.operatorStack.length === 1 && this.numberStack.length === 2) {
       const operator = this.operatorStack.pop();
       const num1 = this.numberStack.pop();
       const num2 = this.numberStack.pop();
       
       if (operator === OPERATOR.PLUS) {
         this.setTotal(num1 + num2);
-        
       } else if(operator === OPERATOR.MINUS) {
         this.setTotal(num2 - num1);
-
       } else if(operator === OPERATOR.MULTIPLY) {
         this.setTotal(num2 * num1);
       } else if(operator === OPERATOR.DIVIDE) {
