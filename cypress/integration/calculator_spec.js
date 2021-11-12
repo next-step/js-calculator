@@ -216,7 +216,7 @@ describe('js-calculator Test', () => {
     cy.get('#total').should('have.text', `${total}`)
   })
 
-  it('연산자를 여러번 입력시 가장 마지막에 입력한 연산자로 적용되 계산한다', () => {
+  it('연산자를 여러번 입력시 가장 마지막에 입력한 연산자로 적용해 계산한다', () => {
     const number8 = 8;
     const number4 = 4;
     const operationPlus = '+';
@@ -234,6 +234,21 @@ describe('js-calculator Test', () => {
     cy.clickOperation(operationSub);
     cy.clickOperation(operationDiv);
     cy.clickNumber(number4);
+    cy.clickOperation(operationEq);
+
+    //then
+    cy.get('#total').should('have.text', `${total}`)
+  })
+
+  it('연산자를 먼저 입력하여도 계산이 가능하다', () => {
+    const number8 = 8;
+    const operationMul = 'X';
+    const operationEq = '=';
+    const total = 0;
+
+    //when
+    cy.clickOperation(operationMul);
+    cy.clickNumber(number8);
     cy.clickOperation(operationEq);
 
     //then

@@ -37,6 +37,9 @@ class Model {
 
   setCurrentOperator(operator) {
     this.initializeCurrentNumber()
+    if (!this.numberStack.length) {
+      this.numberStack.push(0);
+    }
     if (this.operatorStack.length) {
       this.initializeOperatorStack();
     }
