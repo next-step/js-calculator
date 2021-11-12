@@ -30,3 +30,7 @@ Cypress.Commands.add('clickNumber', number => {
 Cypress.Commands.add('clickOperation', operation => {
   cy.get('.operation').contains(operation).click();
 });
+
+Cypress.Commands.add('clickAC', () => {
+  cy.get('.modifier').click();
+});

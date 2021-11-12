@@ -7,7 +7,19 @@ class Model {
   }
 
   initializeCurrentNumber() {
-    this.currentNumber = ''
+    this.currentNumber = '';
+  }
+
+  initializeCurrentOperator() {
+    this.currentOperator = '';
+  }
+
+  initializeNumberStack() {
+    this.numberStack.length = 0;
+  }
+
+  initializeOperatorStack() {
+    this.operatorStack.length = 0;
   }
 
   setCurrentNumber(num) {
@@ -30,12 +42,32 @@ class Model {
     return this.currentOperator;
   }
 
+  setTotal(total) {
+    this.total = total;
+  }
+
   getTotal() {
-    const operator = this.operatorStack.pop();
-    const num1 = this.numberStack.pop();
-    const num2 = this.numberStack.pop();
-    if (operator === '+') {
-      return num1 + num2;
+    return this.total;
+  }
+
+  calculate() {
+    if (this.operatorStack.length === 1) {
+      const operator = this.operatorStack.pop();
+      const num1 = this.numberStack.pop();
+      const num2 = this.numberStack.pop();
+      
+      if (operator === '+') {
+        this.setTotal(num1 + num2);
+        this.numberStack.push(this.total);
+      }
     }
+  }
+
+  reset() {
+    this.total = 0;
+    this.initializeCurrentNumber()
+    this.initializeCurrentOperator();
+    this.initializeNumberStack();
+    this.initializeOperatorStack();
   }
 }
