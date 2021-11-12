@@ -23,6 +23,9 @@ class Model {
   }
 
   setCurrentNumber(num) {
+    if (this.currentNumber.length >= 3) {
+      return;
+    }
     this.currentNumber += num;
   }
 

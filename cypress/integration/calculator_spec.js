@@ -77,10 +77,20 @@ describe('js-calculator Test', () => {
   })
   it('숫자는 한번에 최대 3자리 수까지 입력 가능하다.', () => {
     //given
+    const number7 = 7;
+    const number9 = 9;
+    const number1 = 1;
+    const number5 = 5;
+    const total = 791
 
     //when
+    cy.clickNumber(number7);
+    cy.clickNumber(number9);
+    cy.clickNumber(number1);
+    cy.clickNumber(number5);
 
     //then
+    cy.get('#total').should('have.text', `${total}`)
   })
   it('계산 결과를 표현할 때 소수점 이하는 버림한다.', () => {
     //given
