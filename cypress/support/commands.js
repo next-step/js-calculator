@@ -23,3 +23,10 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add('clickNumber', number => {
+  cy.get('.digit').contains(number).click();
+});
+
+Cypress.Commands.add('clickOperation', operation => {
+  cy.get('.operation').contains(operation).click();
+});
