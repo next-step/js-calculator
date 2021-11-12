@@ -84,14 +84,44 @@ describe('js-calculator Test', () => {
     cy.get('#total').should('have.text', `${total}`)
   })
 
-
   it('2개의 숫자에 대해 곱셈이 가능하다.', () => {
-    //given
+    const number9 = 9;
+    const number1 = 1
+    const operationMul = 'X';
+    const operationEq = '=';
+    const total = 9;
 
     //when
+    cy.clickNumber(number9);
+    cy.clickOperation(operationMul);
+    cy.clickNumber(number1);
+    cy.clickOperation(operationEq);
 
     //then
+    cy.get('#total').should('have.text', `${total}`)
   })
+
+  it('3개의 숫자에 대해 곱셈이 가능하다.', () => {
+    //given
+    const number7 = 7;
+    const number9 = 9;
+    const number0 = 0;
+    const operationMul = 'X';
+    const operationEq = '=';
+    const total = 0;
+
+    //when
+    cy.clickNumber(number7);
+    cy.clickOperation(operationMul);
+    cy.clickNumber(number9);
+    cy.clickOperation(operationMul);
+    cy.clickNumber(number0);
+    cy.clickOperation(operationEq);
+
+    //then
+    cy.get('#total').should('have.text', `${total}`)
+  })
+
   it('2개의 숫자에 대해 나눗셈이 가능하다.', () => {
     //given
 

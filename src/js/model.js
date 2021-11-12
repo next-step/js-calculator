@@ -64,6 +64,9 @@ class Model {
         
       } else if(operator === OPERATOR.MINUS) {
         this.setTotal(num2 - num1);
+
+      } else if(operator === OPERATOR.MULTIPLY) {
+        this.setTotal(num2 * num1);
       }
 
       this.numberStack.push(this.getTotal());

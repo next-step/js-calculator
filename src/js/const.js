@@ -1,7 +1,7 @@
 const OPERATOR = {
   PLUS: '+',
   MINUS: '-',
-  MULTIPLY: '*',
+  MULTIPLY: 'X',
   DIVIDE: '/',
   EQUAL: '=',
 }
