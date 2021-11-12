@@ -1,9 +1,10 @@
 class Model {
-  constructor() { 
+  constructor() {
     this.currentNumber = '';
     this.currentOperator = '';
     this.numberStack = [];
     this.operatorStack = [];
+    this.total = 0;
   }
 
   initializeCurrentNumber() {
@@ -36,7 +37,7 @@ class Model {
   }
 
   setCurrentOperator(operator) {
-    this.initializeCurrentNumber()
+    this.initializeCurrentNumber();
     if (!this.numberStack.length) {
       this.numberStack.push(0);
     }
@@ -64,15 +65,15 @@ class Model {
       const operator = this.operatorStack.pop();
       const num1 = this.numberStack.pop();
       const num2 = this.numberStack.pop();
-      
+
       if (operator === OPERATOR.PLUS) {
         this.setTotal(num1 + num2);
-      } else if(operator === OPERATOR.MINUS) {
+      } else if (operator === OPERATOR.MINUS) {
         this.setTotal(num2 - num1);
-      } else if(operator === OPERATOR.MULTIPLY) {
+      } else if (operator === OPERATOR.MULTIPLY) {
         this.setTotal(num2 * num1);
-      } else if(operator === OPERATOR.DIVIDE) {
-        this.setTotal(Math.floor(num2 / num1))
+      } else if (operator === OPERATOR.DIVIDE) {
+        this.setTotal(Math.floor(num2 / num1));
       }
 
       this.numberStack.push(this.getTotal());
@@ -81,7 +82,7 @@ class Model {
 
   reset() {
     this.total = 0;
-    this.initializeCurrentNumber()
+    this.initializeCurrentNumber();
     this.initializeCurrentOperator();
     this.initializeNumberStack();
     this.initializeOperatorStack();

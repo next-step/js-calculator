@@ -1,6 +1,6 @@
 before(() => {
-  cy.visit('index.html')
-})
+  cy.visit('index.html');
+});
 describe('js-calculator Test', () => {
   beforeEach(() => {
     cy.clickAC();
@@ -9,7 +9,7 @@ describe('js-calculator Test', () => {
   it('2개의 숫자에 대해 덧셈이 가능하다.', () => {
     //given
     const number9 = 9;
-    const number1 = 1
+    const number1 = 1;
     const operationPlus = '+';
     const operationEq = '=';
     const sum = 10;
@@ -21,14 +21,14 @@ describe('js-calculator Test', () => {
     cy.clickOperation(operationEq);
 
     //then
-    cy.get('#total').should('have.text', `${sum}`)
-  })
+    cy.get('#total').should('have.text', `${sum}`);
+  });
 
   it('3개의 숫자에 대해 덧셈이 가능하다.', () => {
     //given
     const number7 = 7;
     const number9 = 9;
-    const number1 = 1
+    const number1 = 1;
     const operationPlus = '+';
     const operationEq = '=';
     const sum = 17;
@@ -42,13 +42,13 @@ describe('js-calculator Test', () => {
     cy.clickOperation(operationEq);
 
     //then
-    cy.get('#total').should('have.text', `${sum}`)
-  })
+    cy.get('#total').should('have.text', `${sum}`);
+  });
 
   it('2개의 숫자에 대해 뺄셈이 가능하다.', () => {
     //given
     const number9 = 9;
-    const number1 = 1
+    const number1 = 1;
     const operationSub = '-';
     const operationEq = '=';
     const total = 8;
@@ -60,14 +60,14 @@ describe('js-calculator Test', () => {
     cy.clickOperation(operationEq);
 
     //then
-    cy.get('#total').should('have.text', `${total}`)
-  })
+    cy.get('#total').should('have.text', `${total}`);
+  });
 
   it('3개의 숫자에 대해 뺄셈이 가능하다.', () => {
     //given
     const number7 = 7;
     const number9 = 9;
-    const number1 = 1
+    const number1 = 1;
     const operationSub = '-';
     const operationEq = '=';
     const total = -3;
@@ -81,12 +81,12 @@ describe('js-calculator Test', () => {
     cy.clickOperation(operationEq);
 
     //then
-    cy.get('#total').should('have.text', `${total}`)
-  })
+    cy.get('#total').should('have.text', `${total}`);
+  });
 
   it('2개의 숫자에 대해 곱셈이 가능하다.', () => {
     const number9 = 9;
-    const number1 = 1
+    const number1 = 1;
     const operationMul = 'X';
     const operationEq = '=';
     const total = 9;
@@ -98,8 +98,8 @@ describe('js-calculator Test', () => {
     cy.clickOperation(operationEq);
 
     //then
-    cy.get('#total').should('have.text', `${total}`)
-  })
+    cy.get('#total').should('have.text', `${total}`);
+  });
 
   it('3개의 숫자에 대해 곱셈이 가능하다.', () => {
     //given
@@ -119,8 +119,8 @@ describe('js-calculator Test', () => {
     cy.clickOperation(operationEq);
 
     //then
-    cy.get('#total').should('have.text', `${total}`)
-  })
+    cy.get('#total').should('have.text', `${total}`);
+  });
 
   it('2개의 숫자에 대해 나눗셈이 가능하다.', () => {
     const number9 = 9;
@@ -136,8 +136,8 @@ describe('js-calculator Test', () => {
     cy.clickOperation(operationEq);
 
     //then
-    cy.get('#total').should('have.text', `${total}`)
-  })
+    cy.get('#total').should('have.text', `${total}`);
+  });
 
   it('3개의 숫자에 대해 나눗셈이 가능하다.', () => {
     const number8 = 8;
@@ -156,8 +156,8 @@ describe('js-calculator Test', () => {
     cy.clickOperation(operationEq);
 
     //then
-    cy.get('#total').should('have.text', `${total}`)
-  })
+    cy.get('#total').should('have.text', `${total}`);
+  });
 
   it('AC(All Clear)버튼을 누르면 0으로 초기화 한다.', () => {
     //given
@@ -167,14 +167,14 @@ describe('js-calculator Test', () => {
 
     //then
     cy.get('#total').should('have.text', '0');
-  })
+  });
   it('숫자는 한번에 최대 3자리 수까지 입력 가능하다.', () => {
     //given
     const number7 = 7;
     const number9 = 9;
     const number1 = 1;
     const number5 = 5;
-    const total = 791
+    const total = 791;
 
     //when
     cy.clickNumber(number7);
@@ -183,8 +183,8 @@ describe('js-calculator Test', () => {
     cy.clickNumber(number5);
 
     //then
-    cy.get('#total').should('have.text', `${total}`)
-  })
+    cy.get('#total').should('have.text', `${total}`);
+  });
   it('계산 결과를 표현할 때 소수점 이하는 버림한다.', () => {
     const number8 = 8;
     const number4 = 4;
@@ -213,8 +213,8 @@ describe('js-calculator Test', () => {
     cy.clickOperation(operationEq);
 
     //then
-    cy.get('#total').should('have.text', `${total}`)
-  })
+    cy.get('#total').should('have.text', `${total}`);
+  });
 
   it('연산자를 여러번 입력시 가장 마지막에 입력한 연산자로 적용해 계산한다', () => {
     const number8 = 8;
@@ -237,8 +237,8 @@ describe('js-calculator Test', () => {
     cy.clickOperation(operationEq);
 
     //then
-    cy.get('#total').should('have.text', `${total}`)
-  })
+    cy.get('#total').should('have.text', `${total}`);
+  });
 
   it('연산자를 먼저 입력하여도 계산이 가능하다', () => {
     const number8 = 8;
@@ -252,6 +252,6 @@ describe('js-calculator Test', () => {
     cy.clickOperation(operationEq);
 
     //then
-    cy.get('#total').should('have.text', `${total}`)
-  })
-})
+    cy.get('#total').should('have.text', `${total}`);
+  });
+});
