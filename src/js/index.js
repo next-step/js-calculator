@@ -13,7 +13,7 @@
   operations.onclick = (e) => {
     const operator = e.target.innerText;
     model.calculate();
-    if (operator === '=') {
+    if (operator === OPERATOR.EQUAL) {
       total.innerText = model.getTotal();
     } else {
       model.setCurrentOperator(e.target.innerText);

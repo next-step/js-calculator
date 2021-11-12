@@ -59,10 +59,14 @@ class Model {
       const num1 = this.numberStack.pop();
       const num2 = this.numberStack.pop();
       
-      if (operator === '+') {
+      if (operator === OPERATOR.PLUS) {
         this.setTotal(num1 + num2);
-        this.numberStack.push(this.total);
+        
+      } else if(operator === OPERATOR.MINUS) {
+        this.setTotal(num2 - num1);
       }
+
+      this.numberStack.push(this.getTotal());
     }
   }
 

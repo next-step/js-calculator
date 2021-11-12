@@ -47,11 +47,44 @@ describe('js-calculator Test', () => {
 
   it('2개의 숫자에 대해 뺄셈이 가능하다.', () => {
     //given
+    const number9 = 9;
+    const number1 = 1
+    const operationSub = '-';
+    const operationEq = '=';
+    const total = 8;
 
     //when
+    cy.clickNumber(number9);
+    cy.clickOperation(operationSub);
+    cy.clickNumber(number1);
+    cy.clickOperation(operationEq);
 
     //then
+    cy.get('#total').should('have.text', `${total}`)
   })
+
+  it('3개의 숫자에 대해 뺄셈이 가능하다.', () => {
+    //given
+    const number7 = 7;
+    const number9 = 9;
+    const number1 = 1
+    const operationSub = '-';
+    const operationEq = '=';
+    const total = -3;
+
+    //when
+    cy.clickNumber(number7);
+    cy.clickOperation(operationSub);
+    cy.clickNumber(number9);
+    cy.clickOperation(operationSub);
+    cy.clickNumber(number1);
+    cy.clickOperation(operationEq);
+
+    //then
+    cy.get('#total').should('have.text', `${total}`)
+  })
+
+
   it('2개의 숫자에 대해 곱셈이 가능하다.', () => {
     //given
 
