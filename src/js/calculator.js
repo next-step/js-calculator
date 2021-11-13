@@ -14,17 +14,21 @@ export default class Calculator {
     this.bindEvents();
   }
 
+  isOperation(value) {
+    return typeof value === 'string';
+  }
+
   bindEvents() {
     this.$target.addEventListener('click', ({ target }) => {
       const { className, dataset } = target;
-      const flag = this.setEvent(className, dataset);
+      const flag = this.checkTargetType(className, dataset);
 
       if (!flag) return;
       this.$result.textContent = this.#state.join('');
     });
   }
 
-  setEvent(type, value) {
+  checkTargetType(type, value) {
     switch (type) {
       case TYPE.DIGIT:
         return this.onClickDigit(value);
@@ -37,31 +41,36 @@ export default class Calculator {
     }
   }
 
+  setState(newState) {
+    this.#state = [...this.#state, ...newState];
+  }
+
   onClickDigit(value) {
     const { digit } = value;
     const lastValue = this.#state.pop();
 
     if (lastValue && String(lastValue).length >= MAX_LENGTH) {
+      this.setState([Number(`${String(lastValue).slice(0, -1)}${digit}`)]);
       alert(ALERT_MESSAGE.MAX_NUMBER);
-      return false;
+      return true;
     }
 
-    if (typeof lastValue === 'string') {
-      this.#state = [...this.#state, lastValue, Number(digit)];
+    if (this.isOperation(lastValue)) {
+      this.setState([lastValue, Number(digit)]);
       return true;
     }
 
     const nextValue = lastValue
       ? Number(`${lastValue}${digit}`)
       : Number(`${digit}`);
-    this.#state = [...this.#state, nextValue];
+    this.setState([nextValue]);
     return true;
   }
 
   onClickOperation(value) {
     const { operation } = value;
     const lastValue = this.#state[this.#state.length - 1];
-    if (!this.#state.length || typeof lastValue === 'string') {
+    if (!this.#state.length || this.isOperation(lastValue)) {
       alert(ALERT_MESSAGE.OPERATION_LIMIT);
       return false;
     }
@@ -75,7 +84,7 @@ export default class Calculator {
       this.#state = [this.calculateNumbers()];
     }
 
-    this.#state = [...this.#state, operation];
+    this.setState([operation]);
     return true;
   }
 
@@ -88,7 +97,7 @@ export default class Calculator {
     let type = '';
 
     return this.#state.reduce((prev, next) => {
-      if (typeof next === 'string') {
+      if (this.isOperation(next)) {
         type = next;
         return prev;
       }
