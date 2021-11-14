@@ -6,7 +6,8 @@
   "author": "amorfati0310 <lyhy0310@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint src --fix"
+    "lint": "eslint src --fix",
+    "cy:run": "cypress run"
   },
   "devDependencies": {
     "eslint": "^8.2.0",
