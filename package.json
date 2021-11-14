@@ -1,0 +1,27 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "description": "<br/> <br/>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kimjanghu/js-calculator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kimjanghu/js-calculator/issues"
+  },
+  "homepage": "https://github.com/kimjanghu/js-calculator#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "cypress": "^8.7.0",
+    "eslint": "^8.2.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.4.1"
+  }
+}
