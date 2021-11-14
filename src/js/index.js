@@ -16,14 +16,25 @@ let isOperationUpdated = false;
 
 $digits.addEventListener("click", (event) => {
   const inputVal = Number(event.target.dataset.digit);
+
   // 연산자를 눌렀을 때
   // 오른쪽 숫자를 누를때
   if (isOperationUpdated) {
+    if ((rightValue ?? 0).toString().length >= 3) {
+      alert("3자리만 입력가능합니다");
+      return;
+    }
+
     rightValue = (rightValue ?? 0) * 10 + inputVal;
     $total.textContent = rightValue;
   }
   // 왼쪽 숫자 누를떄
   else {
+    if ((leftValue ?? 0).toString().length >= 3) {
+      alert("3자리만 입력가능합니다");
+      return;
+    }
+
     leftValue = (leftValue ?? 0) * 10 + inputVal;
     $total.textContent = leftValue;
   }
