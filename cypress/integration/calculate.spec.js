@@ -66,3 +66,13 @@ describe("예외 처리", () => {
     cy.get("#total").should("have.text", "999");
   });
 });
+
+describe("결과", () => {
+  it("계산 결과를 표현할 때 소수점 이하는 버림한다.", () => {
+    cy.get('[data-digit="9"]').click();
+    cy.get('[data-oper="/"]').click();
+    cy.get('[data-digit="4"]').click();
+    cy.get('[data-oper="="]').click();
+    cy.get("#total").should("have.text", "2");
+  });
+});
