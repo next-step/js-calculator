@@ -146,22 +146,22 @@ class Caculator {
 
     const { current: result } = stack.reduce(
       (acc, cur) => {
-        if (Number(cur)) {
-          if (!acc.current) {
-            acc.current = cur;
-            return acc;
-          }
-
-          if (acc.operation && acc.current) {
-            const { current, operation } = acc;
-
-            acc.current = caculate[OPERATOR[operation]](Number(current), Number(cur));
-          }
-
+        if (!Number(cur)) {
+          acc.operation = cur;
           return acc;
         }
 
-        acc.operation = cur;
+        if (!acc.current) {
+          acc.current = cur;
+          return acc;
+        }
+
+        if (acc.operation && acc.current) {
+          const { current, operation } = acc;
+
+          acc.current = caculate[OPERATOR[operation]](Number(current), Number(cur));
+        }
+
         return acc;
       },
       { current: null, operation: null },
