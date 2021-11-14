@@ -61,7 +61,7 @@ const executeOper = {
   "+": (leftValue, rightValue) => leftValue + rightValue,
   "-": (leftValue, rightValue) => leftValue - rightValue,
   x: (leftValue, rightValue) => leftValue * rightValue,
-  "/": (leftValue, rightValue) => leftValue / rightValue,
+  "/": (leftValue, rightValue) => Math.floor(leftValue / rightValue),
 };
 
 // 숫자 입력: 1 => leftValue 저장
