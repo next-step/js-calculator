@@ -1,0 +1,23 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "description": "<br/>\r <br/>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alsgml1640/js-calculator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alsgml1640/js-calculator/issues"
+  },
+  "homepage": "https://github.com/alsgml1640/js-calculator#readme",
+  "devDependencies": {
+    "cypress": "^9.0.0"
+  },
+  "dependencies": {}
+}
