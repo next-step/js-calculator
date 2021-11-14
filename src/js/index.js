@@ -1,23 +1,39 @@
 "use strict";
-// test
 
-const $total = document.querySelector("#total");
-const $digits = document.querySelector(".digits");
-const $operations = document.querySelector(".operations");
-const $modifier = document.querySelector(".modifier");
+const $ = (selector) => document.querySelector(selector);
+
+const OPERATION = {
+  ADD: "+",
+  SUBTRACT: "-",
+  MULTIPLY: "X",
+  DIVIDE: "/",
+  EQUAL: "=",
+};
+
+const operationList = [
+  OPERATION.ADD,
+  OPERATION.SUBTRACT,
+  OPERATION.MULTIPLY,
+  OPERATION.DIVIDE,
+];
+
+const $total = $("#total");
+const $digits = $(".digits");
+const $operations = $(".operations");
+const $modifier = $(".modifier");
 
 let isOperationClicked = false;
-let isOperator2In = false; // 두번째 인자가 들어왔는지 체크
-let operator1 = 0;
-let operator2 = 0;
+let isRightOperandIn = false; // 두번째 인자가 들어왔는지 체크
+let leftOperand = 0;
+let rightOperand = 0;
 let operation = "";
 let result = 0;
 
-const initCalculator = () => {
+const resetCalculator = () => {
   isOperationClicked = false;
-  isOperator2In = false;
-  operator1 = 0;
-  operator2 = 0;
+  isRightOperandIn = false;
+  leftOperand = 0;
+  rightOperand = 0;
   operation = "";
   result = 0;
   $total.textContent = "0";
@@ -25,55 +41,53 @@ const initCalculator = () => {
 
 // 결과창에 보여줄 숫자 제어
 const showTotalNumber = (currentTotal, nextNumber) => {
-  let newTotal = "";
-
-  if (isOperationClicked && !isOperator2In) {
-    newTotal = nextNumber;
-    isOperator2In = true;
-  } else if (isOperationClicked && isOperator2In) {
-    newTotal = currentTotal + nextNumber;
-  } else {
-    if (currentTotal === "0") {
-      newTotal = nextNumber;
-    } else {
-      newTotal = currentTotal + nextNumber;
-    }
+  if (isOperationClicked && !isRightOperandIn) {
+    isRightOperandIn = true;
+    return nextNumber;
   }
-
-  return newTotal;
+  if (currentTotal === "0") {
+    return nextNumber;
+  }
+  return currentTotal + nextNumber;
 };
 
 const calculate = (currentOperation) => {
-  // 연산자 연속 클릭 방지
-  if (isOperationClicked && currentOperation !== "=") {
+  // 연산자 연속 클릭시 마지막 연산자 반영
+  if (isOperationClicked && currentOperation !== OPERATION.EQUAL) {
+    operation = currentOperation;
     return;
-  } else if (currentOperation === "=") {
-    operator2 = parseInt($total.textContent);
+  }
+
+  if (operationList.includes(currentOperation)) {
+    operation = currentOperation;
+    leftOperand = parseInt($total.textContent);
+    isOperationClicked = true;
+  }
+
+  if (currentOperation === OPERATION.EQUAL) {
+    rightOperand = parseInt($total.textContent);
 
     switch (operation) {
-      case "+":
-        result = operator1 + operator2;
+      case OPERATION.ADD:
+        result = leftOperand + rightOperand;
         break;
-      case "-":
-        result = operator1 - operator2;
+      case OPERATION.SUBTRACT:
+        result = leftOperand - rightOperand;
         break;
-      case "X":
-        result = operator1 * operator2;
+      case OPERATION.MULTIPLY:
+        result = leftOperand * rightOperand;
         break;
-      case "/":
-        result = operator1 / operator2;
+      case OPERATION.DIVIDE:
+        result = leftOperand / rightOperand;
         break;
+      default:
+        return;
     }
-    operator1 = result; // 지금까지 결과값을 op1에 저장한다
     $total.textContent = Math.floor(result);
-
-    isOperator2In = false;
+    leftOperand = result; // 지금까지 결과값을 op1에 저장한다
+    isRightOperandIn = false;
     isOperationClicked = false;
-  } else {
-    operation = currentOperation;
-    operator1 = parseInt($total.textContent);
-
-    isOperationClicked = true;
+    operation = OPERATION.EQUAL;
   }
 };
 
@@ -98,5 +112,5 @@ $operations.addEventListener("click", (e) => {
 });
 
 $modifier.addEventListener("click", (e) => {
-  initCalculator();
+  resetCalculator();
 });
