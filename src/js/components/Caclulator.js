@@ -55,7 +55,7 @@ class Caculator {
 
   editDigit(digit) {
     const { stack, input } = this.state;
-    const newInput = input ? `${input}${digit}` : `${digit}`;
+    const newInput = Number(input) ? `${input}${digit}` : `${digit}`;
     if (!this.validateEditDigit(newInput)) {
       alert('최대 입력 숫자는 3자리 수 입니다');
       return;
