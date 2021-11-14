@@ -1,5 +1,11 @@
 {
+  "scripts": {
+    "start": "parcel -p 5500 index.html",
+    "test": "yarn cypress run",
+    "test:cypress": "yarn cypress open"
+  },
   "devDependencies": {
-    "cypress": "^9.0.0"
+    "cypress": "^9.0.0",
+    "parcel": "^2.0.1"
   }
 }
