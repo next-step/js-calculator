@@ -46,6 +46,12 @@ describe("계산 기능", () => {
 
     cy.get("#total").should("have.text", "4");
   });
+
+  it("숫자를 1개만 누르고 곱셈을 하면 제곱이 된다.", () => {
+    calculate("8", "x");
+
+    cy.get("#total").should("have.text", "64");
+  });
 });
 
 describe("클리어 기능", () => {

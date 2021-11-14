@@ -71,25 +71,40 @@ const executeOper = {
 // executeOper에서 operation(+)에 해당하는 함수를 꺼내온다
 // left, right로 함수를 실행한다.
 
+const calculate = () => {
+  if (rightValue === 0) {
+    $total.textContent = "0으로 나눌 수 없습니다.";
+    return;
+  }
+
+  if (rightValue === null) {
+    rightValue = leftValue;
+  }
+
+  $total.textContent = executeOper[operation](leftValue, rightValue);
+  leftValue = null;
+  rightValue = null;
+  operation = null;
+  isOperationUpdated = false;
+};
+
 $operation.addEventListener("click", (event) => {
   const clickedOper = event.target.dataset.oper;
   if (clickedOper == "=") {
-    if (rightValue === 0) {
-      $total.textContent = "0으로 나눌 수 없습니다.";
-      return;
+    calculate();
+  }
+  // 사칙 연산이 들어갔을 때
+  else {
+    if (rightValue !== null) {
+      calculate();
     }
 
-    $total.textContent = executeOper[operation](leftValue, rightValue);
-    leftValue = null;
-    rightValue = null;
-    operation = null;
-    isOperationUpdated = false;
-  } else {
+    if (leftValue === null) {
+      leftValue = Number($total.textContent) || 0;
+    }
+
     operation = clickedOper;
     isOperationUpdated = true;
-    if (leftValue == null) {
-      leftValue = Number($total.textContent);
-    }
   }
 });
 
