@@ -74,6 +74,11 @@ const executeOper = {
 $operation.addEventListener("click", (event) => {
   const clickedOper = event.target.dataset.oper;
   if (clickedOper == "=") {
+    if (rightValue === 0) {
+      $total.textContent = "0으로 나눌 수 없습니다.";
+      return;
+    }
+
     $total.textContent = executeOper[operation](leftValue, rightValue);
     leftValue = null;
     rightValue = null;

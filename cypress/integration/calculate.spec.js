@@ -5,6 +5,7 @@
 // - [ ] AC(All Clear)버튼을 누르면 0으로 초기화 한다.
 // - [ ] 숫자는 한번에 최대 3자리 수까지 입력 가능하다.
 // - [ ] 계산 결과를 표현할 때 소수점 이하는 버림한다.
+// - [ ] 0으로 나눌 수 없다.
 
 const BASE_URL = "http://127.0.0.1:5500";
 
@@ -75,5 +76,14 @@ describe("결과", () => {
     cy.get('[data-digit="4"]').click();
     cy.get('[data-oper="="]').click();
     cy.get("#total").should("have.text", "8");
+  });
+
+  it("0으로 나눌 수 없다..", () => {
+    cy.get('[data-digit="3"]').click();
+    cy.get('[data-digit="0"]').click();
+    cy.get('[data-oper="/"]').click();
+    cy.get('[data-digit="0"]').click();
+    cy.get('[data-oper="="]').click();
+    cy.get("#total").should("have.text", "0으로 나눌 수 없습니다.");
   });
 });
