@@ -1,3 +1,9 @@
+import {
+  OPERATION,
+  NUMBER_INPUT_MAX_LENGTH,
+  ERROR_MESSAGE,
+} from "./constants.js";
+
 const $total = document.querySelector("#total");
 const $digits = document.querySelector(".js-digits");
 const $modifier = document.querySelector(".js-modifier");
@@ -20,8 +26,8 @@ $digits.addEventListener("click", (event) => {
   // 연산자를 눌렀을 때
   // 오른쪽 숫자를 누를때
   if (isOperationUpdated) {
-    if ((rightValue ?? 0).toString().length >= 3) {
-      alert("3자리만 입력가능합니다");
+    if ((rightValue ?? 0).toString().length >= NUMBER_INPUT_MAX_LENGTH) {
+      alert(ERROR_MESSAGE.DIGIT_MAX_LENGTH);
       return;
     }
 
@@ -30,8 +36,8 @@ $digits.addEventListener("click", (event) => {
   }
   // 왼쪽 숫자 누를떄
   else {
-    if ((leftValue ?? 0).toString().length >= 3) {
-      alert("3자리만 입력가능합니다");
+    if ((leftValue ?? 0).toString().length >= NUMBER_INPUT_MAX_LENGTH) {
+      alert(ERROR_MESSAGE.DIGIT_MAX_LENGTH);
       return;
     }
 
@@ -58,10 +64,11 @@ $modifier.addEventListener("click", (event) => {
 // 3
 
 const executeOper = {
-  "+": (leftValue, rightValue) => leftValue + rightValue,
-  "-": (leftValue, rightValue) => leftValue - rightValue,
-  x: (leftValue, rightValue) => leftValue * rightValue,
-  "/": (leftValue, rightValue) => Math.floor(leftValue / rightValue),
+  [OPERATION.PLUS]: (leftValue, rightValue) => leftValue + rightValue,
+  [OPERATION.MINUS]: (leftValue, rightValue) => leftValue - rightValue,
+  [OPERATION.MULTIPLY]: (leftValue, rightValue) => leftValue * rightValue,
+  [OPERATION.DIVIDE]: (leftValue, rightValue) =>
+    Math.floor(leftValue / rightValue),
 };
 
 // 숫자 입력: 1 => leftValue 저장
@@ -73,7 +80,7 @@ const executeOper = {
 
 const calculate = () => {
   if (rightValue === 0) {
-    $total.textContent = "0으로 나눌 수 없습니다.";
+    $total.textContent = ERROR_MESSAGE.DIVIDE_ZERO;
     return;
   }
 
@@ -90,7 +97,7 @@ const calculate = () => {
 
 $operation.addEventListener("click", (event) => {
   const clickedOper = event.target.dataset.oper;
-  if (clickedOper == "=") {
+  if (clickedOper == OPERATION.EQUAL) {
     calculate();
   }
   // 사칙 연산이 들어갔을 때
