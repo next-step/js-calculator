@@ -1,0 +1,31 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "description": "<br/> <br/>",
+  "main": "index.js",
+  "dependencies": {
+    "http-server": "^0.12.3"
+  },
+  "devDependencies": {
+    "cypress": "^8.7.0",
+    "eslint": "^8.2.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "2.4.1"
+  },
+  "scripts": {
+    "test:e2e": "cypress run --spec 'cypress/integration/calculator/*' --config video=false",
+    "serve": "live-server ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inhyuck/js-calculator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/inhyuck/js-calculator/issues"
+  },
+  "homepage": "https://github.com/inhyuck/js-calculator#readme"
+}
