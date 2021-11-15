@@ -1,32 +1,17 @@
 class Operations {
-  constructor({ target, onClick }) {
-    this.element = document.querySelector(target);
-    this.init(onClick);
-  }
-
-  init(onClick) {
-    if (!this.element) {
-      return;
-    }
-
+  constructor({ element, onClick }) {
+    this.element = element;
     this.bindEvents(onClick);
   }
 
   bindEvents(onClick) {
-    this.element.addEventListener('click', ({ target }) =>
-      this.handleClick({
-        target,
-        onClick,
-      }),
-    );
-  }
+    this.element.addEventListener('click', ({ target }) => {
+      if (target.className !== 'operation') {
+        return;
+      }
 
-  handleClick({ target, onClick }) {
-    if (target.className !== 'operation') {
-      return;
-    }
-
-    onClick(target.innerText);
+      onClick(target.innerText);
+    });
   }
 }
 

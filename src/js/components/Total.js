@@ -1,11 +1,10 @@
 class Total {
-  constructor({ target, stack }) {
-    this.stack = stack;
-    this.element = document.querySelector(target);
+  constructor({ element }) {
+    this.element = element;
   }
 
   render({ stack }) {
-    this.element.innerText = stack.length ? stack.join(' ') : 0;
+    this.element.innerText = stack.length ? stack.join('') : 0;
   }
 }
 

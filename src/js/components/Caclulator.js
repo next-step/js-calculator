@@ -17,22 +17,22 @@ class Caculator {
 
   init() {
     const total = new Total({
-      target: '#total',
+      element: document.querySelector('#total'),
       total: this.state.total,
     });
 
     new Digits({
-      target: '.digits',
+      element: document.querySelector('.digits'),
       onClick: (digit) => this.updateDigits(digit),
     });
 
     new Operations({
-      target: '.operations',
+      element: document.querySelector('.operations'),
       onClick: (operation) => this.updateOperation(operation),
     });
 
     new Modifiers({
-      target: '.modifiers',
+      element: document.querySelector('.modifiers'),
       onClick: (modifier) => this.updateModifier(modifier),
     });
 
@@ -169,7 +169,7 @@ class Caculator {
 
     this.setState({
       ...this.state,
-      input: null,
+      input: result,
       prevType: null,
       stack: [result],
     });
