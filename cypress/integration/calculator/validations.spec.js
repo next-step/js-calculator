@@ -9,12 +9,10 @@ describe('validations', () => {
         const stub = cy.stub();
         cy.on('window:alert', stub);
         for (let i = 0; i < MAX_SIZE_OF_DIGITS; i += 1) {
-            cy.get('[data-test="three"]')
-              .click();
+            cy.clickDigit(3);
         }
 
-        cy.get('[data-test="seven"]')
-          .click()
+        cy.clickDigit(7)
           .then(() => {
               expect(stub.getCall(0))
                   .to

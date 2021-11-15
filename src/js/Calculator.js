@@ -72,7 +72,7 @@ export function Calculator({$el}) {
     function render() {
         $el.innerHTML = `
             <div class="calculator">
-                <h1 id="total" data-test="total">0</h1>
+                <h1 id="total">0</h1>
                 <div class="digits flex" data-component="digits"></div>
                 <div class="modifiers subgrid" data-component="modifier"></div>
                 <div class="operations subgrid" data-component="operations"></div>
