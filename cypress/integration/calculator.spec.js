@@ -13,11 +13,11 @@ describe("calculator", () => {
         const [previousValue, currentValue] = TEST_SET[0];
         const expectedResult = previousValue + currentValue;
 
-        cy.clickDigit(previousValue.toString().split(""));
+        cy.clickDigit(previousValue);
         cy.clickOperation(OPERATION.ADD);
-        cy.clickDigit(currentValue.toString().split(""));
+        cy.clickDigit(currentValue);
         cy.clickOperation(OPERATION.EQUAL);
-        cy.shouldBe(expectedResult);
+        cy.totalValue(expectedResult);
     });
 });
 
@@ -26,11 +26,11 @@ describe("calculator", () => {
         const [previousValue, currentValue] = TEST_SET[1];
         const expectedResult = previousValue - currentValue;
 
-        cy.clickDigit(previousValue.toString().split(""));
+        cy.clickDigit(previousValue);
         cy.clickOperation(OPERATION.MINUS);
-        cy.clickDigit(currentValue.toString().split(""));
+        cy.clickDigit(currentValue);
         cy.clickOperation(OPERATION.EQUAL);
-        cy.shouldBe(expectedResult);
+        cy.totalValue(expectedResult);
     });
 });
 
@@ -39,11 +39,11 @@ describe("calculator", () => {
         const [previousValue, currentValue] = TEST_SET[2];
         const expectedResult = previousValue * currentValue;
 
-        cy.clickDigit(previousValue.toString().split(""));
+        cy.clickDigit(previousValue);
         cy.clickOperation(OPERATION.MULTIPLY);
-        cy.clickDigit(currentValue.toString().split(""));
+        cy.clickDigit(currentValue);
         cy.clickOperation(OPERATION.EQUAL);
-        cy.shouldBe(expectedResult);
+        cy.totalValue(expectedResult);
     });
 });
 
@@ -52,11 +52,11 @@ describe("calculator", () => {
         const [previousValue, currentValue] = TEST_SET[3];
         const expectedResult = Math.floor(previousValue / currentValue);
 
-        cy.clickDigit(previousValue.toString().split(""));
+        cy.clickDigit(previousValue);
         cy.clickOperation(OPERATION.DIVIDE);
-        cy.clickDigit(currentValue.toString().split(""));
+        cy.clickDigit(currentValue);
         cy.clickOperation(OPERATION.EQUAL);
-        cy.shouldBe(expectedResult);
+        cy.totalValue(expectedResult);
     });
 });
 
@@ -64,8 +64,8 @@ describe("calculator", () => {
     it("AC(All Clear)버튼을 누르면 0으로 초기화 한다.", () => {
         const expectedResult = 0;
 
-        cy.clickModifier(previousValue.toString().split(""));
-        cy.shouldBe(expectedResult);
+        cy.clickModifier(previousValue);
+        cy.totalValue(expectedResult);
     });
 });
 
@@ -74,7 +74,7 @@ describe("calculator", () => {
         const [previousValue, currentValue] = TEST_SET[4];
         const expectedResult = previousValue.toString().slice(0, 3);
 
-        cy.clickDigit(previousValue.toString().split(""));
-        cy.shouldBe(expectedResult);
+        cy.clickDigit(previousValue);
+        cy.totalValue(expectedResult);
     });
 });

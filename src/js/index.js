@@ -11,25 +11,28 @@ const buttons = document.querySelectorAll("button");
 
     const setPreviosValue = (text) => {
         previosValue = total.textContent;
+    };
+
+    const setOperation = (text) => {
         operationKey = text;
         isAfterOperationButtonClick = true;
     };
 
     const setCalculate = () => {
-        currentValue = total.innerText;
+        currentValue = total.textContent;
 
         switch (operationKey) {
             case OPERATION.ADD:
-                total.innerText = Number(previosValue) + Number(currentValue);
+                total.textContent = Number(previosValue) + Number(currentValue);
                 break;
             case OPERATION.MINUS:
-                total.innerText = Number(previosValue) - Number(currentValue);
+                total.textContent = Number(previosValue) - Number(currentValue);
                 break;
             case OPERATION.MULTIPLY:
-                total.innerText = Number(previosValue) * Number(currentValue);
+                total.textContent = Number(previosValue) * Number(currentValue);
                 break;
             case OPERATION.DIVIDE:
-                total.innerText = Math.floor(Number(previosValue) / Number(currentValue));
+                total.textContent = Math.floor(Number(previosValue) / Number(currentValue));
                 break;
         }
     };
@@ -41,6 +44,7 @@ const buttons = document.querySelectorAll("button");
                 break;
             default:
                 setPreviosValue(text);
+                setOperation(text);
                 break;
         }
     };
@@ -48,16 +52,18 @@ const buttons = document.querySelectorAll("button");
     const onClickDigit = (text) => {
         if (total.textContent.length > 3) return;
 
+        const splitedDigit = text.toString().split("");
+
         if (total.textContent === "0" || isAfterOperationButtonClick) {
-            total.innerText = text;
+            total.textContent = splitedDigit;
             isAfterOperationButtonClick = false;
         } else {
-            total.innerText += text;
+            total.textContent += splitedDigit;
         }
     };
 
     const onClickModifier = () => {
-        total.innerText = "0";
+        total.textContent = "0";
     };
 
     const onClickButton = (button) => {

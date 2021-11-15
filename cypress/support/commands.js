@@ -9,9 +9,9 @@ Cypress.Commands.add("clickOperation", (operator) => {
 });
 
 Cypress.Commands.add("clickModifier", () => {
-    cy.get(`button.modifier`).click();
+    cy.get("button.modifier").click();
 });
 
-Cypress.Commands.add("shouldBe", (value) => {
+Cypress.Commands.add("shouldBeTotalValue", (value) => {
     cy.get("#total").should("have.text", `${value}`);
 });
