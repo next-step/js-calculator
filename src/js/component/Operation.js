@@ -11,8 +11,8 @@ export class Operation {
     this.init();
   }
   init() {
-    [].forEach.call(this.elements, (ele) => {
-      ele.addEventListener('click', (eve) => {
+    [].forEach.call(this.elements, ele => {
+      ele.addEventListener('click', eve => {
         this.operate(eve.target.innerText);
       });
     });

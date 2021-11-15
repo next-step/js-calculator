@@ -10,7 +10,8 @@ export function calculate(num1, op, num2) {
       return num1 * num2;
       break;
     case '/':
-      return Number.parseInt(num1 / num2);
+      const result = Number.parseInt(num1 / num2);
+      return Number.isNaN(result) ? 0 : result;
       break;
   }
 }
