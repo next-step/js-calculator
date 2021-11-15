@@ -102,6 +102,7 @@ describe("계산기 테스트", () => {
 
     cy.clickNumberButton(number);
     cy.on("window:alert", (text) => expect(text).to.contains(ALERT_MESSAGE.EXCEEDED_MAX_DIGIT_COUNT(3)));
+    cy.calcTotalValueShouldBe(expectedResult);
   });
 
   it("연산자는 한 번에 하나씩만 입력할 수 있다.", () => {

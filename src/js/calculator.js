@@ -35,7 +35,7 @@ class Calculator {
     const newValue = (this.state[currentValueKey] ?? 0) * 10 + Number(target.dataset.digit);
 
     this.setCurrentValue(currentValueKey, newValue);
-    this.renderDisplay(newValue);
+    this.renderDisplay(this.state[currentValueKey]);
   }
 
   onOperationClick({ target }) {
