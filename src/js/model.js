@@ -65,18 +65,21 @@ class Model {
       const operator = this.operatorStack.pop();
       const num1 = this.numberStack.pop();
       const num2 = this.numberStack.pop();
-
-      if (operator === OPERATOR.PLUS) {
-        this.setTotal(num1 + num2);
-      } else if (operator === OPERATOR.MINUS) {
-        this.setTotal(num2 - num1);
-      } else if (operator === OPERATOR.MULTIPLY) {
-        this.setTotal(num2 * num1);
-      } else if (operator === OPERATOR.DIVIDE) {
-        this.setTotal(Math.floor(num2 / num1));
+      
+      switch (operator) {
+        case OPERATOR.PLUS:
+          this.setTotal(num2 + num1);
+          break;
+        case OPERATOR.MINUS:
+          this.setTotal(num2 - num1);
+          break;
+        case OPERATOR.MULTIPLY:
+          this.setTotal(num2 * num1);
+          break;
+        case OPERATOR.DIVIDE:
+          this.setTotal(Math.trunc(num2 / num1));
+          break;
       }
-
-      this.numberStack.push(this.getTotal());
     }
   }
 
