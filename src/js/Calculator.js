@@ -66,7 +66,7 @@ export function Calculator({$el}) {
     function refreshTotal() {
         const {prevNumber, operator, nextNumber} = state;
         const totalDisplayText = calculateDisplayText({prevNumber, operator, nextNumber});
-        $el.querySelector('#total').innerHTML = totalDisplayText;
+        $el.querySelector('#total').innerText = totalDisplayText;
     }
 
     function render() {

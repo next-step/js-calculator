@@ -5,7 +5,7 @@ export function calculateDisplayText({prevNumber, operator, nextNumber}) {
         return prevNumber;
     }
 
-    if (!nextNumber && nextNumber != 0) {
+    if (!nextNumber && nextNumber !== 0) {
         return `${prevNumber}${OPERATOR_TEXT[operator]}`;
     }
 
@@ -24,7 +24,7 @@ export function calculateNumber({prevNumber, operator, nextNumber}) {
         return prevNumber;
     }
 
-    if (!nextNumber && nextNumber != 0) {
+    if (!nextNumber && nextNumber !== 0) {
         return prevNumber;
     }
 
