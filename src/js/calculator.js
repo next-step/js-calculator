@@ -1,3 +1,5 @@
+import { Operators } from './constants.js';
+
 class Calculator {
   $calcScreen = null;
 
@@ -18,8 +20,8 @@ class Calculator {
     this.putValues.selectedOperatorStr = '';
   }
 
-  isLongerThan3 = (text) => {
-    return (`${text}`).length >= 3;
+  isMaximumDigits = (text, maxNum) => {
+    return (`${text}`).length >= maxNum;
   }
 
   isZeroText = (text) => {
@@ -27,14 +29,16 @@ class Calculator {
   }
 
   getTotal = (operatorText, num1, num2) => {
+    const { Add, Subtract, Multiply, Divide } = Operators;
+    
     switch (operatorText) {
-      case "+":
+      case Add:
         return num1 + num2;
-      case "-":
+      case Subtract:
         return num1 - num2;
-      case "/":
+      case Divide:
         return Math.floor(num1 / num2);
-      case "X":
+      case Multiply:
         return num1 * num2;
       default:
         return false;
@@ -49,7 +53,7 @@ class Calculator {
   setNumberStr(selectedNum) {
     const numberKey = this.putValues.selectedOperatorStr ? "nextNumStr" : "prevNumStr";
 
-    if (this.isLongerThan3(this.putValues[numberKey])) {
+    if (this.isMaximumDigits(this.putValues[numberKey], 3)) {
       alert("숫자는 세 자리까지만 입력 가능합니다!");
       return false;
     }
@@ -58,21 +62,24 @@ class Calculator {
   }
 
   calculate(putedOperatorStr) {
+    const { Equal } = Operators;
     const { prevNumStr, nextNumStr, selectedOperatorStr } = this.putValues;
+    const hasOnlyDigits = prevNumStr && !selectedOperatorStr && !nextNumStr;
+    const hasFirstDigitsAndOperator = prevNumStr && selectedOperatorStr && !nextNumStr;
 
     if (this.isZeroText(prevNumStr)) {
       alert("숫자를 먼저 입력 후 연산자를 입력해주세요.");
       return false;
     }
 
-    if ((prevNumStr && selectedOperatorStr && !nextNumStr) || prevNumStr && !selectedOperatorStr && !nextNumStr) {
-      this.putValues.selectedOperatorStr = putedOperatorStr === "=" ? '' : putedOperatorStr;
+    if (hasFirstDigitsAndOperator || hasOnlyDigits) {
+      this.putValues.selectedOperatorStr = putedOperatorStr === Equal ? '' : putedOperatorStr;
       return false;
     }
 
     if (prevNumStr && selectedOperatorStr && nextNumStr) {
       this.putValues.prevNumStr = `${this.getTotal(selectedOperatorStr, Number(prevNumStr), Number(nextNumStr))}`;
-      this.putValues.selectedOperatorStr = putedOperatorStr === "=" ? '' : putedOperatorStr;
+      this.putValues.selectedOperatorStr = putedOperatorStr === Equal ? '' : putedOperatorStr;
       this.putValues.nextNumStr = '';
     }
 
