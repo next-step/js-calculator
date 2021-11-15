@@ -1,8 +1,4 @@
-import {
-  DEFAULT_NUMBER,
-  MODIFIER,
-  OPERATION,
-} from "../../src/js/constants/calculator.js";
+import { DEFAULT_NUMBER, MODIFIER, OPERATION } from "../../src/js/constants/calculator.js";
 import { ALERT_MESSAGE } from "../../src/js/constants/messages.js";
 import { SAMPLE_NUMBER } from "../constants/numbers.js";
 
@@ -105,9 +101,7 @@ describe("계산기 테스트", () => {
     cy.calcTotalValueShouldBe(expectedResult);
 
     cy.clickNumberButton(number);
-    cy.on("window:alert", (text) =>
-      expect(text).to.contains(ALERT_MESSAGE.EXCEEDED_MAX_DIGIT_COUNT(3))
-    );
+    cy.on("window:alert", (text) => expect(text).to.contains(ALERT_MESSAGE.EXCEEDED_MAX_DIGIT_COUNT(3)));
   });
 
   it("연산자는 한 번에 하나씩만 입력할 수 있다.", () => {
@@ -115,9 +109,7 @@ describe("계산기 테스트", () => {
     cy.clickOperationButton(OPERATION.ADDITION);
 
     cy.on("window:alert", (text) =>
-      expect(text).to.contains(
-        ALERT_MESSAGE.INVALID_EXPRESSION.EXCEEDED_OPERATION_COUNT
-      )
+      expect(text).to.contains(ALERT_MESSAGE.INVALID_EXPRESSION.EXCEEDED_OPERATION_COUNT)
     );
   });
 
@@ -127,9 +119,7 @@ describe("계산기 테스트", () => {
     cy.clickNumberButton(number);
     cy.clickOperationButton(OPERATION.CALCULATION);
 
-    cy.on("window:alert", (text) =>
-      expect(text).to.contains(ALERT_MESSAGE.INVALID_EXPRESSION.NO_OPERATION)
-    );
+    cy.on("window:alert", (text) => expect(text).to.contains(ALERT_MESSAGE.INVALID_EXPRESSION.NO_OPERATION));
   });
 
   it("수식은 반드시 숫자로 끝나야한다.", () => {
@@ -139,8 +129,6 @@ describe("계산기 테스트", () => {
     cy.clickOperationButton(OPERATION.ADDITION);
     cy.clickOperationButton(OPERATION.CALCULATION);
 
-    cy.on("window:alert", (text) =>
-      expect(text).to.contains(ALERT_MESSAGE.INVALID_EXPRESSION.NO_RIGHT_VALUE)
-    );
+    cy.on("window:alert", (text) => expect(text).to.contains(ALERT_MESSAGE.INVALID_EXPRESSION.NO_RIGHT_VALUE));
   });
 });

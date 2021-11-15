@@ -1,17 +1,11 @@
-import {
-  DEFAULT_NUMBER,
-  MAX_DIGIT_COUNT,
-  MODIFIER,
-  OPERATION,
-} from "./constants/calculator.js";
+import { DEFAULT_NUMBER, MAX_DIGIT_COUNT, MODIFIER, OPERATION } from "./constants/calculator.js";
 import { ALERT_MESSAGE } from "./constants/messages.js";
 
 const operationExecutor = {
   [OPERATION.ADDITION]: (leftValue, rightValue) => leftValue + rightValue,
   [OPERATION.SUBTRACTION]: (leftValue, rightValue) => leftValue - rightValue,
   [OPERATION.MULTIPLICATION]: (leftValue, rightValue) => leftValue * rightValue,
-  [OPERATION.DIVISTION]: (leftValue, rightValue) =>
-    Math.floor(leftValue / rightValue),
+  [OPERATION.DIVISTION]: (leftValue, rightValue) => Math.floor(leftValue / rightValue),
 };
 
 const initialState = {
@@ -32,18 +26,13 @@ class Calculator {
 
   init() {
     this.$digits.addEventListener("click", this.onDigitClick.bind(this));
-    this.$operations.addEventListener(
-      "click",
-      this.onOperationClick.bind(this)
-    );
+    this.$operations.addEventListener("click", this.onOperationClick.bind(this));
     this.$modifiers.addEventListener("click", this.onModifierClick.bind(this));
   }
 
   onDigitClick({ target }) {
-    const currentValueKey =
-      this.state.operation === null ? "leftValue" : "rightValue";
-    const newValue =
-      (this.state[currentValueKey] ?? 0) * 10 + Number(target.dataset.digit);
+    const currentValueKey = this.state.operation === null ? "leftValue" : "rightValue";
+    const newValue = (this.state[currentValueKey] ?? 0) * 10 + Number(target.dataset.digit);
 
     this.setCurrentValue(currentValueKey, newValue);
     this.renderDisplay(newValue);
@@ -106,10 +95,7 @@ class Calculator {
       return;
     }
 
-    const calculatedValue = operationExecutor[operation](
-      leftValue ?? totalValue,
-      rightValue
-    );
+    const calculatedValue = operationExecutor[operation](leftValue ?? totalValue, rightValue);
 
     this.state.totalValue = calculatedValue;
   }

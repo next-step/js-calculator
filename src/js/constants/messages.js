@@ -4,6 +4,5 @@ export const ALERT_MESSAGE = {
     NO_OPERATION: "완성되지 않은 수식입니다. 연산자를 입력해주세요.",
     NO_RIGHT_VALUE: "완성되지 않은 수식입니다. 숫자를 입력해주세요.",
   },
-  EXCEEDED_MAX_DIGIT_COUNT: (maxCount) =>
-    `한 번에 ${maxCount}자리까지 입력할 수 있습니다.`,
+  EXCEEDED_MAX_DIGIT_COUNT: (maxCount) => `한 번에 ${maxCount}자리까지 입력할 수 있습니다.`,
 };
