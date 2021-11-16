@@ -1,0 +1,11 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/limhizy15/js-calculator.git",
+  "author": "Heeji <limhizy15@ajou.ac.kr>",
+  "license": "MIT",
+  "dependencies": {
+    "cypress": "^9.0.0"
+  }
+}
