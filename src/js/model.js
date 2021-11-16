@@ -80,6 +80,8 @@ class Model {
           this.setTotal(Math.trunc(num2 / num1));
           break;
       }
+
+      this.numberStack.push(this.getTotal());
     }
   }
 

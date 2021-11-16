@@ -254,4 +254,24 @@ describe('js-calculator Test', () => {
     //then
     cy.get('#total').should('have.text', `${total}`);
   });
+
+  it('음수 계산이 가능하다.', () => {
+    //given
+    const number2 = 2;
+    const number1 = 1;
+    const operationSub = '-';
+    const operationPlus = '+';
+    const operationEq = '=';
+    const total = -1;
+
+    //when
+    cy.clickOperation(operationSub);
+    cy.clickNumber(number2);
+    cy.clickOperation(operationPlus);
+    cy.clickNumber(number1);
+    cy.clickOperation(operationEq);
+
+    //then
+    cy.get('#total').should('have.text', `${total}`);
+  })
 });
