@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/lsw1164/js-calculator#readme",
   "devDependencies": {
-    "cypress": "^7.0.1"
+    "cypress": "^9.0.0"
   }
 }
