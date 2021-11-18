@@ -1,23 +1,25 @@
+import { CONSTANTS, MESSAGES } from './constants.js';
+
 export const calculate = (firstNumber, operator, secondNumber) => {
 	let result = 0;
 	firstNumber = Number(firstNumber);
 	secondNumber = Number(secondNumber);
-	
+
 	switch (operator) {
-		case "+":
+		case CONSTANTS.PLUS:
 			result = firstNumber + secondNumber;
 			break;
-		case "-":
+		case CONSTANTS.MINUS:
 			result = firstNumber - secondNumber;
 			break;
-		case "X":
+		case CONSTANTS.MULTIPLY:
 			result = firstNumber * secondNumber;
 			break;
-		case "/":
+		case CONSTANTS.DIVISION:
 			result = (firstNumber / secondNumber) >> 0;
 			break;
 		default:
-			console.log("해당 부호가 없습니다.");
+			alert(MESSAGES.OPERATOR_ERROR);
 	}
 
 	return result;

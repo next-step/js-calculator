@@ -1,4 +1,5 @@
 import { calculate } from "./utils/calculate.js";
+import { CONSTANTS, MESSAGES } from "./utils/constants.js";
 
 export default class App {
 	constructor({
@@ -22,33 +23,32 @@ export default class App {
 			"click",
 			({ target: { textContent } }) => {
 				if (this.displayNumber.length === 3 && this.firstNumber.isStart) {
-					alert("3자리이하만 입력가능합니다.");
+					alert(MESSAGES.DIGIT_ERROR);
 					return;
 				}
 				if (!this.firstNumber.isStart) {
 					this.displayNumber = textContent;
 					this.$targetTotal.innerText = this.displayNumber;
-					if (textContent === "0") this.displayNumber = "";
+					if (textContent === "0") this.displayNumber = CONSTANTS.EMPTY_STRING;
 					this.firstNumber.isStart = true;
 				} else {
 					this.displayNumber += textContent;
 					this.$targetTotal.innerText = this.displayNumber;
 				}
-				if (this.firstNumber.operator !== "") {
+				if (this.firstNumber.operator !== CONSTANTS.EMPTY_STRING) {
 					this.secondNumber.isStart = true;
 				}
 			}
 		);
 
-		this.$targetModifier.addEventListener("click", ({ target }) => {
-			console.log(target.textContent);
+		this.$targetModifier.addEventListener("click", () => {
 			this.displayNumber = 0;
 			this.$targetTotal.innerText = this.displayNumber;
 			this.firstNumber = {
 				isStart: false,
 				isEnd: false,
-				number: "",
-				operator: "",
+				number: CONSTANTS.EMPTY_STRING,
+				operator: CONSTANTS.EMPTY_STRING,
 			};
 			this.secondNumber = {
 				isStart: false,
@@ -60,10 +60,8 @@ export default class App {
 
 		this.$targetOperations.addEventListener("click", ({ target }) => {
 			const { textContent } = target;
-			console.log(target);
-			console.log(textContent);
 			if (
-				textContent !== "=" &&
+				textContent !== CONSTANTS.EQUALS &&
 				this.firstNumber.isStart &&
 				!this.secondNumber.isStart
 			) {
@@ -72,30 +70,28 @@ export default class App {
 				this.firstNumber.isStart = false;
 				target.classList.add("selected");
 			}
-			console.log(this.firstNumber);
 			if (
-				this.firstNumber.operator !== "" &&
+				this.firstNumber.operator !== CONSTANTS.EMPTY_STRING &&
 				this.secondNumber.isStart &&
-				textContent === "="
+				textContent === CONSTANTS.EQUALS
 			) {
-				console.log(this.displayNumber);
 				this.secondNumber.number = this.displayNumber;
 				this.displayNumber = calculate(
 					this.firstNumber.number,
 					this.firstNumber.operator,
-					this.secondNumber.number,
+					this.secondNumber.number
 				);
 				this.$targetTotal.innerText = this.displayNumber;
 				this.firstNumber.isEnd = true;
 				this.firstNumber = {
 					isStart: false,
 					isEnd: false,
-					number: "",
-					operator: "",
+					number: CONSTANTS.EMPTY_STRING,
+					operator: CONSTANTS.EMPTY_STRING,
 				};
 				this.secondNumber = {
 					isStart: false,
-					number: '',
+					number: CONSTANTS.EMPTY_STRING,
 				};
 				this.$targetOperations
 					.querySelector(".selected")
