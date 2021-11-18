@@ -44,15 +44,7 @@ export default class App {
 		this.$targetModifier.addEventListener("click", () => {
 			this.displayNumber = 0;
 			this.$targetTotal.innerText = this.displayNumber;
-			this.firstNumber = {
-				isStart: false,
-				isEnd: false,
-				number: CONSTANTS.EMPTY_STRING,
-				operator: CONSTANTS.EMPTY_STRING,
-			};
-			this.secondNumber = {
-				isStart: false,
-			};
+			this.initialize();
 			this.$targetOperations
 				.querySelector(".selected")
 				.classList.remove("selected");
@@ -83,21 +75,24 @@ export default class App {
 				);
 				this.$targetTotal.innerText = this.displayNumber;
 				this.firstNumber.isEnd = true;
-				this.firstNumber = {
-					isStart: false,
-					isEnd: false,
-					number: CONSTANTS.EMPTY_STRING,
-					operator: CONSTANTS.EMPTY_STRING,
-				};
-				this.secondNumber = {
-					isStart: false,
-					number: CONSTANTS.EMPTY_STRING,
-				};
+				this.initialize();
 				this.$targetOperations
 					.querySelector(".selected")
 					.classList.remove("selected");
 				this.firstNumber.isEnd = false;
 			}
 		});
+	}
+	initialize() {
+		this.firstNumber = {
+			isStart: false,
+			isEnd: false,
+			number: CONSTANTS.EMPTY_STRING,
+			operator: CONSTANTS.EMPTY_STRING,
+		};
+		this.secondNumber = {
+			isStart: false,
+			number: CONSTANTS.EMPTY_STRING,
+		};
 	}
 }
