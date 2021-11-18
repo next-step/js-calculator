@@ -29,7 +29,8 @@ export default class App {
 				if (!this.firstNumber.isStart) {
 					this.displayNumber = textContent;
 					this.$targetTotal.innerText = this.displayNumber;
-					if (textContent === CONSTANTS.ZERO) this.displayNumber = CONSTANTS.EMPTY_STRING;
+					if (textContent === CONSTANTS.ZERO)
+						this.displayNumber = CONSTANTS.EMPTY_STRING;
 					this.firstNumber.isStart = true;
 				} else {
 					this.displayNumber += textContent;
@@ -45,9 +46,6 @@ export default class App {
 			this.displayNumber = 0;
 			this.$targetTotal.innerText = this.displayNumber;
 			this.initialize();
-			this.$targetOperations
-				.querySelector(".selected")
-				.classList.remove("selected");
 		});
 
 		this.$targetOperations.addEventListener("click", ({ target }) => {
@@ -75,9 +73,6 @@ export default class App {
 				);
 				this.$targetTotal.innerText = this.displayNumber;
 				this.initialize();
-				this.$targetOperations
-					.querySelector(".selected")
-					.classList.remove("selected");
 			}
 		});
 	}
@@ -91,5 +86,8 @@ export default class App {
 			isStart: false,
 			number: CONSTANTS.EMPTY_STRING,
 		};
+		this.$targetOperations
+			.querySelector(".selected")
+			.classList.remove("selected");
 	}
 }
