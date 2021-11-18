@@ -2,7 +2,7 @@ export const calculate = (firstNumber, operator, secondNumber) => {
 	let result = 0;
 	firstNumber = Number(firstNumber);
 	secondNumber = Number(secondNumber);
-	console.log(firstNumber, secondNumber);
+	
 	switch (operator) {
 		case "+":
 			result = firstNumber + secondNumber;

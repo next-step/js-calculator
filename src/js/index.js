@@ -7,9 +7,12 @@ new App({
 		number: '',
 		operator: '',
 	},
+	secondNumber: {
+		isStart: false,
+		number: '',
+	},
 	displayNumber: 0,
 	$targetTotal: document.querySelector("#total"),
-	$targetDisplay: document.querySelector("#id"),
 	$targetDigits: document.querySelector(".digits"),
 	$targetModifier: document.querySelector(".modifiers"),
 	$targetOperations: document.querySelector(".operations"),
