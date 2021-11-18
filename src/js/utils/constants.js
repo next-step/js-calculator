@@ -4,7 +4,8 @@ export const CONSTANTS = {
 	MINUS: "-",
 	MULTIPLY: "X",
 	DIVISION: "/",
-	EQUALS: "=",
+  EQUALS: "=",
+  ZERO: "0",
 };
 
 export const MESSAGES = {

@@ -4,7 +4,6 @@ import { CONSTANTS } from './utils/constants.js';
 new App({
 	firstNumber: {
 		isStart: false,
-		isEnd: false,
 		number: CONSTANTS.EMPTY_STRING,
 		operator: CONSTANTS.EMPTY_STRING,
 	},

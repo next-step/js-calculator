@@ -29,7 +29,7 @@ export default class App {
 				if (!this.firstNumber.isStart) {
 					this.displayNumber = textContent;
 					this.$targetTotal.innerText = this.displayNumber;
-					if (textContent === "0") this.displayNumber = CONSTANTS.EMPTY_STRING;
+					if (textContent === CONSTANTS.ZERO) this.displayNumber = CONSTANTS.EMPTY_STRING;
 					this.firstNumber.isStart = true;
 				} else {
 					this.displayNumber += textContent;
@@ -74,19 +74,16 @@ export default class App {
 					this.secondNumber.number
 				);
 				this.$targetTotal.innerText = this.displayNumber;
-				this.firstNumber.isEnd = true;
 				this.initialize();
 				this.$targetOperations
 					.querySelector(".selected")
 					.classList.remove("selected");
-				this.firstNumber.isEnd = false;
 			}
 		});
 	}
 	initialize() {
 		this.firstNumber = {
 			isStart: false,
-			isEnd: false,
 			number: CONSTANTS.EMPTY_STRING,
 			operator: CONSTANTS.EMPTY_STRING,
 		};
