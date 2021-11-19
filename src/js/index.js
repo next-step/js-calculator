@@ -39,7 +39,9 @@ class Calculator extends HTMLElement {
 
   render() {
     this.id = 'app';
-    this.innerHTML = `
+    this.insertAdjacentHTML(
+      'beforeend',
+      `
       <div class="calculator">
         <h1 id="total"></h1>
         <div id="digits" class="digits flex">
@@ -51,7 +53,8 @@ class Calculator extends HTMLElement {
         <div id="operations" class="operations subgrid">
           ${operationButtons}
         </div>
-      </div>`;
+      </div>`
+    );
   }
 
   update() {
@@ -80,7 +83,7 @@ class Calculator extends HTMLElement {
     if (isNaN(digit)) return;
 
     if (currentKeyType === KEY_TYPE.DIGIT) {
-      const lastNumberLength = [...numbers].pop().toString().length;
+      const lastNumberLength = numbers[numbers.length - 1].toString().length;
 
       if (lastNumberLength >= VALIDATION.MAX_NUMBER_LENGTH) {
         alert(CALCULATOR_ERROR.EXCEED_MAX_NUMBER_LENGTH);
@@ -91,19 +94,20 @@ class Calculator extends HTMLElement {
     }
 
     if (currentKeyType === KEY_TYPE.OPERATION) {
-      this.setDigit(digit);
+      this.pushNewDigit(digit);
     }
   }
 
   appendDigit(digit) {
-    const numbersCopied = [...this.state.numbers];
-    const lastNumber = numbersCopied.pop();
-    const appendedNumber = lastNumber * 10 + digit;
+    const newNumbers = [...this.state.numbers];
+    const lastNumber = newNumbers.pop();
 
-    this.setState({ numbers: [...numbersCopied, appendedNumber], currentKeyType: KEY_TYPE.DIGIT });
+    newNumbers.push(lastNumber * 10 + digit);
+
+    this.setState({ numbers: newNumbers, currentKeyType: KEY_TYPE.DIGIT });
   }
 
-  setDigit(digit) {
+  pushNewDigit(digit) {
     this.setState({ numbers: [...this.state.numbers, digit], currentKeyType: KEY_TYPE.DIGIT });
   }
 
@@ -123,7 +127,7 @@ class Calculator extends HTMLElement {
     const [number1, number2] = this.state.numbers;
     const [operation] = this.state.operations;
 
-    if (!number1 || !number2 || !operation) return;
+    if (number1 === undefined || number2 === undefined || operation === undefined) return;
 
     const operate = operationMap[operation];
     const result = operate(number1, number2);
@@ -140,16 +144,15 @@ class Calculator extends HTMLElement {
       return;
     }
 
-    const operationsCopied = [...operations];
+    const newOperations = [...operations];
 
     if (currentKeyType === KEY_TYPE.OPERATION) {
-      operationsCopied.pop();
+      newOperations.pop();
     }
 
-    this.setState({
-      operations: [...operationsCopied, operation],
-      currentKeyType: KEY_TYPE.OPERATION,
-    });
+    newOperations.push(operation);
+
+    this.setState({ operations: newOperations, currentKeyType: KEY_TYPE.OPERATION });
   }
 
   onClickModifier({ target }) {
