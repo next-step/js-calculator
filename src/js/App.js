@@ -87,7 +87,9 @@ export default class App {
 			number: CONSTANTS.EMPTY_STRING,
 		};
 		this.$targetOperations
-			.querySelector(".selected")
-			.classList.remove("selected");
+			.querySelector(".selected") && 
+			this.$targetOperations
+				.querySelector(".selected")
+				.classList.remove("selected");
 	}
 }

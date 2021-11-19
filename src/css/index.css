@@ -34,7 +34,7 @@ button {
 }
 
 .operations .selected {
-	background: red;
+	background-color: red;
 }
 
 .digits button {
