@@ -31,7 +31,16 @@ describe('계산기', () => {
       clickDigit(1);
     }
 
-    cy.get('#total').should('have.text', '1'.repeat(MAX_LENGTH));
+    clickOperator(OPERATION.ADD);
+
+    for (let i = 0; i <= MAX_LENGTH * 2; i++) {
+      clickDigit(1);
+    }
+
+    cy.get('#total').should(
+      'have.text',
+      '1'.repeat(MAX_LENGTH) + OPERATION.ADD + '1'.repeat(MAX_LENGTH)
+    );
   });
 
   it('연산자 버튼을 누르면 결과화면에 나타난다.', () => {
