@@ -82,19 +82,23 @@ class Calculator extends HTMLElement {
 
     if (isNaN(digit)) return;
 
-    if (currentKeyType === KEY_TYPE.DIGIT) {
-      const lastNumberLength = numbers[numbers.length - 1].toString().length;
+    try {
+      if (currentKeyType === KEY_TYPE.DIGIT) {
+        const lastNumberLength = numbers[numbers.length - 1].toString().length;
 
-      if (lastNumberLength >= VALIDATION.MAX_NUMBER_LENGTH) {
-        alert(CALCULATOR_ERROR.EXCEED_MAX_NUMBER_LENGTH);
-        return;
+        if (lastNumberLength >= VALIDATION.MAX_NUMBER_LENGTH) {
+          throw Error(CALCULATOR_ERROR.EXCEED_MAX_NUMBER_LENGTH);
+        }
+
+        this.appendDigit(digit);
       }
 
-      this.appendDigit(digit);
-    }
-
-    if (currentKeyType === KEY_TYPE.OPERATION) {
-      this.pushNewDigit(digit);
+      if (currentKeyType === KEY_TYPE.OPERATION) {
+        this.pushNewDigit(digit);
+      }
+    } catch (error) {
+      console.error(error);
+      alert(error.message);
     }
   }
 
@@ -116,10 +120,15 @@ class Calculator extends HTMLElement {
 
     if (!operation) return;
 
-    if (operation === OPERATION.EQUAL) {
-      this.calculate();
-    } else {
-      this.setOperation(operation);
+    try {
+      if (operation === OPERATION.EQUAL) {
+        this.calculate();
+      } else {
+        this.setOperation(operation);
+      }
+    } catch (error) {
+      console.error(error);
+      alert(error.message);
     }
   }
 
@@ -139,10 +148,7 @@ class Calculator extends HTMLElement {
     const { operations, numbers, currentKeyType } = this.state;
     const isNumbersEmpty = numbers[0] === 0;
 
-    if (isNumbersEmpty) {
-      alert(CALCULATOR_ERROR.OPERATION_WITH_NO_NUMBER);
-      return;
-    }
+    if (isNumbersEmpty) throw Error(CALCULATOR_ERROR.OPERATION_WITH_NO_NUMBER);
 
     const newOperations = [...operations];
 
