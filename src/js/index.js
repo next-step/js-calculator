@@ -21,7 +21,7 @@ const operationButtons = operations.reduce(
   ''
 );
 
-const initialState = { numbers: [0], operations: [], currentKeyType: KEY_TYPE.DIGIT };
+const initialState = { numbers: [0], operation: '', currentKeyType: KEY_TYPE.DIGIT };
 
 class Calculator extends HTMLElement {
   state;
@@ -62,12 +62,12 @@ class Calculator extends HTMLElement {
   }
 
   getTotal() {
-    const { numbers, operations } = this.state;
+    const {
+      numbers: [number1 = '', number2 = ''],
+      operation = '',
+    } = this.state;
 
-    return numbers.reduce(
-      (prev, number, idx) => (operations[idx] ? prev + number + operations[idx] : prev + number),
-      ''
-    );
+    return `${number1}${operation}${number2}`;
   }
 
   bindEvents() {
@@ -117,15 +117,19 @@ class Calculator extends HTMLElement {
 
   onClickOperation({ target }) {
     const { operation } = target.dataset;
-
     if (!operation) return;
 
     try {
       if (operation === OPERATION.EQUAL) {
         this.calculate();
-      } else {
-        this.setOperation(operation);
+        return;
       }
+
+      if (this.state.numbers.length === 2) {
+        this.calculate();
+      }
+
+      this.setOperation(operation);
     } catch (error) {
       console.error(error);
       alert(error.message);
@@ -133,8 +137,10 @@ class Calculator extends HTMLElement {
   }
 
   calculate() {
-    const [number1, number2] = this.state.numbers;
-    const [operation] = this.state.operations;
+    const {
+      numbers: [number1, number2],
+      operation,
+    } = this.state;
 
     if (number1 === undefined || number2 === undefined || operation === undefined) return;
 
@@ -145,20 +151,17 @@ class Calculator extends HTMLElement {
   }
 
   setOperation(operation) {
-    const { operations, numbers, currentKeyType } = this.state;
-    const isNumbersEmpty = numbers[0] === 0;
+    const {
+      numbers: [number1],
+      currentKeyType,
+    } = this.state;
+    const isNumbersEmpty = number1 === 0;
 
-    if (isNumbersEmpty) throw Error(CALCULATOR_ERROR.OPERATION_WITH_NO_NUMBER);
-
-    const newOperations = [...operations];
-
-    if (currentKeyType === KEY_TYPE.OPERATION) {
-      newOperations.pop();
+    if (isNumbersEmpty && currentKeyType !== KEY_TYPE.OPERATION) {
+      throw Error(CALCULATOR_ERROR.OPERATION_WITH_NO_NUMBER);
     }
 
-    newOperations.push(operation);
-
-    this.setState({ operations: newOperations, currentKeyType: KEY_TYPE.OPERATION });
+    this.setState({ operation, currentKeyType: KEY_TYPE.OPERATION });
   }
 
   onClickModifier({ target }) {
