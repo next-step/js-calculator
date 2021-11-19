@@ -84,9 +84,12 @@ class Calculator extends HTMLElement {
 
     try {
       if (currentKeyType === KEY_TYPE.DIGIT) {
-        const lastNumberLength = numbers[numbers.length - 1].toString().length;
+        const lastNumber =
+          numbers[numbers.length - 1] < 0
+            ? numbers[numbers.length - 1].toString().substr(1)
+            : numbers[numbers.length - 1].toString();
 
-        if (lastNumberLength >= VALIDATION.MAX_NUMBER_LENGTH) {
+        if (lastNumber.length >= VALIDATION.MAX_NUMBER_LENGTH) {
           throw Error(CALCULATOR_ERROR.EXCEED_MAX_NUMBER_LENGTH);
         }
 
@@ -106,7 +109,7 @@ class Calculator extends HTMLElement {
     const newNumbers = [...this.state.numbers];
     const lastNumber = newNumbers.pop();
 
-    newNumbers.push(lastNumber * 10 + digit);
+    newNumbers.push(Number(lastNumber.toString() + digit));
 
     this.setState({ numbers: newNumbers, currentKeyType: KEY_TYPE.DIGIT });
   }
