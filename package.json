@@ -4,5 +4,11 @@
   "main": "index.js",
   "repository": "https://github.com/next-step/js-calculator.git",
   "author": "che-ri <rnjs1135@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "cypress": "^9.0.0"
+  },
+  "scripts": {
+    "test": "yarn run cypress open"
+  }
 }

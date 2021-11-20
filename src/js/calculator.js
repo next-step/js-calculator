@@ -61,7 +61,7 @@ class Calculator {
           return this.render(this.state.totalValue);
 
         case "/":
-          total = Math.floor(this.state.prevValue / this.state.currentValue);
+          total = Math.trunc(this.state.prevValue / this.state.currentValue);
           this.state.totalValue = total;
           this.state.prevValue = total;
           this.state.currentValue = null;
