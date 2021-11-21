@@ -3,45 +3,39 @@ import { isTargetInKeys } from './utils.js'
 import { OPERATORS } from './constants.js'
 
 function App() {
-  const state = {
-    operations: [],
-  }
-  $('[data-digit]').addEventListener('click', updateDigit(state))
-  $('[data-modifer]').addEventListener('click', resetDigit(state))
-  $('[data-operations]').addEventListener('click', updateOperation(state))
-}
+  let operations = []
 
-//prettier-ignore
-const updateDigit = ({ operations }) => ({ target: { textContent: digit } }) => {
+  //prettier-ignore
+  const updateDigit = ({ target: { textContent: digit } }) => {
   const totalDOM = $('[data-total]')
   const prevDigit = totalDOM.textContent
-  const nextDigit = isTargetInKeys(OPERATORS, prevDigit) ?  Number(digit) : maxOfDigit(Number(prevDigit + digit))
+  const nextDigit = isTargetInKeys(OPERATORS, prevDigit) ?  parseInt(digit) : maxOfDigit(parseInt(prevDigit + digit))
   const isOperator = isTargetInKeys(OPERATORS, prevDigit) && prevDigit
 
   if (operations.length === 0) {
-    addOperands(operations, nextDigit)
+    addOperation(operations, nextDigit)
   }
   if (isOperator) {
-    addOperands(operations, nextDigit)
+    addOperation(operations, nextDigit)
   }
-  if (!isOperator && Number(prevDigit) !== nextDigit) {
+  if (!isOperator && parseInt(prevDigit) !== nextDigit) {
     operations[operations.length - 1] = nextDigit
   }
-
+  
   totalDOM.textContent = operations[operations.length - 1]
 }
 
-//prettier-ignore
-const resetDigit = ({ operations }) => () => {
+  //prettier-ignore
+  const resetDigit =  () => {
     $('[data-total]').textContent = 0
     operations.length = 0
 }
 
-//prettier-ignore
-const updateOperation = ({ operations }) => ({ target: { textContent: operation } }) => {
+  //prettier-ignore
+  const updateOperation =  ({ target: { textContent: operation } }) => {
     const totalDOM = $('[data-total]')
     if (isTargetInKeys(OPERATORS, operation)) {
-      addOperands(operations, operation)
+      addOperation(operations, operation)
       totalDOM.textContent = operations[operations.length - 1]
       return
     }
@@ -50,15 +44,20 @@ const updateOperation = ({ operations }) => ({ target: { textContent: operation 
       totalDOM.textContent = operations[0]
       return
     }
-    totalDOM.textContent = OPERATORS[operations[1]](operations[0], operations[2])
-    operations.length = 0
+    const calculatedValue = OPERATORS[operations[1]](operations[0], operations[2])
+    totalDOM.textContent = calculatedValue
+    operations = [calculatedValue]
   }
 
-const maxOfDigit = (digit) => (digit > 1000 ? 999 : digit)
+  const maxOfDigit = (digit) => (digit > 1000 ? 999 : digit)
 
-const addOperands = (operations, operand) => {
-  if (operations.length > 2) return
-  operations.push(operand)
+  const addOperation = (operations, operand) => {
+    if (operations.length > 2) return
+    operations.push(operand)
+  }
+  $('[data-digit]').addEventListener('click', updateDigit)
+  $('[data-modifer]').addEventListener('click', resetDigit)
+  $('[data-operations]').addEventListener('click', updateOperation)
 }
 
 App()
