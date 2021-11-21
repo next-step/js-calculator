@@ -4,7 +4,7 @@ import { OPERATORS } from './constants.js'
 
 function App() {
   const state = {
-    operands: [],
+    operations: [],
   }
   $('[data-digit]').addEventListener('click', updateDigit(state))
   $('[data-modifer]').addEventListener('click', resetDigit(state))
@@ -12,53 +12,53 @@ function App() {
 }
 
 //prettier-ignore
-const updateDigit = ({ operands }) => ({ target: { textContent: digit } }) => {
+const updateDigit = ({ operations }) => ({ target: { textContent: digit } }) => {
   const totalDOM = $('[data-total]')
   const prevDigit = totalDOM.textContent
   const nextDigit = isTargetInKeys(OPERATORS, prevDigit) ?  Number(digit) : maxOfDigit(Number(prevDigit + digit))
   const isOperator = isTargetInKeys(OPERATORS, prevDigit) && prevDigit
 
-  if (operands.length === 0) {
-    addOperands(operands, nextDigit)
+  if (operations.length === 0) {
+    addOperands(operations, nextDigit)
   }
   if (isOperator) {
-    addOperands(operands, nextDigit)
+    addOperands(operations, nextDigit)
   }
   if (!isOperator && Number(prevDigit) !== nextDigit) {
-    operands[operands.length - 1] = nextDigit
+    operations[operations.length - 1] = nextDigit
   }
 
-  totalDOM.textContent = operands[operands.length - 1]
+  totalDOM.textContent = operations[operations.length - 1]
 }
 
 //prettier-ignore
-const resetDigit = ({ operands }) => () => {
+const resetDigit = ({ operations }) => () => {
     $('[data-total]').textContent = 0
-    operands.length = 0
+    operations.length = 0
 }
 
 //prettier-ignore
-const updateOperation = ({ operands }) => ({ target: { textContent: operation } }) => {
+const updateOperation = ({ operations }) => ({ target: { textContent: operation } }) => {
     const totalDOM = $('[data-total]')
     if (isTargetInKeys(OPERATORS, operation)) {
-      addOperands(operands, operation)
-      totalDOM.textContent = operands[operands.length - 1]
+      addOperands(operations, operation)
+      totalDOM.textContent = operations[operations.length - 1]
       return
     }
-    if (operands.length <= 2) {
-      operands.length = 0
-      totalDOM.textContent = operands[0]
+    if (operations.length <= 2) {
+      operations.length = 0
+      totalDOM.textContent = operations[0]
       return
     }
-    totalDOM.textContent = maxOfDigit(OPERATORS[operands[1]](operands[0], operands[2]))
-    operands.length = 0
+    totalDOM.textContent = maxOfDigit(OPERATORS[operations[1]](operations[0], operations[2]))
+    operations.length = 0
   }
 
 const maxOfDigit = (digit) => (digit > 1000 ? 999 : digit)
 
-const addOperands = (operands, operand) => {
-  if (operands.length > 2) return
-  operands.push(operand)
+const addOperands = (operations, operand) => {
+  if (operations.length > 2) return
+  operations.push(operand)
 }
 
 App()
