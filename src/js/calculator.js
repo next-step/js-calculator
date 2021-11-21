@@ -15,7 +15,7 @@ class Calculator {
     this.state = { ...initialState };
   }
 
-  init() {
+  bindEvents() {
     this.$digits.addEventListener("click", this.onDigitClick.bind(this));
     this.$operations.addEventListener(
       "click",
@@ -39,96 +39,57 @@ class Calculator {
     this.render(currentValue);
   }
 
+  onEqualClick(value) {
+    this.state.totalValue = value;
+    this.state.prevValue = value;
+    this.state.currentValue = null;
+    this.state.operation = null;
+    return this.render(value);
+  }
+
+  persistCalc(value, input) {
+    this.state.prevValue = value;
+    this.state.currentValue = null;
+    this.state.operation = input;
+    return this.render(value);
+  }
+
   onOperationClick({ target }) {
-    const input = target.dataset.operation;
-    if (input === "=") {
-      let total = null;
-      switch (this.state.operation) {
-        case "+":
-          total = this.state.prevValue + this.state.currentValue;
-          this.state.totalValue = total;
-          this.state.prevValue = total;
-          this.state.currentValue = null;
-          this.state.operation = null;
-          return this.render(this.state.totalValue);
+    const input = target.dataset.operation; //input의 dataset 값
+    let value = null;
+    switch (this.state.operation) {
+      case "+":
+        value = this.state.prevValue + this.state.currentValue;
+        if (input === "=") return this.onEqualClick(value);
+        return this.persistCalc(value, input);
+      case "-":
+        value = this.state.prevValue - this.state.currentValue;
+        if (input === "=") return this.onEqualClick(value);
+        return this.persistCalc(value, input);
 
-        case "-":
-          total = this.state.prevValue - this.state.currentValue;
-          this.state.totalValue = total;
-          this.state.prevValue = total;
-          this.state.currentValue = null;
-          this.state.operation = null;
-          return this.render(this.state.totalValue);
+      case "/":
+        value = Math.trunc(this.state.prevValue / this.state.currentValue);
+        if (input === "=") return this.onEqualClick(value);
+        return this.persistCalc(value, input);
 
-        case "/":
-          total = Math.trunc(this.state.prevValue / this.state.currentValue);
-          this.state.totalValue = total;
-          this.state.prevValue = total;
-          this.state.currentValue = null;
-          this.state.operation = null;
-          return this.render(this.state.totalValue);
+      case "X":
+        value = this.state.prevValue * this.state.currentValue;
+        if (input === "=") return this.onEqualClick(value);
+        return this.persistCalc(value, input);
 
-        case "X":
-          total = this.state.prevValue * this.state.currentValue;
-          this.state.totalValue = total;
-          this.state.prevValue = total;
-          this.state.currentValue = null;
-          this.state.operation = null;
-          return this.render(this.state.totalValue);
-
-        default:
-          this.state.totalValue = this.state.totalValue;
-      }
+      default:
+        this.state.totalValue = this.state.totalValue;
     }
 
-    // 연산을 연달아서 하는 경우
-    if (this.state.operation !== null) {
-      let value = null;
-      switch (this.state.operation) {
-        case "+":
-          value = this.state.prevValue + this.state.currentValue;
-          this.state.prevValue = value;
-          this.state.currentValue = 0;
-          this.state.operation = input;
-          return this.render(this.state.prevValue);
-        case "-":
-          value = this.state.prevValue - this.state.currentValue;
-          this.state.prevValue = value;
-          this.state.currentValue = 0;
-          this.state.operation = input;
-          return this.render(this.state.prevValue);
-
-        case "/":
-          value = Math.floor(this.state.prevValue / this.state.currentValue);
-          this.state.prevValue = value;
-          this.state.currentValue = 0;
-          this.state.operation = input;
-          return this.render(this.state.prevValue);
-
-        case "X":
-          value = this.state.prevValue * this.state.currentValue;
-          this.state.prevValue = value;
-          this.state.currentValue = 0;
-          this.state.operation = input;
-          return this.render(this.state.prevValue);
-
-        default:
-          this.state.totalValue = this.state.totalValue;
-      }
-    }
     if (this.state.currentValue > 0) {
       this.state.prevValue = this.state.currentValue;
       this.state.currentValue = 0;
     }
-
     this.state.operation = input;
   }
 
   onModifierClick() {
-    this.state.totalValue = 0;
-    this.state.prevValue = null;
-    this.state.currentValue = null;
-    this.state.operation = null;
+    this.state = { ...initialState };
     this.render(this.state.totalValue);
   }
 

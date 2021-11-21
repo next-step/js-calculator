@@ -7,4 +7,4 @@ const calculator = new Calculator({
   $modifier: document.querySelector(".js-modifier"),
 });
 
-calculator.init();
+calculator.bindEvents();
