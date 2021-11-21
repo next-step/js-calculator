@@ -50,7 +50,7 @@ const updateOperation = ({ operations }) => ({ target: { textContent: operation 
       totalDOM.textContent = operations[0]
       return
     }
-    totalDOM.textContent = maxOfDigit(OPERATORS[operations[1]](operations[0], operations[2]))
+    totalDOM.textContent = OPERATORS[operations[1]](operations[0], operations[2])
     operations.length = 0
   }
 
