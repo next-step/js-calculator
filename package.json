@@ -7,7 +7,7 @@
   "author": "padawanR0k <padawanR0k@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "vitest",
+    "test": "vitest -w",
     "coverage": "vitest run --coverage"
   },
   "devDependencies": {
