@@ -1,4 +1,14 @@
-import { INVALID_LENGTH, OPERATORS_SET, REGEXP_DIGIT, REGEXP_OPERATOR, REQUIRED_DIGIT } from "./constants.js";
+import {
+  OPERATORS_SET,
+  OPERATOR_ADD,
+  OPERATOR_DIV,
+  OPERATOR_MUL,
+  OPERATOR_SUB,
+  REGEXP_DIGIT,
+  REGEXP_OPERATOR,
+  INVALID_LENGTH,
+  REQUIRED_DIGIT
+} from "./constants.js";
 
 class Validator {
   static isNotKeypad(target) {
@@ -18,21 +28,29 @@ class Validator {
     return [keyword, lastInput].filter(key => this.isOperator(key)).length === 2;
   }
 
-  static isOverOperandLength(keyword, [left, _, right]) {
+  static isOverOperandLength(keyword, expressions) {
     if (this.isOperator(keyword)) return false;
-    if (right === undefined) return `${left}${keyword}`.length > 3;
-    return `${right}${keyword}`.length > 3;
+    const firstOperand = expressions[0];
+    const lastOperand = expressions[expressions.length - 1];
+    if (lastOperand === undefined) return `${firstOperand}${keyword}`.length > 3;
+    return `${lastOperand}${keyword}`.length > 3;
   }
 }
 
 class Calculator {
   constructor() {
     this.validator = Validator;
+    this.priorityOperator = {
+      [OPERATOR_ADD]: 2,
+      [OPERATOR_SUB]: 2,
+      [OPERATOR_MUL]: 1,
+      [OPERATOR_DIV]: 1
+    }
     this.keyMap = new Map([
-      ['+', (left, right) => left + right],
-      ['-', (left, right) => left - right],
-      ['X', (left, right) => left * right],
-      ['/', (left, right) => Math.floor(left / right)],
+      [OPERATOR_ADD, (left, right) => left + right],
+      [OPERATOR_SUB, (left, right) => left - right],
+      [OPERATOR_MUL, (left, right) => left * right],
+      [OPERATOR_DIV, (left, right) => Math.floor(left / right)],
     ]);
 
     document.querySelector('.calculator').addEventListener('click', this.#handler.bind(this));
@@ -53,7 +71,7 @@ class Calculator {
     if (keyword === 'AC') return '0';
 
     const expressions = display.split(REGEXP_OPERATOR);
-    if (keyword === '=') return this.#calculate(expressions);
+    if (keyword === '=') return this.#calculate(expressions.slice());
     if (display === '0' && this.validator.isDigit(keyword)) return keyword;
 
     if (this.validator.isDuplicatedOperator(keyword, display)) {
@@ -71,8 +89,14 @@ class Calculator {
 
   #calculate(expressions) {
     if (expressions.length <= 1) return expressions[0];
-    const [left, operator, right] = expressions;
-    return this.keyMap.get(operator)(Number(left), Number(right));
+    while (expressions.length > 1) {
+      let index = expressions.findIndex(item => this.priorityOperator[item] === 2);
+      if (index === -1) index = expressions.findIndex(item => this.priorityOperator[item] === 1);
+      const result = this.keyMap.get(expressions[index])(+expressions[index - 1], +expressions[index + 1]);
+      expressions.splice(index - 1, 3, result);
+    }
+
+    return expressions[0];
   }
 }
 
