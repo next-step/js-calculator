@@ -11,6 +11,8 @@ module.exports = {
   plugins: ["prettier", "jest"],
   rules: {
     "prettier/prettier": "error",
+    "import/extensions": "off",
+    "import/prefer-default-export": "off",
   },
   ignorePatterns: ["*.config.js", "*.test.js"],
 };
