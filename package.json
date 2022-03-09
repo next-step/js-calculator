@@ -1,0 +1,22 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "description": "VanillaJS-Calculator",
+  "main": "src/js/index.js",
+  "scripts": {
+    "test": "cypress run --browser chrome"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/InSeong-So/js-calculator.git"
+  },
+  "author": "InSeong-So",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/InSeong-So/js-calculator/issues"
+  },
+  "homepage": "https://github.com/InSeong-So/js-calculator#readme",
+  "devDependencies": {
+    "cypress": "^9.5.1"
+  }
+}

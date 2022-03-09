@@ -1,0 +1,8 @@
+{
+  "integrationFolder": "__tests__",
+  "testFiles": "*.test.js",
+  "screenshotOnRunFailure": false,
+  "video": false,
+  "pluginsFile": false,
+  "supportFile": false
+}
