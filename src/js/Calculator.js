@@ -42,10 +42,10 @@ class Calculator {
   constructor() {
     this.validator = Validator;
     this.priorityOperator = {
-      [OPERATOR_ADD]: 2,
-      [OPERATOR_SUB]: 2,
-      [OPERATOR_MUL]: 1,
-      [OPERATOR_DIV]: 1
+      [OPERATOR_MUL]: 2,
+      [OPERATOR_DIV]: 2,
+      [OPERATOR_ADD]: 1,
+      [OPERATOR_SUB]: 1
     }
     this.keyMap = new Map([
       [OPERATOR_ADD, (left, right) => left + right],
