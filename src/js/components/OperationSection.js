@@ -1,17 +1,15 @@
 import OperationSectionButton from './OperationSectionButton.js';
 
-const operators = Object.freeze(['/', 'X', '-', '+', '=']);
-
 export default class OperationSection {
   #target;
 
-  constructor($target, { onClick }) {
+  constructor($target, { onClick, OPERATORS }) {
     this.#target = $target;
 
     const $operation = document.createElement('div');
     $operation.className = 'operations subgrid';
 
-    operators.map(
+    OPERATORS.map(
       operator => new OperationSectionButton($operation, { operator, onClick })
     );
 

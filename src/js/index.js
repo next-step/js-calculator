@@ -3,15 +3,14 @@ import DigitSection from './components/DigitSection.js';
 import ModifiersSection from './components/ModifiersSection.js';
 import OperationSection from './components/OperationSection.js';
 
+import {
+  INPUT_TYPE,
+  OPERATORS,
+  ERR_MESSAGE,
+  MAX_LENGTH,
+} from './utils/constants.js';
 
-const Operation = (a, b) => {
-  return {
-    ['/']: () => a / b,
-    ['X']: () => a * b,
-    ['-']: () => a - b,
-    ['+']: () => a + b,
-  };
-};
+import { calcOperation } from './utils/operation.js';
 
 class App {
   // Dom target
@@ -21,7 +20,7 @@ class App {
   #state = {
     inputStack: Array(3),
     currentInput: {
-      type: 'DIGIT',
+      type: INPUT_TYPE.DIGIT,
       value: '',
     },
   };
@@ -45,13 +44,13 @@ class App {
         const value = e.target.dataset.value;
 
         if (
-          this.#state.currentInput.type === 'DIGIT' &&
-          this.#state.currentInput.value.length === 3
+          this.#state.currentInput.type === INPUT_TYPE.DIGIT &&
+          this.#state.currentInput.value.length === MAX_LENGTH
         ) {
-          return alert('숫자는 세 자리까지만 입력 가능합니다!');
+          return alert(ERR_MESSAGE.OVER_NUMBER);
         }
 
-        this.#state.currentInput.type = 'DIGIT';
+        this.#state.currentInput.type = INPUT_TYPE.DIGIT;
 
         if (this.#state.currentInput.value === '0') {
           this.#state.currentInput.value = value;
@@ -79,7 +78,7 @@ class App {
         this.#state = {
           inputStack: Array(3),
           currentInput: {
-            type: 'DIGIT',
+            type: INPUT_TYPE.DIGIT,
             value: '',
           },
         };
@@ -88,15 +87,16 @@ class App {
     });
 
     this.#operationSection = new OperationSection($calculator, {
+      OPERATORS,
       onClick: e => {
-        if (this.#state.currentInput.type === 'OPERATION') {
-          return alert('숫자를 먼저 입력한 후 연산자를 입력해주세요!');
+        if (this.#state.currentInput.type === INPUT_TYPE.OPERATION) {
+          return alert(ERR_MESSAGE.NONE_NUMBER);
         }
 
         const value = e.target.dataset.value;
 
         if (value === '=') {
-          const operate = Operation(
+          const operate = calcOperation(
             this.#state.inputStack[0].value,
             this.#state.inputStack[2].value
           );
@@ -109,7 +109,7 @@ class App {
           this.#state = {
             inputStack: Array(3).fill(result, 0, 1),
             currentInput: {
-              type: 'DIGIT',
+              type: INPUT_TYPE.DIGIT,
               value: '',
             },
           };
@@ -117,12 +117,12 @@ class App {
         }
 
         this.#state.inputStack[1] = {
-          type: 'OPERATION',
+          type: INPUT_TYPE.OPERATION,
           value,
         };
 
         this.#state.currentInput = {
-          type: 'OPERATION',
+          type: INPUT_TYPE.OPERATION,
           value: '',
         };
 
