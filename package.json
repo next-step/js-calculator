@@ -1,0 +1,13 @@
+{
+  "name": "circlegiven",
+  "version": "0.0.1",
+  "type": "module",
+  "devDependencies": {
+    "eslint": "^8.10.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "2.5.1"
+  }
+}
