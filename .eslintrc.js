@@ -11,7 +11,6 @@ module.exports = {
   },
   plugins: [],
   rules: {
-    'no-alert': 0,
     'import/extensions': 0,
     'import/prefer-default-export': 0,
   },
