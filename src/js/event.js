@@ -31,7 +31,7 @@ const calculate = (inputs) => {
     { prevSum: null, operator: null }
   );
 
-  return total;
+  return Math.floor(total);
 };
 
 class CalculatorEventListener {
