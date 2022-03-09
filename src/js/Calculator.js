@@ -24,6 +24,7 @@ class Validator {
   }
 
   static isDuplicatedOperator(keyword, display) {
+    if (display === '0' && this.isOperator(keyword)) return true;
     const lastInput = display.charAt(display.length - 1);
     return [keyword, lastInput].filter(key => this.isOperator(key)).length === 2;
   }
