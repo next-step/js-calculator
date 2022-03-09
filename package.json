@@ -1,0 +1,29 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "description": "JavaScript 계산기 미션",
+  "main": "./src/js/index.js",
+  "scripts": {
+    "cypress": "cypress open",
+    "start": "live-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/junghyeonsu/js-calculator.git"
+  },
+  "author": "junghyeonsu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/junghyeonsu/js-calculator/issues"
+  },
+  "devDependencies": {
+    "cypress": "^9.5.1",
+    "eslint": "^8.10.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.5.1"
+  }
+}
