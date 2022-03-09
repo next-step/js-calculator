@@ -1,13 +1,17 @@
 export default class TotalPad {
   #target;
+  #total;
 
   constructor($target) {
     this.#target = $target;
+    this.#total = document.createElement('h1');
+    this.#total.id = 'total';
+    this.#total.textContent = '0';
 
-    const $total = document.createElement('h1');
-    $total.id = 'total';
-    $total.textContent = '0';
+    this.#target.appendChild(this.#total);
+  }
 
-    this.#target.appendChild($total);
+  updateText({ display }) {
+    this.#total.textContent = display;
   }
 }
