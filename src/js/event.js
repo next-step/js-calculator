@@ -5,7 +5,7 @@ import { operatorFunctions } from "./constants.js";
  *
  * @param {Array<number | string>} inputs
  */
-const calculate = (inputs) => {
+export const calculate = (inputs) => {
   const { prevSum: total } = inputs.reduce(
     (acc, curr) => {
       const parsedValue = parseInt(curr, 10);
@@ -89,7 +89,7 @@ class CalculatorEventListener {
           return;
         }
 
-        this.$console.innerText = this.$console.innerText + innerText;
+        this.$console.innerText += this.$console.innerText + innerText;
         this.inputStore.push(innerText);
         this.currentNumber = 0;
 
