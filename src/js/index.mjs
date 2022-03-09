@@ -19,19 +19,31 @@ const inputStore = [];
  * @param {Array<number | string>} inputs
  */
 const calculate = (inputs) => {
-  inputs.reduce(
+  const { prevSum: total } = inputs.reduce(
     (acc, curr) => {
       const parsedValue = parseInt(curr, 10);
 
-      if (Number.isNaN(parsedValue) && isOperator(curr)) {
+      if (isOperator(curr)) {
         acc.operator = curr;
+        return acc;
       }
-      if (typeof curr === "number") {
+
+      if (acc.prevSum === null) {
+          acc.prevSum = parsedValue;
+          return acc;
+      }
+
+      if (acc.operator) {
         acc.prevSum = operatorFunctions[acc.operator](acc.prevSum, parsedValue);
+        return acc;
       }
+
+      acc.prevSum = acc.prevSum * 10 + parsedValue;
       return acc;
     },
-    { prevSum: 0, operator: null }
+    { prevSum: null, operator: null }
   );
+
+  return total;
 };
 export default calculate;
