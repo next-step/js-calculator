@@ -12,11 +12,11 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
-/**
- * @type {Cypress.PluginConfig}
- */
-// eslint-disable-next-line no-unused-vars
 module.exports = (on, config) => {
-  // `on` is used to hook into various events Cypress emits
-  // `config` is the resolved Cypress config
-}
+  // https://github.com/bahmutov/cypress-watch-and-reload
+  // eslint-disable-next-line global-require
+  require('cypress-watch-and-reload/plugins')(config);
+  // IMPORTANT: return the config object
+  // because the plugin might have changed it
+  return config;
+};
