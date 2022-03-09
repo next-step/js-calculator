@@ -1,0 +1,22 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "description": "cc-js-2nd",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Minsiki/js-calculator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Minsiki/js-calculator/issues"
+  },
+  "homepage": "https://github.com/Minsiki/js-calculator#readme"
+}

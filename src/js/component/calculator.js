@@ -1,83 +1,80 @@
-import { SELECTORS } from "../constance/element.js";
-import { MESSAGE } from "../constance/message.js";
-import { $, getInteger } from "../util/index.js";
+import { DIGIT_MAX_LENGTH, INIT_DIGIT, MESSAGE, PLUS, MINUS, DIVISION, MULTIPLICATION, EQUAL, OPERATORS, SELECTORS, CALCULATOR } from "../constant/index.js";
+import { $ } from "../util/index.js";
 
 export default class Calculator {
     constructor() {
-        this.frontNumber = "0";
-        this.backNumber = "0";
-        this.operation = "";
+        this.isFirstCalc = true;
 
         this.$total = $(SELECTORS.ID.TOTAL);
-        this.$digits = $(SELECTORS.CLASS.DIGITS);
-        this.$operations = $(SELECTORS.CLASS.OPERATIONS);
-        this.$modifiers = $(SELECTORS.CLASS.MODIFIERS);
+        this.$calculator = $(SELECTORS.CLASS.CALCULATOR);
 
-        this.$digits.addEventListener("click", (event) => this.onClickDigit(event.target.closest(SELECTORS.CLASS.DIGIT).innerHTML));
-        this.$operations.addEventListener("click", (event) => this.onClickOperation(event.target.closest(SELECTORS.CLASS.OPERATION).innerHTML));
-        this.$modifiers.addEventListener("click", () => this.onClickModifier());
+        
+        console.log(SELECTORS.CLASS);
+
+        this.$calculator.addEventListener("click", (event) => this.onClick(event));
+    }
+
+    onClick(event) {
+        if(event.target.classList.contains(SELECTORS.CLASS.DIGIT.substring(1))) {
+            this.onClickDigit(event.target.closest(SELECTORS.CLASS.DIGIT).innerHTML);
+        } else if(event.target.classList.contains(SELECTORS.CLASS.OPERATION.substring(1))) {
+            this.onClickOperation(event.target.closest(SELECTORS.CLASS.OPERATION).innerHTML);
+        } else if(event.target.classList.contains(SELECTORS.CLASS.MODIFIER.substring(1))) {
+           this.onClickModifier();
+        } 
     }
 
     onClickDigit(digit) {        
-        if(this.operation) {
-            if(this.backNumber.length < 3) {
-                this.backNumber += digit;
-            } else {
-                alert(MESSAGE.ERROR.DIGIT_OVER);
-            }      
-        } else {
-            if(this.frontNumber === "0") {
-                this.frontNumber = digit;
-            } else {
-                if(this.frontNumber.length < 3) {
-                    this.frontNumber += digit;
-                } else {
-                    alert(MESSAGE.ERROR.DIGIT_OVER);
-                }                
-            }
+        const total = this.getTotal() + digit;
+
+        if(!this.isFirstCalc && !this.checkDigitMaxLength(total)) {
+            alert(MESSAGE.ERROR.DIGIT_OVER);
+            return;
         }
 
-        if(this.operation === "" && this.frontNumber === "0") {
+        if(this.getTotal() === INIT_DIGIT) {
             this.setTotal(digit);
         } else {
-            this.setTotal(this.getTotal()+digit);
-        }   
+            this.setTotal(this.getTotal() + digit);
+        }
+    }
+
+    checkDigitMaxLength(total) {
+        return total.split(this.getOperation()).filter(digit => digit.length > DIGIT_MAX_LENGTH).length === 0;
+    }
+
+    checkExistOperation() {
+        return this.getTotal().split("").filter(v => isNaN(parseInt(v))).length > 0;
+    }
+
+    getDigits() {
+        return this.getTotal().split(this.getOperation());
+    }
+
+    getOperation() {
+        return this.getTotal().split("").find(v => OPERATORS.includes(v));
     }
 
     onClickOperation(operation) {
-        if(operation !== "=") {
-            this.operation = operation;
-        }
-
-        if(operation === "=") {
+        if(operation === EQUAL) {
             this.onCalculation();
+        } else if(this.checkExistOperation()) {
+            alert(MESSAGE.ERROR.EXIST_OPERATION);
         } else {
-            this.setTotal(this.getTotal() + operation);
+            this.setTotal(this.getTotal() + operation);     
         }       
     }
 
     onClickModifier() {
-        this.setTotal(0);
-
-        this.frontNumber = "";
-        this.operation = "";
-        this.backNumber = "";
+        this.setTotal(INIT_DIGIT);
     }
 
     onCalculation() {
-        if(this.operation === "+") {
-            this.setTotal(`${getInteger(this.frontNumber) + getInteger(this.backNumber)}`);
-        } else if(this.operation === "-") {
-            this.setTotal(`${getInteger(this.frontNumber) - getInteger(this.backNumber)}`);
-        } else if(this.operation === "X") {
-            this.setTotal(`${getInteger(this.frontNumber) * getInteger(this.backNumber)}`);
-        } else if(this.operation === "/") {
-            this.setTotal(`${Math.floor(getInteger(this.frontNumber) / getInteger(this.backNumber))}`);
-        }
+        const operation = this.getOperation();
+        const digits = this.getDigits();
 
-        this.frontNumber = this.getTotal();
-        this.operation = "";
-        this.backNumber = "";
+        this.setTotal(CALCULATOR[operation](+digits[0], +digits[1]));
+        this.isFirstCalc = false;
     }
 
     getTotal() {
