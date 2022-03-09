@@ -1,4 +1,4 @@
-import { DIGIT_MAX_LENGTH, INIT_DIGIT, MESSAGE, PLUS, MINUS, DIVISION, MULTIPLICATION, EQUAL, OPERATORS, SELECTORS, CALCULATOR } from "../constant/index.js";
+import { DIGIT_MAX_LENGTH, INIT_DIGIT, MESSAGE, EQUAL, OPERATORS, SELECTORS, CALCULATOR } from "../constant/index.js";
 import { $ } from "../util/index.js";
 
 export default class Calculator {
@@ -7,9 +7,6 @@ export default class Calculator {
 
         this.$total = $(SELECTORS.ID.TOTAL);
         this.$calculator = $(SELECTORS.CLASS.CALCULATOR);
-
-        
-        console.log(SELECTORS.CLASS);
 
         this.$calculator.addEventListener("click", (event) => this.onClick(event));
     }
@@ -25,22 +22,24 @@ export default class Calculator {
     }
 
     onClickDigit(digit) {        
-        const total = this.getTotal() + digit;
+        const total = this.getTotal() === INIT_DIGIT ? digit : this.getTotal() + digit;
+        const digits = total.split(this.getOperation());
 
-        if(!this.isFirstCalc && !this.checkDigitMaxLength(total)) {
+        if(this.isFirstCalc && this.checkDigitMaxLength(digits[0])) {
             alert(MESSAGE.ERROR.DIGIT_OVER);
             return;
         }
 
-        if(this.getTotal() === INIT_DIGIT) {
-            this.setTotal(digit);
-        } else {
-            this.setTotal(this.getTotal() + digit);
+        if(digits[1] && this.checkDigitMaxLength(digits[1])) {
+            alert(MESSAGE.ERROR.DIGIT_OVER);
+            return;
         }
+        
+        this.setTotal(total);
     }
 
-    checkDigitMaxLength(total) {
-        return total.split(this.getOperation()).filter(digit => digit.length > DIGIT_MAX_LENGTH).length === 0;
+    checkDigitMaxLength(digit) {
+        return digit.length > DIGIT_MAX_LENGTH;
     }
 
     checkExistOperation() {
