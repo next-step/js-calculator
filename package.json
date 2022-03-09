@@ -1,14 +1,14 @@
 {
   "name": "calculator",
-  "type": "module",
   "version": "1.0.0",
-  "main": "index.js",
   "repository": "https://github.com/next-step/js-calculator.git",
   "author": "padawanR0k <padawanR0k@gmail.com>",
   "license": "MIT",
   "scripts": {
     "test": "vitest -w",
-    "coverage": "vitest run --coverage"
+    "start": "live-server --port=5000 ./",
+    "coverage": "vitest run --coverage",
+    "test:e2e": "yarn cypress open"
   },
   "devDependencies": {
     "cypress": "^9.5.1",
