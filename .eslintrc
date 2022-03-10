@@ -7,9 +7,8 @@
       "plugin:prettier/recommended"
     ],
     "parserOptions": {
-      // 자바스크립트 버전, 7은 ECMA2016
       "ecmaVersion": 7,
-      "sourceType": "script",
+      "sourceType": "module",
       "ecmaFeatures": {
         "jsx": true
       }
