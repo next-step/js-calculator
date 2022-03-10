@@ -26,7 +26,7 @@ export default class Calculator {
   /** input된 numberText를 처리하기 전에 실행하는 validate 메소드 */
   validateNumberText(numberText) {
     if (
-      this.numbers[this.numbers.length - 1].toString().length >= 3 &&
+      this.numbers.at(-1).toString().length >= 3 &&
       this.numbers.length !== this.operators.length
     ) {
       alert('숫자는 세 자리까지만 입력 가능합니다!');
@@ -54,7 +54,7 @@ export default class Calculator {
     const copiedNumbers = [...this.numbers];
 
     copiedNumbers[copiedNumbers.length - 1] =
-      copiedNumbers[copiedNumbers.length - 1] * 10 + number;
+      copiedNumbers.at(-1) * 10 + number;
 
     this.numbers = copiedNumbers;
   }

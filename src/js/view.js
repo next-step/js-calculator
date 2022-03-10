@@ -30,15 +30,15 @@ export default class View {
 
   /** 숫자 버튼 클릭 이벤트 리스너 */
   handleNumberButtonClick(event) {
-    const numberText = event.target.innerText;
+    const { digit } = event.target.dataset;
 
-    this.calculator.inputNumber(numberText);
+    this.calculator.inputNumber(digit);
     this.renderNumbers();
   }
 
   /** 연산자 버튼 클릭 이벤트 리스너 */
   handleOperationButtonClick(event) {
-    const operator = event.target.innerText;
+    const { operator } = event.target.dataset;
 
     this.calculator.inputOperator(operator);
     this.renderNumbers();
