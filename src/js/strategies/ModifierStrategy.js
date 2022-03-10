@@ -2,9 +2,7 @@ import { defaultState } from '../Calculator.js';
 
 class ModifierStrategy {
   static mutateState($target, state) {
-    return {
-      ...defaultState,
-    };
+    return defaultState;
   }
 }
 
