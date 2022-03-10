@@ -16,7 +16,7 @@ class Calculator {
   #$calculator;
   #$total;
 
-  #buttonStrategy;
+  #strategy;
 
   constructor({ $calculator, $total }) {
     this.#$calculator = $calculator;
@@ -61,10 +61,10 @@ class Calculator {
   }
 
   #handleClick({ target }) {
-    this.#buttonStrategy = this.#strategyCreator(target.dataset);
+    this.#strategy = this.#strategyCreator(target.dataset);
 
     try {
-      const newState = this.#buttonStrategy?.mutateState(target, this.state);
+      const newState = this.#strategy?.mutateState(target, this.state);
       this.#render(newState);
     } catch ({ message }) {
       alert(message);
