@@ -1,8 +1,8 @@
 export const calcOperation = (a, b) => {
   return {
-    ['/']: () => a / b,
-    ['X']: () => a * b,
-    ['-']: () => a - b,
-    ['+']: () => a + b,
+    ['/']: () => Math.floor(Number(a) / Number(b)),
+    ['X']: () => Number(a) * Number(b),
+    ['-']: () => Number(a) - Number(b),
+    ['+']: () => Number(a) + Number(b),
   };
 };
