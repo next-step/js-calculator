@@ -1,4 +1,4 @@
-import { MAX_DIGIT_SIZE } from '../const/index.js';
+import { ERROR_MSG, MAX_DIGIT_SIZE } from '../const/index.js';
 import { isNull } from '../utils/common.js';
 
 class DigitStrategy {
@@ -7,17 +7,20 @@ class DigitStrategy {
 
     const currNumber = Number($target.dataset.value);
 
-    if (key === 'x' && !currNumber)
-      throw new Error(ERROR_MSG.PLZ_SELECT_NUMBER);
-
     const prevNumber = state[key];
-    const isOverMaxSize = prevNumber?.toString().length >= MAX_DIGIT_SIZE;
 
-    if (isOverMaxSize) throw new Error(ERROR_MSG.PLZ_CHECK_MAX_NUMBER);
+    DigitStrategy.#validate(key, currNumber, prevNumber);
 
     state[key] = prevNumber * 10 + currNumber;
 
     return state;
+  }
+  static #validate(key, currNumber, prevNumber) {
+    if (key === 'x' && !currNumber)
+      throw new Error(ERROR_MSG.PLZ_SELECT_NUMBER);
+
+    const isOverMaxSize = prevNumber?.toString().length >= MAX_DIGIT_SIZE;
+    if (isOverMaxSize) throw new Error(ERROR_MSG.PLZ_CHECK_MAX_NUMBER);
   }
 }
 
