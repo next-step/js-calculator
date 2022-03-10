@@ -12,16 +12,6 @@ export const STRATEGY = {
   OPERATOR: 'OPERATOR',
 };
 
-export const MUTATE = {
-  LEFT: 'LEFT',
-  RIGHT: 'RIGHT',
-  OPERATOR: 'OPERATOR',
-};
-
-export const ACTION = {
-  RESET_ALL: 'RESET_ALL',
-};
-
 export const ERROR_MSG = {
   PLZ_SELECT_NUMBER: '숫자를 입력하세요.',
   PLZ_CHECK_MAX_NUMBER: '최대 3자리 수까지 입력 가능합니다.',
