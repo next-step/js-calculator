@@ -1,10 +1,16 @@
 class Total {
-  constructor(target) {
+  constructor(target, state) {
     this.$target = target;
+    this.state = state;
   }
 
-  recordTotalValue(value) {
-    this.$target.innerHTML += value;
+  setState(nextState) {
+    this.state = nextState;
+    this.render();
+  }
+
+  render() {
+    this.$target.innerHTML = this.state;
   }
 }
 

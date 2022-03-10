@@ -6,10 +6,10 @@ class Digits {
   }
 
   initEventListeners() {
-    this.$target.addEventListener('click', this.handleDigitsClick.bind(this));
+    this.$target.addEventListener('click', this.onClickDigits.bind(this));
   }
 
-  handleDigitsClick(event) {
+  onClickDigits(event) {
     const clickedDigit = event.target.closest('.digit').innerHTML;
     this.onClick(clickedDigit);
   }

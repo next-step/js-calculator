@@ -6,12 +6,12 @@ class Operations {
   }
 
   initEventListeners() {
-    this.$target.addEventListener('click', this.handleDigitsClick.bind(this));
+    this.$target.addEventListener('click', this.onClickOperations.bind(this));
   }
 
-  handleDigitsClick(event) {
-    const clickedDigit = event.target.closest('.operation').innerHTML;
-    this.onClick(clickedDigit);
+  onClickOperations(event) {
+    const clickedOperation = event.target.closest('.operation').innerHTML;
+    this.onClick(clickedOperation);
   }
 }
 
