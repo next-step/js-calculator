@@ -45,12 +45,16 @@ class App {
       const evaluationResult = bothSidesOfMinus.reduce((acc, cur) => Number(acc) - Number(cur));
       this.setState({ currentTotal: evaluationResult });
     } else if (digitsAndOperations.includes('X')) {
-      const bothSidesOfMinus = digitsAndOperations.split('X');
-      const evaluationResult = bothSidesOfMinus.reduce((acc, cur) => Number(acc) * Number(cur));
+      const bothSidesOfMultiple = digitsAndOperations.split('X');
+      const evaluationResult = bothSidesOfMultiple.reduce((acc, cur) => Number(acc) * Number(cur));
+      this.setState({ currentTotal: evaluationResult });
+    } else if (digitsAndOperations.includes('/')) {
+      const bothSidesOfDivision = digitsAndOperations.split('/');
+      const evaluationResult = bothSidesOfDivision.reduce((acc, cur) =>
+        Math.floor(Number(acc) / Number(cur)),
+      );
       this.setState({ currentTotal: evaluationResult });
     }
-    // else if (digitsAndOperations.includes('/')) {
-    // }
   }
 }
 
