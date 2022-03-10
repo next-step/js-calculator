@@ -39,6 +39,20 @@ export default class Calculator {
     return true;
   }
 
+  /** operator를 입력하기 전에 실행하는 validate 메소드 */
+  validateBeforeInputOperator() {
+    if (
+      (this.numbers.length === 1 && this.numbers[0] === 0) ||
+      this.numbers.length === this.operators.length
+    ) {
+      alert('숫자를 먼저 입력한 후 연산자를 입력해주세요!');
+
+      return false;
+    }
+
+    return true;
+  }
+
   /** numberText를 number로 바꾸어 입력하는 메소드 */
   inputNumber(numberText) {
     if (!this.validateNumberText(numberText)) return;
@@ -66,8 +80,7 @@ export default class Calculator {
 
   /** operators에 operator를 입력하는 메소드. 그러나 '=' 가 입력될 시 연산을 시작한다. */
   inputOperator(operator) {
-    if (this.numbers.length === this.operators.length)
-      return alert('숫자를 먼저 입력한 후 연산자를 입력해주세요!');
+    if (!this.validateBeforeInputOperator()) return;
 
     if (operator === '=') return this.operateNumbers();
 
