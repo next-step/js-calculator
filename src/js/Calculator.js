@@ -46,7 +46,7 @@ export default class Calculator {
     return true;
   }
 
-  /** 연산의 대상이 되는 numberText를 number로 바꿔 numbers 배열의 마지막 원소에 더하는 메소드 */
+  /** numberText를 number로 바꾸어 입력하는 메소드 */
   inputNumber(numberText) {
     if (!this.validateNumberText(numberText)) return;
 
@@ -66,10 +66,12 @@ export default class Calculator {
     this.numbers = copiedNumbers;
   }
 
+  /** numbers에 새로운 number를 추가하는 메소드 */
   appendNumber(number) {
     this.numbers = this.numbers.concat([number]);
   }
 
+  /** operators에 operator를 입력하는 메소드. 그러나 '=' 가 입력될 시 연산을 시작한다. */
   inputOperator(operator) {
     if (this.numbers.length === this.operators.length)
       return alert('숫자를 먼저 입력한 후 연산자를 입력해주세요!');

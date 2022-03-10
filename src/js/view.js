@@ -6,6 +6,7 @@ export default class View {
     this.renderNumbers();
   }
 
+  /** 필요한 이벤트 리스너들을 등록하는 메소드 */
   addEventListeners() {
     this.rootElement
       .querySelector('.digits')
