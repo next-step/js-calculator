@@ -13,8 +13,12 @@ export default class Calculator {
 
   /** 연산의 대상이 되는 number를 inputNumbers 배열에 넣는 메소드 */
   inputNumber(number) {
-    if (typeof number === 'number') {
-      this.inputNumbers = this.inputNumbers.concat(number);
+    if (number.length > 3) {
+      return alert('숫자는 세 자리까지만 입력 가능합니다!');
+    }
+
+    if (!isNaN(Number(number))) {
+      this.inputNumbers = this.inputNumbers.concat(Number(number));
     }
   }
 
@@ -29,5 +33,10 @@ export default class Calculator {
       const operator = this.operators[index];
       this.value = this.operatings[operator](this.value, number);
     });
+  }
+
+  /** inputNumbers를 비우는 메소드 */
+  clearInputNumbers() {
+    this.inputNumbers = [];
   }
 }
