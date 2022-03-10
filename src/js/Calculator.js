@@ -1,13 +1,14 @@
+const operations = {
+  '+': (numberA, numberB) => numberA + numberB,
+  '-': (numberA, numberB) => numberA - numberB,
+  '/': (numberA, numberB) => Math.floor(numberA / numberB),
+  '*': (numberA, numberB) => Math.floor(numberA * numberB),
+};
+
 export default class Calculator {
   constructor() {
     this.numbers = [0];
     this.operators = [];
-    this.operatings = {
-      '+': (numberA, numberB) => numberA + numberB,
-      '-': (numberA, numberB) => numberA - numberB,
-      '/': (numberA, numberB) => Math.floor(numberA / numberB),
-      '*': (numberA, numberB) => Math.floor(numberA * numberB),
-    };
   }
 
   /** view 단에서 join 하여 렌더링할 numbers 와 operators의 배열을 만드는 메소드 */
@@ -97,7 +98,7 @@ export default class Calculator {
 
       const operator = this.operators[index - 1];
 
-      return this.operatings[operator](acc, number);
+      return operations[operator](acc, number);
     }, this.numbers[0]);
 
     this.numbers = [calculated];
