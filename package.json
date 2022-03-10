@@ -8,7 +8,8 @@
     "test": "vitest -w",
     "start": "live-server --port=5000 ./",
     "coverage": "vitest run --coverage",
-    "test:e2e": "yarn cypress open"
+    "test:e2e:open": "yarn cypress open",
+    "test:e2e:run": "yarn cypress run"
   },
   "devDependencies": {
     "cypress": "^9.5.1",

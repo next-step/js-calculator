@@ -59,16 +59,19 @@ class CalculatorEventListener {
   init() {
     this.$container.addEventListener("click", ({ target }) => {
       const { innerText } = target;
+      const { innerText: currentConsole } = this.$console;
+
       if (target.className === "digit") {
         if (this.currentNumber > 99) {
           alert("숫자는 3자리까지만 입력할 수 있습니다.");
           return;
         }
-        const { innerText: currentConsole } = this.$console;
+
+        const parsedValue = parseInt(innerText, 10);
         this.$console.innerText =
           currentConsole === "0" ? innerText : `${currentConsole}${innerText}`;
         this.inputStore.push(innerText);
-        this.currentNumber = calculate(this.inputStore);
+        this.currentNumber = this.currentNumber * 10 + parsedValue;
         return;
       }
       if (target.className === "operation") {
@@ -89,7 +92,7 @@ class CalculatorEventListener {
           return;
         }
 
-        this.$console.innerText += this.$console.innerText + innerText;
+        this.$console.innerText += innerText;
         this.inputStore.push(innerText);
         this.currentNumber = 0;
 
@@ -98,13 +101,13 @@ class CalculatorEventListener {
       if (target.className === "modifier") {
         this.clearInputStore();
         this.resetConsole();
-        this.currentNumber = 0;
       }
     });
   }
 
   resetConsole() {
     this.$console.innerText = 0;
+    this.currentNumber = 0;
   }
 
   clearInputStore() {
