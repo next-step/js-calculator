@@ -12,22 +12,15 @@ export default class Calculator {
 
   /** view 단에서 join 하여 렌더링할 numbers 와 operators의 배열을 만드는 메소드 */
   getNumberAndOperators() {
-    let numberAndOperators = [];
-
-    this.numbers.forEach((number, index) => {
+    const numberAndOperators = this.numbers.map((number, index) => {
       if (this.operators[index]) {
-        numberAndOperators = numberAndOperators.concat([
-          number,
-          this.operators[index],
-        ]);
-
-        return;
+        return [number, this.operators[index]];
       }
 
-      numberAndOperators = numberAndOperators.concat([number]);
+      return number;
     });
 
-    return numberAndOperators;
+    return numberAndOperators.flat();
   }
 
   /** input된 numberText를 처리하기 전에 실행하는 validate 메소드 */
