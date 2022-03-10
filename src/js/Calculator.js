@@ -11,14 +11,14 @@ export default class Calculator {
     };
   }
 
-  /** 연산의 대상이 되는 number를 inputNumbers 배열에 넣는 메소드 */
-  inputNumber(number) {
-    if (number.length > 3) {
+  /** 연산의 대상이 되는 numberText를 number로 바꿔 inputNumbers 배열에 넣는 메소드 */
+  inputNumber(numberText) {
+    if (numberText.length > 3) {
       return alert('숫자는 세 자리까지만 입력 가능합니다!');
     }
 
-    if (!isNaN(Number(number))) {
-      this.inputNumbers = this.inputNumbers.concat(Number(number));
+    if (!isNaN(Number(numberText))) {
+      this.inputNumbers = this.inputNumbers.concat(Number(numberText));
     }
   }
 
