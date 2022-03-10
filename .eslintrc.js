@@ -4,7 +4,7 @@ module.exports = {
     es2021: true,
   },
   parser: '@babel/eslint-parser',
-  extends: ['airbnb-base', 'prettier'],
+  extends: ['plugin:cypress/recommended', 'airbnb-base', 'prettier'],
   parserOptions: {
     ecmaVersion: 2021,
     sourceType: 'module',
