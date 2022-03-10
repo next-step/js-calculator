@@ -1,6 +1,7 @@
 import Digits from './components/Digits.js';
 import Total from './components/Total.js';
 import Operations from './components/Operations.js';
+import Modifiers from './components/Modifiers.js';
 import { $ } from './utils/dom.js';
 
 class App {
@@ -11,6 +12,7 @@ class App {
     };
     this.$digits = new Digits($('.digits'), this.onClickButtons.bind(this));
     this.$operations = new Operations($('.operations'), this.onClickButtons.bind(this));
+    this.$modifiers = new Modifiers($('.modifiers'), this.onClickButtons.bind(this));
     this.$total = new Total($('#total'), this.state.currentTotal);
   }
 
@@ -20,7 +22,9 @@ class App {
   }
 
   onClickButtons(clickedValue) {
-    if (clickedValue === '=') {
+    if (clickedValue === 'AC') {
+      this.setState({ currentTotal: '0' });
+    } else if (clickedValue === '=') {
       this.evaluateDigitsAndOperations(this.state.currentTotal);
     } else {
       this.recordDigitsAndOperations(clickedValue);
