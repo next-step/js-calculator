@@ -9,7 +9,6 @@ export const defaultState = {
   x: null,
   operator: null,
   y: null,
-  total: null,
 };
 
 class Calculator {
