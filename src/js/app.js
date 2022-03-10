@@ -40,10 +40,14 @@ class App {
       const bothSidesOfPlus = digitsAndOperations.split('+');
       const evaluationResult = bothSidesOfPlus.reduce((acc, cur) => Number(acc) + Number(cur));
       this.setState({ currentTotal: evaluationResult });
+    } else if (digitsAndOperations.includes('-')) {
+      const bothSidesOfMinus = digitsAndOperations.split('-');
+      const evaluationResult = bothSidesOfMinus.reduce((acc, cur) => Number(acc) - Number(cur));
+      this.setState({ currentTotal: evaluationResult });
     }
-    // else if (digitsAndOperations.includes('-')) {
-    // } else if (digitsAndOperations.includes('X')) {
-    // } else if (digitsAndOperations.includes('/')) {
+    // else if (digitsAndOperations.includes('X')) {
+    // }
+    // else if (digitsAndOperations.includes('/')) {
     // }
   }
 }
