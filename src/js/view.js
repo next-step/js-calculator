@@ -3,7 +3,7 @@ export default class View {
     this.rootElement = rootElement;
     this.calculator = calculator;
     this.addEventListeners();
-    this.renderNumbers();
+    this.renderNumberAndOperators();
   }
 
   /** 필요한 이벤트 리스너들을 등록하는 메소드 */
@@ -22,7 +22,7 @@ export default class View {
   }
 
   /** 입력된 숫자들과 연산자들을 렌더링하는 메소드 */
-  renderNumbers() {
+  renderNumberAndOperators() {
     this.rootElement.querySelector('#total').innerText = this.calculator
       .getNumberAndOperators()
       .join('');
@@ -33,7 +33,7 @@ export default class View {
     const { digit } = event.target.dataset;
 
     this.calculator.inputNumber(digit);
-    this.renderNumbers();
+    this.renderNumberAndOperators();
   }
 
   /** 연산자 버튼 클릭 이벤트 리스너 */
@@ -41,12 +41,12 @@ export default class View {
     const { operator } = event.target.dataset;
 
     this.calculator.inputOperator(operator);
-    this.renderNumbers();
+    this.renderNumberAndOperators();
   }
 
   /** AC 버튼 클릭 이벤트 리스너 */
   handleClearButtonClick() {
     this.calculator.clearNumbersAndOperators();
-    this.renderNumbers();
+    this.renderNumberAndOperators();
   }
 }
