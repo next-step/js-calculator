@@ -38,8 +38,8 @@ class App {
   evaluateDigitsAndOperations(digitsAndOperations) {
     if (digitsAndOperations.includes('+')) {
       const bothSidesOfPlus = digitsAndOperations.split('+');
-      const sum = bothSidesOfPlus.reduce((acc, cur) => Number(acc) + Number(cur));
-      this.setState({ currentTotal: sum });
+      const evaluationResult = bothSidesOfPlus.reduce((acc, cur) => Number(acc) + Number(cur));
+      this.setState({ currentTotal: evaluationResult });
     }
     // else if (digitsAndOperations.includes('-')) {
     // } else if (digitsAndOperations.includes('X')) {
