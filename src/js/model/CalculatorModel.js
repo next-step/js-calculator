@@ -8,10 +8,6 @@ class OperandModel {
     this.value = value;
   }
 
-  updateType(type) {
-    this.type = type;
-  }
-
   updateValue(value) {
     if (value === 0) {
       this.value = value;
