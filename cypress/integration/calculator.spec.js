@@ -33,7 +33,7 @@ describe('계산기 어플리케이션 테스트', () => {
   });
 
   it('숫자는 한번에 최대 3자리 수까지 입력 가능하다.', () => {
-    range(4).forEach((_) => cy.get('button.digit[data-num="2"]').click());
+    range(4).forEach((_) => cy.clickElement('button.digit[data-value="2"]'));
     cy.totalValue().should('eq', '222');
   });
 

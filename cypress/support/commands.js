@@ -28,10 +28,12 @@ const clickElement = (selector) => cy.get(selector).click();
 
 const clickEventCommand = {
   modifierBtn: () => clickElement('button.modifier'),
-  digitBtn: (number) => clickElement(`button.digit[data-num="${number}"]`),
+  digitBtn: (number) => clickElement(`button.digit[data-value="${number}"]`),
   operationBtn: (operator) =>
-    clickElement(`button.operation[data-operator="${operator}"]`),
+    clickElement(`button.operation[data-value="${operator}"]`),
 };
+
+Cypress.Commands.add('clickElement', clickElement);
 
 Cypress.Commands.add('totalValue', () => cy.get('#total').invoke('text'));
 
