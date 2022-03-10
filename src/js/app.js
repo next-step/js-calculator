@@ -44,9 +44,11 @@ class App {
       const bothSidesOfMinus = digitsAndOperations.split('-');
       const evaluationResult = bothSidesOfMinus.reduce((acc, cur) => Number(acc) - Number(cur));
       this.setState({ currentTotal: evaluationResult });
+    } else if (digitsAndOperations.includes('X')) {
+      const bothSidesOfMinus = digitsAndOperations.split('X');
+      const evaluationResult = bothSidesOfMinus.reduce((acc, cur) => Number(acc) * Number(cur));
+      this.setState({ currentTotal: evaluationResult });
     }
-    // else if (digitsAndOperations.includes('X')) {
-    // }
     // else if (digitsAndOperations.includes('/')) {
     // }
   }
