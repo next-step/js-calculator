@@ -1,4 +1,8 @@
-import { isNull } from './utils/common.js';
+import { STRATEGY } from './const/index.js';
+import DigitStrategy from './strategies/DigitStrategy.js';
+import ModifierStrategy from './strategies/ModifierStrategy.js';
+import OperationStrategy from './strategies/OperationStrategy.js';
+import { isEmptyArray, isNull } from './utils/common.js';
 import { beforeunload } from './utils/domApi.js';
 
 export const defaultState = {
@@ -71,7 +75,11 @@ class Calculator {
     return this.#strategyCommand[dataset?.strategy]?.();
   }
 
-  #strategyCommand = {};
+  #strategyCommand = {
+    [STRATEGY.MODIFIER]: () => ModifierStrategy,
+    [STRATEGY.DIGIT]: () => DigitStrategy,
+    [STRATEGY.OPERATOR]: () => OperationStrategy,
+  };
 }
 
 export default Calculator;
