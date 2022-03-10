@@ -14,10 +14,37 @@ class App {
     this.$total = new Total($('#total'), this.state.currentTotal);
   }
 
-  onClickButtons(value) {
-    this.state.currentTotal =
-      this.state.currentTotal === '0' ? value : this.state.currentTotal + value;
+  setState(nextState) {
+    this.state = nextState;
     this.$total.setState(this.state.currentTotal);
+  }
+
+  onClickButtons(clickedValue) {
+    if (clickedValue === '=') {
+      this.evaluateDigitsAndOperations(this.state.currentTotal);
+    } else {
+      this.recordDigitsAndOperations(clickedValue);
+    }
+  }
+
+  recordDigitsAndOperations(clickedValue) {
+    if (this.state.currentTotal === '0') {
+      this.setState({ currentTotal: clickedValue });
+    } else {
+      this.setState({ currentTotal: this.state.currentTotal + clickedValue });
+    }
+  }
+
+  evaluateDigitsAndOperations(digitsAndOperations) {
+    if (digitsAndOperations.includes('+')) {
+      const bothSidesOfPlus = digitsAndOperations.split('+');
+      const sum = bothSidesOfPlus.reduce((acc, cur) => Number(acc) + Number(cur));
+      this.setState({ currentTotal: sum });
+    }
+    // else if (digitsAndOperations.includes('-')) {
+    // } else if (digitsAndOperations.includes('X')) {
+    // } else if (digitsAndOperations.includes('/')) {
+    // }
   }
 }
 
