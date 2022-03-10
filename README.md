@@ -15,6 +15,7 @@
 </p>
 
 ## 🔥 Projects!
+
 <p align="middle">
   <img width="300" src="src/images/calculator_ui.png">
 </p>
@@ -22,7 +23,6 @@
 <p align="middle">
   <a href="https://next-step.github.io/js-calculator/">🖥️ 데모 링크</a>
 </p>
-
 
 ## 🎯 기능 요구사항
 
@@ -43,19 +43,23 @@
 <br/>
 
 ## 📄 참고 사항
-* 숫자 입력은 **클릭**으로만 가능하다.
+
+- 숫자 입력은 **클릭**으로만 가능하다.
 
 <br/>
 
 ## 👏 Contributing
-만약 미션 수행 중에 개선사항이 보인다면, 언제든 자유롭게 PR을 보내주세요. 
+
+만약 미션 수행 중에 개선사항이 보인다면, 언제든 자유롭게 PR을 보내주세요.
 
 <br/>
 
 ## 🐞 Bug Report
+
 버그를 발견한다면, [Issues](https://github.com/next-step/js-calculator/issues) 에 등록 후 @eastjun에게 dm을 보내주세요.
 
 <br/>
 
 ## 📝 License
+
 This project is [MIT](https://github.com/next-step/js-calculator/blob/master/LICENSE) licensed.
