@@ -32,23 +32,18 @@ export default class CalculatorModel {
   }
 
   validator = {
-    isOverNumbers: () => {
-      return this.#operand.value.length === MAX_LENGTH;
+    isValidOperandLength: () => {
+      return this.#operand.value.length < MAX_LENGTH;
     },
     isValidFirstOperand: () => {
-      return this.firstOperand.value;
-    },
-    isOperandExist: () => {
-      return (
-        this.firstOperand?.value === '' &&
-        this.#operand.type === INPUT_TYPE.OPERATION
-      );
+      return !!this.firstOperand?.value;
     },
   };
 
   eventHandler = {
     DIGIT: e => {
-      if (this.validator.isOverNumbers()) return alert(ERR_MESSAGE.OVER_NUMBER);
+      if (!this.validator.isValidOperandLength())
+        return alert(ERR_MESSAGE.OVER_NUMBER);
 
       const operandValue = eventDataGetter(e);
 
@@ -66,10 +61,10 @@ export default class CalculatorModel {
 
     OPERATION: e => {
       const operation = eventDataGetter(e);
-      if (this.validator.isValidFirstOperand()) return alert('NO!');
-      if (operation === '=') return this.calculate();
-      if (this.validator.isOperandExist())
+      if (!this.validator.isValidFirstOperand())
         return alert(ERR_MESSAGE.NONE_NUMBER);
+
+      if (operation === '=') return this.calculate();
 
       this.updateOperation(operation);
       this.#operand = new OperandModel(INPUT_TYPE.OPERATION, '');
