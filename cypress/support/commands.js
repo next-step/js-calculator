@@ -37,15 +37,12 @@ Cypress.Commands.add('clickElement', clickElement);
 
 Cypress.Commands.add('totalValue', () => cy.get('#total').invoke('text'));
 
-Cypress.Commands.add(
-  'executeOperation',
-  ([left, right, operator, result = '=']) => {
-    const { digitBtn, operationBtn } = clickEventCommand;
-    digitBtn(left);
-    operationBtn(operator);
-    digitBtn(right);
-    operationBtn(result);
-  }
-);
+Cypress.Commands.add('executeOperation', ([x, y, operator, result = '=']) => {
+  const { digitBtn, operationBtn } = clickEventCommand;
+  digitBtn(x);
+  operationBtn(operator);
+  digitBtn(y);
+  operationBtn(result);
+});
 
 Cypress.Commands.add('resetAll', () => clickEventCommand.modifierBtn());
