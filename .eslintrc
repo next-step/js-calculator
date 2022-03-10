@@ -1,0 +1,26 @@
+{
+    "plugins": [
+      "prettier"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:prettier/recommended"
+    ],
+    "parserOptions": {
+      // 자바스크립트 버전, 7은 ECMA2016
+      "ecmaVersion": 7,
+      "sourceType": "script",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "env": {
+      "browser": true
+    },
+    "ignorePatterns": [
+      "node_modules/"
+    ],
+    "rules": {
+      "prettier/prettier": ["error", { "endOfLine": "auto"}]
+    }
+  }
