@@ -10,4 +10,4 @@ export const OPERATORS = [
   POW_OPERATOR,
 ];
 
-export const OPERATOR_REGEX = new RegExp(`[${OPERATORS.join('')}]`)
+export const OPERATOR_REGEX = new RegExp(`[${OPERATORS.join('')}]`);
