@@ -1,0 +1,14 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@nanu-github.com:nanuya/js-calculator.git",
+  "author": "bomee.yoon",
+  "license": "MIT",
+  "scripts": {
+    "test": "yarn run cypress open"
+  },
+  "devDependencies": {
+    "cypress": "^9.5.1"
+  }
+}
