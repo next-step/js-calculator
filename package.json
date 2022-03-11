@@ -1,0 +1,22 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "description": "<br/> <br/>",
+  "main": "index.js",
+  "scripts": {
+    "cypress:open": "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jaehoo-dev/js-calculator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jaehoo-dev/js-calculator/issues"
+  },
+  "homepage": "https://github.com/Jaehoo-dev/js-calculator#readme",
+  "devDependencies": {
+    "cypress": "^9.5.1"
+  }
+}
