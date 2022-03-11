@@ -10,13 +10,10 @@ const operationMapping = {
   '=': OPERATION.RESULT,
 };
 
-const convertToOperationKey = (displayOperator) =>
-  operationMapping[displayOperator];
-
 class OperationStrategy {
   static mutateState($target, state) {
     const displayOperator = $target.dataset.value;
-    const operator = convertToOperationKey(displayOperator);
+    const operator = operationMapping[displayOperator];
     const isResultOperator = operator === OPERATION.RESULT;
 
     OperationStrategy.#validate(state, isResultOperator);
