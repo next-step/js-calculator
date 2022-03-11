@@ -37,7 +37,7 @@ Cypress.Commands.add('clickElement', clickElement);
 
 Cypress.Commands.add('getTotalValue', () => cy.get('#total').invoke('text'));
 
-Cypress.Commands.add('executeOperation', ([x, y, operator, result = '=']) => {
+Cypress.Commands.add('executeOperation', (x, operator, y, result = '=') => {
   const { digitBtn, operationBtn } = clickEventCommand;
   digitBtn(x);
   operationBtn(operator);
