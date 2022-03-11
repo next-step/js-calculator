@@ -4,7 +4,7 @@ import Operations from './components/Operations.js';
 import Modifiers from './components/Modifiers.js';
 import { $ } from './utils/dom.js';
 import { isOperation } from './utils/validate.js';
-import { DOM, OPERATOR, MODIFIER, INIT_STATE } from './constants.js';
+import { DOM, OPERATOR, MODIFIER, INIT_STATE, MESSAGE } from './constants.js';
 
 class App {
   constructor(target) {
@@ -38,7 +38,7 @@ class App {
 
   recordOperation(operation) {
     if (this.state.currentTotal === INIT_STATE.currentTotal) {
-      alert('연산자 입력 전에 숫자를 입력해주세요.');
+      alert(MESSAGE.pleaseEnterNumberBeforeOperator);
     } else {
       this.setState({
         currentTotal: this.state.currentTotal + operation,
@@ -51,7 +51,7 @@ class App {
     if (this.state.currentTotal === INIT_STATE.currentTotal) {
       this.setState({ currentTotal: digit, numberCount: this.state.numberCount + 1 });
     } else if (this.state.numberCount >= 3) {
-      alert('숫자는 한번에 최대 3자리 수까지 입력 가능합니다.');
+      alert(MESSAGE.numberCanBeEnteredUpToThreeDigitsAtOnce);
     } else {
       this.setState({
         currentTotal: this.state.currentTotal + digit,
