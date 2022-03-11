@@ -26,7 +26,7 @@ class OperationStrategy {
   }
 
   static #calculate(state) {
-    const operate = operateCurry(convertToOperationKey(state.operator));
+    const operate = operateCurry(operationMapping[state.operator]);
     state.x = Math.floor(operate(state));
     state.operator = null;
     state.y = null;
