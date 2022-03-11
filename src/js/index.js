@@ -5,8 +5,6 @@ function App() {
   // 상태값 정의
   this.state = {
     total: '0',
-    firstNumber: '',
-    secondNumber: '',
     digits: [],
     calculateStep: 0,
     operators: [],
@@ -33,8 +31,6 @@ function App() {
   // 상태값 초기화 함수
   const resetState = () => {
     this.state.total = '0';
-    this.state.firstNumber = '';
-    this.state.secondNumber = '';
     this.state.digits = [];
     this.state.calculateStep = 0;
     this.state.operators = [];
