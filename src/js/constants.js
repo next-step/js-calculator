@@ -9,7 +9,7 @@ export const DOM = {
   modifier: '.modifier',
 };
 
-export const OPERATOR = {
+export const OPERATION = {
   plus: '+',
   minus: '-',
   multiple: 'X',

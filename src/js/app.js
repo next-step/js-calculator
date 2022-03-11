@@ -4,7 +4,7 @@ import Operations from './components/Operations.js';
 import Modifiers from './components/Modifiers.js';
 import { $ } from './utils/dom.js';
 import { isOperation } from './utils/validate.js';
-import { DOM, OPERATOR, MODIFIER, INIT_STATE, MESSAGE } from './constants.js';
+import { DOM, OPERATION, MODIFIER, INIT_STATE, MESSAGE } from './constants.js';
 
 class App {
   constructor(target) {
@@ -27,7 +27,7 @@ class App {
   onClickButtons(clickedValue) {
     if (clickedValue === MODIFIER.allClear) {
       this.setState({ currentTotal: INIT_STATE.currentTotal, numberCount: INIT_STATE.numberCount });
-    } else if (clickedValue === OPERATOR.equal) {
+    } else if (clickedValue === OPERATION.equal) {
       this.evaluateDigitsAndOperations(this.state.currentTotal);
     } else if (isOperation(clickedValue)) {
       this.recordOperation(clickedValue);
@@ -61,22 +61,22 @@ class App {
   }
 
   evaluateDigitsAndOperations(expression) {
-    const operator = this.whatOperatorUseInExpression(expression);
-    this.calculateExpressionWithOperator(expression, operator);
+    const operation = this.whatOperatorUseInExpression(expression);
+    this.calculateExpressionWithOperator(expression, operation);
   }
 
   whatOperatorUseInExpression(expression) {
-    if (expression.includes(OPERATOR.plus)) return OPERATOR.plus;
-    if (expression.includes(OPERATOR.minus)) return OPERATOR.minus;
-    if (expression.includes(OPERATOR.multiple)) return OPERATOR.multiple;
-    if (expression.includes(OPERATOR.division)) return OPERATOR.division;
+    if (expression.includes(OPERATION.plus)) return OPERATION.plus;
+    if (expression.includes(OPERATION.minus)) return OPERATION.minus;
+    if (expression.includes(OPERATION.multiple)) return OPERATION.multiple;
+    if (expression.includes(OPERATION.division)) return OPERATION.division;
     return false;
   }
 
-  calculateExpressionWithOperator(expression, operator) {
-    const bothSidesOfOperator = expression.split(operator);
+  calculateExpressionWithOperator(expression, operation) {
+    const bothSidesOfOperator = expression.split(operation);
     const evaluationResult = bothSidesOfOperator.reduce((acc, cur) =>
-      this.calculateReduceWithOperator(acc, operator, cur),
+      this.calculateReduceWithOperator(acc, operation, cur),
     );
     this.setState({
       currentTotal: evaluationResult,
@@ -84,15 +84,15 @@ class App {
     });
   }
 
-  calculateReduceWithOperator(acc, operator, cur) {
-    switch (operator) {
-      case OPERATOR.plus:
+  calculateReduceWithOperator(acc, operation, cur) {
+    switch (operation) {
+      case OPERATION.plus:
         return Number(acc) + Number(cur);
-      case OPERATOR.minus:
+      case OPERATION.minus:
         return Number(acc) - Number(cur);
-      case OPERATOR.multiple:
+      case OPERATION.multiple:
         return Number(acc) * Number(cur);
-      case OPERATOR.division:
+      case OPERATION.division:
         return Math.floor(Number(acc) / Number(cur));
       default:
         return false;

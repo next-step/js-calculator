@@ -1,7 +1,7 @@
-import { OPERATOR } from '../constants.js';
+import { OPERATION } from '../constants.js';
 
 export const isOperation = value =>
-  value === OPERATOR.plus ||
-  value === OPERATOR.minus ||
-  value === OPERATOR.multiple ||
-  value === OPERATOR.division;
+  value === OPERATION.plus ||
+  value === OPERATION.minus ||
+  value === OPERATION.multiple ||
+  value === OPERATION.division;
