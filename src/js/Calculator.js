@@ -3,7 +3,6 @@ import DigitStrategy from './strategies/DigitStrategy.js';
 import ModifierStrategy from './strategies/ModifierStrategy.js';
 import OperationStrategy from './strategies/OperationStrategy.js';
 import { isEmptyArray, isNull } from './utils/common.js';
-import { beforeunload } from './utils/domApi.js';
 
 export const defaultState = {
   x: null,
@@ -25,7 +24,6 @@ class Calculator {
   #init() {
     this.#render(defaultState);
     this.#bindEvent();
-    this.#removeEvent();
   }
 
   #render(state) {
@@ -46,15 +44,6 @@ class Calculator {
 
   #bindEvent() {
     this.#$calculator.addEventListener('click', this.#handleClick.bind(this));
-  }
-
-  #removeEvent() {
-    beforeunload(() =>
-      this.#$calculator.removeEventListener(
-        'click',
-        this.#handleClick.bind(this)
-      )
-    );
   }
 
   #handleClick({ target }) {
