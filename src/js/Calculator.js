@@ -11,17 +11,27 @@ class Calculator {
     this.$digits = $digits;
     this.$modifiers = $modifiers;
     this.$operations = $operations;
-    this.total = 0;
-    this.operator = "";
-    this.leftOperand = null;
-    this.rightOperand = null;
+    this.state = {};
     this.init();
   }
 
   init() {
+    this.setInitState();
+
     this.onDigitClick();
     this.onModifierClick();
     this.onOperatorClick();
+  }
+
+  setInitState() {
+    const initState = {
+      total: 0,
+      operator: "",
+      leftOperand: null,
+      rightOperand: null,
+    };
+
+    this.state = initState;
   }
 
   onDigitClick() {
