@@ -11,7 +11,7 @@ const validate = (key, currNumber, prevNumber) => {
 const mutateState = ($target, state) => {
   const key = isNull(state.operator) ? 'x' : 'y';
   const currNumber = Number($target.dataset.value);
-  const prevNumber = state[key];
+  const prevNumber = state[key] ?? 0;
 
   validate(key, currNumber, prevNumber);
 
