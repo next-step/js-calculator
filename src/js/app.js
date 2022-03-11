@@ -4,7 +4,7 @@ import Operations from './components/Operations.js';
 import Modifiers from './components/Modifiers.js';
 import { $ } from './utils/dom.js';
 import { isOperation } from './utils/validate.js';
-import { DOM } from './constants.js';
+import { DOM, OPERATOR, MODIFIER } from './constants.js';
 
 class App {
   constructor(target) {
@@ -25,9 +25,9 @@ class App {
   }
 
   onClickButtons(clickedValue) {
-    if (clickedValue === 'AC') {
+    if (clickedValue === MODIFIER.allClear) {
       this.setState({ currentTotal: '0', numberCount: 0 });
-    } else if (clickedValue === '=') {
+    } else if (clickedValue === OPERATOR.equal) {
       this.evaluateDigitsAndOperations(this.state.currentTotal);
     } else if (isOperation(clickedValue)) {
       this.recordOperation(clickedValue);
@@ -66,10 +66,10 @@ class App {
   }
 
   whatOperatorUseInExpression(expression) {
-    if (expression.includes('+')) return '+';
-    if (expression.includes('-')) return '-';
-    if (expression.includes('X')) return 'X';
-    if (expression.includes('/')) return '/';
+    if (expression.includes(OPERATOR.plus)) return OPERATOR.plus;
+    if (expression.includes(OPERATOR.minus)) return OPERATOR.minus;
+    if (expression.includes(OPERATOR.multiple)) return OPERATOR.multiple;
+    if (expression.includes(OPERATOR.division)) return OPERATOR.division;
     return false;
   }
 
@@ -86,13 +86,13 @@ class App {
 
   calculateReduceWithOperator(acc, operator, cur) {
     switch (operator) {
-      case '+':
+      case OPERATOR.plus:
         return Number(acc) + Number(cur);
-      case '-':
+      case OPERATOR.minus:
         return Number(acc) - Number(cur);
-      case 'X':
+      case OPERATOR.multiple:
         return Number(acc) * Number(cur);
-      case '/':
+      case OPERATOR.division:
         return Math.floor(Number(acc) / Number(cur));
       default:
         return false;
