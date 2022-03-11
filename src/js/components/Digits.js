@@ -1,3 +1,5 @@
+import { DOM } from '../constants.js';
+
 class Digits {
   constructor(target, onClick) {
     this.onClick = onClick;
@@ -10,7 +12,7 @@ class Digits {
   }
 
   onClickDigits(event) {
-    const clickedDigit = event.target.closest('.digit').innerHTML;
+    const clickedDigit = event.target.closest(DOM.digit).innerHTML;
     this.onClick(clickedDigit);
   }
 }

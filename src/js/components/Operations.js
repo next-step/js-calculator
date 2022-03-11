@@ -1,3 +1,5 @@
+import { DOM } from '../constants.js';
+
 class Operations {
   constructor(target, onClick) {
     this.onClick = onClick;
@@ -10,7 +12,7 @@ class Operations {
   }
 
   onClickOperations(event) {
-    const clickedOperation = event.target.closest('.operation').innerHTML;
+    const clickedOperation = event.target.closest(DOM.operation).innerHTML;
     this.onClick(clickedOperation);
   }
 }

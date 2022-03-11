@@ -2,8 +2,11 @@ export const DOM = {
   app: '#app',
   total: '#total',
   digits: '.digits',
+  digit: '.digit',
   operations: '.operations',
+  operation: '.operation',
   modifiers: '.modifiers',
+  modifier: '.modifier',
 };
 
 export const OPERATOR = {
@@ -16,4 +19,9 @@ export const OPERATOR = {
 
 export const MODIFIER = {
   allClear: 'AC',
+};
+
+export const INIT_STATE = {
+  currentTotal: '0',
+  numberCount: 0,
 };

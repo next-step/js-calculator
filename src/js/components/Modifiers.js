@@ -1,3 +1,5 @@
+import { DOM } from '../constants.js';
+
 class Modifiers {
   constructor(target, onClick) {
     this.onClick = onClick;
@@ -10,7 +12,7 @@ class Modifiers {
   }
 
   onClickModifiers(event) {
-    const clickedModifier = event.target.closest('.modifier').innerHTML;
+    const clickedModifier = event.target.closest(DOM.modifier).innerHTML;
     this.onClick(clickedModifier);
   }
 }

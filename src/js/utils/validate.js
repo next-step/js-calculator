@@ -1,4 +1,4 @@
-import { OPERATOR } from '../constants';
+import { OPERATOR } from '../constants.js';
 
 export const isOperation = value =>
   value === OPERATOR.plus ||

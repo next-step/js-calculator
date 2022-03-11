@@ -4,14 +4,14 @@ import Operations from './components/Operations.js';
 import Modifiers from './components/Modifiers.js';
 import { $ } from './utils/dom.js';
 import { isOperation } from './utils/validate.js';
-import { DOM, OPERATOR, MODIFIER } from './constants.js';
+import { DOM, OPERATOR, MODIFIER, INIT_STATE } from './constants.js';
 
 class App {
   constructor(target) {
     this.$target = $(target);
     this.state = {
-      currentTotal: '0',
-      numberCount: 0,
+      currentTotal: INIT_STATE.currentTotal,
+      numberCount: INIT_STATE.numberCount,
     };
     this.$digits = new Digits($(DOM.digits), this.onClickButtons.bind(this));
     this.$operations = new Operations($(DOM.operations), this.onClickButtons.bind(this));
@@ -26,7 +26,7 @@ class App {
 
   onClickButtons(clickedValue) {
     if (clickedValue === MODIFIER.allClear) {
-      this.setState({ currentTotal: '0', numberCount: 0 });
+      this.setState({ currentTotal: INIT_STATE.currentTotal, numberCount: INIT_STATE.numberCount });
     } else if (clickedValue === OPERATOR.equal) {
       this.evaluateDigitsAndOperations(this.state.currentTotal);
     } else if (isOperation(clickedValue)) {
@@ -37,18 +37,18 @@ class App {
   }
 
   recordOperation(operation) {
-    if (this.state.currentTotal === '0') {
+    if (this.state.currentTotal === INIT_STATE.currentTotal) {
       alert('연산자 입력 전에 숫자를 입력해주세요.');
     } else {
       this.setState({
         currentTotal: this.state.currentTotal + operation,
-        numberCount: 0,
+        numberCount: INIT_STATE.numberCount,
       });
     }
   }
 
   recordDigit(digit) {
-    if (this.state.currentTotal === '0') {
+    if (this.state.currentTotal === INIT_STATE.currentTotal) {
       this.setState({ currentTotal: digit, numberCount: this.state.numberCount + 1 });
     } else if (this.state.numberCount >= 3) {
       alert('숫자는 한번에 최대 3자리 수까지 입력 가능합니다.');
