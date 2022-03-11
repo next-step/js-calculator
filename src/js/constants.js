@@ -2,8 +2,8 @@ export const OPERATION = {
   EQUALS: 'equals',
   DIVIDE: 'divide',
   MULTIPLY: 'multiply',
-  MINUS: 'MINUS',
-  PLUS: 'PLUS',
+  MINUS: 'minus',
+  PLUS: 'plus',
 };
 
 export const EMPTY_STRING = '';
