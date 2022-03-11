@@ -176,6 +176,28 @@ describe('Calculator', () => {
         clickToOperator('=');
         checkTotalText(6);
       });
+
+      it('3X3X3X 는 0이 아닌 27이다.', () => {
+        clickToDigit(3);
+        clickToOperator('X');
+        clickToDigit(3);
+        clickToOperator('X');
+        clickToDigit(3);
+        clickToOperator('X');
+        clickToOperator('=');
+        checkTotalText(27);
+      });
+
+      it('3X3X3/ 는 Infinity가 아닌 27이다.', () => {
+        clickToDigit(3);
+        clickToOperator('X');
+        clickToDigit(3);
+        clickToOperator('X');
+        clickToDigit(3);
+        clickToOperator('/');
+        clickToOperator('=');
+        checkTotalText(27);
+      });
     });
   });
 
