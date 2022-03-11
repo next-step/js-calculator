@@ -1,13 +1,13 @@
 import { STRATEGY } from './const/index.js';
-import DigitStrategy from './strategies/DigitStrategy.js';
-import ModifierStrategy from './strategies/ModifierStrategy.js';
-import OperationStrategy from './strategies/OperationStrategy.js';
+import digitStrategy from './strategies/DigitStrategy.js';
+import modifierStrategy from './strategies/ModifierStrategy.js';
+import operationStrategy from './strategies/OperationStrategy.js';
 import { isEmptyArray, isNull } from './utils/common.js';
 
 const strategyCommand = {
-  [STRATEGY.MODIFIER]: ModifierStrategy,
-  [STRATEGY.DIGIT]: DigitStrategy,
-  [STRATEGY.OPERATOR]: OperationStrategy,
+  [STRATEGY.MODIFIER]: modifierStrategy,
+  [STRATEGY.DIGIT]: digitStrategy,
+  [STRATEGY.OPERATOR]: operationStrategy,
 };
 
 const calculator = {
@@ -42,7 +42,7 @@ const calculator = {
     const strategy = strategyCommand[target.dataset?.strategy];
 
     try {
-      this.mutateState(strategy?.mutateState(target, this.state));
+      this.mutateState(strategy?.(target, this.state));
       this.render();
     } catch ({ message }) {
       alert(message);

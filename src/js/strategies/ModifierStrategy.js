@@ -1,9 +1,5 @@
 import { defaultState } from '../index.js';
 
-class ModifierStrategy {
-  static mutateState($target, state) {
-    return defaultState;
-  }
-}
+const mutateState = () => defaultState;
 
-export default ModifierStrategy;
+export default mutateState;

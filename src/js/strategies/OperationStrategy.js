@@ -10,41 +10,36 @@ const operationMapping = {
   '=': OPERATION.RESULT,
 };
 
-class OperationStrategy {
-  static mutateState($target, state) {
-    const displayOperator = $target.dataset.value;
-    const operator = operationMapping[displayOperator];
-    const isResultOperator = operator === OPERATION.RESULT;
+const validate = (state, isResultOperator) => {
+  if (isNull(state.x)) throw new Error(ERROR_MSG.PLZ_SELECT_NUMBER);
 
-    OperationStrategy.#validate(state, isResultOperator);
+  if (isNull(state.y) && isResultOperator)
+    throw new Error(ERROR_MSG.PLZ_SELECT_NUMBER);
 
-    isResultOperator
-      ? OperationStrategy.#calculate(state)
-      : OperationStrategy.#mutateOperator(state, displayOperator);
+  if (!isNull(state.y) && !isResultOperator)
+    throw new Error(ERROR_MSG.PLZ_CHECK_OPERATOR);
+};
 
-    return state;
-  }
+const calculate = (state) => {
+  const operate = operateCurry(operationMapping[state.operator]);
+  state.x = Math.floor(operate(state));
+  state.operator = null;
+  state.y = null;
+};
 
-  static #calculate(state) {
-    const operate = operateCurry(operationMapping[state.operator]);
-    state.x = Math.floor(operate(state));
-    state.operator = null;
-    state.y = null;
-  }
+const mutateOperator = (state, displayOperator) => {
+  state.operator = displayOperator;
+};
 
-  static #mutateOperator(state, displayOperator) {
-    state.operator = displayOperator;
-  }
+const mutateState = ($target, state) => {
+  const displayOperator = $target.dataset.value;
+  const operator = operationMapping[displayOperator];
+  const isResultOperator = operator === OPERATION.RESULT;
 
-  static #validate(state, isResultOperator) {
-    if (isNull(state.x)) throw new Error(ERROR_MSG.PLZ_SELECT_NUMBER);
+  validate(state, isResultOperator);
+  isResultOperator ? calculate(state) : mutateOperator(state, displayOperator);
 
-    if (isNull(state.y) && isResultOperator)
-      throw new Error(ERROR_MSG.PLZ_SELECT_NUMBER);
+  return state;
+};
 
-    if (!isNull(state.y) && !isResultOperator)
-      throw new Error(ERROR_MSG.PLZ_CHECK_OPERATOR);
-  }
-}
-
-export default OperationStrategy;
+export default mutateState;
