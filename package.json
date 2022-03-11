@@ -1,19 +1,18 @@
 {
-  "name": "js-calculator",
+  "name": "yarn",
   "version": "1.0.0",
   "description": "cc-js-2nd",
   "main": "index.js",
-  "dependencies": {},
-  "devDependencies": {
+  "dependencies": {
+    "cypress": "^9.5.1",
+    "yarn": "^1.22.17"
   },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Minsiki/js-calculator.git"
-  },
-  "author": "",
+  "repository": "git+https://github.com/Minsiki/js-calculator.git",
+  "author": "Minsiki <43837214+Minsiki@users.noreply.github.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Minsiki/js-calculator/issues"

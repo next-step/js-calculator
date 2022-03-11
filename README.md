@@ -59,3 +59,6 @@
 
 ## 📝 License
 This project is [MIT](https://github.com/next-step/js-calculator/blob/master/LICENSE) licensed.
+
+## 추가 개발 내용
+* 계산 결과가 음수 일 때 계산.
