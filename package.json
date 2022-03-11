@@ -5,8 +5,8 @@
   "author": "padawanR0k <padawanR0k@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "vitest -w",
     "start": "live-server --port=5000 ./",
+    "test": "vitest -w",
     "coverage": "vitest run --coverage",
     "test:e2e:open": "yarn cypress open",
     "test:e2e:run": "yarn cypress run"
@@ -22,7 +22,6 @@
     "eslint-plugin-prettier": "^4.0.0",
     "live-server": "^1.2.1",
     "prettier": "^2.5.1",
-    "vite": "^2.8.6",
     "vite-plugin-eslint": "^1.3.0",
     "vitest": "^0.6.0"
   }

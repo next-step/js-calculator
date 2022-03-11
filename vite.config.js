@@ -1,5 +1,5 @@
-import { defineConfig } from "vite";
-import eslintPlugin from "vite-plugin-eslint";
+import { defineConfig } from "vitest/config";
+import * as eslintPlugin from "vite-plugin-eslint";
 
 export default defineConfig({
   test: {
