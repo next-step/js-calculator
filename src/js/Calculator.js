@@ -51,7 +51,7 @@ class Validator {
   isOverOperandLength(keyword, expressions) {
     if (this.isOperator(keyword)) return false;
     const firstOperand = expressions[0];
-    const lastOperand = expressions[expressions.length - 1];
+    const lastOperand = expressions.at(-1);
     if (lastOperand === undefined) return `${firstOperand}${keyword}`.length > 3;
     return `${lastOperand}${keyword}`.length > 3;
   }
@@ -83,7 +83,7 @@ class Calculator {
     [OPERATOR_ADD, (left, right) => left + right],
     [OPERATOR_SUB, (left, right) => left - right],
     [OPERATOR_MUL, (left, right) => left * right],
-    [OPERATOR_DIV, (left, right) => Math.floor(left / right)],
+    [OPERATOR_DIV, (left, right) => Math.truc(left / right)],
   ]);
 
   get #expression() {
