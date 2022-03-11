@@ -7,7 +7,9 @@ function App() {
     total: '0',
     firstNumber: '',
     secondNumber: '',
-    operator: '',
+    digits: [],
+    calculateStep: 0,
+    operators: [],
   };
 
   // init 함수
@@ -33,25 +35,38 @@ function App() {
     this.state.total = '0';
     this.state.firstNumber = '';
     this.state.secondNumber = '';
-    this.state.operator = '';
+    this.state.digits = [];
+    this.state.calculateStep = 0;
+    this.state.operators = [];
   };
 
   // 계산하는 함수
   const calculate = () => {
-    if (!this.state.secondNumber) {
-      this.state.operator = '';
-      this.state.total = this.state.firstNumber;
-    } else {
-      const total = Math.floor(operations[this.state.operator](this.state.firstNumber, this.state.secondNumber)) + '';
-      resetState();
-      this.state.firstNumber = total;
-      this.state.total = total;
+    // digit이 1개만 입력됐을경우
+    if (!this.state.digits[1]) {
+      this.state.operators[0] = '';
+      this.state.total = Math.floor(this.state.digits[0]);
+      render();
+      return;
     }
+
+    const total = this.state.digits.reduce((prev, current, index) => {
+      if (prev !== 0 && this.state.operators[index - 1]) {
+        return operations[this.state.operators[index - 1]](prev, current);
+      }
+
+      return prev + Number(current);
+    }, 0);
+
+    resetState();
+    this.state.digits[0] = total + '';
+    this.state.total = Math.floor(total);
     render();
   };
 
   // digit값 가져오는 함수
   const getDigitNumber = (number, $digit) => {
+    if (!number) return $digit.textContent;
     if (DIGIT_NUMBER_MEX_LENGTH - number.length < 1) {
       alert(ALERT_MESSAGE.MAX_NUMBER);
       return number;
@@ -61,23 +76,31 @@ function App() {
 
   // digit 클릭 함수
   const onClickDigit = ($digit) => {
-    if (!this.state.operator) {
-      this.state.firstNumber = getDigitNumber(this.state.firstNumber, $digit);
-    } else {
-      this.state.secondNumber = getDigitNumber(this.state.secondNumber, $digit);
+    if (this.state.operators[this.state.calculateStep]) {
+      this.state.calculateStep++;
     }
 
-    this.state.total = this.state.firstNumber + this.state.operator + this.state.secondNumber;
+    this.state.digits[this.state.calculateStep] = getDigitNumber(this.state.digits[this.state.calculateStep], $digit);
+
+    const total = this.state.digits.reduce((prev, current, index) => {
+      if (this.state.operators[index]) {
+        return prev + current + this.state.operators[index];
+      }
+      return prev + current;
+    }, '');
+    this.state.total = total;
     render();
   };
 
   // operation 클릭 함수
   const onClickOperation = (operator) => {
-    if (operator === OPERATION.EQUAL) {
+    if (operator === OPERATION.EQUAL || operator === OPERATION.MULTIPLICATION || operator === OPERATION.DIVISION) {
       calculate();
-    } else {
-      this.state.operator = operator;
-      this.state.total = this.state.firstNumber + operator + this.state.secondNumber;
+    }
+
+    if (operator !== OPERATION.EQUAL) {
+      this.state.operators[this.state.calculateStep] = operator;
+      this.state.total = this.state.digits.reduce((prev, current, index) => prev + current + this.state.operators[index], '');
     }
 
     render();
@@ -96,7 +119,7 @@ function App() {
       const $operation = e.target.closest('button');
       const operator = $operation.textContent;
       if (!$operation) return;
-      if (!this.state.firstNumber) {
+      if (!this.state.digits[0]) {
         alert(ALERT_MESSAGE.NONE);
         return;
       }
