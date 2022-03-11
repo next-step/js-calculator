@@ -49,6 +49,7 @@ describe('Calculator test', () => {
     cy.get('.digit').contains(`${first}`).click()
     cy.get('.operation').contains('+').click()
     cy.get('.digit').contains(`${second}`).click()
-    cy.get('#total').should('contain.text', `${first + second}`)
+    cy.get('.operation').contains('=').click()
+    cy.get('#total').should('contain.text', `${Number(first) + Number(second)}`)
   })  
 })

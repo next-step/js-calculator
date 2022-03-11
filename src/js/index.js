@@ -8,5 +8,13 @@
  * - [ ] 계산 결과를 표현할 때 소수점 이하는 버림한다.
  */
 
+import KeypadEvent from "./Event/KeypadEvent.js";
 
 
+const App = (function() {
+  const keypadBtn = document.querySelectorAll('button');
+  
+  [...keypadBtn].map((target) => {
+    new KeypadEvent(target, 'click')
+  })
+})()
