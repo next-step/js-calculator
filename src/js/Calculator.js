@@ -1,3 +1,10 @@
+const OPERATOR = {
+  PLUS: (left, right) => left + right,
+  MINUS: (left, right) => left - right,
+  DIVIDE: (left, right) => left / right,
+  MULTIPLY: (left, right) => left * right,
+};
+
 class Calculator {
   constructor({ $total, $digits, $modifiers, $operations }) {
     this.$total = $total;
