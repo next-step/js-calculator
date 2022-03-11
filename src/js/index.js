@@ -2,6 +2,7 @@ import { ALERT_MESSAGE, OPERATION, DIGIT_NUMBER_MEX_LENGTH } from './constants.j
 import { $ } from './utils.js';
 
 function App() {
+  // 상태값 정의
   this.state = {
     total: '0',
     firstNumber: '',
@@ -9,21 +10,17 @@ function App() {
     operator: '',
   };
 
+  // init 함수
   this.init = () => {
     initEventListeners();
   };
 
+  // 렌더 함수
   const render = () => {
     $('#total').textContent = this.state.total;
   };
 
-  const resetState = () => {
-    this.state.total = '0';
-    this.state.firstNumber = '';
-    this.state.secondNumber = '';
-    this.state.operator = '';
-  };
-
+  // 계산식 정의
   const operations = {
     [OPERATION.PLUS]: (a, b) => Number(a) + Number(b),
     [OPERATION.MINUS]: (a, b) => Number(a) - Number(b),
@@ -31,6 +28,15 @@ function App() {
     [OPERATION.DIVISION]: (a, b) => Number(a) / Number(b),
   };
 
+  // 상태값 초기화 함수
+  const resetState = () => {
+    this.state.total = '0';
+    this.state.firstNumber = '';
+    this.state.secondNumber = '';
+    this.state.operator = '';
+  };
+
+  // 계산하는 함수
   const calculate = () => {
     if (!this.state.secondNumber) {
       this.state.operator = '';
@@ -44,6 +50,7 @@ function App() {
     render();
   };
 
+  // digit값 가져오는 함수
   const getDigitNumber = (number, $digit) => {
     if (DIGIT_NUMBER_MEX_LENGTH - number.length < 1) {
       alert(ALERT_MESSAGE.MAX_NUMBER);
@@ -52,6 +59,7 @@ function App() {
     return (number += $digit.textContent);
   };
 
+  // digit 클릭 함수
   const onClickDigit = ($digit) => {
     if (!this.state.operator) {
       this.state.firstNumber = getDigitNumber(this.state.firstNumber, $digit);
@@ -63,7 +71,8 @@ function App() {
     render();
   };
 
-  const onClickOperator = (operator) => {
+  // operation 클릭 함수
+  const onClickOperation = (operator) => {
     if (operator === OPERATION.EQUAL) {
       calculate();
     } else {
@@ -74,6 +83,7 @@ function App() {
     render();
   };
 
+  // 이벤트 핸들러 모음
   const initEventListeners = () => {
     $('.digits').addEventListener('click', (e) => {
       const $digit = e.target.closest('button');
@@ -91,7 +101,7 @@ function App() {
         return;
       }
 
-      onClickOperator(operator);
+      onClickOperation(operator);
     });
 
     $('.modifier').addEventListener('click', () => {
