@@ -59,37 +59,42 @@ class App {
     }
   }
 
-  evaluateDigitsAndOperations(digitsAndOperations) {
-    if (digitsAndOperations.includes('+')) {
-      const bothSidesOfPlus = digitsAndOperations.split('+');
-      const evaluationResult = bothSidesOfPlus.reduce((acc, cur) => Number(acc) + Number(cur));
-      this.setState({
-        currentTotal: evaluationResult,
-        numberCount: String(evaluationResult).length,
-      });
-    } else if (digitsAndOperations.includes('-')) {
-      const bothSidesOfMinus = digitsAndOperations.split('-');
-      const evaluationResult = bothSidesOfMinus.reduce((acc, cur) => Number(acc) - Number(cur));
-      this.setState({
-        currentTotal: evaluationResult,
-        numberCount: String(evaluationResult).length,
-      });
-    } else if (digitsAndOperations.includes('X')) {
-      const bothSidesOfMultiple = digitsAndOperations.split('X');
-      const evaluationResult = bothSidesOfMultiple.reduce((acc, cur) => Number(acc) * Number(cur));
-      this.setState({
-        currentTotal: evaluationResult,
-        numberCount: String(evaluationResult).length,
-      });
-    } else if (digitsAndOperations.includes('/')) {
-      const bothSidesOfDivision = digitsAndOperations.split('/');
-      const evaluationResult = bothSidesOfDivision.reduce((acc, cur) =>
-        Math.floor(Number(acc) / Number(cur)),
-      );
-      this.setState({
-        currentTotal: evaluationResult,
-        numberCount: String(evaluationResult).length,
-      });
+  evaluateDigitsAndOperations(expression) {
+    const operator = this.whatOperatorUseInExpression(expression);
+    this.calculateExpressionWithOperator(expression, operator);
+  }
+
+  whatOperatorUseInExpression(expression) {
+    if (expression.includes('+')) return '+';
+    if (expression.includes('-')) return '-';
+    if (expression.includes('X')) return 'X';
+    if (expression.includes('/')) return '/';
+    return false;
+  }
+
+  calculateExpressionWithOperator(expression, operator) {
+    const bothSidesOfOperator = expression.split(operator);
+    const evaluationResult = bothSidesOfOperator.reduce((acc, cur) =>
+      this.calculateReduceWithOperator(acc, operator, cur),
+    );
+    this.setState({
+      currentTotal: evaluationResult,
+      numberCount: String(evaluationResult).length,
+    });
+  }
+
+  calculateReduceWithOperator(acc, operator, cur) {
+    switch (operator) {
+      case '+':
+        return Number(acc) + Number(cur);
+      case '-':
+        return Number(acc) - Number(cur);
+      case 'X':
+        return Number(acc) * Number(cur);
+      case '/':
+        return Math.floor(Number(acc) / Number(cur));
+      default:
+        return false;
     }
   }
 }
