@@ -1,7 +1,16 @@
-import Calculator from './Calculator.js';
+import initCalculator from './Calculator.js';
 import { $ } from './utils/domApi.js';
 
-new Calculator({
-  $calculator: $('.calculator'),
-  $total: $('#total'),
-});
+export const defaultState = {
+  x: null,
+  operator: null,
+  y: null,
+};
+
+initCalculator(
+  {
+    $calculator: $('.calculator'),
+    $total: $('#total'),
+  },
+  defaultState
+);

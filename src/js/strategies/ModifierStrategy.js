@@ -1,4 +1,4 @@
-import { defaultState } from '../Calculator.js';
+import { defaultState } from '../index.js';
 
 class ModifierStrategy {
   static mutateState($target, state) {

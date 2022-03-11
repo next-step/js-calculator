@@ -4,68 +4,54 @@ import ModifierStrategy from './strategies/ModifierStrategy.js';
 import OperationStrategy from './strategies/OperationStrategy.js';
 import { isEmptyArray, isNull } from './utils/common.js';
 
-export const defaultState = {
-  x: null,
-  operator: null,
-  y: null,
+const strategyCommand = {
+  [STRATEGY.MODIFIER]: ModifierStrategy,
+  [STRATEGY.DIGIT]: DigitStrategy,
+  [STRATEGY.OPERATOR]: OperationStrategy,
 };
 
-class Calculator {
-  #$calculator;
-  #$total;
+const calculator = {
+  $calculator: null,
+  $total: null,
+  state: null,
 
-  constructor({ $calculator, $total }) {
-    this.#$calculator = $calculator;
-    this.#$total = $total;
+  init({ $calculator, $total }, state) {
+    this.$calculator = $calculator;
+    this.$total = $total;
+    this.state = { ...state };
 
-    this.#init();
-  }
+    this.render();
+    this.bindEvent();
+  },
 
-  #init() {
-    this.#render(defaultState);
-    this.#bindEvent();
-  }
+  render() {
+    this.$total.innerText = this.convertToDisplayValue();
+  },
 
-  #render(state) {
-    this.#mutateState(state);
-    this.#$total.innerText = this.#convertToDisplayValue();
-  }
+  bindEvent() {
+    this.$calculator.addEventListener('click', this.handleClick.bind(this));
+  },
 
-  #mutateState(newState) {
-    this.state = newState ? { ...newState } : this.state;
-  }
-
-  #convertToDisplayValue() {
+  convertToDisplayValue() {
     const values = Object.values(this.state);
     const displayValues = values.filter((v) => !isNull(v));
-    if (isEmptyArray(displayValues)) return '0';
-    return displayValues.join('');
-  }
+    return isEmptyArray(displayValues) ? '0' : displayValues.join('');
+  },
 
-  #bindEvent() {
-    this.#$calculator.addEventListener('click', this.#handleClick.bind(this));
-  }
-
-  #handleClick({ target }) {
-    const strategy = this.#strategyCreator(target.dataset);
+  handleClick({ target }) {
+    const strategy = strategyCommand[target.dataset?.strategy];
 
     try {
-      const newState = strategy?.mutateState(target, this.state);
-      this.#render(newState);
+      this.mutateState(strategy?.mutateState(target, this.state));
+      this.render();
     } catch ({ message }) {
       alert(message);
     }
-  }
+  },
 
-  #strategyCreator(dataset) {
-    return this.#strategyCommand[dataset?.strategy]?.();
-  }
+  mutateState(newState) {
+    this.state = { ...this.state, ...newState };
+  },
+};
 
-  #strategyCommand = {
-    [STRATEGY.MODIFIER]: () => ModifierStrategy,
-    [STRATEGY.DIGIT]: () => DigitStrategy,
-    [STRATEGY.OPERATOR]: () => OperationStrategy,
-  };
-}
-
-export default Calculator;
+export default calculator.init.bind(calculator);
