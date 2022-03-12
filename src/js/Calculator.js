@@ -1,9 +1,4 @@
-const OPERATOR = {
-  PLUS: (left, right) => left + right,
-  MINUS: (left, right) => left - right,
-  DIVIDE: (left, right) => left / right,
-  MULTIPLY: (left, right) => left * right,
-};
+import constant from "./constant.js";
 
 class Calculator {
   constructor({ $total, $digits, $modifiers, $operations }) {
@@ -34,9 +29,26 @@ class Calculator {
     this.state = initState;
   }
 
+  setState({ key, newState }) {
+    this.state[key] = newState;
+  }
+
+  setOperand(operand) {
+    const { STATE_KEY } = constant;
+    const { leftOperand } = this.state;
+
+    if (!leftOperand) {
+      this.setState({ key: STATE_KEY.LEFT_OPERAND, newState: operand });
+      return;
+    }
+
+    this.setState({ key: STATE_KEY.RIGHT_OPERAND, newState: operand });
+  }
+
   onDigitClick() {
     this.$digits.addEventListener("click", ({ target }) => {
       const digit = target.textContent;
+      this.setOperand(digit);
     });
   }
 
