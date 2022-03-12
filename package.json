@@ -12,6 +12,11 @@
     "test:e2e:run": "yarn cypress run"
   },
   "devDependencies": {
+    "@babel/core": "^7.17.5",
+    "@babel/eslint-parser": "^7.17.0",
+    "@babel/eslint-plugin": "^7.16.5",
+    "@babel/plugin-syntax-class-properties": "^7.12.13",
+    "@babel/preset-env": "^7.16.11",
     "cypress": "^9.5.1",
     "eslint": "^8.10.0",
     "eslint-config-airbnb-base": "^15.0.0",

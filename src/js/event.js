@@ -1,16 +1,16 @@
-import { isOperator } from "./util.js";
-import { operatorFunctions } from "./constants.js";
+import { Operator } from "./Operator.js";
 
 /**
  *
  * @param {Array<number | string>} inputs
  */
 export const calculate = (inputs) => {
+  const operator = new Operator();
   const { prevSum: total } = inputs.reduce(
     (acc, curr) => {
       const parsedValue = parseInt(curr, 10);
 
-      if (isOperator(curr)) {
+      if (operator.isOperator(curr)) {
         acc.operator = curr;
         return acc;
       }
@@ -21,10 +21,9 @@ export const calculate = (inputs) => {
       }
 
       if (acc.operator) {
-        acc.prevSum = operatorFunctions[acc.operator](acc.prevSum, parsedValue);
+        acc.prevSum = operator.execute(acc.operator, acc.prevSum, parsedValue);
         return acc;
       }
-
       acc.prevSum = acc.prevSum * 10 + parsedValue;
       return acc;
     },
@@ -54,6 +53,8 @@ class CalculatorEventListener {
     this.$console = $total;
     this.inputStore = [];
     this.currentNumber = 0;
+
+    this.operator = new Operator();
   }
 
   init() {
@@ -79,7 +80,9 @@ class CalculatorEventListener {
           alert("먼저 숫자를 입력해주세요!");
           return;
         }
-        if (isOperator(this.inputStore[this.inputStore.length - 1])) {
+        if (
+          this.operator.isOperator(this.inputStore[this.inputStore.length - 1])
+        ) {
           alert("연산자를 연속적으로 입력할 수 없습니다!");
           return;
         }

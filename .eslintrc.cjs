@@ -10,15 +10,17 @@ module.exports = {
     "plugin:cypress/recommended",
   ],
   parserOptions: {
-    ecmaVersion: "latest",
-    sourceType: "module",
+    parser: "babel-eslint"
   },
-  plugins: ["prettier", "jest"],
+  plugins: ["prettier", "jest", "@babel"],
+  parser: "@babel/eslint-parser",
   rules: {
     "prettier/prettier": "error",
     "import/extensions": "off",
     "import/prefer-default-export": "off",
     "no-alert": "off",
+    "class-methods-use-this": "off",
+    "max-classes-per-file": "off",
   },
   ignorePatterns: ["*.config.js", "*.test.js", "cypress/**", ".eslintrc.cjs"],
 };

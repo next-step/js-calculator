@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { calculate } from '../src/js/event.js'
 
-describe("계산기", () => {
+describe("calculator", () => {
   it("2개의 숫자에 대해 덧셈이 가능하다.", () => {
     expect(calculate(["1", "+", "2"])).eq(3);
   });
@@ -20,5 +20,4 @@ describe("계산기", () => {
     expect(calculate(["1", "2", "X", "3"])).eq(36);
     expect(calculate(["1", "2", "/", "3"])).eq(4);
   });
-
 });
