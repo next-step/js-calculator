@@ -66,12 +66,8 @@ class CalculatorEventListener {
   digitEventListener = (event) => {
     const { innerText } = event.target;
     const { innerText: consoleText } = this.#console;
-    const lastThreeChar = consoleText.slice(
-      consoleText.length - 3,
-      consoleText.length
-    );
-    if (consoleText.length >= 3 && isDigit(lastThreeChar)) {
-      alert("숫자는 3자리까지만 입력할 수 있습니다.");
+
+    if (this.isOverLength(consoleText)) {
       return;
     }
 
@@ -82,14 +78,10 @@ class CalculatorEventListener {
 
   operationEventListener = (event) => {
     const { innerText } = event.target;
-    if (!this.#inputStore.length) {
-      alert("먼저 숫자를 입력해주세요!");
+    if (this.isConsoleEmpty()) {
       return;
     }
-    if (
-      this.#operator.isOperator(this.#inputStore[this.#inputStore.length - 1])
-    ) {
-      alert("연산자를 연속적으로 입력할 수 없습니다!");
+    if (this.isOperatorDuplicated()) {
       return;
     }
 
@@ -108,6 +100,36 @@ class CalculatorEventListener {
     this.#clearInputStore();
     this.#resetConsole();
   };
+
+  isOverLength(consoleText) {
+    const lastThreeChar = consoleText.slice(
+      consoleText.length - 3,
+      consoleText.length
+    );
+    if (consoleText.length >= 3 && isDigit(lastThreeChar)) {
+      alert("숫자는 3자리까지만 입력할 수 있습니다.");
+      return true;
+    }
+    return false;
+  }
+
+  isConsoleEmpty() {
+    if (!this.#inputStore.length) {
+      alert("먼저 숫자를 입력해주세요!");
+      return true;
+    }
+    return false;
+  }
+
+  isOperatorDuplicated() {
+    if (
+      this.#operator.isOperator(this.#inputStore[this.#inputStore.length - 1])
+    ) {
+      alert("연산자를 연속적으로 입력할 수 없습니다!");
+      return true;
+    }
+    return false;
+  }
 }
 
 export default CalculatorEventListener;
