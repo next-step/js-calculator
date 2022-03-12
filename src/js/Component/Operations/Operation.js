@@ -22,6 +22,7 @@ class Operation extends Component{
   }
 
   checkEqualOperator() {
+    // 리팩토링
     const isThereOperator = isNaN(Number(this.state.textContent))
 
     if (isThereOperator) {
