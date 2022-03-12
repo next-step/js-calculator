@@ -1,39 +1,10 @@
 import { Operator } from "./Operator.js";
-
-/**
- *
- * @param {Array<number | string>} inputs
- */
-export const calculate = (inputs) => {
-  const operator = new Operator();
-  const { prevSum: total } = inputs.reduce(
-    (acc, curr) => {
-      const parsedValue = parseInt(curr, 10);
-
-      if (operator.isOperator(curr)) {
-        acc.operator = curr;
-        return acc;
-      }
-
-      if (acc.prevSum === null) {
-        acc.prevSum = parsedValue;
-        return acc;
-      }
-
-      if (acc.operator) {
-        acc.prevSum = operator.execute(acc.operator, acc.prevSum, parsedValue);
-        return acc;
-      }
-      acc.prevSum = acc.prevSum * 10 + parsedValue;
-      return acc;
-    },
-    { prevSum: null, operator: null }
-  );
-
-  return Math.floor(total);
-};
+import CalculateCore from "./model/Calculate";
+import { InputStore } from "./model/inputStore";
 
 class CalculatorEventListener {
+  #calculateCore;
+
   /**
    *
    * @param {HTMLElement} $container
@@ -51,10 +22,10 @@ class CalculatorEventListener {
 
     this.$container = $container;
     this.$console = $total;
-    this.inputStore = [];
+    this.inputStore = new InputStore();
     this.currentNumber = 0;
-
     this.operator = new Operator();
+    this.#calculateCore = new CalculateCore();
   }
 
   init() {
@@ -88,7 +59,7 @@ class CalculatorEventListener {
         }
 
         if (innerText === "=") {
-          const total = calculate(this.inputStore);
+          const total = this.#calculateCore.calculate(this.inputStore);
           this.$console.innerText = total;
           this.inputStore = [total];
           this.currentNumber = total;
