@@ -1,5 +1,7 @@
+import {OPERATOR_SYMBOL} from "./constants.js";
+
 class AddCommand {
-  #symbol = "+";
+  #symbol = OPERATOR_SYMBOL.PLUS;
 
   get symbol() {
     return this.#symbol;
@@ -11,7 +13,7 @@ class AddCommand {
 }
 
 class SubCommand {
-  #symbol = "-";
+  #symbol = OPERATOR_SYMBOL.MINUS;
 
   get symbol() {
     return this.#symbol;
@@ -23,7 +25,7 @@ class SubCommand {
 }
 
 class MultiplyCommand {
-  #symbol = "X";
+  #symbol = OPERATOR_SYMBOL.MULTIPLY;
 
   get symbol() {
     return this.#symbol;
@@ -35,7 +37,7 @@ class MultiplyCommand {
 }
 
 class DivideCommand {
-  #symbol = "/";
+  #symbol = OPERATOR_SYMBOL.DIVIDE;
 
   get symbol() {
     return this.#symbol;
