@@ -33,8 +33,8 @@ const mutateOperator = (state, displayOperator) => {
 
 const mutateState = ($target, state) => {
   const displayOperator = $target.dataset.value;
-  const operator = operationMapping[displayOperator];
-  const isResultOperator = operator === OPERATION.RESULT;
+  const isResultOperator =
+    operationMapping[displayOperator] === OPERATION.RESULT;
 
   validate(state, isResultOperator);
   isResultOperator ? calculate(state) : mutateOperator(state, displayOperator);
