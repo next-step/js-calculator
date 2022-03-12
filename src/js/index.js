@@ -8,56 +8,36 @@ import { OPERATORS } from './utils/constants.js';
 import CalculatorModel from './model/CalculatorModel.js';
 import CalculatorObserver from './observer/CalculatorObserver.js';
 
-class App {
-  // Dom target
-  #target;
+function App($target) {
+  const model = new CalculatorModel();
+  const $calculator = document.createElement('div');
 
-  // State
-  #state;
+  const initCalculator = () => {
+    $calculator.className = 'calculator';
+    $target.appendChild($calculator);
+  };
 
-  // Components
-  #totalPad;
-  #digitSection;
-  #modifiersSection;
-  #operationSection;
+  const initComponents = () => {
+    const $totalPad = new TotalPad($calculator);
+    model.addObserver(new CalculatorObserver($totalPad));
+    DigitSection($calculator, {
+      onClick: model.eventHandler.DIGIT,
+    });
 
-  constructor($target) {
-    this.#target = $target;
+    ModifiersSection($calculator, {
+      onClick: model.eventHandler.MODIFIER,
+    });
 
-    this.initState();
-    this.initCalculator();
-    this.initComponents();
-  }
+    OperationSection($calculator, {
+      OPERATORS,
+      onClick: model.eventHandler.OPERATION,
+    });
+  };
 
-  initState() {
-    this.model = new CalculatorModel();
-    this.#state = this.model.state;
-  }
-
-  initCalculator() {
-    this.$calculator = document.createElement('div');
-    this.$calculator.className = 'calculator';
-    this.#target.appendChild(this.$calculator);
-  }
-
-  initComponents() {
-    this.#totalPad = new TotalPad(this.$calculator);
-    this.model.addObserver(new CalculatorObserver(this.#totalPad));
-
-  this.#digitSection = DigitSection(this.$calculator, {
-    onClick: this.model.eventHandler.DIGIT,
-  });
-
-  this.#modifiersSection = ModifiersSection(this.$calculator, {
-    onClick: this.model.eventHandler.MODIFIER,
-  });
-
-  this.#operationSection = OperationSection(this.$calculator, {
-    OPERATORS,
-    onClick: this.model.eventHandler.OPERATION,
-  });
-  }
+  initCalculator();
+  initComponents();
 }
+
 
 const $app = document.querySelector('#app');
 new App($app);
