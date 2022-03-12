@@ -14,13 +14,10 @@ const showAlertMessage = (message) => {
   alert(message);
 };
 
-const getNewTotalValue = () =>
-  `${leftNumber === null ? '' : leftNumber}${operator === '' ? '' : operator}${
-    rightNumber === null ? '' : rightNumber
-  }`;
+const getNewTotalValue = () => `${leftNumber ?? ''}${operator ?? ''}${rightNumber ?? ''}`;
 
 const paintTotalNumberDisplay = () => {
-  $total.innerHTML = getNewTotalValue();
+  $total.textContent = getNewTotalValue();
 };
 
 // AC Button Logic
@@ -32,7 +29,7 @@ const resetNumbersAndOperator = () => {
 
 const clickModifierHandler = () => {
   resetNumbersAndOperator();
-  $total.innerHTML = '0';
+  $total.textContent = '0';
 };
 
 // Number Button Logic
@@ -72,6 +69,8 @@ const isEmptyLeftNumber = () => leftNumber === null;
 const isEmptyRightNumber = () => rightNumber === null;
 const isNotEmptyOperator = () => operator !== '';
 const isReadyCalculate = () => operator !== '' && rightNumber !== null;
+const isRequireOperandFirst = () =>
+  (isEmptyLeftNumber() && isEmptyRightNumber()) || (isNotEmptyOperator() && isEmptyRightNumber());
 const isRequireCalculateFirst = (clickedOperator) =>
   leftNumber !== null && operator !== '' && rightNumber !== null && clickedOperator !== '=';
 
@@ -80,23 +79,23 @@ const clearOperatorAndRightNumber = () => {
   rightNumber = null;
 };
 
-const calculateExpression = () => {
-  switch (operator) {
-    case '+':
+const expressionCalculate = () => {
+  const calculateExpression = {
+    '+': () => {
       leftNumber += rightNumber;
-      break;
-    case '-':
+    },
+    '-': () => {
       leftNumber -= rightNumber;
-      break;
-    case 'X':
+    },
+    X: () => {
       leftNumber *= rightNumber;
-      break;
-    case '/':
+    },
+    '/': () => {
       leftNumber = Math.floor(leftNumber / rightNumber);
-      break;
-    default:
-      console.error(`유효하지 않은 표현식입니다. : ${(leftNumber, operator, rightNumber)}`);
-  }
+    },
+  };
+
+  calculateExpression[operator]();
 };
 
 const dispatchCalculate = () => {
@@ -104,7 +103,7 @@ const dispatchCalculate = () => {
     return;
   }
 
-  calculateExpression();
+  expressionCalculate();
   clearOperatorAndRightNumber();
   paintTotalNumberDisplay();
 };
@@ -118,25 +117,23 @@ const dispatchOperator = (newOperator) => {
 };
 
 const canNotProceedOperationHandler = (clickedOperator) => {
-  let canNotProceed = false;
-
-  if ((isEmptyLeftNumber() && isEmptyRightNumber()) || (isNotEmptyOperator() && isEmptyRightNumber())) {
-    showAlertMessage(ALERT_MESSAGES.OPERAND_FIRST_REQUIREMENT);
-    canNotProceed = true;
+  if (isRequireOperandFirst()) {
+    throw new Error(ALERT_MESSAGES.OPERAND_FIRST_REQUIREMENT);
   }
 
   if (isRequireCalculateFirst(clickedOperator)) {
-    showAlertMessage(ALERT_MESSAGES.CALCULATE_FIRST_REQUIREMENT);
-    canNotProceed = true;
+    throw new Error(ALERT_MESSAGES.CALCULATE_FIRST_REQUIREMENT);
   }
-
-  return canNotProceed;
 };
 
 const clickOperationHandler = (e) => {
   const clickedOperator = e.target.textContent;
 
-  if (canNotProceedOperationHandler(clickedOperator)) {
+  try {
+    canNotProceedOperationHandler(clickedOperator);
+  } catch (error) {
+    showAlertMessage(error.message);
+    console.error(error.message);
     return;
   }
 

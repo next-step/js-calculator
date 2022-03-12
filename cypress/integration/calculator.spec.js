@@ -1,6 +1,6 @@
 describe('basic requirement test', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:5500');
+    cy.visit('/');
   });
 
   it('두 수에 대한 덧셈이 가능한가 ?', () => {
