@@ -8,20 +8,21 @@ const operations = {
 export default class Calculator {
   #numbers;
   #operators;
-  #validator;
 
-  constructor(validator) {
+  constructor() {
     this.#numbers = [0];
     this.#operators = [];
-    this.#validator = validator;
+  }
+
+  get numbers() {
+    return this.#numbers;
+  }
+
+  get operators() {
+    return this.#operators;
   }
 
   inputNumber(numberText) {
-    if (
-      !this.#validator.validateBeforeInputNumber(this.#numbers, this.#validator)
-    )
-      return;
-
     const number = Number(numberText);
 
     if (this.#numbers.length > this.#operators.length)
@@ -30,14 +31,6 @@ export default class Calculator {
   }
 
   inputOperator(operator) {
-    if (
-      !this.#validator.validateBeforeInputOperator(
-        this.#numbers,
-        this.#validator
-      )
-    )
-      return;
-
     if (operator === '=') return this.#calculateNumbers();
 
     this.#operators = this.#operators.concat([operator]);
@@ -61,7 +54,7 @@ export default class Calculator {
   #calculateNumbers() {
     // 2개 숫자 이상의 긴 연산에 대비한 반복문 로직
 
-    const calculated = this.#numbers.reduce((acc, number, index) => {
+    const calculatedNumber = this.#numbers.reduce((acc, number, index) => {
       // 3개 이상의 숫자는 연산하지 않는다.
       if (index !== 1) return acc;
 
@@ -70,7 +63,7 @@ export default class Calculator {
       return operations[operator](acc, number);
     }, this.#numbers[0]);
 
-    this.#numbers = [calculated];
+    this.#numbers = [calculatedNumber];
     this.#operators = [];
   }
 

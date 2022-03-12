@@ -1,4 +1,4 @@
-export default function View(rootElement, calculator) {
+export default function View(rootElement, input) {
   const initialize = () => {
     addEventListeners();
   };
@@ -20,22 +20,22 @@ export default function View(rootElement, calculator) {
   };
 
   const inputNumber = (number) => {
-    calculator.inputNumber(number);
+    input.inputNumber(number);
     renderNumberAndOperators();
   };
 
   const inputOperator = (operator) => {
-    calculator.inputOperator(operator);
+    input.inputOperator(operator);
     renderNumberAndOperators();
   };
 
   const clearNumbersAndOperators = () => {
-    calculator.clearNumbersAndOperators();
+    input.clearNumbersAndOperators();
     renderNumberAndOperators();
   };
 
   const renderNumberAndOperators = () => {
-    rootElement.querySelector('#total').innerText = calculator
+    rootElement.querySelector('#total').innerText = input
       .getNumbersAndOperators()
       .join('');
   };
