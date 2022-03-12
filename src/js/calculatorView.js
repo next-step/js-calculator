@@ -1,6 +1,7 @@
 import { OPERATOR_REGEX, OPERATORS } from './constants/operator.js';
 import calculate from './calculator.js';
 import { MAX_INPUT_DIGITS, INITIAL_DIGITS } from './constants/calculator.js';
+import { lastIndexOf } from './util/array-util.js';
 
 const TOTAL_ELEMENT = document.getElementById('total');
 const CALCULATE_ELEMENT = document.getElementById('calculate');
@@ -21,7 +22,7 @@ function getAddToTotal(value) {
 function getDigitListFromTotal() {
   return getTotal()
     .split(OPERATOR_REGEX)
-    .filter((v) => v);
+    .filter((operator) => operator);
 }
 
 function getOperationListFromTotal() {
@@ -33,7 +34,7 @@ function getLastDigitsFromTotal() {
 }
 
 function getLastValueFromTotal() {
-  return getTotal()[getTotal().length - 1];
+  return getTotal()[lastIndexOf(getTotal())];
 }
 
 function getFirstValueFromTotal() {
@@ -104,19 +105,13 @@ function calculateHandler() {
 }
 
 export default function initialize() {
-  // Digits Event Binding
-  DIGITS_ELEMENTS.forEach((d) =>
-    d.addEventListener('click', () => digitHandler(d.value))
-  );
+  DIGITS_ELEMENTS.forEach((d) => d.addEventListener('click', digitHandler));
 
-  // Operators Event Binding
   OPERATORS_ELEMENTS.forEach((d) =>
-    d.addEventListener('click', () => operatorHandler(d.value))
+    d.addEventListener('click', operatorHandler)
   );
 
-  // Clear Event Binding
   CLEAR_ELEMENT.addEventListener('click', clearTotal);
 
-  // Calculate Event Binding
   CALCULATE_ELEMENT.addEventListener('click', calculateHandler);
 }
