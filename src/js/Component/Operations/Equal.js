@@ -23,9 +23,13 @@ class Equal extends Component {
         this.state.textContent = Operation.minus(first, second)
       }
 
-      // if (operator === "X") 
+      if (operator === "X") {
+        this.state.textContent = Operation.multiply(first, second)
+      }
 
-      // if (operator === "/") 
+      if (operator === "/") {
+        this.state.textContent = Operation.division(first, second)
+      }
 
     } else {
       alert('다른 연산자를 입력해주세요 :)')
