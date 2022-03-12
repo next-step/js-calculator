@@ -16,16 +16,31 @@ const initializeInputData = () => {
   hasClickedOperator = false;
 };
 
+const isLessThanThreeDigits = (numberString) => {
+  if (numberString.length < 3) {
+    return true;
+  }
+  return false;
+};
+
 window.onload = function () {
   const digits = document.getElementsByClassName("digit");
   for (const digit of digits) {
     digit.addEventListener("click", () => {
       if (hasClickedOperator) {
-        secondNumberString += digit.textContent;
-        displayText = firstNumberString + operator + secondNumberString;
+        if (isLessThanThreeDigits(secondNumberString)) {
+          secondNumberString += digit.textContent;
+          displayText = firstNumberString + operator + secondNumberString;
+        } else {
+          window.alert("한번에 최대 3자리 수까지 입력할 수 있어요. ");
+        }
       } else {
-        firstNumberString += digit.textContent;
-        displayText = firstNumberString;
+        if (isLessThanThreeDigits(firstNumberString)) {
+          firstNumberString += digit.textContent;
+          displayText = firstNumberString;
+        } else {
+          window.alert("한번에 최대 3자리 수까지 입력할 수 있어요. ");
+        }
       }
       updateDisplayText(displayText);
     });
