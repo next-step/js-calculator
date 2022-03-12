@@ -1,9 +1,4 @@
-// * - [ ] 숫자는 한번에 최대 3자리 수까지 입력 가능하다.
 // * - [ ] 계산 결과를 표현할 때 소수점 이하는 버림한다.
-
-import { hasUncaughtExceptionCaptureCallback } from "process"
-
-
 describe('Calculator test', () => {
   
   const range = (...args) => {
@@ -98,5 +93,13 @@ describe('Calculator test', () => {
     })
   })  
 
-
+  it('계산 결과를 표현할 때 소수점 이하는 버림한다.', () => {
+    const [first, second] = [range(10)[Math.floor(Math.random() * 10)], range(10)[Math.floor(Math.random() * 10)]]
+    
+    cy.get('.digit').contains(`${first}`).click()
+    cy.get('.operation').contains('/').click()
+    cy.get('.digit').contains(`${second}`).click()
+    cy.get('.operation').contains('=').click()
+    cy.get('#total').should('contain.text', Math.floor(Number(first) / Number(second)))
+  })
 })
