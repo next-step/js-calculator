@@ -75,7 +75,7 @@ describe('calculator', () => {
 			.checkTotal(2);
 	});
 
-	it('계산 결과에 이어 숫자 클릭하면, 새로운 연산이 가능하다.', () => {
+	it('계산 결과에 이어 숫자를 클릭하면, 새로운 연산이 가능하다.', () => {
 		cy.checkTotal(0)
 			.inputDigits(20)
 			.clickOperation('/')
