@@ -4,9 +4,9 @@ export const REGEXP_OPERATOR = /(?<=\d)([+\-X/])/g;
 export const REGEXP_DIGIT = /\d/;
 
 // 제한
-export const MAX_LENGTH = 3;
+export const MAX_OPERAND_LENGTH = 3;
 // 최대 3글자
-export const INVALID_LENGTH = `숫자는 ${MAX_LENGTH}자리까지만 입력 가능합니다!`;
+export const INVALID_LENGTH = `숫자는 ${MAX_OPERAND_LENGTH}자리까지만 입력 가능합니다!`;
 // 피연산자 필요(연속된 연산자)
 export const REQUIRED_DIGIT = '숫자를 먼저 입력한 후 연산자를 입력해주세요!';
 

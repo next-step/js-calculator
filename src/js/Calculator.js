@@ -10,7 +10,8 @@ import {
   REGEXP_DIGIT,
   OPERATOR_ZERO,
   OPERATOR_AC,
-  OPERATOR_EQU
+  OPERATOR_EQU,
+  MAX_OPERAND_LENGTH
 } from "./constants.js";
 
 class Validator {
@@ -42,18 +43,26 @@ class Validator {
     return this.isOnlyZero(display) && this.isDigit(keyword);
   }
 
+  isInvalidCather(keyword, display, expressions) {
+    if (this.isOnlyZero(display) || this.isDuplicatedOperator(keyword, display)) {
+      throw new Error(REQUIRED_DIGIT);
+    };
+
+    if (this.isDigit(keyword) && this.isOverOperandLength(keyword, expressions)) {
+      throw new Error(INVALID_LENGTH);
+    }
+  }
+
   isDuplicatedOperator(keyword, display) {
-    if (this.isOnlyZero(display)) return true;
     const lastInput = display.charAt(display.length - 1);
     return [keyword, lastInput].every(key => this.isOperator(key));
   }
 
   isOverOperandLength(keyword, expressions) {
-    if (this.isOperator(keyword)) return false;
     const firstOperand = expressions[0];
     const lastOperand = expressions.at(-1);
-    if (lastOperand === undefined) return `${firstOperand}${keyword}`.length > 3;
-    return `${lastOperand}${keyword}`.length > 3;
+    if (lastOperand === undefined) return `${firstOperand}${keyword}`.length > MAX_OPERAND_LENGTH;
+    return `${lastOperand}${keyword}`.length > MAX_OPERAND_LENGTH;
   }
 
   isAddition(operator) {
@@ -83,7 +92,7 @@ class Calculator {
     [OPERATOR_ADD, (left, right) => left + right],
     [OPERATOR_SUB, (left, right) => left - right],
     [OPERATOR_MUL, (left, right) => left * right],
-    [OPERATOR_DIV, (left, right) => Math.truc(left / right)],
+    [OPERATOR_DIV, (left, right) => Math.trunc(left / right)],
   ]);
 
   get #expression() {
@@ -113,51 +122,56 @@ class Calculator {
 
     if (this.#validator.isEquation(keyword)) return this.calculate();
     if (this.#validator.isFirstDigitInput(keyword, display)) return keyword;
-    if (this.#validator.isDuplicatedOperator(keyword, display)) {
-      alert(REQUIRED_DIGIT);
-      return display;
-    };
 
-    if (this.#validator.isOverOperandLength(keyword, this.#expression)) {
-      alert(INVALID_LENGTH);
-      return display;
-    }
-
-    return display + keyword;
+    return this.getCorrectKeyword(keyword, display);
   }
 
   calculate() {
     const expressions = this.#expression;
     if (expressions.length <= 1) return expressions[0];
     while (expressions.length > 1) {
-      const { operatorIndex, leftOperand, operator, rightOperand } = this.getParsedExpression();
-      const compute = this.#operatingSystem.get(operator);
-      const verifiedRightOperand = this.#validator.isValidOperand(operator, rightOperand);
-      const result = compute(leftOperand, verifiedRightOperand);
-      expressions.splice(operatorIndex - 1, 3, result);
+      const { startIndex, leftOperand, compute, rightOperand } = this.getParsedExpression();
+      const result = compute(leftOperand, rightOperand);
+      expressions.splice(startIndex, 3, result);
     }
 
     return expressions[0];
   }
 
   getParsedExpression() {
+    const [startIndex, operatorIndex, endIndex] = this.getOperatorIndex();
     const expressions = this.#expression;
-    const index = this.getOperatorIndex();
+    const operator = expressions[operatorIndex];
+    const leftOperand = Number(expressions[startIndex]);
+    const compute = this.#operatingSystem.get(operator);
+    const rightOperand = this.#validator.isValidOperand(operator, Number(expressions[endIndex]));
     return {
-      operatorIndex: index,
-      leftOperand: +expressions[index - 1],
-      operator: expressions[index],
-      rightOperand: +expressions[index + 1]
+      startIndex,
+      leftOperand,
+      compute,
+      rightOperand
     }
   }
 
   getOperatorIndex() {
-    const operatorIndex = this.findOperatorPriorityIndex(2);
-    return operatorIndex === -1 ? this.findOperatorPriorityIndex(1) : operatorIndex;
+    let operatorIndex = this.findOperatorPriorityIndex(2);
+    operatorIndex = operatorIndex === -1 ? this.findOperatorPriorityIndex(1) : operatorIndex;
+    return [operatorIndex - 1, operatorIndex, operatorIndex + 1];
   }
 
   findOperatorPriorityIndex(priority) {
     return this.#expression.findIndex(expression => this.#priorityOperator[expression] === priority);
+  }
+
+  getCorrectKeyword(keyword, display) {
+    try {
+      this.#validator.isInvalidCather(keyword, display, this.#expression);
+    } catch (err) {
+      alert(err.message);
+      return display;
+    }
+
+    return display + keyword;
   }
 }
 
