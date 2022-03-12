@@ -14,7 +14,7 @@ const controller = (calculator) => {
   });
 
   $modifier.addEventListener('click', () => {
-    calculator.clear();
+    calculator.allClear();
   });
 };
 

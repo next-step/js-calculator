@@ -75,8 +75,7 @@ class Calculator {
     this.#setDisplay();
   }
 
-  // # TODO: change method name to allClear
-  clear() {
+  allClear() {
     this.#inputBuffer = [''];
     this.#setDisplay();
   }
