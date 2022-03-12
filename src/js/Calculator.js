@@ -8,14 +8,19 @@ const operations = {
 export default class Calculator {
   #numbers;
   #operators;
+  #validator;
 
-  constructor() {
+  constructor(validator) {
     this.#numbers = [0];
     this.#operators = [];
+    this.#validator = validator;
   }
 
   inputNumber(numberText) {
-    if (!this.#validateBeforeInputNumber()) return;
+    if (
+      !this.#validator.validateBeforeInputNumber(this.#numbers, this.#validator)
+    )
+      return;
 
     const number = Number(numberText);
 
@@ -25,7 +30,13 @@ export default class Calculator {
   }
 
   inputOperator(operator) {
-    if (!this.#validateBeforeInputOperator()) return;
+    if (
+      !this.#validator.validateBeforeInputOperator(
+        this.#numbers,
+        this.#validator
+      )
+    )
+      return;
 
     if (operator === '=') return this.#calculateNumbers();
 
@@ -61,32 +72,6 @@ export default class Calculator {
 
     this.#numbers = [calculated];
     this.#operators = [];
-  }
-
-  #validateBeforeInputNumber() {
-    if (
-      this.#numbers.at(-1).toString().length >= 3 &&
-      this.#numbers.length !== this.#operators.length
-    ) {
-      alert('숫자는 세 자리까지만 입력 가능합니다!');
-
-      return false;
-    }
-
-    return true;
-  }
-
-  #validateBeforeInputOperator() {
-    if (
-      (this.#numbers.length === 1 && this.#numbers[0] === 0) ||
-      this.#numbers.length === this.#operators.length
-    ) {
-      alert('숫자를 먼저 입력한 후 연산자를 입력해주세요!');
-
-      return false;
-    }
-
-    return true;
   }
 
   getNumbersAndOperators() {
