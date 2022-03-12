@@ -1,4 +1,5 @@
-import { Operator } from "../Operator.mjs";
+import { Operator } from "./Operator.mjs";
+import {isDigit} from "../util.mjs";
 
 export class InputStore extends Array {
   constructor(...array) {
@@ -7,7 +8,7 @@ export class InputStore extends Array {
   }
 
   push(item) {
-    if (this.operator.isOperator(item) || /^[0-9]$/.test(item)) {
+    if (this.operator.isOperator(item) || isDigit(item)) {
       super.push(item);
       return this;
     }

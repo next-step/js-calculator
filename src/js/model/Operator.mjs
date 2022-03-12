@@ -1,4 +1,4 @@
-import {OPERATOR_SYMBOL} from "./constants.js";
+import {OPERATOR_SYMBOL} from "../constants.mjs";
 
 class AddCommand {
   #symbol = OPERATOR_SYMBOL.PLUS;

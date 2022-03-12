@@ -1,7 +1,8 @@
-import { Operator } from "./Operator.mjs";
+import { Operator } from "./model/Operator.mjs";
 import CalculateCore from "./model/Calculate.mjs";
 import { InputStore } from "./model/inputStore.mjs";
-import { OPERATOR_SYMBOL } from "./constants";
+import { OPERATOR_SYMBOL } from "./constants.mjs";
+import { isDigit } from "./util.mjs";
 
 class CalculatorEventListener {
   #calculateCore;
@@ -11,8 +12,6 @@ class CalculatorEventListener {
   #console;
 
   #inputStore;
-
-  #currentNumber;
 
   #operator;
 
@@ -30,7 +29,6 @@ class CalculatorEventListener {
     this.#container = $container;
     this.#console = $total;
     this.#inputStore = new InputStore();
-    this.#currentNumber = 0;
     this.#operator = new Operator();
     this.#calculateCore = new CalculateCore();
     this.#events = {
@@ -59,7 +57,6 @@ class CalculatorEventListener {
 
   #resetConsole() {
     this.#console.innerText = 0;
-    this.#currentNumber = 0;
   }
 
   #clearInputStore() {
@@ -68,17 +65,19 @@ class CalculatorEventListener {
 
   digitEventListener = (event) => {
     const { innerText } = event.target;
-    const { innerText: currentConsole } = this.#console;
-    if (this.#currentNumber > 99) {
+    const { innerText: consoleText } = this.#console;
+    const lastThreeChar = consoleText.slice(
+      consoleText.length - 3,
+      consoleText.length
+    );
+    if (consoleText.length >= 3 && isDigit(lastThreeChar)) {
       alert("숫자는 3자리까지만 입력할 수 있습니다.");
       return;
     }
 
-    const parsedValue = parseInt(innerText, 10);
     this.#console.innerText =
-      currentConsole === "0" ? innerText : `${currentConsole}${innerText}`;
+      consoleText === "0" ? innerText : `${consoleText}${innerText}`;
     this.#inputStore.push(innerText);
-    this.#currentNumber = this.#currentNumber * 10 + parsedValue;
   };
 
   operationEventListener = (event) => {
@@ -98,13 +97,11 @@ class CalculatorEventListener {
       const total = this.#calculateCore.calculate(this.#inputStore);
       this.#console.innerText = total;
       this.#inputStore = new InputStore([total]);
-      this.#currentNumber = total;
       return;
     }
 
     this.#console.innerText += innerText;
     this.#inputStore.push(innerText);
-    this.#currentNumber = 0;
   };
 
   modifierEventListener = () => {
