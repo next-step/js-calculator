@@ -105,10 +105,12 @@ function calculateHandler() {
 }
 
 export default function initialize() {
-  DIGITS_ELEMENTS.forEach((d) => d.addEventListener('click', digitHandler));
+  DIGITS_ELEMENTS.forEach((element) =>
+    element.addEventListener('click', digitHandler)
+  );
 
-  OPERATORS_ELEMENTS.forEach((d) =>
-    d.addEventListener('click', operatorHandler)
+  OPERATORS_ELEMENTS.forEach((element) =>
+    element.addEventListener('click', operatorHandler)
   );
 
   CLEAR_ELEMENT.addEventListener('click', clearTotal);
