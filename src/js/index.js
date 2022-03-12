@@ -1,3 +1,4 @@
 import '../css/index.css';
+import app from './app';
 
-console.log('ab');
+app();
