@@ -1,11 +1,7 @@
 import OperationSectionButton from './OperationSectionButton.js';
 
 export default class OperationSection {
-  #target;
-
   constructor($target, { onClick, OPERATORS }) {
-    this.#target = $target;
-
     const $operation = document.createElement('div');
     $operation.className = 'operations subgrid';
 
@@ -13,6 +9,6 @@ export default class OperationSection {
       operator => new OperationSectionButton($operation, { operator, onClick })
     );
 
-    this.#target.appendChild($operation);
+    $target.appendChild($operation);
   }
 }
