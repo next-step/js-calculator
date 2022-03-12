@@ -9,10 +9,6 @@ class OperandModel {
   }
 
   updateValue(value) {
-    if (value === 0) {
-      this.value = value;
-      return;
-    }
     this.value += value;
   }
 }
