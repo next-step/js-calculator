@@ -1,4 +1,6 @@
 import Component from "../Component.js";
+import Operation from "./Operation.js";
+
 
 class Equal extends Component {
   constructor(target) {
@@ -6,12 +8,25 @@ class Equal extends Component {
     this.render() 
   }
 
+
   render() {
+    
     if (isNaN(Number(this.state.textContent))) {
-      const operator = [...this.state.textContent].filter(e => isNaN(Number(e)))
-      const [first, second] = this.state.textContent.split(operator[0])
-      const answer = Number(first) + Number(second)
-      this.state.textContent = answer
+      const operator = [...this.state.textContent].filter(e => isNaN(Number(e)))[0]
+      const [first, second] = this.state.textContent.split(operator)
+      
+      if (operator === "+") {
+        this.state.textContent = Operation.plus(first, second)
+      }
+
+      if (operator === "-") {
+        this.state.textContent = Operation.minus(first, second)
+      }
+
+      // if (operator === "X") 
+
+      // if (operator === "/") 
+
     } else {
       alert('다른 연산자를 입력해주세요 :)')
     }
