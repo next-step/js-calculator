@@ -11,3 +11,5 @@ export const MESSAGE = {
 };
 
 export const EMPTY_STRING = '';
+
+export const MAX_INPUT_LENGTH = 3;

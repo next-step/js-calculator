@@ -1,4 +1,9 @@
-import { OPERATION, MESSAGE, EMPTY_STRING } from './constants.js';
+import {
+  OPERATION,
+  MESSAGE,
+  EMPTY_STRING,
+  MAX_INPUT_LENGTH,
+} from './constants.js';
 
 export const mathOperations = {
   [OPERATION.PLUS]: (a, b) => a + b,
@@ -21,7 +26,7 @@ export const validateInputs = (a, b) => {
 };
 
 export const validateInputLength = input => {
-  if (input.length >= 3) {
+  if (input.length >= MAX_INPUT_LENGTH) {
     return false;
   }
 
