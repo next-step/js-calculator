@@ -83,8 +83,7 @@ export default class Calculator {
 
     const inputsValidation = validateInputs(
       this.#firstNumberAsString,
-      this.#secondNumberAsString,
-      this.#operation
+      this.#secondNumberAsString
     );
 
     if (!inputsValidation.result) {

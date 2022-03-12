@@ -6,4 +6,8 @@ export const OPERATION = {
   PLUS: 'plus',
 };
 
+export const MESSAGE = {
+  INVALID_INPUT: 'Please enter two numbers',
+};
+
 export const EMPTY_STRING = '';

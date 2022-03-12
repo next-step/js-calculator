@@ -1,4 +1,4 @@
-import { OPERATION, EMPTY_STRING } from './constants.js';
+import { OPERATION, MESSAGE, EMPTY_STRING } from './constants.js';
 
 export const mathOperations = {
   [OPERATION.PLUS]: (a, b) => a + b,
@@ -7,18 +7,11 @@ export const mathOperations = {
   [OPERATION.DIVIDE]: (a, b) => Math.floor(a / b),
 };
 
-export const validateInputs = (a, b, operation) => {
+export const validateInputs = (a, b) => {
   if (a === EMPTY_STRING || b === EMPTY_STRING) {
     return {
       result: false,
-      message: 'Please enter two numbers',
-    };
-  }
-
-  if (operation === undefined) {
-    return {
-      result: false,
-      message: 'Please select an operation',
+      message: MESSAGE.INVALID_INPUT,
     };
   }
 
