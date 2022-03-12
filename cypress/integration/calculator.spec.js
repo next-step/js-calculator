@@ -1,4 +1,3 @@
-// * - [ ] 계산 결과를 표현할 때 소수점 이하는 버림한다.
 describe('Calculator test', () => {
   
   const range = (...args) => {
@@ -66,13 +65,11 @@ describe('Calculator test', () => {
   })  
 
   it('2개의 숫자에 대해 나눗셈이 가능하다', () => {
-    const [first, second] = [range(10)[Math.floor(Math.random() * 10)], range(10)[Math.floor(Math.random() * 10)]]
-    
-    cy.get('.digit').contains(`${first}`).click()
+    cy.get('.digit').contains('6').click()
     cy.get('.operation').contains('/').click()
-    cy.get('.digit').contains(`${second}`).click()
+    cy.get('.digit').contains('3').click()
     cy.get('.operation').contains('=').click()
-    cy.get('#total').should('contain.text', `${Number(first) / Number(second)}`)
+    cy.get('#total').should('contain.text', '2')
   })  
 
   it('AC(All Clear)버튼을 누르면 0으로 초기화 한다.', () => {

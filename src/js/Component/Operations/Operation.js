@@ -18,7 +18,7 @@ class Operation extends Component{
     return (Number(first) * Number(second))
   }
   static division(first, second) {
-    return (Number(first) / Number(second))
+    return Math.floor(Number(first) / Number(second))
   }
 
   checkEqualOperator() {
