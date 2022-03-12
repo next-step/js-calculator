@@ -85,18 +85,18 @@ class CalculatorEventListener {
         return;
       }
       if (target.className === "modifier") {
-        this.clearInputStore();
-        this.resetConsole();
+        this.#clearInputStore();
+        this.#resetConsole();
       }
     });
   }
 
-  resetConsole() {
+  #resetConsole() {
     this.#console.innerText = 0;
     this.#currentNumber = 0;
   }
 
-  clearInputStore() {
+  #clearInputStore() {
     this.#inputStore = [];
   }
 }
