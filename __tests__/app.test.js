@@ -1,3 +1,5 @@
+import { INVALID_LENGTH, REQUIRED_DIGIT } from "../src/js/constants";
+
 const BASE_URL = '../index.html';
 
 const clickToDigit = digit => cy.get('.digit').contains(digit).click();
@@ -24,7 +26,7 @@ describe('Calculator', () => {
       clickToOperator('/')
         .then(() => {
           checkTotalText(0);
-          expect(alertStub).to.be.called;
+          expect(alertStub).to.be.calledWith(REQUIRED_DIGIT);
         });
     });
   });
@@ -46,7 +48,7 @@ describe('Calculator', () => {
       clickToDigit(4)
         .then(() => {
           checkTotalText(120);
-          expect(alertStub).to.be.called;
+          expect(alertStub).to.be.calledWith(INVALID_LENGTH);
         });
     });
   });
@@ -67,7 +69,7 @@ describe('Calculator', () => {
       clickToOperator('-')
         .then(() => {
           checkTotalText('1+');
-          expect(alertStub).to.be.called;
+          expect(alertStub).to.be.calledWith(REQUIRED_DIGIT);
         });
     });
 
@@ -85,7 +87,7 @@ describe('Calculator', () => {
       clickToDigit(4)
         .then(() => {
           checkTotalText('123+321');
-          expect(alertStub).to.be.called;
+          expect(alertStub).to.be.calledWith(INVALID_LENGTH);
         });
     });
   });
