@@ -44,18 +44,18 @@ class App {
     this.#totalPad = new TotalPad(this.$calculator);
     this.model.addObserver(new CalculatorObserver(this.#totalPad));
 
-    this.#digitSection = new DigitSection(this.$calculator, {
-      onClick: this.model.eventHandler.DIGIT,
-    });
+  this.#digitSection = DigitSection(this.$calculator, {
+    onClick: this.model.eventHandler.DIGIT,
+  });
 
-    this.#modifiersSection = new ModifiersSection(this.$calculator, {
-      onClick: this.model.eventHandler.MODIFIER,
-    });
+  this.#modifiersSection = ModifiersSection(this.$calculator, {
+    onClick: this.model.eventHandler.MODIFIER,
+  });
 
-    this.#operationSection = new OperationSection(this.$calculator, {
-      OPERATORS,
-      onClick: this.model.eventHandler.OPERATION,
-    });
+  this.#operationSection = OperationSection(this.$calculator, {
+    OPERATORS,
+    onClick: this.model.eventHandler.OPERATION,
+  });
   }
 }
 
