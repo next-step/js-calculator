@@ -1,4 +1,9 @@
 import { OPERATION, EMPTY_STRING } from './constants.js';
+import {
+  mathOperations,
+  validateInputs,
+  validateInputLength,
+} from './utils.js';
 
 export default class Calculator {
   #firstNumberAsString;
@@ -37,22 +42,22 @@ export default class Calculator {
       }
 
       if (target.matches('.operation')) {
-        this.#handleOperation(target.dataset.operation);
+        this.#handleOperationClick(target.dataset.operation);
 
         return;
       }
 
-      this.#handleDigit(target.dataset.value);
+      this.#handleDigitClick(target.dataset.value);
     });
   }
 
-  #handleOperation(operation) {
+  #handleOperationClick(operation) {
     if (this.#isDone) {
       return;
     }
 
     if (operation === OPERATION.EQUALS) {
-      this.#handleEquals();
+      this.#handleEqualsClick();
 
       return;
     }
@@ -60,44 +65,32 @@ export default class Calculator {
     this.#operation = operation;
   }
 
-  #handleEquals() {
+  #handleEqualsClick() {
     if (this.#isDone) {
       return;
     }
 
-    if (
-      this.#firstNumberAsString === EMPTY_STRING ||
-      this.#secondNumberAsString === EMPTY_STRING ||
-      this.#operation === undefined
-    ) {
+    const inputsValidation = validateInputs(
+      this.#firstNumberAsString,
+      this.#secondNumberAsString,
+      this.#operation
+    );
+
+    if (!inputsValidation.result) {
+      alert(inputsValidation.message);
+
       return;
     }
 
     const firstNumber = parseInt(this.#firstNumberAsString);
     const secondNumber = parseInt(this.#secondNumberAsString);
 
-    switch (this.#operation) {
-      case OPERATION.DIVIDE:
-        this.#total = Math.floor(firstNumber / secondNumber);
-        break;
-      case OPERATION.MULTIPLY:
-        this.#total = firstNumber * secondNumber;
-        break;
-      case OPERATION.MINUS:
-        this.#total = firstNumber - secondNumber;
-        break;
-      case OPERATION.PLUS:
-        this.#total = firstNumber + secondNumber;
-        break;
-      default:
-        throw new Error(`Unknown operation: ${this.#operation}`);
-    }
-
+    this.#total = mathOperations[this.#operation](firstNumber, secondNumber);
     this.#renderScreen(this.#total);
     this.#isDone = true;
   }
 
-  #handleDigit(input) {
+  #handleDigitClick(input) {
     if (this.#isDone) {
       this.#init();
     }
@@ -107,7 +100,7 @@ export default class Calculator {
       ? this.#firstNumberAsString
       : this.#secondNumberAsString;
 
-    if (prev.length >= 3) {
+    if (!validateInputLength(prev)) {
       return;
     }
 

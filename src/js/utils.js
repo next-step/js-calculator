@@ -1,0 +1,36 @@
+import { OPERATION, EMPTY_STRING } from './constants.js';
+
+export const mathOperations = {
+  [OPERATION.PLUS]: (a, b) => a + b,
+  [OPERATION.MINUS]: (a, b) => a - b,
+  [OPERATION.MULTIPLY]: (a, b) => a * b,
+  [OPERATION.DIVIDE]: (a, b) => Math.floor(a / b),
+};
+
+export const validateInputs = (a, b, operation) => {
+  if (a === EMPTY_STRING || b === EMPTY_STRING) {
+    return {
+      result: false,
+      message: 'Please enter two numbers',
+    };
+  }
+
+  if (operation === undefined) {
+    return {
+      result: false,
+      message: 'Please select an operation',
+    };
+  }
+
+  return {
+    result: true,
+  };
+};
+
+export const validateInputLength = input => {
+  if (input.length >= 3) {
+    return false;
+  }
+
+  return true;
+};
