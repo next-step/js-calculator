@@ -20,15 +20,9 @@ class CalculatorEventListener {
    * @param {HTMLElement} $container리
    */
   constructor($container) {
-    if (!$container) {
-      throw new Error("$container is required");
-    }
-
+    this.isElementExist($container, "$container");
     const $total = $container.querySelector("#total");
-
-    if (!$total) {
-      throw new Error("$total is required");
-    }
+    this.isElementExist($container, "$total");
 
     this.#container = $container;
     this.#console = $total;
@@ -36,6 +30,12 @@ class CalculatorEventListener {
     this.#currentNumber = 0;
     this.#operator = new Operator();
     this.#calculateCore = new CalculateCore();
+  }
+
+  isElementExist(element, name) {
+    if (!element) {
+      throw new Error(`${name} is required`);
+    }
   }
 
   init() {
