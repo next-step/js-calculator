@@ -1,6 +1,8 @@
 // * - [ ] 숫자는 한번에 최대 3자리 수까지 입력 가능하다.
 // * - [ ] 계산 결과를 표현할 때 소수점 이하는 버림한다.
 
+import { hasUncaughtExceptionCaptureCallback } from "process"
+
 
 describe('Calculator test', () => {
   
@@ -91,7 +93,9 @@ describe('Calculator test', () => {
     for (let i = 0; i < 4; i++) {
       cy.get('.digit').contains(`${randomNumber}`).click()
     }
-    cy.get('#total').should('eq', String(randomNumber).repeat(3))
+    cy.get('#total').should((value) => {
+      expect(value).to.have.text( String(randomNumber).repeat(3))
+    })
   })  
 
 
