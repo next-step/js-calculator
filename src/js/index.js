@@ -64,7 +64,7 @@ window.onload = function () {
     let result = 0;
     switch (operator) {
       case "/":
-        result = firstNumber / secondNumber;
+        result = Math.floor(firstNumber / secondNumber);
         break;
       case "X":
         result = firstNumber * secondNumber;
