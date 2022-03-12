@@ -5,25 +5,31 @@ import {
   validateInputLength,
 } from './utils.js';
 
+const defaultState = {
+  firstNumberAsString: EMPTY_STRING,
+  secondNumberAsString: EMPTY_STRING,
+  operation: undefined,
+  total: 0,
+  isDone: false,
+};
+
 export default class Calculator {
-  #firstNumberAsString;
-  #secondNumberAsString;
-  #operation;
-  #total;
-  #isDone;
+  #firstNumberAsString = defaultState.firstNumberAsString;
+  #secondNumberAsString = defaultState.secondNumberAsString;
+  #operation = defaultState.operation;
+  #total = defaultState.total;
+  #isDone = defaultState.isDone;
 
   constructor() {
-    this.#init();
     this.#bindEvents();
   }
 
-  #init() {
-    this.#firstNumberAsString = EMPTY_STRING;
-    this.#secondNumberAsString = EMPTY_STRING;
-    this.#operation = undefined;
-    this.#total = 0;
-    this.#isDone = false;
-
+  #reset() {
+    this.#firstNumberAsString = defaultState.firstNumberAsString;
+    this.#secondNumberAsString = defaultState.secondNumberAsString;
+    this.#operation = defaultState.operation;
+    this.#total = defaultState.total;
+    this.#isDone = defaultState.isDone;
     this.#renderScreen(this.#total);
   }
 
@@ -36,7 +42,7 @@ export default class Calculator {
       }
 
       if (target.matches('.modifier')) {
-        this.#init();
+        this.#reset();
 
         return;
       }
@@ -52,7 +58,12 @@ export default class Calculator {
   }
 
   #handleOperationClick(operation) {
-    if (this.#isDone) {
+    const isOperationConfirmed =
+      operation !== OPERATION.EQUALS &&
+      this.#operation &&
+      this.#secondNumberAsString !== EMPTY_STRING;
+
+    if (this.#isDone || isOperationConfirmed) {
       return;
     }
 
@@ -92,7 +103,7 @@ export default class Calculator {
 
   #handleDigitClick(input) {
     if (this.#isDone) {
-      this.#init();
+      this.#reset();
     }
 
     const isFirstNumber = this.#operation === undefined;
