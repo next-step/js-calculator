@@ -52,4 +52,14 @@ describe('Calculator test', () => {
     cy.get('.operation').contains('=').click()
     cy.get('#total').should('contain.text', `${Number(first) + Number(second)}`)
   })  
+
+  it('2개의 숫자에 대해 뺄셈이 가능하다', () => {
+    const [first, second] = [range(10)[Math.floor(Math.random() * 10)], range(10)[Math.floor(Math.random() * 10)]]
+    
+    cy.get('.digit').contains(`${first}`).click()
+    cy.get('.operation').contains('-').click()
+    cy.get('.digit').contains(`${second}`).click()
+    cy.get('.operation').contains('=').click()
+    cy.get('#total').should('contain.text', `${Number(first) - Number(second)}`)
+  })  
 })
