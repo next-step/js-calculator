@@ -90,15 +90,14 @@ export default class Calculator {
   }
 
   getNumbersAndOperators() {
-    const numberAndOperators = this.#numbers.map((number, index) => {
-      if (this.#operators[index]) {
-        return [number, this.#operators[index]];
-      }
+    const numbersAndOperators = this.#numbers.reduce((acc, number, index) => {
+      if (this.#operators[index])
+        return acc.concat(number, this.#operators[index]);
 
-      return number;
-    });
+      return acc.concat(number);
+    }, []);
 
-    return numberAndOperators.flat();
+    return numbersAndOperators;
   }
 
   clearNumbersAndOperators() {
