@@ -1,5 +1,5 @@
 import {describe, beforeEach, it, expect} from "vitest";
-import {Operator} from "../src/js/Operator";
+import {Operator} from "../src/js/Operator.mjs";
 
 describe("Operator", () => {
     let operator = new Operator();

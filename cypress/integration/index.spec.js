@@ -2,18 +2,22 @@
 
 
 describe("계산기 테스트", () => {
-    const handleClickNumber = (...numbers) => numbers.map(number => cy.get(`button:contains("${number}")`).click())
+    const handleClickNumber = number => cy.get(`button:contains("${number}")`).click()
+    const handleClickNumbers = (...numbers) => numbers.map(number => handleClickNumber(number))
     const handleClickMinus = () => cy.get(`button:contains("-")`).click()
     const handleClickPlus = () => cy.get(`button:contains("+")`).click()
     const handleClickMultiply = () => cy.get(`button:contains("X")`).click()
-    const handleClickDivide = () => cy.get(`button:contains("X")`).click()
-    const handleClickEqual = () => cy.get(`button:contains("X")`).click()
+    const handleClickDivide = () => cy.get(`button:contains("/")`).click()
+    const handleClickEqual = () => cy.get(`button:contains("=")`).click()
     const handleClickClear = () => cy.get(`button:contains("AC")`).click()
     const totalShouldBe = (result) => cy.get(`#total`).should('have.text', result)
 
     beforeEach(() => {
         cy.visit('http://localhost:5000/');
     });
+    afterEach(() =>{
+        handleClickClear()
+    })
 
     it('계산기가 존재한다.', () => {
         cy.get('.calculator').should('exist')
@@ -57,11 +61,13 @@ describe("계산기 테스트", () => {
         const stub = cy.stub()
 
         cy.on('window:alert', stub)
-        handleClickNumber(2, 2, 2, 2)
-        expect(stub.getCall(0)).to.be.calledWith('숫자는 3자리까지만 입력할 수 있습니다.')
+        handleClickNumbers(2, 2, 2)
+        handleClickNumber(2).then(() => {
+            expect(stub.getCall(0)).to.be.calledWith('숫자는 3자리까지만 입력할 수 있습니다.')
+        })
     })
     it('계산 결과를 표현할 때 소수점 이하는 버림한다.', () => {
-        handleClickNumber(1, 0)
+        handleClickNumbers(1, 0)
         handleClickDivide()
         handleClickNumber(3)
         handleClickEqual()

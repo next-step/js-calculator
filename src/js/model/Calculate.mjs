@@ -1,4 +1,4 @@
-import { Operator } from "../Operator";
+import { Operator } from "../Operator.mjs";
 
 export default class CalculateCore {
   #operator;

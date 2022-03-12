@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import CalculateCore from "../src/js/model/Calculate";
+import CalculateCore from "../src/js/model/Calculate.mjs";
 
 describe("calculator", () => {
   let calculateCore = new CalculateCore();

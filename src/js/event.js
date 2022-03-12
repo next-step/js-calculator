@@ -1,6 +1,6 @@
-import { Operator } from "./Operator.js";
-import CalculateCore from "./model/Calculate";
-import { InputStore } from "./model/inputStore";
+import { Operator } from "./Operator.mjs";
+import CalculateCore from "./model/Calculate.mjs";
+import { InputStore } from "./model/inputStore.mjs";
 
 class CalculatorEventListener {
   #calculateCore;
@@ -17,7 +17,7 @@ class CalculatorEventListener {
 
   /**
    *
-   * @param {HTMLElement} $container리
+   * @param {HTMLElement} $container
    */
   constructor($container) {
     this.isElementExist($container, "$container");
@@ -73,7 +73,7 @@ class CalculatorEventListener {
         if (innerText === "=") {
           const total = this.#calculateCore.calculate(this.#inputStore);
           this.#console.innerText = total;
-          this.#inputStore = [total];
+          this.#inputStore = new InputStore([total]);
           this.#currentNumber = total;
           return;
         }
@@ -97,7 +97,7 @@ class CalculatorEventListener {
   }
 
   #clearInputStore() {
-    this.#inputStore = [];
+    this.#inputStore = new InputStore();
   }
 }
 
