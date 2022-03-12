@@ -1,8 +1,8 @@
 const operations = {
   '+': (numberA, numberB) => numberA + numberB,
   '-': (numberA, numberB) => numberA - numberB,
-  '/': (numberA, numberB) => Math.floor(numberA / numberB),
-  '*': (numberA, numberB) => Math.floor(numberA * numberB),
+  '/': (numberA, numberB) => Math.trunc(numberA / numberB),
+  '*': (numberA, numberB) => Math.trunc(numberA * numberB),
 };
 
 export default class Calculator {
