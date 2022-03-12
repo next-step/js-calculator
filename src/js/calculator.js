@@ -21,7 +21,31 @@ export default class Calculator {
   #isDone = defaultState.isDone;
 
   constructor() {
-    this.#bindEvents();
+    bindEvents.call(this);
+
+    function bindEvents() {
+      document.querySelector('.calculator').addEventListener('click', event => {
+        const { target } = event;
+
+        if (!target.matches('.digit, .modifier, .operation')) {
+          return;
+        }
+
+        if (target.matches('.modifier')) {
+          this.#reset();
+
+          return;
+        }
+
+        if (target.matches('.operation')) {
+          this.#handleOperationClick(target.dataset.operation);
+
+          return;
+        }
+
+        this.#handleDigitClick(target.dataset.value);
+      });
+    }
   }
 
   #reset() {
@@ -31,30 +55,6 @@ export default class Calculator {
     this.#total = defaultState.total;
     this.#isDone = defaultState.isDone;
     this.#renderScreen(this.#total);
-  }
-
-  #bindEvents() {
-    document.querySelector('.calculator').addEventListener('click', event => {
-      const { target } = event;
-
-      if (!target.matches('.digit, .modifier, .operation')) {
-        return;
-      }
-
-      if (target.matches('.modifier')) {
-        this.#reset();
-
-        return;
-      }
-
-      if (target.matches('.operation')) {
-        this.#handleOperationClick(target.dataset.operation);
-
-        return;
-      }
-
-      this.#handleDigitClick(target.dataset.value);
-    });
   }
 
   #handleOperationClick(operation) {
