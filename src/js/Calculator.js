@@ -14,9 +14,8 @@ export default class Calculator {
     this.#operators = [];
   }
 
-  /** numberText를 number로 바꾸어 입력하는 메소드 */
   inputNumber(numberText) {
-    if (!this.#validateNumberText(numberText)) return;
+    if (!this.#validateBeforeInputNumber()) return;
 
     const number = Number(numberText);
 
@@ -25,11 +24,10 @@ export default class Calculator {
     else this.#appendNumber(number);
   }
 
-  /** operators에 operator를 입력하는 메소드. 그러나 '=' 가 입력될 시 연산을 시작한다. */
   inputOperator(operator) {
     if (!this.#validateBeforeInputOperator()) return;
 
-    if (operator === '=') return this.#operateNumbers();
+    if (operator === '=') return this.#calculateNumbers();
 
     this.#operators = this.#operators.concat([operator]);
   }
@@ -49,13 +47,12 @@ export default class Calculator {
     this.#numbers = this.#numbers.concat([number]);
   }
 
-  /** numbers을 연산하는 메소드 */
-  #operateNumbers() {
+  #calculateNumbers() {
     // 2개 숫자 이상의 긴 연산에 대비한 반복문 로직
 
     const calculated = this.#numbers.reduce((acc, number, index) => {
       // 3개 이상의 숫자는 연산하지 않는다.
-      if (index === 0 || index > 1) return acc;
+      if (index !== 1) return acc;
 
       const operator = this.#operators[index - 1];
 
@@ -66,8 +63,7 @@ export default class Calculator {
     this.#operators = [];
   }
 
-  /** input된 numberText를 처리하기 전에 실행하는 validate 메소드 */
-  #validateNumberText(numberText) {
+  #validateBeforeInputNumber() {
     if (
       this.#numbers.at(-1).toString().length >= 3 &&
       this.#numbers.length !== this.#operators.length
@@ -77,12 +73,9 @@ export default class Calculator {
       return false;
     }
 
-    if (isNaN(Number(numberText))) return false;
-
     return true;
   }
 
-  /** operator를 입력하기 전에 실행하는 validate 메소드 */
   #validateBeforeInputOperator() {
     if (
       (this.#numbers.length === 1 && this.#numbers[0] === 0) ||
@@ -96,11 +89,10 @@ export default class Calculator {
     return true;
   }
 
-  /** view 단에서 join 하여 렌더링할 numbers 와 operators의 배열을 만드는 메소드 */
-  getNumberAndOperators() {
+  getNumbersAndOperators() {
     const numberAndOperators = this.#numbers.map((number, index) => {
       if (this.#operators[index]) {
-        return [number, this.operators[index]];
+        return [number, this.#operators[index]];
       }
 
       return number;
@@ -109,7 +101,6 @@ export default class Calculator {
     return numberAndOperators.flat();
   }
 
-  /** numbers와 Operators를 비우는 메소드 */
   clearNumbersAndOperators() {
     this.#numbers = [0];
     this.#operators = [];

@@ -24,7 +24,7 @@ export default class View {
   /** 입력된 숫자들과 연산자들을 렌더링하는 메소드 */
   renderNumberAndOperators() {
     this.rootElement.querySelector('#total').innerText = this.calculator
-      .getNumberAndOperators()
+      .getNumbersAndOperators()
       .join('');
   }
 
