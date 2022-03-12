@@ -5,7 +5,7 @@ import {
   SUBTRACT_OPERATOR,
 } from './constants/operator.js';
 
-function add(total, value) {
+function sum(total, value) {
   return total + value;
 }
 
@@ -27,7 +27,7 @@ export default function calculate(total, value, operator) {
   }
 
   if (operator === ADD_OPERATOR) {
-    return add(Number(total), Number(value));
+    return sum(Number(total), Number(value));
   }
 
   if (operator === SUBTRACT_OPERATOR) {
