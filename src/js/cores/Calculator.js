@@ -42,7 +42,7 @@ export default class Calculator {
     this.#operators = this.#operators.concat([operator]);
   }
 
-  /** numbers의 마지막 숫자를 만드는 메소드 */
+  /** numbers의 마지막 숫자의 자릿수를 증가시키는 메소드 */
   #buildNumber(number) {
     const copiedNumbers = [...this.#numbers];
 
