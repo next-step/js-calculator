@@ -9,7 +9,7 @@ export const mathOperations = {
   [OPERATION.PLUS]: (a, b) => a + b,
   [OPERATION.MINUS]: (a, b) => a - b,
   [OPERATION.MULTIPLY]: (a, b) => a * b,
-  [OPERATION.DIVIDE]: (a, b) => Math.floor(a / b),
+  [OPERATION.DIVIDE]: (a, b) => Math.trunc(a / b),
 };
 
 export const validateInputs = (a, b) => {
