@@ -67,16 +67,15 @@ const roundDown = (value) =>
 
 const sum = () => {
   const [first, second] = valueList(curOperator()).map(Number);
-  switch (curOperator()) {
-    case plus:
-      return first + second;
-    case minus:
-      return first - second;
-    case division:
-      return roundDown(first / second);
-    case multiplication:
-      return roundDown(first * second);
-  }
+
+  const lookupTable = {
+    [plus]: first + second,
+    [minus]: first - second,
+    [division]: roundDown(first / second),
+    [multiplication]: roundDown(first * second),
+  };
+
+  return lookupTable[curOperator()];
 };
 
 // EventListener
