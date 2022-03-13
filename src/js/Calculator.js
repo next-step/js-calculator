@@ -1,17 +1,14 @@
 import Operator from "./domain/Operator.js";
 import CalculatorView from "./view/CalculatorView.js";
-
 import constant from "./constant.js";
 
 const { STATE_KEY, MESSAGE, MAX_OPERAND_LENGTH, OPERATOR_SYMBOL } = constant;
-
 const initState = {
   total: 0,
   operator: "",
   leftOperand: "",
   rightOperand: "",
 };
-//TODO: 쓸때 숫자로 바꿔주기
 
 class Calculator {
   constructor({ $total, $digits, $modifiers, $operations }) {
@@ -52,6 +49,8 @@ class Calculator {
 
   handleOperatorClick() {
     this.$operations.addEventListener("click", ({ target }) => {
+      if (!this.validateOperateOrder()) return;
+
       const symbol = target.textContent;
       const symbolKey = target.dataset.symbol.toUpperCase();
 
@@ -60,6 +59,7 @@ class Calculator {
         this.view.renderTotal(this.state.total);
         return;
       }
+
       this.setState({ key: STATE_KEY.OPERATOR, newState: symbolKey });
       this.view.renderStatus(this.state);
     });
@@ -105,6 +105,20 @@ class Calculator {
     try {
       if (operand.length > MAX_OPERAND_LENGTH) {
         throw Error(MESSAGE.OPERAND_LENGTH);
+      }
+    } catch (error) {
+      alert(error);
+      return false;
+    }
+    return true;
+  }
+
+  validateOperateOrder() {
+    const { leftOperand } = this.state;
+
+    try {
+      if (!leftOperand) {
+        throw Error(MESSAGE.OPERATOR_ORDER);
       }
     } catch (error) {
       alert(error);
