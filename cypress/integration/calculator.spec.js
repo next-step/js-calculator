@@ -1,5 +1,6 @@
 import {
   ADD_OPERATOR,
+  CALCULATE_OPERATOR,
   DIVIDE_OPERATOR,
   POW_OPERATOR,
   SUBTRACT_OPERATOR,
@@ -14,11 +15,11 @@ function digitHandler(digit) {
 }
 
 function operatorHandler(operator) {
-  return cy.get('.operation:not(#calculate)').contains(operator).click();
+  return cy.get('.operation').contains(operator).click();
 }
 
 function calculateHandler() {
-  return cy.get('#calculate').click();
+  return cy.get('.operation').contains(CALCULATE_OPERATOR).click();
 }
 
 function checkEqualTotal(value) {
