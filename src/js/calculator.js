@@ -58,7 +58,7 @@ export default class Calculator {
     this.#secondNumberAsString = defaultState.secondNumberAsString;
     this.#operation = defaultState.operation;
     this.#total = defaultState.total;
-    this.#renderScreen(0);
+    this.#renderScreen(this.#total);
   }
 
   #handleOperationClick(operation) {
@@ -119,6 +119,6 @@ export default class Calculator {
   }
 
   #renderScreen(value) {
-    document.querySelector('#screen').textContent = value;
+    document.querySelector('#screen').textContent = value || 0;
   }
 }
