@@ -26,21 +26,20 @@ export default function calculate({ total, value, operator } = {}) {
     return total;
   }
 
-  if (operator === ADD_OPERATOR) {
-    return sum(Number(total), Number(value));
+  if (typeof value !== 'number' || typeof total !== 'number') {
+    throw new TypeError('ONLY SUPPORT NUMBER TYPE');
   }
 
-  if (operator === SUBTRACT_OPERATOR) {
-    return subtract(Number(total), Number(value));
+  switch (operator) {
+    case ADD_OPERATOR:
+      return sum(total, value);
+    case SUBTRACT_OPERATOR:
+      return subtract(total, value);
+    case POW_OPERATOR:
+      return pow(total, value);
+    case DIVIDE_OPERATOR:
+      return divide(total, value);
+    default:
+      throw new Error('NOT SUPPORT OPERATOR');
   }
-
-  if (operator === POW_OPERATOR) {
-    return pow(Number(total), Number(value));
-  }
-
-  if (operator === DIVIDE_OPERATOR) {
-    return divide(Number(total), Number(value));
-  }
-
-  throw new Error('NOT SUPPORT OPERATOR');
 }
