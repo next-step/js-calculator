@@ -56,6 +56,7 @@ class Calculator {
 
       if (this.isResultButtonClicked(symbol)) {
         this.calculate();
+        this.setTotalToOperand(this.state.total);
         this.view.renderTotal(this.state.total);
         return;
       }
@@ -135,6 +136,12 @@ class Calculator {
     );
 
     this.setState({ key: STATE_KEY.TOTAL, newState: total });
+  }
+
+  setTotalToOperand(total) {
+    this.setInitState();
+    this.setState({ key: STATE_KEY.TOTAL, newState: total });
+    this.setState({ key: STATE_KEY.LEFT_OPERAND, newState: total });
   }
 }
 
