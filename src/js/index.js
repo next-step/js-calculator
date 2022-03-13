@@ -30,7 +30,7 @@ function App($target) {
       onClick: model.eventHandler.OPERATION,
     });
 
-    new TotalPad($calculator);
+    TotalPad($calculator);
   };
 
   initCalculator();
