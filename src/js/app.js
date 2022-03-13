@@ -3,7 +3,7 @@ import Total from './components/Total.js';
 import Operations from './components/Operations.js';
 import Modifiers from './components/Modifiers.js';
 import { $ } from './utils/dom.js';
-import { isOperation } from './utils/validate.js';
+import { validator, executor } from './utils/index.js';
 import { DOM, OPERATION, MODIFIER, INIT_STATE, MESSAGE } from './constants.js';
 
 class App {
@@ -11,7 +11,7 @@ class App {
     this.$target = $(target);
     this.state = { ...INIT_STATE };
     this.$digits = new Digits($(DOM.digits), this.onClickDigit.bind(this));
-    this.$operations = new Operations($(DOM.operations), this.onClickButtons.bind(this));
+    this.$operations = new Operations($(DOM.operations), this.onClickOperation.bind(this));
     this.$modifiers = new Modifiers($(DOM.modifiers), this.onClickModifier.bind(this));
     this.$total = new Total($(DOM.total), this.state.currentTotal);
   }
@@ -48,20 +48,18 @@ class App {
     }
   }
 
-  onClickButtons(clickedValue) {
-    if (clickedValue === OPERATION.equal) {
+  onClickOperation(operation) {
+    if (operation === OPERATION.equal) {
       this.evaluateDigitsAndOperations(this.state.currentTotal);
-    } else if (isOperation(clickedValue)) {
-      this.recordOperation(clickedValue);
     } else {
-      this.recordDigit(clickedValue);
+      this.recordOperation(operation);
     }
   }
 
   recordOperation(operation) {
     if (this.$total.isClean()) {
       alert(MESSAGE.pleaseEnterNumberBeforeOperation);
-    } else if (isOperation(this.state.lastClickedButton)) {
+    } else if (validator.isOperation(this.state.lastClickedButton)) {
       alert(MESSAGE.operationCannotBeEnteredConsecutively);
     } else {
       this.setState({
@@ -102,28 +100,13 @@ class App {
   calculateExpressionWithOperator(expression, operation) {
     const bothSidesOfOperator = expression.split(operation);
     const evaluationResult = bothSidesOfOperator.reduce((acc, cur) =>
-      this.calculateReduceWithOperator(acc, operation, cur),
+      executor[operation](Number(acc), Number(cur)),
     );
     this.setState({
       currentTotal: evaluationResult,
       numberCount: String(evaluationResult).length,
       lastClickedButton: INIT_STATE.lastClickedButton,
     });
-  }
-
-  calculateReduceWithOperator(acc, operation, cur) {
-    switch (operation) {
-      case OPERATION.plus:
-        return Number(acc) + Number(cur);
-      case OPERATION.minus:
-        return Number(acc) - Number(cur);
-      case OPERATION.multiple:
-        return Number(acc) * Number(cur);
-      case OPERATION.division:
-        return Math.floor(Number(acc) / Number(cur));
-      default:
-        return false;
-    }
   }
 }
 
