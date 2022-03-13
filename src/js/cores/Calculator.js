@@ -1,8 +1,14 @@
+const PLUS = '+';
+const SUBSTRACT = '-';
+const DIVIDE = '/';
+const MUTIPLY = '*';
+const EQUAL = '=';
+
 const operations = {
-  '+': (numberA, numberB) => numberA + numberB,
-  '-': (numberA, numberB) => numberA - numberB,
-  '/': (numberA, numberB) => Math.trunc(numberA / numberB),
-  '*': (numberA, numberB) => Math.trunc(numberA * numberB),
+  [PLUS]: (numberA, numberB) => numberA + numberB,
+  [SUBSTRACT]: (numberA, numberB) => numberA - numberB,
+  [DIVIDE]: (numberA, numberB) => Math.trunc(numberA / numberB),
+  [MUTIPLY]: (numberA, numberB) => Math.trunc(numberA * numberB),
 };
 
 export default class Calculator {
@@ -31,7 +37,7 @@ export default class Calculator {
   }
 
   inputOperator(operator) {
-    if (operator === '=') return this.#calculateNumbers();
+    if (operator === EQUAL) return this.#calculateNumbers();
 
     this.#operators = this.#operators.concat([operator]);
   }

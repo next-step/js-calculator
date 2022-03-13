@@ -64,6 +64,14 @@ describe('계산기 테스트', () => {
     clickNumberButtons(4, 4, 4, 4);
     resultShouldBeExpected(444);
   });
+  it('연산자는 숫자가 먼저 입력된 후 입력될 수 있다. 연산자가 먼저 입력되면 alert이 호출된다.', () => {
+    cy.on('window:alert', (text) => {
+      expect(text).to.contains('숫자를 먼저 입력한 후 연산자를 입력해주세요!');
+    });
+
+    clickOperatorButton('+');
+    resultShouldBeExpected(0);
+  });
   it('계산 결과를 표현할 때 소수점 이하는 버림한다. (결과가 양수인 경우)', () => {
     clickNumberButton(4);
     clickOperatorButton('/');
