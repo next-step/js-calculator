@@ -6,7 +6,6 @@ import OperationSection from './components/OperationSection.js';
 import { OPERATORS } from './utils/constants.js';
 
 import CalculatorModel from './model/CalculatorModel.js';
-import CalculatorObserver from './observer/CalculatorObserver.js';
 
 function App($target) {
   const model = new CalculatorModel();

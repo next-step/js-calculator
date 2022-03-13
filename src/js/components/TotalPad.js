@@ -7,8 +7,4 @@ export default class TotalPad {
     this.#total.textContent = '0';
     $target.appendChild(this.#total);
   }
-
-  updateText({ display }) {
-    this.#total.textContent = display;
-  }
 }

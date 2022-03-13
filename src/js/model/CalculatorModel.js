@@ -14,12 +14,10 @@ class OperandModel {
 }
 
 export default class CalculatorModel {
-  #observers;
   #operandStack;
   #operand;
 
   constructor() {
-    this.#observers = [];
     this.init();
   }
 
@@ -67,16 +65,6 @@ export default class CalculatorModel {
       this.#operand = new OperandModel(INPUT_TYPE.OPERATION, '');
       this.updateTotalPad();
     },
-  };
-
-  addObserver = observer => {
-    this.#observers.push(observer);
-  };
-
-  notifyObservers = () => {
-    for (const observer of this.#observers) {
-      observer.update(this);
-    }
   };
 
   calculate() {
