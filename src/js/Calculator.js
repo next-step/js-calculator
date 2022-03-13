@@ -1,11 +1,14 @@
 import constant from "./constant.js";
 
+const { STATE_KEY, MESSAGE } = constant;
+
 const initState = {
   total: 0,
   operator: "",
-  leftOperand: null,
-  rightOperand: null,
+  leftOperand: "",
+  rightOperand: "",
 };
+//TODO: 쓸때 숫자로 바꿔주기
 
 class Calculator {
   constructor({ $total, $digits, $modifiers, $operations }) {
@@ -32,32 +35,63 @@ class Calculator {
     this.state[key] = newState;
   }
 
-  setOperand(operand) {
-    const { STATE_KEY } = constant;
-    const { leftOperand } = this.state;
+  setOperandByOperator(operand) {
+    const { operator, leftOperand, rightOperand } = this.state;
 
-    if (!leftOperand) {
-      this.setState({ key: STATE_KEY.LEFT_OPERAND, newState: operand });
+    if (!operator) {
+      const newLeftOperand = leftOperand + operand;
+      this.setOperand({
+        key: STATE_KEY.LEFT_OPERAND,
+        operand: newLeftOperand,
+      });
       return;
     }
 
-    this.setState({ key: STATE_KEY.RIGHT_OPERAND, newState: operand });
+    const newRightOperand = rightOperand + operand;
+    this.setOperand({
+      key: STATE_KEY.RIGHT_OPERAND,
+      operand: newRightOperand,
+    });
+  }
+
+  setOperand({ key, operand }) {
+    if (this.validateOperandLength(operand)) {
+      this.setState({
+        key: key,
+        newState: operand,
+      });
+    }
+  }
+
+  validateOperandLength(operand) {
+    const MAX_OPERAND_LENGTH = 3;
+
+    try {
+      if (operand.length > MAX_OPERAND_LENGTH) {
+        throw Error(MESSAGE.OPERAND_LENGTH);
+      }
+    } catch (error) {
+      alert(error);
+      return false;
+    }
+    return true;
   }
 
   handleDigitClick() {
     this.$digits.addEventListener("click", ({ target }) => {
       const digit = target.textContent;
-      this.setOperand(digit);
+      this.setOperandByOperator(digit);
     });
   }
 
   handleModifierClick() {
-    this.$modifiers.addEventListener("click", () => {});
+    this.$modifiers.addEventListener("click", this.setInitState.bind(this));
   }
 
   handleOperatorClick() {
     this.$operations.addEventListener("click", ({ target }) => {
-      this.operator = target.dataset.operator.toUpperCase();
+      const symbol = target.dataset.symbol.toUpperCase();
+      this.setState({ key: STATE_KEY.OPERATOR, newState: symbol });
     });
   }
 }
