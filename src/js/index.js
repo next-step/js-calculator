@@ -52,7 +52,7 @@ const calculate = (calculatingTargets, operation) => {
     case 'X':
       return Number(leftValue) * Number(rightValue);
     case '/':
-      return Number(leftValue) / Number(rightValue);
+      return Math.floor(Number(leftValue) / Number(rightValue));
   }
 };
 
