@@ -64,7 +64,12 @@ function isLastValueOperator() {
 function calculateTotal() {
   return Math.floor(
     getOperationListFromTotal().reduce((result, operator, index) => {
-      return calculate(result, getDigitListFromTotal()[index + 1], operator);
+      const currentValue = getDigitListFromTotal()[index + 1];
+      return calculate({
+        total: result,
+        value: currentValue,
+        operator,
+      });
     }, getFirstValueFromTotal())
   );
 }
@@ -77,18 +82,18 @@ function notificationConsecutiveInputOperator() {
   alert('연산전 숫자를 입력하세요.');
 }
 
-function operatorHandler(value) {
+function operatorHandler({ target: { innerText } }) {
   if (isLastValueOperator()) {
     notificationConsecutiveInputOperator();
     return;
   }
 
-  changeTotal(getAddToTotal(value));
+  changeTotal(getAddToTotal(innerText));
 }
 
-function digitHandler(value) {
+function digitHandler({ target: { innerText } }) {
   if (isInitTotal(getTotal())) {
-    changeTotal(value);
+    changeTotal(innerText);
     return;
   }
 
@@ -97,7 +102,7 @@ function digitHandler(value) {
     return;
   }
 
-  changeTotal(getAddToTotal(value));
+  changeTotal(getAddToTotal(innerText));
 }
 
 function calculateHandler() {
