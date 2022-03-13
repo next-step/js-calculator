@@ -1,6 +1,10 @@
 {
-    "plugins": ["prettier"],
-    "extends": ["eslint:recommended", "plugin:prettier/recommended"],
+    "plugins": ["prettier", "cypress"],
+    "extends": [
+        "eslint:recommended",
+        "plugin:prettier/recommended",
+        "plugin:cypress/recommended"
+    ],
     "parserOptions": {
         "ecmaVersion": 2018,
         "sourceType": "module",
@@ -12,7 +16,8 @@
     // linter가 파일을 분석할 때, 미리 정의된 전역변수에 무엇이 있는지 명시하는 속성
     "env": {
         // 브라우저의 document와 같은 객체 사용 여부
-        "browser": true
+        "browser": true,
+        "cypress/globals": true
     },
     // ESLint가 무시할 디렉토리, 파일을 설정
     "ignorePatterns": ["node_modules/"],
