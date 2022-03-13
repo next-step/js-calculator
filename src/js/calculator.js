@@ -92,8 +92,8 @@ export default class Calculator {
       return;
     }
 
-    const firstNumber = parseInt(this.#firstNumberAsString);
-    const secondNumber = parseInt(this.#secondNumberAsString);
+    const firstNumber = Number(this.#firstNumberAsString);
+    const secondNumber = Number(this.#secondNumberAsString);
 
     this.#total = mathOperations[this.#operation](firstNumber, secondNumber);
     this.#renderScreen(this.#total);
