@@ -1,3 +1,7 @@
+const NUMBER = 'number';
+const OPERATOR = 'operator';
+const ALL_CLEAR = 'ac';
+
 export default function View(rootElement, input) {
   const initialize = () => {
     renderNumberAndOperators();
@@ -13,11 +17,11 @@ export default function View(rootElement, input) {
   const handleButtonClick = (event) => {
     const { dataset } = event.target;
 
-    if ('number' in dataset) return inputNumber(dataset.number);
+    if (NUMBER in dataset) return inputNumber(dataset.number);
 
-    if ('operator' in dataset) return inputOperator(dataset.operator);
+    if (OPERATOR in dataset) return inputOperator(dataset.operator);
 
-    if ('ac' in dataset) return clearNumbersAndOperators();
+    if (ALL_CLEAR in dataset) return clearNumbersAndOperators();
   };
 
   const inputNumber = (number) => {
