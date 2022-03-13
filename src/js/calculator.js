@@ -48,61 +48,75 @@ export class Calculator {
     }
   };
 
+  #onClickDigits = (digit) => {
+    if (this.#hasClickedOperator) {
+      if (!this.#isLessThanThreeDigits(this.#secondNumberString)) {
+        window.alert(MAX_LENGTH_ALERT_STRING);
+        return;
+      }
+      this.#secondNumberString += digit.textContent;
+      this.#displayText =
+        this.#firstNumberString + this.#operator + this.#secondNumberString;
+    } else {
+      if (!this.#isLessThanThreeDigits(this.#firstNumberString)) {
+        window.alert(MAX_LENGTH_ALERT_STRING);
+        return;
+      }
+      this.#firstNumberString += digit.textContent;
+      this.#displayText = this.#firstNumberString;
+    }
+    this.#updateDisplayText(this.#displayText);
+  };
+
+  #onClickOperator = (operation) => {
+    this.#hasClickedOperator = true;
+    this.#operator = operation.textContent;
+    this.#displayText += operation.textContent;
+    this.#updateDisplayText(this.#displayText);
+  };
+
+  #onClickEqual = () => {
+    // calculate here
+    const firstNumber = Number(this.#firstNumberString);
+    const secondNumber = Number(this.#secondNumberString);
+    this.#displayText = this.#calculate(
+      firstNumber,
+      secondNumber,
+      this.#operator
+    );
+    this.#updateDisplayText(this.#displayText);
+    this.#initializeInputData();
+  };
+
+  #onClickModifier = () => {
+    this.#displayText = "0";
+    this.#initializeInputData();
+    this.#updateDisplayText(this.#displayText);
+  };
+
   setEventListeners() {
     const digits = document.getElementsByClassName("digit");
     for (const digit of digits) {
       digit.addEventListener("click", () => {
-        if (this.#hasClickedOperator) {
-          if (this.#isLessThanThreeDigits(this.#secondNumberString)) {
-            this.#secondNumberString += digit.textContent;
-            this.#displayText =
-              this.#firstNumberString +
-              this.#operator +
-              this.#secondNumberString;
-          } else {
-            window.alert(MAX_LENGTH_ALERT_STRING);
-          }
-        } else {
-          if (this.#isLessThanThreeDigits(this.#firstNumberString)) {
-            this.#firstNumberString += digit.textContent;
-            this.#displayText = this.#firstNumberString;
-          } else {
-            window.alert(MAX_LENGTH_ALERT_STRING);
-          }
-        }
-        this.#updateDisplayText(this.#displayText);
+        this.#onClickDigits(digit);
       });
     }
 
     const operations = document.getElementsByClassName("operation");
     for (const operation of operations) {
       operation.addEventListener("click", () => {
-        this.#hasClickedOperator = true;
-        this.#operator = operation.textContent;
-        this.#displayText += operation.textContent;
-        this.#updateDisplayText(this.#displayText);
+        this.#onClickOperator(operation);
       });
     }
 
     const equal = document.getElementById("equal");
     equal.addEventListener("click", () => {
-      // 연산
-      const firstNumber = Number(this.#firstNumberString);
-      const secondNumber = Number(this.#secondNumberString);
-      this.#displayText = this.#calculate(
-        firstNumber,
-        secondNumber,
-        this.#operator
-      );
-      this.#updateDisplayText(this.#displayText);
-      this.#initializeInputData();
+      this.#onClickEqual();
     });
 
     const modifier = document.getElementsByClassName("modifier")[0];
     modifier.addEventListener("click", () => {
-      this.#displayText = "0";
-      this.#initializeInputData();
-      this.#updateDisplayText(this.#displayText);
+      this.#onClickModifier();
     });
   }
 }
