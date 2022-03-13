@@ -74,7 +74,7 @@ describe('계산기 Cypress Test', () => {
     });
   });
 
-  context.only('제약 사항 테스트', () => {
+  context('제약 사항 테스트', () => {
     it('5. AC(All Clear)버튼을 누르면 0으로 초기화 한다.', () => {
       doSeveralTime(5, () => {
         const randomNumber = generateRandomNumber();
