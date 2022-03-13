@@ -70,20 +70,6 @@ class App {
     }
   }
 
-  recordDigit(digit) {
-    if (this.state.currentTotal === INIT_STATE.currentTotal) {
-      this.setState({ currentTotal: digit, numberCount: this.state.numberCount + 1 });
-    } else if (this.state.numberCount >= 3) {
-      alert(MESSAGE.numberCanBeEnteredUpToThreeDigitsAtOnce);
-    } else {
-      this.setState({
-        currentTotal: this.state.currentTotal + digit,
-        numberCount: this.state.numberCount + 1,
-        lastClickedButton: digit,
-      });
-    }
-  }
-
   evaluateDigitsAndOperations(expression) {
     const operation = this.whatOperatorUseInExpression(expression);
     this.calculateExpressionWithOperator(expression, operation);
