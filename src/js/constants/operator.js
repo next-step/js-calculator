@@ -2,6 +2,7 @@ export const ADD_OPERATOR = '+';
 export const SUBTRACT_OPERATOR = '-';
 export const POW_OPERATOR = 'X';
 export const DIVIDE_OPERATOR = '/';
+export const CALCULATE_OPERATOR = '=';
 
 export const OPERATORS = [
   ADD_OPERATOR,

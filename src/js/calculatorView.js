@@ -1,14 +1,15 @@
-import { OPERATOR_REGEX, OPERATORS } from './constants/operator.js';
+import {
+  CALCULATE_OPERATOR,
+  OPERATOR_REGEX,
+  OPERATORS,
+} from './constants/operator.js';
 import calculate from './calculator.js';
 import { MAX_INPUT_DIGITS, INITIAL_DIGITS } from './constants/calculator.js';
 import { lastIndexOf } from './util/array-util.js';
 
 const TOTAL_ELEMENT = document.getElementById('total');
-const CALCULATE_ELEMENT = document.getElementById('calculate');
-const DIGITS_ELEMENTS = document.querySelectorAll('.digit');
-const OPERATORS_ELEMENTS = document.querySelectorAll(
-  '.operation:not(#calculate)'
-);
+const DIGITS_ELEMENTS = document.querySelector('.digits');
+const OPERATORS_ELEMENTS = document.querySelector('.operations');
 const CLEAR_ELEMENT = document.getElementById('initial');
 
 function getTotal() {
@@ -82,18 +83,22 @@ function notificationConsecutiveInputOperator() {
   alert('연산전 숫자를 입력하세요.');
 }
 
-function operatorHandler({ target: { innerText } }) {
+function operatorHandler(event) {
+  const operator = event?.target?.innerText;
+
   if (isLastValueOperator()) {
     notificationConsecutiveInputOperator();
     return;
   }
 
-  changeTotal(getAddToTotal(innerText));
+  changeTotal(getAddToTotal(operator));
 }
 
-function digitHandler({ target: { innerText } }) {
+function digitHandler(event) {
+  const digit = event?.target?.innerText;
+
   if (isInitTotal(getTotal())) {
-    changeTotal(innerText);
+    changeTotal(digit);
     return;
   }
 
@@ -102,7 +107,7 @@ function digitHandler({ target: { innerText } }) {
     return;
   }
 
-  changeTotal(getAddToTotal(innerText));
+  changeTotal(getAddToTotal(digit));
 }
 
 function calculateHandler() {
@@ -110,15 +115,17 @@ function calculateHandler() {
 }
 
 export default function initialize() {
-  DIGITS_ELEMENTS.forEach((element) =>
-    element.addEventListener('click', digitHandler)
-  );
+  DIGITS_ELEMENTS.addEventListener('click', digitHandler);
 
-  OPERATORS_ELEMENTS.forEach((element) =>
-    element.addEventListener('click', operatorHandler)
-  );
+  OPERATORS_ELEMENTS.addEventListener('click', (event) => {
+    const isCalculateOperator = event?.target?.innerText === CALCULATE_OPERATOR;
+    if (isCalculateOperator) {
+      calculateHandler();
+      return;
+    }
+
+    operatorHandler(event);
+  });
 
   CLEAR_ELEMENT.addEventListener('click', clearTotal);
-
-  CALCULATE_ELEMENT.addEventListener('click', calculateHandler);
 }
