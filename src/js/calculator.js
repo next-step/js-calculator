@@ -9,8 +9,7 @@ const defaultState = {
   firstNumberAsString: EMPTY_STRING,
   secondNumberAsString: EMPTY_STRING,
   operation: undefined,
-  total: 0,
-  isDone: false,
+  total: undefined,
 };
 
 export default class Calculator {
@@ -18,7 +17,6 @@ export default class Calculator {
   #secondNumberAsString = defaultState.secondNumberAsString;
   #operation = defaultState.operation;
   #total = defaultState.total;
-  #isDone = defaultState.isDone;
 
   constructor() {
     bindEvents.call(this);
@@ -37,10 +35,17 @@ export default class Calculator {
           return;
         }
 
-        if (target.matches('.operation')) {
+        if (target.matches('.operation') && this.#total === undefined) {
           this.#handleOperationClick(target.dataset.operation);
 
           return;
+        }
+
+        if (
+          this.#secondNumberAsString !== EMPTY_STRING &&
+          this.#total !== undefined
+        ) {
+          this.#reset();
         }
 
         this.#handleDigitClick(target.dataset.value);
@@ -53,8 +58,7 @@ export default class Calculator {
     this.#secondNumberAsString = defaultState.secondNumberAsString;
     this.#operation = defaultState.operation;
     this.#total = defaultState.total;
-    this.#isDone = defaultState.isDone;
-    this.#renderScreen(this.#total);
+    this.#renderScreen(0);
   }
 
   #handleOperationClick(operation) {
@@ -63,7 +67,7 @@ export default class Calculator {
       this.#operation &&
       this.#secondNumberAsString !== EMPTY_STRING;
 
-    if (this.#isDone || isOperationConfirmed) {
+    if (isOperationConfirmed) {
       return;
     }
 
@@ -77,10 +81,6 @@ export default class Calculator {
   }
 
   #handleEqualsClick() {
-    if (this.#isDone) {
-      return;
-    }
-
     const inputsValidation = validateInputs(
       this.#firstNumberAsString,
       this.#secondNumberAsString
@@ -97,14 +97,9 @@ export default class Calculator {
 
     this.#total = mathOperations[this.#operation](firstNumber, secondNumber);
     this.#renderScreen(this.#total);
-    this.#isDone = true;
   }
 
   #handleDigitClick(input) {
-    if (this.#isDone) {
-      this.#reset();
-    }
-
     const isFirstNumber = this.#operation === undefined;
     const prev = isFirstNumber
       ? this.#firstNumberAsString
