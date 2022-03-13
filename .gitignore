@@ -108,4 +108,4 @@ dist
 
 cypress/fixtures/
 cypress/screenshots/
-cypress/support/
+
