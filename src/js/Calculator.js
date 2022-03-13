@@ -1,5 +1,12 @@
 import constant from "./constant.js";
 
+const initState = {
+  total: 0,
+  operator: "",
+  leftOperand: null,
+  rightOperand: null,
+};
+
 class Calculator {
   constructor({ $total, $digits, $modifiers, $operations }) {
     this.$total = $total;
@@ -12,20 +19,12 @@ class Calculator {
 
   init() {
     this.setInitState();
-
-    this.onDigitClick();
-    this.onModifierClick();
-    this.onOperatorClick();
+    this.handleDigitClick();
+    this.handleModifierClick();
+    this.handleOperatorClick();
   }
 
   setInitState() {
-    const initState = {
-      total: 0,
-      operator: "",
-      leftOperand: null,
-      rightOperand: null,
-    };
-
     this.state = initState;
   }
 
@@ -45,18 +44,18 @@ class Calculator {
     this.setState({ key: STATE_KEY.RIGHT_OPERAND, newState: operand });
   }
 
-  onDigitClick() {
+  handleDigitClick() {
     this.$digits.addEventListener("click", ({ target }) => {
       const digit = target.textContent;
       this.setOperand(digit);
     });
   }
 
-  onModifierClick() {
+  handleModifierClick() {
     this.$modifiers.addEventListener("click", () => {});
   }
 
-  onOperatorClick() {
+  handleOperatorClick() {
     this.$operations.addEventListener("click", ({ target }) => {
       this.operator = target.dataset.operator.toUpperCase();
     });
