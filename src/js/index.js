@@ -129,7 +129,7 @@ const calculate = ({left, right, operation}) => {
 	}
 
 	if (operation === '/') {
-		return Math.floor(divide(left, right));
+		return Math.trunc(divide(left, right));
 	}
 };
 

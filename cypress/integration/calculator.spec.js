@@ -67,12 +67,26 @@ describe('calculator', () => {
 	});
 
 	it('계산 결과를 표현할 때 소수점 이하는 버림한다.', () => {
+		// 양수
 		cy.checkTotal(0)
 			.inputDigits(20)
 			.clickOperation('/')
 			.inputDigits(7)
 			.clickOperation('=')
 			.checkTotal(2);
+
+		// 음수
+		cy.clickModifier('AC')
+			.checkTotal(0)
+			.inputDigits(3)
+			.clickOperation('-')
+			.inputDigits(23)
+			.clickOperation('=')
+			.checkTotal(-20)
+			.clickOperation('/')
+			.inputDigits(7)
+			.clickOperation('=')
+			.checkTotal(-2);
 	});
 
 	it('계산 결과에 이어 숫자를 클릭하면, 새로운 연산이 가능하다.', () => {
