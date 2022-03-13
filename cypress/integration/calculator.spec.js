@@ -12,13 +12,21 @@ let numbers = [];
 
 describe('계산기 Cypress Test', () => {
   const calc = operator => {
-    cy.get('@number0').click();
+    const operands = ['', ''];
+    doSeveralTime(2, i => {
+      cy.get(`@number${i}`).click();
+      operands[0] += numbers[i];
+    });
     cy.get(`${getDataEl(operator)}`).click();
-    cy.get('@number1').click();
+    doSeveralTime(1, i => {
+      cy.get(`@number${i}`).click();
+      operands[1] += numbers[i];
+    });
+
     cy.get('@calculateBtn').click();
     cy.get('#total').should(
       'have.text',
-      calcOperation(numbers[0], numbers[1])[operator]()
+      calcOperation(operands[0], operands[1])[operator]()
     );
     return new Cypress.Promise(() => {});
   };
