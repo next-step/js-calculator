@@ -1,3 +1,5 @@
+import { INIT_STATE } from '../constants.js';
+
 class Total {
   constructor(target, state) {
     this.$target = target;
@@ -11,6 +13,10 @@ class Total {
 
   render() {
     this.$target.innerHTML = this.state;
+  }
+
+  isClean() {
+    return this.state === INIT_STATE.currentTotal;
   }
 }
 

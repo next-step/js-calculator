@@ -21,6 +21,7 @@ class App {
     this.$total.setState(this.state.currentTotal);
   }
 
+    if (this.$total.isClean()) {
   onClickButtons(clickedValue) {
     if (clickedValue === MODIFIER.allClear) {
       this.setState({ currentTotal: INIT_STATE.currentTotal, numberCount: INIT_STATE.numberCount });
@@ -34,7 +35,7 @@ class App {
   }
 
   recordOperation(operation) {
-    if (this.state.currentTotal === INIT_STATE.currentTotal) {
+    if (this.$total.isClean()) {
       alert(MESSAGE.pleaseEnterNumberBeforeOperation);
     } else if (isOperation(this.state.lastClickedButton)) {
       alert(MESSAGE.operationCannotBeEnteredConsecutively);
