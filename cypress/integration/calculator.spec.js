@@ -68,6 +68,14 @@ describe('js-calculator', () => {
     cy.totalShouldBe(INIT_STATE.currentTotal);
   });
 
+  it('"=" 클릭 시 맨 마지막 클릭한 버튼은 숫자여야 한다.', () => {
+    cy.clickDigit('2');
+    cy.clickOperation(OPERATION.plus);
+    cy.clickOperation(OPERATION.equal);
+    cy.checkAlertMessage(MESSAGE.lastCharacterMustBeNumber);
+    cy.totalShouldBe(`2${OPERATION.plus}`);
+  });
+
   it('연산자를 연속으로 누를 수 없다.', () => {
     cy.clickDigit('2');
     cy.clickOperation(OPERATION.plus);
