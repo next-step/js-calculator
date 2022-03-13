@@ -65,4 +65,12 @@ describe('계산기 기능 요구사항', () => {
     });
     cy.get('#total').should('have.text', '111');
   });
+
+  it('계산 결과를 표현할 때 소수점 이하는 버림한다.', () => {
+    cy.get('.digit').contains('5').click();
+    cy.get('.operation').contains('/').click();
+    cy.get('.digit').contains('3').click();
+    cy.get('.operation').contains('=').click();
+    cy.get('#total').should('have.text', '1');
+  });
 });
