@@ -1,7 +1,7 @@
-import initialize from './calculatorView.js';
+import eventBindings from './calculatorView.js';
 
 export default function App() {
-  initialize();
+  eventBindings();
 }
 
 App();

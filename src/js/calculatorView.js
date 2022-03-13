@@ -65,10 +65,15 @@ function isLastValueOperator() {
 function calculateTotal() {
   return Math.floor(
     getOperationListFromTotal().reduce((result, operator, index) => {
-      const currentValue = getDigitListFromTotal()[index + 1];
+      const digit = getDigitListFromTotal()[index + 1];
+
+      if (digit === undefined || digit === null) {
+        return result;
+      }
+
       return calculate({
-        total: result,
-        value: currentValue,
+        total: Number(result),
+        value: Number(digit),
         operator,
       });
     }, getFirstValueFromTotal())
@@ -84,7 +89,7 @@ function notificationConsecutiveInputOperator() {
 }
 
 function operatorHandler(event) {
-  const operator = event?.target?.innerText;
+  const operator = event?.target?.dataset?.value;
 
   if (isLastValueOperator()) {
     notificationConsecutiveInputOperator();
@@ -95,7 +100,7 @@ function operatorHandler(event) {
 }
 
 function digitHandler(event) {
-  const digit = event?.target?.innerText;
+  const digit = event?.target?.dataset?.value;
 
   if (isInitTotal(getTotal())) {
     changeTotal(digit);
@@ -114,11 +119,12 @@ function calculateHandler() {
   changeTotal(calculateTotal());
 }
 
-export default function initialize() {
+export default function eventBindings() {
   DIGITS_ELEMENTS.addEventListener('click', digitHandler);
 
   OPERATORS_ELEMENTS.addEventListener('click', (event) => {
-    const isCalculateOperator = event?.target?.innerText === CALCULATE_OPERATOR;
+    const isCalculateOperator =
+      event?.target?.dataset?.value === CALCULATE_OPERATOR;
     if (isCalculateOperator) {
       calculateHandler();
       return;
