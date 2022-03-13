@@ -45,4 +45,10 @@ describe('계산기 기능 요구사항', () => {
     cy.get('.operation').contains('=').click();
     cy.get('#total').should('have.text', '2');
   });
+
+  it('AC(All Clear)버튼을 누르면 0으로 초기화된다.', () => {
+    cy.get('.digit').contains('1').click();
+    cy.get('.modifier').click();
+    cy.get('#total').should('have.text', '0');
+  });
 });
