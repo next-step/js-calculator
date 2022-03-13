@@ -1,5 +1,5 @@
 import { OPERATION } from "./constant.js";
-import { isOver3Digits } from "./validateOperation.js";
+import { is3DigitsOrLess } from "./validateOperation.js";
 
 function inputNumber(e) {
   const clickedNumber = e.target.innerText;
@@ -9,7 +9,7 @@ function inputNumber(e) {
     return (OPERATION.innerText = clickedNumber);
   }
 
-  if (isOver3Digits()) {
+  if (is3DigitsOrLess()) {
     return (OPERATION.innerText += clickedNumber);
   }
 }

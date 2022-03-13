@@ -5,7 +5,7 @@ function getUsedOperator() {
   return usedOperator;
 }
 
-function isOver3Digits() {
+function is3DigitsOrLess() {
   let digitLength = 0;
   const currentOperation = OPERATION.innerText;
   const operator = getUsedOperator(currentOperation);
@@ -41,4 +41,4 @@ function isValidOperation() {
   return usedOperator;
 }
 
-export { getUsedOperator, isOver3Digits, isValidOperation };
+export { getUsedOperator, is3DigitsOrLess as isOver3Digits, isValidOperation };
