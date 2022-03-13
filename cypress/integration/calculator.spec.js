@@ -39,12 +39,6 @@ describe('계산기 Cypress Test', () => {
     // alias declare
     cy.get(`${getDataEl('=')}`).as('calculateBtn');
     cy.get('.modifier').as('acBtn');
-
-    // generating numbers
-    doSeveralTime(5, i => {
-      const randomNumber = generateRandomNumber();
-      cy.get(`${getDataEl(randomNumber)}`).as(`number${i}`);
-    });
   });
 
   const testCalc = operation => {
@@ -81,8 +75,13 @@ describe('계산기 Cypress Test', () => {
     });
   });
 
-  context('제약 사항 테스트', () => {
+  context.only('제약 사항 테스트', () => {
     it('5. AC(All Clear)버튼을 누르면 0으로 초기화 한다.', () => {
+      // generating numbers
+      doSeveralTime(5, i => {
+        const randomNumber = generateRandomNumber();
+        cy.get(`${getDataEl(randomNumber)}`).as(`number${i}`);
+      });
       doSeveralTime(3, i => {
         cy.get(`@number${i}`).click();
       });
@@ -91,6 +90,11 @@ describe('계산기 Cypress Test', () => {
     });
 
     it('6. 숫자는 한번에 최대 3자리 수까지 입력 가능하다.', () => {
+      // generating numbers
+      doSeveralTime(5, i => {
+        const randomNumber = generateRandomNumber();
+        cy.get(`${getDataEl(randomNumber)}`).as(`number${i}`);
+      });
       doSeveralTime(5, i => {
         cy.get(`@number${i}`).click();
       });
