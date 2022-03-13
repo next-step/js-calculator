@@ -48,12 +48,12 @@ export default class CalculatorModel {
       this.#operand.updateValue(operandValue);
 
       this.updateOperandStack(this.#operand);
-      this.notifyObservers();
+      this.updateTotalPad();
     },
 
     MODIFIER: () => {
       this.init();
-      this.notifyObservers();
+      this.updateTotalPad();
     },
 
     OPERATION: e => {
@@ -65,7 +65,7 @@ export default class CalculatorModel {
 
       this.updateOperation(operation);
       this.#operand = new OperandModel(INPUT_TYPE.OPERATION, '');
-      this.notifyObservers();
+      this.updateTotalPad();
     },
   };
 
@@ -91,7 +91,12 @@ export default class CalculatorModel {
     this.#operandStack = Array(3).fill(firstOperand, 0, 1);
     this.#operand = new OperandModel(INPUT_TYPE.DIGIT, '');
 
-    this.notifyObservers();
+    this.updateTotalPad();
+  }
+
+  updateTotalPad() {
+    const $totalPad = document.querySelector('#total');
+    $totalPad.textContent = this.totalInputToString;
   }
 
   updateOperation(operation) {
@@ -119,6 +124,6 @@ export default class CalculatorModel {
   }
 
   get totalInputToString() {
-    return this.#operandStack.map(o => o.value).join('');
+    return this.#operandStack.map(o => o.value).join('') || 0;
   }
 }

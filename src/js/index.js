@@ -18,8 +18,6 @@ function App($target) {
   };
 
   const initComponents = () => {
-    const $totalPad = new TotalPad($calculator);
-    model.addObserver(new CalculatorObserver($totalPad));
     DigitSection($calculator, {
       onClick: model.eventHandler.DIGIT,
     });
@@ -32,12 +30,13 @@ function App($target) {
       OPERATORS,
       onClick: model.eventHandler.OPERATION,
     });
+
+    new TotalPad($calculator);
   };
 
   initCalculator();
   initComponents();
 }
 
-
 const $app = document.querySelector('#app');
-new App($app);
+App($app);
