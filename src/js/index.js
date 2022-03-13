@@ -1,136 +1,151 @@
 import {
 	ALERT_MAX_NUMBER_LENGTH_MESSAGE,
 	MAX_NUMBER_LENGTH,
+	OPERATIONS,
+	MODIFIERS,
 } from './constants/index.js';
-import {add, subtract, multiply, divide} from './math.js';
 
-const $total = document.getElementById('total');
-const $digits = document.querySelector('.digits');
-const $modifiers = document.querySelector('.modifiers');
-const $operations = document.querySelector('.operations');
+const $calculator = document.querySelector('.calculator');
+const $display = document.querySelector('#total');
 
-const init = () => {
-	$digits.addEventListener('click', onClickDigits);
-	$operations.addEventListener('click', onClickOperations);
-	$modifiers.addEventListener('click', onClickModifiers);
+$calculator.addEventListener('click', (event) => {
+	if (!isHTMLElement(event.target)) {
+		return;
+	}
+
+	if (isDigitButton(event.target)) {
+		inputDigit(event.target.innerText);
+		return;
+	}
+
+	if (isModifierButton(event.target)) {
+		applyModifier(event.target.innerText);
+		return;
+	}
+
+	if (isOperationButton(event.target)) {
+		inputOperation(event.target.innerText);
+		return;
+	}
+});
+
+const state = new Proxy(
+	{
+		formula: [],
+		result: 0,
+	},
+	{
+		set: (target, key, value) => {
+			if (!(key in target)) {
+				return false;
+			}
+
+			target[key] = value;
+
+			if (key === 'formula') {
+				$display.innerText = findLastNumber(value) ?? target.result;
+			}
+
+			return true;
+		},
+	},
+);
+
+/**
+ * @param {string} digit
+ */
+const inputDigit = (digit) => {
+	const lastInput = state.formula.at(-1);
+
+	if (!lastInput || isOperation(lastInput)) {
+		state.formula = [...state.formula, digit];
+		return;
+	}
+
+	if (lastInput.length >= MAX_NUMBER_LENGTH) {
+		alert(ALERT_MAX_NUMBER_LENGTH_MESSAGE);
+		return;
+	}
+
+	state.formula = [...state.formula.slice(0, -1), lastInput + digit];
 };
 
-let state = {
-	result: undefined,
-	inputNumber: undefined,
-	displayNumber: undefined,
-	operation: undefined,
+/**
+ * @param {string} modifier
+ */
+const applyModifier = (modifier) => {
+	if (modifier === MODIFIERS.allClear) {
+		state.result = 0;
+		state.formula = [];
+		return;
+	}
 };
 
-const setState = (newState) => {
-	state = {
-		...state,
-		...newState,
-	};
-
-	$total.innerText = state.displayNumber ?? 0;
-};
-
-const onClickDigits = (event) => {
-	const digit = event.target.innerText;
-	const inputNumber = inputDigit(state.inputNumber, digit);
-
-	setState({
-		inputNumber,
-		displayNumber: inputNumber,
-	});
-};
-
-const onClickOperations = (event) => {
-	const operation = event.target.innerText;
-
-	if (operation === '=') {
-		if (!state.result) {
+/**
+ * @param {string} operation
+ */
+const inputOperation = (operation) => {
+	if (operation === OPERATIONS.eq) {
+		if (!state.formula.length) {
 			return;
 		}
 
-		setState({
-			result: undefined,
-			inputNumber: undefined,
-			displayNumber: calculate({
-				left: Number(state.result ?? 0),
-				right: Number(state.inputNumber ?? 0),
-				operation: state.operation,
-			}),
-			operation,
-		});
-
+		state.result = calculate(state.formula);
+		state.formula = [];
 		return;
 	}
 
-	if (state.result === undefined) {
-		setState({
-			result: $total.innerText,
-			inputNumber: undefined,
-			operation,
-		});
-
+	if (state.formula.length === 0) {
+		state.formula = [state.result, operation];
 		return;
 	}
 
-	setState({
-		operation,
-	});
-};
-
-const onClickModifiers = (event) => {
-	const modifier = event.target.innerText;
-
-	if (modifier === 'AC') {
-		setState({
-			result: undefined,
-			inputNumber: undefined,
-			displayNumber: undefined,
-			operation: undefined,
-		});
-
-		return;
-	}
+	state.formula = [...state.formula, operation];
 };
 
 /**
- * @param {string | undefined} value
- * @param {string} digit
- * @returns
+ * @param {any} value
+ * @returns boolean
  */
-const inputDigit = (value, digit) => {
-	if (!value) {
-		return digit;
-	}
+const isOperation = (value) => Object.values(OPERATIONS).includes(value);
 
-	if (value.length >= MAX_NUMBER_LENGTH) {
-		alert(ALERT_MAX_NUMBER_LENGTH_MESSAGE);
-		return value;
-	}
+/**
+ * @param {any} element
+ * @returns boolean
+ */
+const isHTMLElement = (element) => element instanceof HTMLElement;
 
-	return value.concat(digit);
+/**
+ * @param {HTMLElement} element
+ * @returns {boolean}
+ */
+const isDigitButton = (element) => element.classList.contains('digit');
+
+/**
+ * @param {HTMLElement} element
+ * @returns {boolean}
+ */
+const isModifierButton = (element) => element.classList.contains('modifier');
+
+/**
+ * @param {HTMLElement} element
+ * @returns {boolean}
+ */
+const isOperationButton = (element) => element.classList.contains('operation');
+
+/**
+ * @param {string[]} formula
+ */
+const calculate = (formula) => {
+	const formulaString = formula.join('').replaceAll(OPERATIONS.mul, '*');
+	const calculator = new Function('return ' + formulaString);
+
+	return Math.trunc(calculator());
 };
 
 /**
- * @param {{left: number, right: number, operation: string}} formula 수식
- * @returns {number | undefined} 결과값
+ * @param {string[]} formula
  */
-const calculate = ({left, right, operation}) => {
-	if (operation === '+') {
-		return add(left, right);
-	}
-
-	if (operation === '-') {
-		return subtract(left, right);
-	}
-
-	if (operation === 'X') {
-		return multiply(left, right);
-	}
-
-	if (operation === '/') {
-		return Math.trunc(divide(left, right));
-	}
+const findLastNumber = (formula) => {
+	return [...formula].reverse().find((value) => !isOperation(value));
 };
-
-init();
