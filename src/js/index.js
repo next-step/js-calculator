@@ -4,6 +4,28 @@ let operator = "";
 let displayText = "";
 let hasClickedOperator = false;
 
+const Operator = {
+  DIVIDE: "/",
+  MULTIPLY: "X",
+  DECREASE: "-",
+  INCREASE: "+",
+};
+
+const calculate = (num1, num2, operator) => {
+  switch (operator) {
+    case Operator.DIVIDE:
+      return Math.floor(num1 / num2);
+    case Operator.MULTIPLY:
+      return num1 * num2;
+    case Operator.DECREASE:
+      return num1 - num2;
+    case Operator.INCREASE:
+      return num1 + num2;
+    default:
+      return 0;
+  }
+};
+
 const updateDisplayText = (text) => {
   const total = document.querySelector("#total");
   total.innerText = text;
@@ -61,22 +83,7 @@ window.onload = function () {
     // 연산
     const firstNumber = Number(firstNumberString);
     const secondNumber = Number(secondNumberString);
-    let result = 0;
-    switch (operator) {
-      case "/":
-        result = Math.floor(firstNumber / secondNumber);
-        break;
-      case "X":
-        result = firstNumber * secondNumber;
-        break;
-      case "-":
-        result = firstNumber - secondNumber;
-        break;
-      case "+":
-        result = firstNumber + secondNumber;
-        break;
-    }
-    displayText = result;
+    displayText = calculate(firstNumber, secondNumber, operator);
     updateDisplayText(displayText);
     initializeInputData();
   });
