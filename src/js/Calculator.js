@@ -1,7 +1,9 @@
+import Operator from "./domain/Operator.js";
 import CalculatorView from "./view/CalculatorView.js";
+
 import constant from "./constant.js";
 
-const { STATE_KEY, MESSAGE, MAX_OPERAND_LENGTH } = constant;
+const { STATE_KEY, MESSAGE, MAX_OPERAND_LENGTH, OPERATOR_SYMBOL } = constant;
 
 const initState = {
   total: 0,
@@ -47,10 +49,21 @@ class Calculator {
 
   handleOperatorClick() {
     this.$operations.addEventListener("click", ({ target }) => {
-      const symbol = target.dataset.symbol.toUpperCase();
-      this.setState({ key: STATE_KEY.OPERATOR, newState: symbol });
+      const symbol = target.textContent;
+      const symbolKey = target.dataset.symbol.toUpperCase();
+
+      if (this.isResultButtonClicked(symbol)) {
+        this.calculate();
+        this.view.renderTotal(this.state.total);
+        return;
+      }
+      this.setState({ key: STATE_KEY.OPERATOR, newState: symbolKey });
       this.view.renderStatus(this.state);
     });
+  }
+
+  isResultButtonClicked(symbol) {
+    return symbol === OPERATOR_SYMBOL.RESULT;
   }
 
   setOperandByOperator(operand) {
@@ -96,6 +109,19 @@ class Calculator {
     }
     return true;
   }
+
+  calculate() {
+    const { operator, leftOperand, rightOperand } = this.state;
+    const total = Operator[`${operator}`](
+      Number(leftOperand),
+      Number(rightOperand)
+    );
+
+    this.setState({ key: STATE_KEY.TOTAL, newState: total });
+    console.log(total);
+  }
+
+  validateCalculateCondition() {}
 }
 
 export default Calculator;
