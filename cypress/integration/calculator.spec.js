@@ -28,7 +28,6 @@ describe('계산기 Cypress Test', () => {
       'have.text',
       calcOperation(operands[0], operands[1])[operator]()
     );
-    return new Cypress.Promise(() => {});
   };
 
   beforeEach(() => {
@@ -82,12 +81,7 @@ describe('계산기 Cypress Test', () => {
     });
 
     it('7. 계산 결과를 표현할 때 소수점 이하는 버림한다.', () => {
-      calc('/').then(() => {
-        cy.get('#total').should(
-          'have.text',
-          Math.floor(calcOperation(numbers[0], numbers[1])[operator]())
-        );
-      });
+      calc('/');
     });
   });
 });
