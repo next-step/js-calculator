@@ -1,0 +1,14 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/wanho1108/js-calculator.git",
+  "author": "wanho1108 <wanho1108@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "cypress open"
+  },
+  "devDependencies": {
+    "cypress": "^9.5.1"
+  }
+}
