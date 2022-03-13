@@ -31,7 +31,7 @@ $calculator.addEventListener('click', (event) => {
 
 const state = new Proxy(
 	{
-		formula: [],
+		expression: [],
 		result: 0,
 	},
 	{
@@ -42,7 +42,7 @@ const state = new Proxy(
 
 			target[key] = value;
 
-			if (key === 'formula') {
+			if (key === 'expression') {
 				$display.innerText = findLastNumber(value) ?? target.result;
 			}
 
@@ -55,10 +55,10 @@ const state = new Proxy(
  * @param {string} digit
  */
 const inputDigit = (digit) => {
-	const lastInput = state.formula.at(-1);
+	const lastInput = state.expression.at(-1);
 
 	if (!lastInput || isOperation(lastInput)) {
-		state.formula = [...state.formula, digit];
+		state.expression = [...state.expression, digit];
 		return;
 	}
 
@@ -67,7 +67,7 @@ const inputDigit = (digit) => {
 		return;
 	}
 
-	state.formula = [...state.formula.slice(0, -1), lastInput + digit];
+	state.expression = [...state.expression.slice(0, -1), lastInput + digit];
 };
 
 /**
@@ -76,7 +76,7 @@ const inputDigit = (digit) => {
 const applyModifier = (modifier) => {
 	if (modifier === MODIFIERS.allClear) {
 		state.result = 0;
-		state.formula = [];
+		state.expression = [];
 		return;
 	}
 };
@@ -86,21 +86,21 @@ const applyModifier = (modifier) => {
  */
 const inputOperation = (operation) => {
 	if (operation === OPERATIONS.eq) {
-		if (!state.formula.length) {
+		if (!state.expression.length) {
 			return;
 		}
 
-		state.result = calculate(state.formula);
-		state.formula = [];
+		state.result = calculate(state.expression);
+		state.expression = [];
 		return;
 	}
 
-	if (state.formula.length === 0) {
-		state.formula = [state.result, operation];
+	if (state.expression.length === 0) {
+		state.expression = [state.result, operation];
 		return;
 	}
 
-	state.formula = [...state.formula, operation];
+	state.expression = [...state.expression, operation];
 };
 
 /**
@@ -134,18 +134,18 @@ const isModifierButton = (element) => element.classList.contains('modifier');
 const isOperationButton = (element) => element.classList.contains('operation');
 
 /**
- * @param {string[]} formula
+ * @param {string[]} expression
  */
-const calculate = (formula) => {
-	const formulaString = formula.join('').replaceAll(OPERATIONS.mul, '*');
-	const calculator = new Function('return ' + formulaString);
+const calculate = (expression) => {
+	const expressionString = expression.join('').replaceAll(OPERATIONS.mul, '*');
+	const calculator = new Function('return ' + expressionString);
 
 	return Math.trunc(calculator());
 };
 
 /**
- * @param {string[]} formula
+ * @param {string[]} expression
  */
-const findLastNumber = (formula) => {
-	return [...formula].reverse().find((value) => !isOperation(value));
+const findLastNumber = (expression) => {
+	return [...expression].reverse().find((value) => !isOperation(value));
 };
