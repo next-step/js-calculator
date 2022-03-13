@@ -11,30 +11,22 @@ function App($target) {
   const model = new CalculatorModel();
   const $calculator = document.createElement('div');
 
-  const initCalculator = () => {
-    $calculator.className = 'calculator';
-    $target.appendChild($calculator);
-  };
+  // initCalculator
+  $calculator.className = 'calculator';
+  $target.appendChild($calculator);
 
-  const initComponents = () => {
-    DigitSection($calculator, {
-      onClick: model.eventHandler.DIGIT,
-    });
-
-    ModifiersSection($calculator, {
-      onClick: model.eventHandler.MODIFIER,
-    });
-
-    OperationSection($calculator, {
-      OPERATORS,
-      onClick: model.eventHandler.OPERATION,
-    });
-
-    TotalPad($calculator);
-  };
-
-  initCalculator();
-  initComponents();
+  // initComponents
+  DigitSection($calculator, {
+    onClick: model.eventHandler.DIGIT,
+  });
+  ModifiersSection($calculator, {
+    onClick: model.eventHandler.MODIFIER,
+  });
+  OperationSection($calculator, {
+    OPERATORS,
+    onClick: model.eventHandler.OPERATION,
+  });
+  TotalPad($calculator);
 }
 
 const $app = document.querySelector('#app');
