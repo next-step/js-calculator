@@ -38,7 +38,7 @@ class App {
 
   recordOperation(operation) {
     if (this.state.currentTotal === INIT_STATE.currentTotal) {
-      alert(MESSAGE.pleaseEnterNumberBeforeOperator);
+      alert(MESSAGE.pleaseEnterNumberBeforeOperation);
     } else {
       this.setState({
         currentTotal: this.state.currentTotal + operation,

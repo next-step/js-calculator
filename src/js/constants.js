@@ -27,6 +27,7 @@ export const INIT_STATE = {
 };
 
 export const MESSAGE = {
-  pleaseEnterNumberBeforeOperator: '연산자 입력 전에 숫자를 입력해주세요.',
+  pleaseEnterNumberBeforeOperation: '연산자 입력 전에 숫자를 입력해주세요.',
+  operationCannotBeEnteredConsecutively: '연산자는 연속으로 입력이 불가능합니다.',
   numberCanBeEnteredUpToThreeDigitsAtOnce: '숫자는 한번에 최대 3자리 수까지 입력 가능합니다.',
 };
