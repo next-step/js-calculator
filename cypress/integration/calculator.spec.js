@@ -121,7 +121,7 @@ describe('추가사항 테스트', () => {
     checkTotal(4);
   });
 
-  it.only('0을 입력 후 연산과정을 할 수 있다.', () => {
+  it('0을 입력 후 연산과정을 할 수 있다.', () => {
     clickNumber(0);
     clickNumber(3);
     clickOperation('X');
