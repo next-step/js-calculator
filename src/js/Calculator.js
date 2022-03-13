@@ -32,7 +32,7 @@ class Calculator {
   }
 
   setInitState() {
-    this.state = initState;
+    this.state = { ...initState };
   }
 
   handleDigitClick() {
@@ -44,7 +44,10 @@ class Calculator {
   }
 
   handleModifierClick() {
-    this.$modifiers.addEventListener("click", this.setInitState.bind(this));
+    this.$modifiers.addEventListener("click", () => {
+      this.setInitState();
+      this.view.renderTotal(this.state.total);
+    });
   }
 
   handleOperatorClick() {
@@ -118,10 +121,7 @@ class Calculator {
     );
 
     this.setState({ key: STATE_KEY.TOTAL, newState: total });
-    console.log(total);
   }
-
-  validateCalculateCondition() {}
 }
 
 export default Calculator;
