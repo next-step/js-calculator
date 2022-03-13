@@ -1,21 +1,26 @@
 {
-  "name": "yarn",
-  "version": "1.0.0",
-  "description": "cc-js-2nd",
-  "main": "index.js",
-  "dependencies": {
-    "cypress": "^9.5.1",
-    "yarn": "^1.22.17"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": "git+https://github.com/Minsiki/js-calculator.git",
-  "author": "Minsiki <43837214+Minsiki@users.noreply.github.com>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Minsiki/js-calculator/issues"
-  },
-  "homepage": "https://github.com/Minsiki/js-calculator#readme"
+    "name": "yarn",
+    "version": "1.0.0",
+    "description": "cc-js-2nd",
+    "main": "index.js",
+    "dependencies": {},
+    "devDependencies": {
+        "cypress": "^9.5.1",
+        "eslint": "^8.11.0",
+        "eslint-config-airbnb": "^19.0.4",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-import": "^2.25.4",
+        "prettier": "^2.5.1"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": "git+https://github.com/Minsiki/js-calculator.git",
+    "author": "Minsiki <43837214+Minsiki@users.noreply.github.com>",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Minsiki/js-calculator/issues"
+    },
+    "homepage": "https://github.com/Minsiki/js-calculator#readme"
 }

@@ -1,9 +1,17 @@
-import { DIGIT_MAX_LENGTH, INIT_DIGIT, MESSAGE, EQUAL, OPERATORS, SELECTORS, CALCULATOR } from "../constant/index.js";
+import {
+    DIGIT_MAX_LENGTH,
+    INIT_DIGIT,
+    MESSAGE,
+    EQUAL,
+    SELECTORS,
+    CALCULATOR,
+} from "../constant/index.js";
 import { $ } from "../util/index.js";
 
 export default class Calculator {
     constructor() {
-        this.isFirstCalc = true;
+        this.prevDigit = this.nextDigit = INIT_DIGIT;
+        this.operation = "";
 
         this.$total = $(SELECTORS.ID.TOTAL);
         this.$calculator = $(SELECTORS.CLASS.CALCULATOR);
@@ -12,68 +20,81 @@ export default class Calculator {
     }
 
     onClick(event) {
-        if(event.target.classList.contains(SELECTORS.CLASS.DIGIT.substring(1))) {
+        if (event.target.classList.contains(SELECTORS.CLASS.DIGIT.substring(1))) {
             this.onClickDigit(event.target.closest(SELECTORS.CLASS.DIGIT).innerHTML);
-        } else if(event.target.classList.contains(SELECTORS.CLASS.OPERATION.substring(1))) {
+        } else if (event.target.classList.contains(SELECTORS.CLASS.OPERATION.substring(1))) {
             this.onClickOperation(event.target.closest(SELECTORS.CLASS.OPERATION).innerHTML);
-        } else if(event.target.classList.contains(SELECTORS.CLASS.MODIFIER.substring(1))) {
-           this.onClickModifier();
-        } 
+        } else if (event.target.classList.contains(SELECTORS.CLASS.MODIFIER.substring(1))) {
+            this.onClickModifier();
+        }
     }
 
-    onClickDigit(digit) {        
-        const total = this.getTotal() === INIT_DIGIT ? digit : this.getTotal() + digit;
-        const digits = total.split(this.getOperation());
+    onClickDigit(digit) {
+        let total = this.getTotal();
 
-        if(this.isFirstCalc && this.checkDigitMaxLength(digits[0])) {
+        if (this.operation === "") {
+            if (this.checkDigitMaxLength(this.prevDigit)) {
+                alert(MESSAGE.ERROR.DIGIT_OVER);
+                return;
+            }
+
+            total = this.prevDigit = this.prevDigit === INIT_DIGIT ? digit : this.prevDigit + digit;
+
+            this.setTotal(total);
+            return;
+        }
+
+        if (this.checkDigitMaxLength(this.nextDigit)) {
             alert(MESSAGE.ERROR.DIGIT_OVER);
             return;
         }
 
-        if(digits[1] && this.checkDigitMaxLength(digits[1])) {
-            alert(MESSAGE.ERROR.DIGIT_OVER);
-            return;
-        }
-        
+        this.nextDigit = this.nextDigit === INIT_DIGIT ? digit : this.nextDigit + digit;
+        total = this.prevDigit + this.operation + this.nextDigit;
+
         this.setTotal(total);
     }
 
     checkDigitMaxLength(digit) {
-        return digit.length > DIGIT_MAX_LENGTH;
-    }
-
-    checkExistOperation() {
-        return this.getTotal().split("").filter(v => isNaN(parseInt(v))).length > 0;
-    }
-
-    getDigits() {
-        return this.getTotal().split(this.getOperation());
-    }
-
-    getOperation() {
-        return this.getTotal().split("").find(v => OPERATORS.includes(v));
+        return digit.length >= DIGIT_MAX_LENGTH;
     }
 
     onClickOperation(operation) {
-        if(operation === EQUAL) {
+        if (operation === EQUAL) {
             this.onCalculation();
-        } else if(this.checkExistOperation()) {
-            alert(MESSAGE.ERROR.EXIST_OPERATION);
+        } else if (this.operation !== "") {
+            if (this.nextDigit === INIT_DIGIT) {
+                alert(MESSAGE.ERROR.OPERATOR_EXIST);
+                return;
+            }
+
+            this.onCalculation();
+            this.operation = operation;
+
+            this.setTotal(this.getTotal() + operation);
         } else {
-            this.setTotal(this.getTotal() + operation);     
-        }       
+            this.operation = operation;
+
+            this.setTotal(this.prevDigit + operation);
+        }
     }
 
     onClickModifier() {
+        this.prevDigit = this.nextDigit = INIT_DIGIT;
+        this.operation = "";
+
         this.setTotal(INIT_DIGIT);
     }
 
     onCalculation() {
-        const operation = this.getOperation();
-        const digits = this.getDigits();
+        const operation = this.operation;
+        const result = CALCULATOR[operation](+this.prevDigit, +this.nextDigit);
 
-        this.setTotal(CALCULATOR[operation](+digits[0], +digits[1]));
-        this.isFirstCalc = false;
+        this.prevDigit = result.toString();
+        this.nextDigit = INIT_DIGIT;
+        this.operation = "";
+
+        this.setTotal(result);
     }
 
     getTotal() {

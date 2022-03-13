@@ -3,13 +3,12 @@
         "browser": true,
         "es2021": true
     },
-    "extends": [
-    ],
+    "extends": ["plugin:cypress/recommended", "eslint", "prettier"],
     "parserOptions": {
-        "ecmaVersion": 6,
+        "ecmaVersion": "latest",
         "sourceType": "module"
     },
     "rules": {
-        "eofline": true
+        "max-depth": ["error", 2]
     }
 }
