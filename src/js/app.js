@@ -49,18 +49,12 @@ class App {
   }
 
   onClickOperation(operation) {
+    if (!this.validateWhenClickOperation(operation)) {
+      return;
+    }
+
     if (operation === OPERATION.equal) {
       this.evaluateCurrentTotal(this.state.currentTotal);
-    } else {
-      this.recordOperation(operation);
-    }
-  }
-
-  recordOperation(operation) {
-    if (this.$total.isClean()) {
-      alert(MESSAGE.pleaseEnterNumberBeforeOperation);
-    } else if (validator.isOperation(this.state.lastClickedButton)) {
-      alert(MESSAGE.operationCannotBeEnteredConsecutively);
     } else {
       this.setState({
         currentTotal: this.state.currentTotal + operation,
@@ -70,19 +64,33 @@ class App {
     }
   }
 
-  evaluateCurrentTotal(expression) {
-    const operation = extractor.operation(expression);
-    const result = this.calculateExpression(expression, operation);
+  validateWhenClickOperation(operation) {
+    if (operation === OPERATION.equal && validator.isOperation(this.state.lastClickedButton)) {
+      alert(MESSAGE.lastCharacterMustBeNumber);
+      return false;
+    }
+    if (this.$total.isClean()) {
+      alert(MESSAGE.pleaseEnterNumberBeforeOperation);
+      return false;
+    }
+    if (validator.isOperation(this.state.lastClickedButton)) {
+      alert(MESSAGE.operationCannotBeEnteredConsecutively);
+      return false;
+    }
+    return true;
+  }
+
+  evaluateCurrentTotal(currentTotal) {
+    const operationInExpression = extractor.operation(currentTotal);
+    const bothSidesOfOperation = currentTotal.split(operationInExpression);
+    const result = bothSidesOfOperation.reduce((acc, cur) =>
+      executor[operationInExpression](Number(acc), Number(cur)),
+    );
     this.setState({
       currentTotal: result,
       numberCount: String(result).length,
       lastClickedButton: INIT_STATE.lastClickedButton,
     });
-  }
-
-  calculateExpression(expression, operation) {
-    const bothSidesOfOperator = expression.split(operation);
-    return bothSidesOfOperator.reduce((acc, cur) => executor[operation](Number(acc), Number(cur)));
   }
 }
 
