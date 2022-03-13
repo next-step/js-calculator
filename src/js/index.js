@@ -30,13 +30,13 @@ const isLessThanMaxValue = () => {
 
 const addNumber = (cur) => {
   const isFirstClick = totalCountToArr()[0] === "0";
-  const isErr = !isLessThanMaxValue() && !isOperator(cur);
   if (isFirstClick) {
     totalCount.innerHTML = "";
   }
 
   totalCount.appendChild(document.createTextNode(cur));
 
+  const isErr = !isLessThanMaxValue() && !isOperator(cur);
   if (isErr) {
     onErrHandler(maxLength);
     totalCount.removeChild(totalCount.lastChild);
