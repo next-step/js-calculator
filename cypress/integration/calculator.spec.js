@@ -54,14 +54,14 @@ describe("계산기 테스트", () => {
     });
   });
 
-  describe("초기화가 가능하다", () => {
+  describe("초기화가 가능하다.", () => {
     it("AC(All Clear)버튼을 누르면 0으로 초기화 한다.", () => {
       clickAC();
       checkTotal(0);
     });
   });
 
-  describe("입력을 테스트 한다", () => {
+  describe("입력을 테스트 한다.", () => {
     it("숫자는 한번에 최대 3자리 수까지 입력 가능하다.", () => {
       clickDigit(1);
       clickDigit(2);
