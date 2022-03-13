@@ -2,7 +2,7 @@ import Operator from "./domain/Operator.js";
 import CalculatorView from "./view/CalculatorView.js";
 import constant from "./constant.js";
 
-const { STATE_KEY, MESSAGE, MAX_OPERAND_LENGTH, OPERATOR_SYMBOL } = constant;
+const { STATE_KEY, OPERATOR_SYMBOL, MESSAGE, MAX_OPERAND_LENGTH } = constant;
 const initState = {
   total: 0,
   operator: "",
