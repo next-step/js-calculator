@@ -52,4 +52,11 @@ describe("계산기 테스트", () => {
       checkTotal(3);
     });
   });
+
+  describe("초기화가 가능하다", () => {
+    it("AC(All Clear)버튼을 누르면 0으로 초기화 한다.", () => {
+      clickAC();
+      checkTotal(0);
+    });
+  });
 });
