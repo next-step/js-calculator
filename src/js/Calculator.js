@@ -74,6 +74,16 @@ class Calculator {
     return symbol === OPERATOR_SYMBOL.RESULT;
   }
 
+  calculate() {
+    const { operator, leftOperand, rightOperand } = this.state;
+    const total = Operator[`${operator}`](
+      Number(leftOperand),
+      Number(rightOperand)
+    );
+
+    this.setState({ key: STATE_KEY.TOTAL, newState: total });
+  }
+
   setOperandByOperator(operand) {
     const { operator, leftOperand, rightOperand } = this.state;
 
@@ -106,6 +116,12 @@ class Calculator {
     }
   }
 
+  setTotalToOperand(total) {
+    this.setInitState();
+    this.setState({ key: STATE_KEY.TOTAL, newState: total });
+    this.setState({ key: STATE_KEY.LEFT_OPERAND, newState: total });
+  }
+
   validateOperandLength(operand) {
     try {
       if (operand.length > MAX_OPERAND_LENGTH) {
@@ -130,22 +146,6 @@ class Calculator {
       return false;
     }
     return true;
-  }
-
-  calculate() {
-    const { operator, leftOperand, rightOperand } = this.state;
-    const total = Operator[`${operator}`](
-      Number(leftOperand),
-      Number(rightOperand)
-    );
-
-    this.setState({ key: STATE_KEY.TOTAL, newState: total });
-  }
-
-  setTotalToOperand(total) {
-    this.setInitState();
-    this.setState({ key: STATE_KEY.TOTAL, newState: total });
-    this.setState({ key: STATE_KEY.LEFT_OPERAND, newState: total });
   }
 }
 
