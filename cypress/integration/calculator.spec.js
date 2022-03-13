@@ -120,4 +120,17 @@ describe('추가사항 테스트', () => {
     clickOperation('=');
     checkTotal(4);
   });
+
+  it.only('0을 입력 후 연산과정을 할 수 있다.', () => {
+    clickNumber(0);
+    clickNumber(3);
+    clickOperation('X');
+    clickNumber(4);
+    clickOperation('=');
+    checkTotal(12);
+    clickOperation('-');
+    clickNumber(8);
+    clickOperation('=');
+    checkTotal(4);
+  });
 });

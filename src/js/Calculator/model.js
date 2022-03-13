@@ -35,6 +35,8 @@ class Calculator {
     }
 
     if (Calculator.#isNumberInputAdd(bufferLastValue)) {
+      this.#inputBuffer[bufferLength - 1] =
+        Calculator.#preventZeroStartNumber(bufferLastValue);
       this.#inputBuffer[bufferLength - 1] += value;
     }
   }
@@ -49,6 +51,12 @@ class Calculator {
     }
 
     return true;
+  }
+
+  static #preventZeroStartNumber(value) {
+    if (Number(value) === 0) return '';
+
+    return value;
   }
 
   #operationInput(value) {
