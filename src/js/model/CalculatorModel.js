@@ -23,6 +23,11 @@ export default class CalculatorModel {
     this.init();
   }
 
+  init() {
+    this.#operandStack = Array(3);
+    this.#operand = new OperandModel();
+  }
+
   validator = {
     isValidOperandLength: () => {
       return this.#operand.value.length < MAX_LENGTH;
@@ -63,11 +68,6 @@ export default class CalculatorModel {
       this.notifyObservers();
     },
   };
-
-  init() {
-    this.#operandStack = Array(3);
-    this.#operand = new OperandModel();
-  }
 
   addObserver = observer => {
     this.#observers.push(observer);
