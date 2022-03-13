@@ -4,7 +4,7 @@
   "description": "<br/>\r <br/>",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "./node_modules/.bin/cypress open",
     "lint": "eslint src --ext .js"
   },
   "repository": {
