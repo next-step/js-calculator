@@ -74,3 +74,14 @@ describe('계산기 기능 요구사항', () => {
     cy.get('#total').should('have.text', '1');
   });
 });
+
+describe('추가 요구사항', () => {
+  it('초기 화면에 operator를 클릭하면 alert창을 호출한다.', () => {
+    cy.get('.operator').contains('+').click();
+
+    cy.on('window:alert', (text) => {
+      expect(text).to.contains(ERROR_MESSAGE.NO_NUMBER);
+    });
+    cy.get('#total').should('have.text', '0');
+  });
+});
