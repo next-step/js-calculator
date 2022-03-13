@@ -1,6 +1,7 @@
+import CalculatorView from "./view/CalculatorView.js";
 import constant from "./constant.js";
 
-const { STATE_KEY, MESSAGE } = constant;
+const { STATE_KEY, MESSAGE, MAX_OPERAND_LENGTH } = constant;
 
 const initState = {
   total: 0,
@@ -12,6 +13,7 @@ const initState = {
 
 class Calculator {
   constructor({ $total, $digits, $modifiers, $operations }) {
+    this.view = new CalculatorView({ $target: $total });
     this.$total = $total;
     this.$digits = $digits;
     this.$modifiers = $modifiers;
@@ -31,8 +33,24 @@ class Calculator {
     this.state = initState;
   }
 
-  setState({ key, newState }) {
-    this.state[key] = newState;
+  handleDigitClick() {
+    this.$digits.addEventListener("click", ({ target }) => {
+      const digit = target.textContent;
+      this.setOperandByOperator(digit);
+      this.view.renderStatus(this.state);
+    });
+  }
+
+  handleModifierClick() {
+    this.$modifiers.addEventListener("click", this.setInitState.bind(this));
+  }
+
+  handleOperatorClick() {
+    this.$operations.addEventListener("click", ({ target }) => {
+      const symbol = target.dataset.symbol.toUpperCase();
+      this.setState({ key: STATE_KEY.OPERATOR, newState: symbol });
+      this.view.renderStatus(this.state);
+    });
   }
 
   setOperandByOperator(operand) {
@@ -54,6 +72,10 @@ class Calculator {
     });
   }
 
+  setState({ key, newState }) {
+    this.state[key] = newState;
+  }
+
   setOperand({ key, operand }) {
     if (this.validateOperandLength(operand)) {
       this.setState({
@@ -64,8 +86,6 @@ class Calculator {
   }
 
   validateOperandLength(operand) {
-    const MAX_OPERAND_LENGTH = 3;
-
     try {
       if (operand.length > MAX_OPERAND_LENGTH) {
         throw Error(MESSAGE.OPERAND_LENGTH);
@@ -75,24 +95,6 @@ class Calculator {
       return false;
     }
     return true;
-  }
-
-  handleDigitClick() {
-    this.$digits.addEventListener("click", ({ target }) => {
-      const digit = target.textContent;
-      this.setOperandByOperator(digit);
-    });
-  }
-
-  handleModifierClick() {
-    this.$modifiers.addEventListener("click", this.setInitState.bind(this));
-  }
-
-  handleOperatorClick() {
-    this.$operations.addEventListener("click", ({ target }) => {
-      const symbol = target.dataset.symbol.toUpperCase();
-      this.setState({ key: STATE_KEY.OPERATOR, newState: symbol });
-    });
   }
 }
 
