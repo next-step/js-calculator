@@ -86,7 +86,7 @@ numberBtn.addEventListener("click", (e) => {
 });
 
 clearBtn.addEventListener("click", (_) => {
-  totalCount.innerHTML = "0";
+  totalCount.innerHTML = zero;
 });
 
 operatorBtn.addEventListener("click", (e) => {
