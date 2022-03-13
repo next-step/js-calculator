@@ -12,7 +12,7 @@ class App {
     this.state = { ...INIT_STATE };
     this.$digits = new Digits($(DOM.digits), this.onClickDigit.bind(this));
     this.$operations = new Operations($(DOM.operations), this.onClickButtons.bind(this));
-    this.$modifiers = new Modifiers($(DOM.modifiers), this.onClickButtons.bind(this));
+    this.$modifiers = new Modifiers($(DOM.modifiers), this.onClickModifier.bind(this));
     this.$total = new Total($(DOM.total), this.state.currentTotal);
   }
 
@@ -42,10 +42,14 @@ class App {
     }
   }
 
+  onClickModifier(modifier) {
+    if (modifier === MODIFIER.allClear) {
+      this.setState({ ...INIT_STATE });
+    }
+  }
+
   onClickButtons(clickedValue) {
-    if (clickedValue === MODIFIER.allClear) {
-      this.setState({ currentTotal: INIT_STATE.currentTotal, numberCount: INIT_STATE.numberCount });
-    } else if (clickedValue === OPERATION.equal) {
+    if (clickedValue === OPERATION.equal) {
       this.evaluateDigitsAndOperations(this.state.currentTotal);
     } else if (isOperation(clickedValue)) {
       this.recordOperation(clickedValue);
