@@ -2,11 +2,7 @@
 
 ## 🔥 Projects!
 <p align="middle">
-  <img width="300" src="src/images/calculator_ui.png">
-</p>
-
-<p align="middle">
-  <a href="https://next-step.github.io/js-calculator/">🖥️ 데모 링크</a>
+  <a href="https://peaceful-cori-b53c5c.netlify.app/">🖥️ 데모 링크</a>
 </p>
 
 
