@@ -1,4 +1,18 @@
+## How to use
 
+```
+# To start from local
+
+yarn
+yarn start
+```
+
+```
+# run cypress test
+
+yarn build
+yarn cypress:open
+```
 
 ## 🔥 Projects!
 <p align="middle">
