@@ -8,6 +8,29 @@ const doSeveralTime = (n, callback) => {
   }
 };
 
+const dataSet = {
+  ['+']: [
+    [1, '+', 2, '='],
+    [7, 3, '+', 8, 4, '='],
+    [6, 3, 3, '+', 2, 5, 4, '='],
+  ],
+  ['-']: [
+    [1, '-', 2, '='],
+    [7, 3, '-', 8, 4, '='],
+    [6, 3, 3, '-', 2, 5, 4, '='],
+  ],
+  ['X']: [
+    [1, 'X', 2, '='],
+    [7, 3, 'X', 8, 4, '='],
+    [6, 3, 3, 'X', 2, 5, 4, '='],
+  ],
+  ['/']: [
+    [1, '/', 2, '='],
+    [7, 3, '/', 8, 4, '='],
+    [6, 3, 3, '/', 2, 5, 4, '='],
+  ],
+};
+
 let numbers = [];
 
 describe('계산기 Cypress Test', () => {
@@ -46,9 +69,25 @@ describe('계산기 Cypress Test', () => {
     });
   });
 
+  const testCalc = operation => {
+    for (const testCase of dataSet[operation]) {
+      for (const operand of testCase) {
+        cy.get(`${getDataEl(operand)}`).click();
+      }
+      const operandArr = testCase
+        .slice(0, testCase.length - 1)
+        .join('')
+        .split(operation);
+      const operateResult = calcOperation(operandArr[0], operandArr[1])[
+        operation
+      ]();
+      cy.get('#total').should('have.text', operateResult);
+    }
+  };
+
   context('사칙 연산 테스트', () => {
-    it('1. 2개의 숫자에 대해 덧셈이 가능하다.', () => {
-      calc('+');
+    it.only('1. 2개의 숫자에 대해 덧셈이 가능하다.', () => {
+      testCalc('+');
     });
 
     it('2. 2개의 숫자에 대해 뺄셈이 가능하다.', () => {
