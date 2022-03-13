@@ -1,6 +1,4 @@
-import constant from "../constant.js";
-
-const { OPERATOR_SYMBOL } = constant;
+import { OPERATOR_SYMBOL } from "../constant/index.js";
 
 class CalculatorView {
   constructor({ $target }) {

@@ -1,8 +1,12 @@
 import Operator from "./domain/Operator.js";
 import CalculatorView from "./view/CalculatorView.js";
-import constant from "./constant.js";
+import {
+  STATE_KEY,
+  OPERATOR_SYMBOL,
+  MESSAGE,
+  MAX_OPERAND_LENGTH,
+} from "./constant/index.js";
 
-const { STATE_KEY, OPERATOR_SYMBOL, MESSAGE, MAX_OPERAND_LENGTH } = constant;
 const initState = {
   total: 0,
   operator: "",

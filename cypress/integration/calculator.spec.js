@@ -1,4 +1,4 @@
-import constant from "../../src/js/constant.js";
+import constant from "../../src/js/constant/index.js";
 const BASE_URL = "http://localhost:5500";
 
 const clickDigit = digit => cy.get(".digit").contains(digit).click();
