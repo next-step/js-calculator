@@ -1,3 +1,4 @@
+import constant from "../../src/js/constant.js";
 const BASE_URL = "http://localhost:5500";
 
 const clickDigit = digit => cy.get(".digit").contains(digit).click();
@@ -58,5 +59,26 @@ describe("계산기 테스트", () => {
       clickAC();
       checkTotal(0);
     });
+  });
+
+  describe("입력을 테스트 한다", () => {
+    it("숫자는 한번에 최대 3자리 수까지 입력 가능하다.", () => {
+      clickDigit(1);
+      clickDigit(2);
+      clickDigit(3);
+      checkTotal(123);
+    });
+
+    // it("3자리 수 이상이 입력되면 에러가 발생한다.", () => {
+    //   const { MESSAGE } = constant;
+    //   const alertStub = cy.stub();
+    //   cy.on("window:alert", alertStub);
+    //   clickDigit(1);
+    //   clickDigit(2);
+    //   clickDigit(3);
+    //   clickDigit(3).then(() => {
+    //     expect(alertStub).to.be.calledWith(MESSAGE.OPERAND_LENGTH);
+    //   });
+    // });
   });
 });
