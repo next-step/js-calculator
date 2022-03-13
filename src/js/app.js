@@ -10,7 +10,7 @@ class App {
   constructor(target) {
     this.$target = $(target);
     this.state = { ...INIT_STATE };
-    this.$digits = new Digits($(DOM.digits), this.onClickButtons.bind(this));
+    this.$digits = new Digits($(DOM.digits), this.onClickDigit.bind(this));
     this.$operations = new Operations($(DOM.operations), this.onClickButtons.bind(this));
     this.$modifiers = new Modifiers($(DOM.modifiers), this.onClickButtons.bind(this));
     this.$total = new Total($(DOM.total), this.state.currentTotal);
@@ -21,7 +21,27 @@ class App {
     this.$total.setState(this.state.currentTotal);
   }
 
+  onClickDigit(digit) {
+    if (this.state.numberCount >= 3) {
+      alert(MESSAGE.numberCanBeEnteredUpToThreeDigitsAtOnce);
+      return;
+    }
+
     if (this.$total.isClean()) {
+      this.setState({
+        currentTotal: digit,
+        numberCount: this.state.numberCount + 1,
+        lastClickedButton: digit,
+      });
+    } else {
+      this.setState({
+        currentTotal: this.state.currentTotal + digit,
+        numberCount: this.state.numberCount + 1,
+        lastClickedButton: digit,
+      });
+    }
+  }
+
   onClickButtons(clickedValue) {
     if (clickedValue === MODIFIER.allClear) {
       this.setState({ currentTotal: INIT_STATE.currentTotal, numberCount: INIT_STATE.numberCount });

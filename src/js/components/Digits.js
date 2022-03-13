@@ -2,8 +2,8 @@ import { DOM } from '../constants.js';
 
 class Digits {
   constructor(target, onClick) {
-    this.onClick = onClick;
     this.$target = target;
+    this.onClick = onClick;
     this.initEventListeners();
   }
 
