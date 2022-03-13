@@ -3,6 +3,7 @@ import { qs, qsAll, on } from './helpers.js';
 const total = qs('#total');
 const digits = qsAll('.digit');
 const operations = qsAll('.operation');
+const ac = qs('.modifier');
 
 digits.forEach((element) => {
   on(element, 'click', () => {
@@ -31,6 +32,10 @@ operations.forEach((element) => {
     }
     total.innerText = prevTotal + operationValue;
   });
+});
+
+on(ac, 'click', () => {
+  total.innerText = '0';
 });
 
 const calculate = (calculatingTargets, operation) => {
