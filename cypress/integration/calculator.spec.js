@@ -41,5 +41,15 @@ describe("계산기 테스트", () => {
       clickOperator("=");
       checkTotal(100);
     });
+
+    it("2개의 숫자에 대해 나눗셈이 가능하다.", () => {
+      clickDigit(3);
+      clickDigit(0);
+      clickOperator("/");
+      clickDigit(1);
+      clickDigit(0);
+      clickOperator("=");
+      checkTotal(3);
+    });
   });
 });
