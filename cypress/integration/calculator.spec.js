@@ -61,4 +61,18 @@ describe('js-calculator', () => {
     cy.clickOperation(OPERATION.equal);
     cy.totalShouldBe('2');
   });
+
+  it('연산자 앞에는 숫자가 있어야 한다.', () => {
+    cy.clickOperation(OPERATION.plus);
+    cy.checkAlertMessage(MESSAGE.numberCanBeEnteredUpToThreeDigitsAtOnce);
+    cy.totalShouldBe(INIT_STATE.currentTotal);
+  });
+
+  it('연산자를 연속으로 누를 수 없다.', () => {
+    cy.clickDigit('2');
+    cy.clickOperation(OPERATION.plus);
+    cy.clickOperation(OPERATION.plus);
+    cy.checkAlertMessage(MESSAGE.operationCannotBeEnteredConsecutively);
+    cy.totalShouldBe(`2${OPERATION.plus}`);
+  });
 });
