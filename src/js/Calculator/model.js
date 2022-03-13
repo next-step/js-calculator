@@ -9,8 +9,6 @@ export const operations = {
 class Calculator {
   #inputBuffer = [''];
 
-  #total = 0;
-
   input(value) {
     const inputType = Calculator.#inputValidator(value);
 
@@ -54,6 +52,11 @@ class Calculator {
   }
 
   #operationInput(value) {
+    const display = Calculator.#getDisplay();
+
+    if (!Number.isNaN(+display) && this.#inputBuffer[0] === '')
+      this.#inputBuffer[0] = display;
+
     const bufferLength = this.#inputBuffer.length;
     const bufferLastValue = this.#inputBuffer[bufferLength - 1];
 
@@ -83,7 +86,9 @@ class Calculator {
 
     // eslint-disable-next-line no-eval
     const total = eval(this.#inputBuffer.join(''));
-    this.#inputBuffer = [Math.floor(total * 1000) / 1000];
+    const roundDownTotal = [Math.floor(total * 1000) / 1000];
+
+    this.#inputBuffer = roundDownTotal;
 
     this.#setDisplay();
     this.#inputBuffer = [''];
@@ -92,6 +97,11 @@ class Calculator {
   allClear() {
     this.#inputBuffer = [''];
     this.#setDisplay();
+  }
+
+  static #getDisplay() {
+    const $total = document.querySelector('#total');
+    return $total.textContent;
   }
 
   #setDisplay() {
