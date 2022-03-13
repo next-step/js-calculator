@@ -13,13 +13,12 @@ export default function calculateOperation() {
   const operand1 = Number(operations[0]);
   const operand2 = Number(operations[1]);
 
-  if (usedOperator === "+") {
-    OPERATION.innerText = operand1 + operand2;
-  } else if (usedOperator === "-") {
-    OPERATION.innerText = operand1 - operand2;
-  } else if (usedOperator === "X") {
-    OPERATION.innerText = operand1 * operand2;
-  } else {
-    OPERATION.innerText = Math.floor(operand1 / operand2);
-  }
+  const operationExecutor = {
+    "+": (operand1, operand2) => operand1 + operand2,
+    "-": (operand1, operand2) => operand1 - operand2,
+    "X": (operand1, operand2) => operand1 * operand2,
+    "/": (operand1, operand2) => Math.floor(operand1 / operand2),
+  };
+
+  OPERATION.innerText = operationExecutor[usedOperator](operand1, operand2);
 }
