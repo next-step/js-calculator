@@ -34,25 +34,6 @@ const dataSet = {
 let numbers = [];
 
 describe('계산기 Cypress Test', () => {
-  const calc = operator => {
-    const operands = ['', ''];
-    doSeveralTime(2, i => {
-      cy.get(`@number${i}`).click();
-      operands[0] += numbers[i];
-    });
-    cy.get(`${getDataEl(operator)}`).click();
-    doSeveralTime(1, i => {
-      cy.get(`@number${i}`).click();
-      operands[1] += numbers[i];
-    });
-
-    cy.get('@calculateBtn').click();
-    cy.get('#total').should(
-      'have.text',
-      calcOperation(operands[0], operands[1])[operator]()
-    );
-  };
-
   beforeEach(() => {
     cy.visit('/');
 
