@@ -1,0 +1,31 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "description": "<br/>\r <br/>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src --ext .js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/my-js-study/js-calculator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/my-js-study/js-calculator/issues"
+  },
+  "homepage": "https://github.com/my-js-study/js-calculator#readme",
+  "devDependencies": {
+    "cypress": "^9.5.1",
+    "eslint": "^8.11.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-import": "^0.13.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.5.1"
+  }
+}
