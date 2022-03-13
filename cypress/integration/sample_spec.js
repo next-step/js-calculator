@@ -1,38 +1,44 @@
 describe("계산기 테스트", () => {
-  it("2개의 숫자에 대해 덧셈이 가능하다.", () => {
-    cy.visit("http://127.0.0.1:5500/");
-    cy.get('[data-test-id="9"]').click();
-    cy.get('[data-test-id="plus"]').click();
-    cy.get('[data-test-id="8"]').click();
-    cy.get('[data-test-id="equal"]').click();
-    cy.get("#total").should("have.text", "17");
-  });
+  const plus = "plus";
+  const minus = "minus";
+  const multiplication = "multiplication";
+  const division = "division";
+  const calcTestCase = [
+    {
+      operator: plus,
+      value: "17",
+      title: "2개의 숫자에 대해 덧셈이 가능하다.",
+    },
+    {
+      operator: minus,
+      value: "1",
+      title: "2개의 숫자에 대해 뺄셈이 가능하다.",
+    },
+    {
+      operator: multiplication,
+      value: "72",
+      title: "2개의 숫자에 대해 곱셈이 가능하다.",
+    },
+    {
+      operator: division,
+      value: "1",
+      title: "2개의 숫자에 대해 나눗셈이 가능하다.",
+    },
+  ];
 
-  it("2개의 숫자에 대해 뺄셈이 가능하다.", () => {
+  const calcTest = (operator) => {
     cy.visit("http://127.0.0.1:5500/");
     cy.get('[data-test-id="9"]').click();
-    cy.get('[data-test-id="minus"]').click();
+    cy.get("[data-test-id=" + `${operator}` + "]").click();
     cy.get('[data-test-id="8"]').click();
     cy.get('[data-test-id="equal"]').click();
-    cy.get("#total").should("have.text", "1");
-  });
+  };
 
-  it("2개의 숫자에 대해 곱셈이 가능하다.", () => {
-    cy.visit("http://127.0.0.1:5500/");
-    cy.get('[data-test-id="9"]').click();
-    cy.get('[data-test-id="multiplication"]').click();
-    cy.get('[data-test-id="8"]').click();
-    cy.get('[data-test-id="equal"]').click();
-    cy.get("#total").should("have.text", "72");
-  });
-
-  it("2개의 숫자에 대해 나눗셈이 가능하다.", () => {
-    cy.visit("http://127.0.0.1:5500/");
-    cy.get('[data-test-id="9"]').click();
-    cy.get('[data-test-id="division"]').click();
-    cy.get('[data-test-id="8"]').click();
-    cy.get('[data-test-id="equal"]').click();
-    cy.get("#total").should("have.text", "1");
+  calcTestCase.forEach(({ operator, value, title }) => {
+    it(title, () => {
+      calcTest(operator);
+      cy.get("#total").should("have.text", value);
+    });
   });
 
   it("AC(All Clear)버튼을 누르면 0으로 초기화 한다.", () => {
