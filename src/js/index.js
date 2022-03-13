@@ -15,8 +15,8 @@ const clearBtn = document.getElementById("clear");
 const operatorBtn = document.getElementById("operator");
 
 const isNaNCustom = (value) => Number.isNaN(Number(value));
-const totalCountToArr = () => totalCount.innerHTML.split("");
-const valueList = (operator) => totalCount.innerHTML.split(operator);
+const totalCountToArr = () => totalCount.textContent.split("");
+const valueList = (operator) => totalCount.textContent.split(operator);
 const isOperator = (value) => isNaNCustom(value);
 const curOperator = () => totalCountToArr().find(isOperator);
 
@@ -27,7 +27,7 @@ const isFirstNodeIsZero = () => {
 
 const isLessThanMaxValue = () => {
   const MAX_VALUE = 1000;
-  const curCount = totalCount.innerHTML;
+  const curCount = totalCount.textContent;
   if (curOperator()) {
     const [_, second] = valueList(curOperator());
     return Number(second) < MAX_VALUE;
@@ -37,7 +37,7 @@ const isLessThanMaxValue = () => {
 
 const addNumber = (cur) => {
   if (isFirstNodeIsZero()) {
-    totalCount.innerHTML = "";
+    totalCount.textContent = "";
   }
 
   totalCount.appendChild(document.createTextNode(cur));
@@ -86,7 +86,7 @@ numberBtn.addEventListener("click", (e) => {
 });
 
 clearBtn.addEventListener("click", (_) => {
-  totalCount.innerHTML = zero;
+  totalCount.textContent = zero;
 });
 
 operatorBtn.addEventListener("click", (e) => {
@@ -96,7 +96,7 @@ operatorBtn.addEventListener("click", (e) => {
   const isLastNodeIsNaN = isNaNCustom(lastNode);
 
   if (isSum) {
-    totalCount.innerHTML = sum() ?? totalCount.innerHTML;
+    totalCount.textContent = sum() ?? totalCount.textContent;
   } else if (isLastNodeIsNaN || isFirstNodeIsZero()) {
     onErrHandler(duplicationOperator);
   } else {
