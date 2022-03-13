@@ -69,6 +69,16 @@ describe("계산기 테스트", () => {
       checkTotal(123);
     });
 
+    describe("정해진 형식으로 결과를 보여준다.", () => {
+      it("계산 결과를 표현할 때 소수점 이하는 버림한다.", () => {
+        clickDigit(9);
+        clickOperator("/");
+        clickDigit(6);
+        clickOperator("=");
+        checkTotal(1);
+      });
+    });
+
     // it("3자리 수 이상이 입력되면 에러가 발생한다.", () => {
     //   const { MESSAGE } = constant;
     //   const alertStub = cy.stub();
