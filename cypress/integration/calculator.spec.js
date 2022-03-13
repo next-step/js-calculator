@@ -31,5 +31,15 @@ describe("계산기 테스트", () => {
       clickOperator("=");
       checkTotal(11);
     });
+
+    it("2개의 숫자에 대해 곱셈이 가능하다.", () => {
+      clickDigit(1);
+      clickDigit(0);
+      clickOperator("X");
+      clickDigit(1);
+      clickDigit(0);
+      clickOperator("=");
+      checkTotal(100);
+    });
   });
 });
