@@ -35,7 +35,7 @@ describe('요구사항 테스트', () => {
     clickOperation('/');
     clickNumber(4);
     clickOperation('=');
-    checkTotal(0.75);
+    checkTotal(0);
   });
 
   it('AC(All Clear)버튼을 누르면 0으로 초기화 한다.', () => {
@@ -61,10 +61,11 @@ describe('요구사항 테스트', () => {
 
   it('계산 결과를 표현할 때 소수점 이하는 버림한다.', () => {
     clickNumber(3);
+    clickNumber(1);
     clickOperation('/');
     clickNumber(7);
     clickOperation('=');
-    checkTotal(0.428);
+    checkTotal(4);
   });
 });
 

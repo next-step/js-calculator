@@ -94,7 +94,7 @@ class Calculator {
 
     // eslint-disable-next-line no-eval
     const total = eval(this.#inputBuffer.join(''));
-    const roundDownTotal = [Math.floor(total * 1000) / 1000];
+    const roundDownTotal = [Math.floor(total)];
 
     this.#inputBuffer = roundDownTotal;
 
