@@ -16,7 +16,7 @@ function calculateOperation() {
   } else if (usedOperator === "X") {
     OPERATION.innerText = operand1 * operand2;
   } else {
-    OPERATION.innerText = operand1 / operand2;
+    OPERATION.innerText = Math.floor(operand1 / operand2);
   }
 }
 
