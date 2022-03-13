@@ -23,6 +23,7 @@ const constant = {
   MESSAGE: {
     OPERAND_LENGTH: "[ERROR] 숫자는 한번에 최대 3자리 수까지 입력 가능합니다.",
   },
+  MAX_OPERAND_LENGTH: 3,
 };
 
 export default constant;
