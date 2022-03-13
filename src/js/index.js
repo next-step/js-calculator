@@ -1,14 +1,27 @@
 import { ALERT_MESSAGE, OPERATION, DIGIT_NUMBER_MEX_LENGTH } from './constants.js';
-import { $ } from './utils.js';
+import { getSelector, addEvent } from './utils.js';
+import { getTotal, addDigitNumber, getTotalWithOperation, addOperation, getCalculateStep } from './domains.js';
+
+const initState = {
+  total: '0',
+  digits: [],
+  calculateStep: 0,
+  operators: [],
+};
 
 function App() {
   // 상태값 정의
-  this.state = {
-    total: '0',
-    digits: [],
-    calculateStep: 0,
-    operators: [],
+  this.state = initState;
+
+  // 상태값 설정 함수
+  const setState = (newState) => {
+    this.state = { ...this.state, ...newState };
+    render();
   };
+
+  // 변수
+  const totalEl = getSelector('#total');
+  const modifierEl = getSelector('.modifier');
 
   // init 함수
   this.init = () => {
@@ -17,113 +30,80 @@ function App() {
 
   // 렌더 함수
   const render = () => {
-    $('#total').textContent = this.state.total;
-  };
-
-  // 계산식 정의
-  const operations = {
-    [OPERATION.PLUS]: (a, b) => Number(a) + Number(b),
-    [OPERATION.MINUS]: (a, b) => Number(a) - Number(b),
-    [OPERATION.MULTIPLICATION]: (a, b) => Number(a) * Number(b),
-    [OPERATION.DIVISION]: (a, b) => Number(a) / Number(b),
+    totalEl.textContent = this.state.total;
   };
 
   // 상태값 초기화 함수
   const resetState = () => {
-    this.state.total = '0';
-    this.state.digits = [];
-    this.state.calculateStep = 0;
-    this.state.operators = [];
+    this.state = initState;
   };
 
   // 계산하는 함수
   const calculate = () => {
     // digit이 1개만 입력됐을경우
     if (!this.state.digits[1]) {
-      this.state.operators[0] = '';
-      this.state.total = Math.floor(this.state.digits[0]);
-      render();
+      setState({
+        operators: [],
+        total: this.state.digits[0],
+      });
       return;
     }
 
-    const total = this.state.digits.reduce((prev, current, index) => {
-      if (prev !== 0 && this.state.operators[index - 1]) {
-        return operations[this.state.operators[index - 1]](prev, current);
-      }
-
-      return prev + Number(current);
-    }, 0);
+    const total = getTotal(this.state.digits, this.state.operators);
 
     resetState();
-    this.state.digits[0] = total + '';
-    this.state.total = Math.floor(total);
-    render();
-  };
-
-  // digit값 가져오는 함수
-  const getDigitNumber = (number, $digit) => {
-    if (!number) return $digit.textContent;
-    if (DIGIT_NUMBER_MEX_LENGTH - number.length < 1) {
-      alert(ALERT_MESSAGE.MAX_NUMBER);
-      return number;
-    }
-    return (number += $digit.textContent);
+    setState({
+      digits: [total],
+      total,
+      operators: [],
+    });
   };
 
   // digit 클릭 함수
-  const onClickDigit = ($digit) => {
-    if (this.state.operators[this.state.calculateStep]) {
-      this.state.calculateStep++;
+  const handleClickDigit = ({ textContent: digitValue }) => {
+    const calculateStep = getCalculateStep(this.state.operators, this.state.calculateStep);
+    if (DIGIT_NUMBER_MEX_LENGTH - this.state.digits[calculateStep]?.length < 1) {
+      alert(ALERT_MESSAGE.MAX_NUMBER);
+      return;
     }
-
-    this.state.digits[this.state.calculateStep] = getDigitNumber(this.state.digits[this.state.calculateStep], $digit);
-
-    const total = this.state.digits.reduce((prev, current, index) => {
-      if (this.state.operators[index]) {
-        return prev + current + this.state.operators[index];
-      }
-      return prev + current;
-    }, '');
-    this.state.total = total;
-    render();
+    const digits = addDigitNumber(this.state.digits, calculateStep, digitValue);
+    const total = getTotalWithOperation(digits, this.state.operators);
+    setState({
+      calculateStep,
+      total,
+      digits,
+    });
   };
 
   // operation 클릭 함수
-  const onClickOperation = (operator) => {
-    if (operator === OPERATION.EQUAL || operator === OPERATION.MULTIPLICATION || operator === OPERATION.DIVISION) {
+  const handleClickOperation = ({ textContent: operatorValue }) => {
+    if (!this.state.digits[0]) {
+      alert(ALERT_MESSAGE.NONE);
+      return;
+    }
+
+    if ([OPERATION.EQUAL, OPERATION.MULTIPLICATION, OPERATION.DIVISION].includes(operatorValue)) {
       calculate();
     }
 
-    if (operator !== OPERATION.EQUAL) {
-      this.state.operators[this.state.calculateStep] = operator;
-      this.state.total = this.state.digits.reduce((prev, current, index) => prev + current + this.state.operators[index], '');
+    if (operatorValue !== OPERATION.EQUAL) {
+      const calculateStep = getCalculateStep(this.state.operators, this.state.calculateStep);
+      const operators = addOperation(this.state.operators, calculateStep, operatorValue);
+      const total = getTotalWithOperation(this.state.digits, operators);
+      setState({
+        calculateStep,
+        operators,
+        total,
+      });
     }
-
-    render();
   };
 
   // 이벤트 핸들러 모음
   const initEventListeners = () => {
-    $('.digits').addEventListener('click', (e) => {
-      const $digit = e.target.closest('button');
-      if (!$digit) return;
+    addEvent('click', '.digits button', handleClickDigit);
+    addEvent('click', '.operations button', handleClickOperation);
 
-      onClickDigit($digit);
-    });
-
-    $('.operations').addEventListener('click', (e) => {
-      const $operation = e.target.closest('button');
-      const operator = $operation.textContent;
-      if (!$operation) return;
-      if (!this.state.digits[0]) {
-        alert(ALERT_MESSAGE.NONE);
-        return;
-      }
-
-      onClickOperation(operator);
-    });
-
-    $('.modifier').addEventListener('click', () => {
+    modifierEl.addEventListener('click', () => {
       resetState();
       render();
     });
