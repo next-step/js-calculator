@@ -1,12 +1,14 @@
 import { OPERATION } from "./constant.js";
 import { getUsedOperator } from "./validateOperation.js";
+import calculateOperation from "./calculateOperation.js";
 
 function inputOperator(e) {
   const clickedOperator = e.target.innerText;
   const currentOperation = OPERATION.innerText;
 
   if (clickedOperator === "=") {
-    return false;
+    calculateOperation();
+    return;
   }
 
   if (currentOperation === "0") {
