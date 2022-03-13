@@ -38,7 +38,7 @@ function isValidOperation() {
     return false;
   }
 
-  return usedOperator;
+  return true;
 }
 
-export { getUsedOperator, is3DigitsOrLess as isOver3Digits, isValidOperation };
+export { getUsedOperator, is3DigitsOrLess, isValidOperation };

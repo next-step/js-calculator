@@ -1,8 +1,12 @@
 import { OPERATION } from "./constant.js";
-import { isValidOperation } from "./validateOperation.js";
+import { getUsedOperator, isValidOperation } from "./validateOperation.js";
 
-function calculateOperation() {
-  const usedOperator = isValidOperation();
+export default function calculateOperation() {
+  if (!isValidOperation()) {
+    return;
+  }
+
+  const usedOperator = getUsedOperator();
   const currentOperation = OPERATION.innerText;
   const operations = currentOperation.split(usedOperator);
 
@@ -19,5 +23,3 @@ function calculateOperation() {
     OPERATION.innerText = Math.floor(operand1 / operand2);
   }
 }
-
-export { calculateOperation };
