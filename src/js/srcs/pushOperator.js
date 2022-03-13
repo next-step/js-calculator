@@ -1,4 +1,4 @@
-import { $total, ALERT_OPERATOR, CALCULATOR_REGEX, ALERT_OPERATOR_EXCESS } from "../utils/constant.js"
+import { $total, ALERT_OPERATOR, CALCULATOR_REGEX } from "../utils/constant.js"
 import { onCalculate } from "./pushCalculate.js"
 
 export const onClickOperation = ({target}) => {
@@ -9,12 +9,8 @@ export const onClickOperation = ({target}) => {
         return onCalculate();
      }
 
-    if($total.textContent === '0'){
+    if($total.textContent === '0' || operatorCheck){
         return alert(ALERT_OPERATOR);
-    }
-
-    if(operatorCheck){
-        return alert(ALERT_OPERATOR_EXCESS);
     }
 
     $total.textContent += operator;
