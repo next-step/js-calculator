@@ -4,7 +4,7 @@ const generateRandomNumber = () => Math.floor(Math.random() * 9) + 1;
 const getDataEl = target => `[data-value="${target}"]`;
 const doSeveralTime = (n, callback) => {
   for (let i = 0; i < n; i++) {
-    callback(i);
+    callback();
   }
 };
 
@@ -30,7 +30,6 @@ const dataSet = {
     [6, 3, 3, '/', 2, 5, 4, '='],
   ],
 };
-
 
 describe('계산기 Cypress Test', () => {
   beforeEach(() => {
@@ -77,7 +76,7 @@ describe('계산기 Cypress Test', () => {
 
   context.only('제약 사항 테스트', () => {
     it('5. AC(All Clear)버튼을 누르면 0으로 초기화 한다.', () => {
-      doSeveralTime(5, i => {
+      doSeveralTime(5, () => {
         const randomNumber = generateRandomNumber();
         cy.get(`${getDataEl(randomNumber)}`).click();
       });
@@ -86,7 +85,7 @@ describe('계산기 Cypress Test', () => {
     });
 
     it('6. 숫자는 한번에 최대 3자리 수까지 입력 가능하다.', () => {
-      doSeveralTime(5, i => {
+      doSeveralTime(5, () => {
         const randomNumber = generateRandomNumber();
         cy.get(`${getDataEl(randomNumber)}`).click();
       });
