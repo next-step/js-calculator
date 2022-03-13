@@ -14,3 +14,13 @@ export const validator = {
     value === OPERATION.multiple ||
     value === OPERATION.division,
 };
+
+export const extractor = {
+  operation: expression => {
+    if (expression.includes(OPERATION.plus)) return OPERATION.plus;
+    if (expression.includes(OPERATION.minus)) return OPERATION.minus;
+    if (expression.includes(OPERATION.multiple)) return OPERATION.multiple;
+    if (expression.includes(OPERATION.division)) return OPERATION.division;
+    return false;
+  },
+};

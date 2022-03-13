@@ -3,7 +3,7 @@ import Total from './components/Total.js';
 import Operations from './components/Operations.js';
 import Modifiers from './components/Modifiers.js';
 import { $ } from './utils/dom.js';
-import { validator, executor } from './utils/index.js';
+import { validator, executor, extractor } from './utils/index.js';
 import { DOM, OPERATION, MODIFIER, INIT_STATE, MESSAGE } from './constants.js';
 
 class App {
@@ -50,7 +50,7 @@ class App {
 
   onClickOperation(operation) {
     if (operation === OPERATION.equal) {
-      this.evaluateDigitsAndOperations(this.state.currentTotal);
+      this.evaluateCurrentTotal(this.state.currentTotal);
     } else {
       this.recordOperation(operation);
     }
@@ -70,29 +70,19 @@ class App {
     }
   }
 
-  evaluateDigitsAndOperations(expression) {
-    const operation = this.whatOperatorUseInExpression(expression);
-    this.calculateExpressionWithOperator(expression, operation);
-  }
-
-  whatOperatorUseInExpression(expression) {
-    if (expression.includes(OPERATION.plus)) return OPERATION.plus;
-    if (expression.includes(OPERATION.minus)) return OPERATION.minus;
-    if (expression.includes(OPERATION.multiple)) return OPERATION.multiple;
-    if (expression.includes(OPERATION.division)) return OPERATION.division;
-    return false;
-  }
-
-  calculateExpressionWithOperator(expression, operation) {
-    const bothSidesOfOperator = expression.split(operation);
-    const evaluationResult = bothSidesOfOperator.reduce((acc, cur) =>
-      executor[operation](Number(acc), Number(cur)),
-    );
+  evaluateCurrentTotal(expression) {
+    const operation = extractor.operation(expression);
+    const result = this.calculateExpression(expression, operation);
     this.setState({
-      currentTotal: evaluationResult,
-      numberCount: String(evaluationResult).length,
+      currentTotal: result,
+      numberCount: String(result).length,
       lastClickedButton: INIT_STATE.lastClickedButton,
     });
+  }
+
+  calculateExpression(expression, operation) {
+    const bothSidesOfOperator = expression.split(operation);
+    return bothSidesOfOperator.reduce((acc, cur) => executor[operation](Number(acc), Number(cur)));
   }
 }
 
