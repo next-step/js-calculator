@@ -9,10 +9,7 @@ import { DOM, OPERATION, MODIFIER, INIT_STATE, MESSAGE } from './constants.js';
 class App {
   constructor(target) {
     this.$target = $(target);
-    this.state = {
-      currentTotal: INIT_STATE.currentTotal,
-      numberCount: INIT_STATE.numberCount,
-    };
+    this.state = { ...INIT_STATE };
     this.$digits = new Digits($(DOM.digits), this.onClickButtons.bind(this));
     this.$operations = new Operations($(DOM.operations), this.onClickButtons.bind(this));
     this.$modifiers = new Modifiers($(DOM.modifiers), this.onClickButtons.bind(this));
@@ -39,10 +36,13 @@ class App {
   recordOperation(operation) {
     if (this.state.currentTotal === INIT_STATE.currentTotal) {
       alert(MESSAGE.pleaseEnterNumberBeforeOperation);
+    } else if (isOperation(this.state.lastClickedButton)) {
+      alert(MESSAGE.operationCannotBeEnteredConsecutively);
     } else {
       this.setState({
         currentTotal: this.state.currentTotal + operation,
         numberCount: INIT_STATE.numberCount,
+        lastClickedButton: operation,
       });
     }
   }
@@ -56,6 +56,7 @@ class App {
       this.setState({
         currentTotal: this.state.currentTotal + digit,
         numberCount: this.state.numberCount + 1,
+        lastClickedButton: digit,
       });
     }
   }
@@ -81,6 +82,7 @@ class App {
     this.setState({
       currentTotal: evaluationResult,
       numberCount: String(evaluationResult).length,
+      lastClickedButton: INIT_STATE.lastClickedButton,
     });
   }
 

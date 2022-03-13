@@ -24,6 +24,7 @@ export const MODIFIER = {
 export const INIT_STATE = {
   currentTotal: '0',
   numberCount: 0,
+  lastClickedButton: '',
 };
 
 export const MESSAGE = {
