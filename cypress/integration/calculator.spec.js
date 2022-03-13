@@ -21,5 +21,15 @@ describe("계산기 테스트", () => {
       clickOperator("=");
       checkTotal(21);
     });
+
+    it("2개의 숫자에 대해 뺄셈이 가능하다.", () => {
+      clickDigit(2);
+      clickDigit(2);
+      clickOperator("-");
+      clickDigit(1);
+      clickDigit(1);
+      clickOperator("=");
+      checkTotal(11);
+    });
   });
 });
