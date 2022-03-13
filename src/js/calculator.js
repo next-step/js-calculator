@@ -5,6 +5,7 @@ export class Calculator {
   #operator;
   #displayText;
   #hasClickedOperator;
+  #totalElement;
 
   constructor() {
     this.#firstNumberString = "";
@@ -12,11 +13,11 @@ export class Calculator {
     this.#operator = "";
     this.#displayText = "";
     this.#hasClickedOperator = false;
+    this.#totalElement = document.querySelector("#total");
   }
 
   #updateDisplayText = (text) => {
-    const total = document.querySelector("#total");
-    total.innerText = text;
+    this.#totalElement.innerText = text;
   };
 
   #initializeInputData = () => {
@@ -44,7 +45,7 @@ export class Calculator {
       case OPERATOR_TYPE.INCREASE:
         return num1 + num2;
       default:
-        return 0;
+        throw "Invalid operator.";
     }
   };
 
