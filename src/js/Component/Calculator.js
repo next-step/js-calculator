@@ -11,40 +11,48 @@ class Calculator extends Component{
   }
   
   render() {
-    this.checkValidateAndCalculate()
+    this.validateOperator()
   }
-  // 렌더링 쪽만 관여 (여기는 무조건 연산자 버튼을 눌렀을 때임)
-  checkValidateAndCalculate() {
+  
+  validateOperator() {
     const regExp = /[^0-9]/g;
     const isThereOperator = regExp.test(this.state.textContent)
+    const isOnlyNumber = !isNaN(Number(this.state.textContent))
 
-    // 숫자만 있을 때 = 오면 안됨
-    if (!isNaN(Number(this.state.textContent))) {
+    if (isOnlyNumber) {
       return this.target.textContent !== '=' ? this.combineState() : alert('다른 연산자를 입력해주세요 :)');
     }
 
-    // 연산자가 연속으로 올 때 앞에 숫자가 하나인 상황
     if (isThereOperator && this.checkOnlyOneNumber(this.state)) {
       return alert('연산자 연속적으로 누를 수 없습니다!')
     }
     
-    // 계산하기
     if (isThereOperator && this.target.textContent === '=') {
-      const answer = this.checkOperator(this.state)
-      this.changeState(answer)
+      const calculatedValue = this.checkOperatorAndCalculate(this.state.textContent)
+      this.changeState(calculatedValue)
     }
   }
 
   checkOnlyOneNumber(value) {
-    const checkOnlyNumber = [...value.textContent]
-    checkOnlyNumber.pop()
-    return !isNaN(Number(checkOnlyNumber.join(''))) ? true : false;
+    return !isNaN(Number(this.removeLastValue(value))) ? true : false;
   }
 
-  checkOperator(state) {
-    const operator = [...state.textContent].filter(e => isNaN(Number(e)))[0]
-    const [first, second] = state.textContent.split(operator)
-      
+  removeLastValue(value) {
+    const removeLastValue = [...value.textContent]
+    removeLastValue.pop()
+    return removeLastValue.join('')
+  }
+
+  checkOperatorAndCalculate(state) {
+    const operator = [...state].filter(e => isNaN(Number(e)))[0]
+    const numbers = state.split(operator)
+    
+    return this.calculate(operator, numbers)
+  }
+
+  calculate(operator, numbers) {
+    const [first, second] = numbers
+
     switch (operator) {
       case '+':
         const plus = new Plus(first, second);
