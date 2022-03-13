@@ -5,6 +5,8 @@ import {
   minus,
   division,
   multiplication,
+  equal,
+  zero,
 } from "./utils/define.js";
 
 const numberBtn = document.getElementById("number");
@@ -12,10 +14,16 @@ const totalCount = document.getElementById("total");
 const clearBtn = document.getElementById("clear");
 const operatorBtn = document.getElementById("operator");
 
+const isNaNCustom = (value) => Number.isNaN(Number(value));
 const totalCountToArr = () => totalCount.innerHTML.split("");
 const valueList = (operator) => totalCount.innerHTML.split(operator);
-const isOperator = (value) => isNaN(Number(value));
+const isOperator = (value) => isNaNCustom(value);
 const curOperator = () => totalCountToArr().find(isOperator);
+
+const isFirstNodeIsZero = () => {
+  const [firstNode] = totalCountToArr();
+  return firstNode === zero;
+};
 
 const isLessThanMaxValue = () => {
   const MAX_VALUE = 1000;
@@ -24,13 +32,11 @@ const isLessThanMaxValue = () => {
     const [_, second] = valueList(curOperator());
     return Number(second) < MAX_VALUE;
   }
-
   return Number(curCount) < MAX_VALUE;
 };
 
 const addNumber = (cur) => {
-  const isFirstClick = totalCountToArr()[0] === "0";
-  if (isFirstClick) {
+  if (isFirstNodeIsZero()) {
     totalCount.innerHTML = "";
   }
 
@@ -56,6 +62,9 @@ const onErrHandler = (type) => {
   }
 };
 
+const roundDown = (value) =>
+  value >= 0 ? Math.floor(value) : Math.ceil(value);
+
 const sum = () => {
   const [first, second] = valueList(curOperator()).map(Number);
   switch (curOperator()) {
@@ -64,9 +73,9 @@ const sum = () => {
     case minus:
       return first - second;
     case division:
-      return first / second;
+      return roundDown(first / second);
     case multiplication:
-      return first * second;
+      return roundDown(first * second);
   }
 };
 
@@ -82,12 +91,13 @@ clearBtn.addEventListener("click", (_) => {
 
 operatorBtn.addEventListener("click", (e) => {
   const operator = e.target.firstChild.nodeValue;
-  const isLastNodeIsNaN = isNaN(totalCount.innerHTML.split("").reverse()[0]);
-  const isSum = e.target.firstChild.nodeValue === "=";
+  const isSum = e.target.firstChild.nodeValue === equal;
+  const [lastNode] = totalCountToArr().reverse();
+  const isLastNodeIsNaN = isNaNCustom(lastNode);
 
   if (isSum) {
     totalCount.innerHTML = sum() ?? totalCount.innerHTML;
-  } else if (isLastNodeIsNaN) {
+  } else if (isLastNodeIsNaN || isFirstNodeIsZero()) {
     onErrHandler(duplicationOperator);
   } else {
     addNumber(operator);
