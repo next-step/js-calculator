@@ -1,5 +1,6 @@
 export default function View(rootElement, input) {
   const initialize = () => {
+    renderNumberAndOperators();
     addEventListeners();
   };
 
