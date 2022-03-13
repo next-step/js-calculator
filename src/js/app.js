@@ -39,6 +39,8 @@ class App {
     if (totalLastNumbers.length < calculatorDigitMaxLength || isLastStringContainsSymbol) {
       this.#totalElement.textContent = total === calculatorInitValue ? value : total + value;
       return;
+    } else {
+      throw new Error(`번호를 ${calculatorDigitMaxLength}보다 길게 작성할 수 없습니다.`);
     }
   }
 
@@ -56,6 +58,8 @@ class App {
     if (target.classList.contains('digit') && this.#isCalculateAfter === false) {
       const digit = target.textContent;
       this.calculatorInput(digit);
+    } else if (this.#isCalculateAfter) {
+      throw new Error('계산를 한 뒤에는 바로 번호를 입력할 수 없습니다.');
     }
   };
 
@@ -97,6 +101,8 @@ class App {
         this.#totalElement.textContent = calculate(total);
         this.#isCalculateAfter = true;
         return;
+      } else if (isEqual && isLastStringContainsSymbol) {
+        throw new Error('마지막 입력이 기호인채 계산할 수 없습니다.');
       } else if (isEqual === false) {
         this.calculatorInput(operation);
         this.#isCalculateAfter = false;
