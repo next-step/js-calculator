@@ -1,3 +1,4 @@
+import { MAX_LENGTH_ALERT_STRING, OPERATOR_TYPE } from "./constants.js";
 export class Calculator {
   #firstNumberString;
   #secondNumberString;
@@ -32,6 +33,21 @@ export class Calculator {
     return false;
   };
 
+  #calculate = (num1, num2, operator) => {
+    switch (operator) {
+      case OPERATOR_TYPE.DIVIDE:
+        return Math.floor(num1 / num2);
+      case OPERATOR_TYPE.MULTIPLY:
+        return num1 * num2;
+      case OPERATOR_TYPE.DECREASE:
+        return num1 - num2;
+      case OPERATOR_TYPE.INCREASE:
+        return num1 + num2;
+      default:
+        return 0;
+    }
+  };
+
   setEventListeners() {
     const digits = document.getElementsByClassName("digit");
     for (const digit of digits) {
@@ -44,14 +60,14 @@ export class Calculator {
               this.#operator +
               this.#secondNumberString;
           } else {
-            window.alert("한번에 최대 3자리 수까지 입력할 수 있어요. ");
+            window.alert(MAX_LENGTH_ALERT_STRING);
           }
         } else {
           if (this.#isLessThanThreeDigits(this.#firstNumberString)) {
             this.#firstNumberString += digit.textContent;
             this.#displayText = this.#firstNumberString;
           } else {
-            window.alert("한번에 최대 3자리 수까지 입력할 수 있어요. ");
+            window.alert(MAX_LENGTH_ALERT_STRING);
           }
         }
         this.#updateDisplayText(this.#displayText);
@@ -73,7 +89,11 @@ export class Calculator {
       // 연산
       const firstNumber = Number(this.#firstNumberString);
       const secondNumber = Number(this.#secondNumberString);
-      this.#displayText = calculate(firstNumber, secondNumber, this.#operator);
+      this.#displayText = this.#calculate(
+        firstNumber,
+        secondNumber,
+        this.#operator
+      );
       this.#updateDisplayText(this.#displayText);
       this.#initializeInputData();
     });
@@ -86,25 +106,3 @@ export class Calculator {
     });
   }
 }
-
-export const Operator = {
-  DIVIDE: "/",
-  MULTIPLY: "X",
-  DECREASE: "-",
-  INCREASE: "+",
-};
-
-export const calculate = (num1, num2, operator) => {
-  switch (operator) {
-    case Operator.DIVIDE:
-      return Math.floor(num1 / num2);
-    case Operator.MULTIPLY:
-      return num1 * num2;
-    case Operator.DECREASE:
-      return num1 - num2;
-    case Operator.INCREASE:
-      return num1 + num2;
-    default:
-      return 0;
-  }
-};
