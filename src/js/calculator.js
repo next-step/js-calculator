@@ -21,7 +21,7 @@ function divide(total, value) {
   return total / value;
 }
 
-export default function calculate(total, value, operator) {
+export default function calculate({ total, value, operator } = {}) {
   if (total === undefined || value === undefined || operator === undefined) {
     return total;
   }
