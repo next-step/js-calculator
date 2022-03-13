@@ -33,21 +33,21 @@ describe('계산기 Cypress Test', () => {
 
   beforeEach(() => {
     cy.visit('/');
-    // 랜덤 숫자 제너레이팅
+
+    // alias declare
+    cy.get(`${getDataEl('=')}`).as('calculateBtn');
+    cy.get('.modifier').as('acBtn');
+
+    // generating numbers
     numbers = [];
     doSeveralTime(5, i => {
       const randomNumber = generateRandomNumber();
       cy.get(`${getDataEl(randomNumber)}`).as(`number${i}`);
       numbers.push(randomNumber);
     });
-    cy.get(`${getDataEl('=')}`).as('calculateBtn');
-    cy.get('.modifier').as('acBtn');
-    cy.get('@acBtn').click();
   });
 
   context('사칙 연산 테스트', () => {
-    beforeEach(() => {});
-
     it('1. 2개의 숫자에 대해 덧셈이 가능하다.', () => {
       calc('+');
     });
@@ -82,7 +82,7 @@ describe('계산기 Cypress Test', () => {
     });
 
     it('7. 계산 결과를 표현할 때 소수점 이하는 버림한다.', () => {
-      calc('/').then(el => {
+      calc('/').then(() => {
         cy.get('#total').should(
           'have.text',
           Math.floor(calcOperation(numbers[0], numbers[1])[operator]())
