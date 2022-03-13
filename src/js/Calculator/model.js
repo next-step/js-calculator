@@ -1,24 +1,28 @@
-const operations = ['+', '-', 'X', '/', '='];
+export const operations = {
+  ADD: '+',
+  SUBSTRACT: '-',
+  MULTIPLY: 'X',
+  DIVIDE: '/',
+  CALCULATE: '=',
+};
 
 class Calculator {
   #inputBuffer = [''];
 
-  // calculate(operation, leftValue, rightValue) {
-  //   this.total = operation(leftValue, rightValue);
-  // }
+  #total = 0;
 
-  #setDisplay() {
-    const $total = document.querySelector('#total');
-    const lastBufferValue = this.#inputBuffer[this.#inputBuffer.length - 1];
+  input(value) {
+    const inputType = Calculator.#inputValidator(value);
 
-    const total = lastBufferValue === '' ? 0 : this.#inputBuffer.join('');
+    if (inputType === 'number') this.#numberInput(value);
+    if (inputType === 'operation') this.#operationInput(value);
 
-    $total.textContent = total;
+    this.#setDisplay();
   }
 
   static #inputValidator(value) {
     if (!Number.isNaN(+value)) return 'number';
-    if (operations.includes(value)) return 'operation';
+    if (Object.values(operations).includes(value)) return 'operation';
 
     return alert('알 수 없는 값을 입력하셨습니다?!');
   }
@@ -38,7 +42,7 @@ class Calculator {
   }
 
   static #isNumberInputPush(target) {
-    return operations.includes(target);
+    return Object.values(operations).includes(target);
   }
 
   static #isNumberInputAdd(target) {
@@ -59,20 +63,30 @@ class Calculator {
   }
 
   static #isOperationInputPush(target) {
-    if (operations.includes(target) || target === '') {
+    if (Object.values(operations).includes(target) || target === '') {
       return alert('숫자를 먼저 입력해주세요!');
     }
 
     return true;
   }
 
-  input(value) {
-    const inputType = Calculator.#inputValidator(value);
+  calculate() {
+    if (this.#inputBuffer[0] === '') return;
 
-    if (inputType === 'number') this.#numberInput(value);
-    if (inputType === 'operation') this.#operationInput(value);
+    const operators = Object.values(operations).filter((oper) => oper !== '=');
+
+    if (operators.includes(this.#inputBuffer[this.#inputBuffer.length - 1])) {
+      this.#inputBuffer.pop();
+    }
+
+    this.#inputBuffer = this.#inputBuffer.map((buf) => buf.replace('X', '*'));
+
+    // eslint-disable-next-line no-eval
+    const total = eval(this.#inputBuffer.join(''));
+    this.#inputBuffer = [total];
 
     this.#setDisplay();
+    this.#inputBuffer = [''];
   }
 
   allClear() {
@@ -80,21 +94,14 @@ class Calculator {
     this.#setDisplay();
   }
 
-  // add() {
-  //   this.total = this.#leftValue + this.#rightValue;
-  // }
+  #setDisplay() {
+    const $total = document.querySelector('#total');
+    const lastBufferValue = this.#inputBuffer[this.#inputBuffer.length - 1];
 
-  // substract() {
-  //   this.total = this.#leftValue - this.#rightValue;
-  // }
+    const total = lastBufferValue === '' ? 0 : this.#inputBuffer.join('');
 
-  // divide() {
-  //   this.total = this.#leftValue / this.#rightValue;
-  // }
-
-  // multiply() {
-  //   this.total = this.#leftValue * this.#rightValue;
-  // }
+    $total.textContent = total;
+  }
 }
 
 export default Calculator;
