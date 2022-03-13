@@ -20,6 +20,7 @@ const constant = {
   },
   MESSAGE: {
     OPERAND_LENGTH: "[ERROR] 숫자는 한번에 최대 3자리 수까지 입력 가능합니다.",
+    OPERATOR_ORDER: "[ERROR] 연산자는 숫자 뒤에 와야합니다.",
   },
   MAX_OPERAND_LENGTH: 3,
 };
