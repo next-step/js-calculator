@@ -24,4 +24,25 @@ describe('계산기 테스트', () => {
     clickOperatorButton('=');
     resultShouldBeExpected(3);
   });
+  it('2개의 숫자에 대해 뺄셈이 가능하다', () => {
+    clickNumberButton(1);
+    clickOperatorButton('-');
+    clickNumberButton(2);
+    clickOperatorButton('=');
+    resultShouldBeExpected(-1);
+  });
+  it('2개의 숫자에 대해 곱셈이 가능하다', () => {
+    clickNumberButton(1);
+    clickOperatorButton('*');
+    clickNumberButton(2);
+    clickOperatorButton('=');
+    resultShouldBeExpected(2);
+  });
+  it('2개의 숫자에 대해 나눗셈이 가능하다', () => {
+    clickNumberButton(4);
+    clickOperatorButton('/');
+    clickNumberButton(2);
+    clickOperatorButton('=');
+    resultShouldBeExpected(2);
+  });
 });
