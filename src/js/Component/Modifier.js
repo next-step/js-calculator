@@ -1,4 +1,4 @@
-import Component from "./Component.js";
+import Component from "../Abstract/Component.js";
 
 class Modifier extends Component{
   constructor(target) {

@@ -1,6 +1,6 @@
-import Event from "./Event.js";
+import Event from "../Abstract/Event.js";
 import Digit from "../Component/Digit.js";
-import Operation from "../Component/Operations/Operation.js";
+import Calculator from "../Component/Calculator.js";
 import Modifier from "../Component/Modifier.js";
 
 class KeypadEvent extends Event {
@@ -11,7 +11,7 @@ class KeypadEvent extends Event {
       if (isDigit) new Digit(this.target)
     
       const isOperation = event.target.classList.contains('operation')
-      if (isOperation) new Operation(this.target)
+      if (isOperation) new Calculator(this.target)
     
       const isModifier = event.target.classList.contains('modifier')
       if (isModifier) new Modifier(this.target)
