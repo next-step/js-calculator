@@ -31,7 +31,6 @@ const dataSet = {
   ],
 };
 
-let numbers = [];
 
 describe('계산기 Cypress Test', () => {
   beforeEach(() => {
@@ -42,11 +41,9 @@ describe('계산기 Cypress Test', () => {
     cy.get('.modifier').as('acBtn');
 
     // generating numbers
-    numbers = [];
     doSeveralTime(5, i => {
       const randomNumber = generateRandomNumber();
       cy.get(`${getDataEl(randomNumber)}`).as(`number${i}`);
-      numbers.push(randomNumber);
     });
   });
 
