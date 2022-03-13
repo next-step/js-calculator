@@ -1,3 +1,5 @@
+import { ERROR_MESSAGE } from '../../src/js/constants';
+
 describe('계산기 초기 화면 테스트', () => {
   beforeEach(() => {
     cy.visit('http://127.0.0.1:5500/index.html');
@@ -50,5 +52,17 @@ describe('계산기 기능 요구사항', () => {
     cy.get('.digit').contains('1').click();
     cy.get('.modifier').click();
     cy.get('#total').should('have.text', '0');
+  });
+
+  it('숫자는 한번에 최대 3자리 수까지 입력 가능하다.', () => {
+    cy.get('.digit').contains('1').click();
+    cy.get('.digit').contains('1').click();
+    cy.get('.digit').contains('1').click();
+    cy.get('.digit').contains('1').click();
+
+    cy.on('window:alert', (text) => {
+      expect(text).to.contains(ERROR_MESSAGE.OVER_THREE_DIGITS);
+    });
+    cy.get('#total').should('have.text', '111');
   });
 });
