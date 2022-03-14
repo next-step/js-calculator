@@ -1,3 +1,6 @@
+import { CALCULATE } from './constants.js';
+import { isMaxLength } from './validations.js';
+
 /**
  * @typedef {object} IData
  * @prop {string} total
@@ -13,24 +16,15 @@ export function calculate(data) {
     const { leftOperand, operation } = data;
     const rightOperand = data.rightOperand ? data.rightOperand : leftOperand;
 
-    let calculatedValue;
+    return operation
+        ? CALCULATE[operation](leftOperand, rightOperand)
+        : leftOperand;
+}
 
-    switch (operation) {
-        case '/':
-            calculatedValue = Math.floor(+leftOperand / +rightOperand);
-            break;
-        case 'X':
-            calculatedValue = +leftOperand * +rightOperand;
-            break;
-        case '-':
-            calculatedValue = +leftOperand - +rightOperand;
-            break;
-        case '+':
-            calculatedValue = +leftOperand + +rightOperand;
-            break;
-        default:
-            calculatedValue = leftOperand;
-    }
+export function formatOperand(operand, digit) {
+    if (!operand) return digit;
 
-    return calculatedValue + '';
+    if (isMaxLength(operand, 3)) return;
+
+    return `${Number(operand + digit)}`;
 }
