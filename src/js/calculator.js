@@ -1,4 +1,8 @@
-import { MAX_LENGTH_ALERT_STRING, OPERATOR_TYPE } from "./constants.js";
+import {
+  MAX_LENGTH_ALERT_STRING,
+  INPUT_ERROR_MESSAGE,
+  OPERATOR_TYPE,
+} from "./constants.js";
 export class Calculator {
   #firstNumberString;
   #secondNumberString;
@@ -21,12 +25,7 @@ export class Calculator {
     this.#hasClickedOperator = false;
   };
 
-  #isLessThanThreeDigits = (numberString) => {
-    if (numberString.length < 3) {
-      return true;
-    }
-    return false;
-  };
+  #isLessThanThreeDigits = (numberString) => numberString.length < 3;
 
   #calculate = (num1, num2, operator) => {
     switch (operator) {
@@ -74,13 +73,18 @@ export class Calculator {
 
   onClickEqual = () => {
     // calculate here
-    const firstNumber = Number(this.#firstNumberString);
-    const secondNumber = Number(this.#secondNumberString);
-    this.#displayText = this.#calculate(
-      firstNumber,
-      secondNumber,
-      this.#operator
-    );
+    try {
+      const firstNumber = Number(this.#firstNumberString);
+      const secondNumber = Number(this.#secondNumberString);
+      this.#displayText = this.#calculate(
+        firstNumber,
+        secondNumber,
+        this.#operator
+      );
+    } catch (err) {
+      window.alert(INPUT_ERROR_MESSAGE);
+      console.error(err);
+    }
     this.#initializeInputData();
   };
 
