@@ -1,101 +1,99 @@
-import { $ } from './util/helper.js';
+import { $total, $digits, $ac, $operations } from './util/dom.js';
+import {
+	PLUS_SIGN,
+	MINUS_SIGN,
+	MULTIPLICATION_SIGN,
+	DIVISION_SIGN,
+	EQUAL_SIGN,
+	ERROR_MSG,
+} from './util/constants.js';
+import { isValidMaxLength } from './util/utils.js';
 
-const $total = $('#total');
-const $digits = $('.digits');
-const $ac = $('.modifier');
-const $operations = $('.operations');
-
-const PLUS_SIGN = '+';
-const MINUS_SIGN = '-';
-const MULTIPLICATION_SIGN = 'X';
-const DIVISION_SIGN = '/';
-const EQUAL_SIGN = '=';
-const ERROR_MSG = {
-	INVALID_VALUE: '값을 입력하세요.',
-	INVALID_MAX_LENGTH: '최대 3자리 수까지 입력 가능합니다.',
-};
-
-let firstValue = '';
-let secondValue = '';
-let result = 0;
-let operation = '';
-
-const calculate = () => {
-	firstValue = Number(firstValue);
-	secondValue = Number(secondValue);
-
-	switch (operation) {
-		case PLUS_SIGN:
-			result = firstValue + secondValue;
-			break;
-		case MINUS_SIGN:
-			result = firstValue - secondValue;
-			break;
-		case MULTIPLICATION_SIGN:
-			result = firstValue * secondValue;
-			break;
-		case DIVISION_SIGN:
-			result = Math.floor(firstValue / secondValue);
-			break;
-		default:
-	}
-};
-
-const isValidMaxLength = (value) => {
-	if (value.length > 2) {
-		return false;
+class App {
+	constructor() {
+		this.firstValue = '';
+		this.secondValue = '';
+		this.result = 0;
+		this.operator = '';
 	}
 
-	return true;
-};
-
-const render = () => {
-	$total.innerText = `${firstValue} ${operation} ${secondValue}`;
-	if (operation === EQUAL_SIGN) {
-		$total.innerText = `${result}`;
+	render() {
+		$total.innerText = `${this.firstValue} ${this.operator} ${this.secondValue}`;
+		if (this.operator === EQUAL_SIGN) {
+			$total.innerText = `${this.result}`;
+		}
 	}
-};
 
-$ac.addEventListener('click', (e) => {
-	firstValue = '';
-	secondValue = '';
-	operation = '';
-	result = 0;
-	$total.innerText = '0';
-});
+	allClear() {
+		this.firstValue = '';
+		this.secondValue = '';
+		this.operator = '';
+		this.result = 0;
+		$total.innerText = '0';
+	}
 
-$digits.addEventListener('click', (e) => {
-	const digit = e.target.innerText;
+	digits(e) {
+		const digit = e.target.innerText;
 
-	if (operation === '') {
-		if (!isValidMaxLength(firstValue)) {
+		if (this.operator === '') {
+			if (!isValidMaxLength(this.firstValue)) {
+				alert(ERROR_MSG.INVALID_MAX_LENGTH);
+				return;
+			}
+			this.firstValue += digit;
+			this.render();
+			return;
+		}
+
+		if (!isValidMaxLength(this.secondValue)) {
 			alert(ERROR_MSG.INVALID_MAX_LENGTH);
 			return;
 		}
-		firstValue += digit;
-		render();
-		return;
+		this.secondValue += digit;
+		this.render();
 	}
 
-	if (!isValidMaxLength(secondValue)) {
-		alert(ERROR_MSG.INVALID_MAX_LENGTH);
-		return;
-	}
-	secondValue += digit;
-	render();
-});
+	setOperator(e) {
+		if (!this.firstValue) {
+			alert(ERROR_MSG.INVALID_VALUE);
+			return;
+		}
 
-$operations.addEventListener('click', (e) => {
-	if (!firstValue) {
-		alert(ERROR_MSG.INVALID_VALUE);
-		return;
-	}
+		if (e.target.innerText === EQUAL_SIGN) {
+			this.calculate();
+			this.render();
+		}
 
-	if (e.target.innerText === EQUAL_SIGN) {
-		calculate();
-		render();
+		this.operator = e.target.innerText;
+		this.render();
 	}
 
-	operation = e.target.innerText;
-	render();
-});
+	calculate() {
+		this.firstValue = Number(this.firstValue);
+		this.secondValue = Number(this.secondValue);
+
+		switch (this.operator) {
+			case PLUS_SIGN:
+				this.result = this.firstValue + this.secondValue;
+				break;
+			case MINUS_SIGN:
+				this.result = this.firstValue - this.secondValue;
+				break;
+			case MULTIPLICATION_SIGN:
+				this.result = this.firstValue * this.secondValue;
+				break;
+			case DIVISION_SIGN:
+				this.result = Math.floor(this.firstValue / this.secondValue);
+				break;
+			default:
+		}
+	}
+}
+
+const Calculator = new App();
+
+$ac.addEventListener('click', Calculator.allClear);
+
+$digits.addEventListener('click', Calculator.digits.bind(Calculator));
+
+$operations.addEventListener('click', Calculator.setOperator.bind(Calculator));
