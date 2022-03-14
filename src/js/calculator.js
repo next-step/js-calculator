@@ -6,42 +6,6 @@ import {
 } from './constants.js';
 
 /**
- * @param {number} a
- * @param {number} b
- * @returns {number}
- */
-function sum(a, b) {
-  return a + b;
-}
-
-/**
- * @param {number} a
- * @param {number} b
- * @returns {number}
- */
-function subtract(a, b) {
-  return a - b;
-}
-
-/**
- * @param {number} a
- * @param {number} b
- * @returns {number}
- */
-function multiply(a, b) {
-  return a * b;
-}
-
-/**
- * @param {number} a
- * @param {number} b
- * @returns {number}
- */
-function divide(a, b) {
-  return a / b;
-}
-
-/**
  * @param {string} expression
  * @returns {number}
  */
@@ -62,6 +26,12 @@ function calculate(expression) {
       array.splice(index - 1, 1);
     }
   };
+  const operations = {
+    [CALCULATOR_SYMBOL_MULTIPLY]: (a, b) => a * b,
+    [CALCULATOR_SYMBOL_DIVIDE]: (a, b) => a / b,
+    [CALCULATOR_SYMBOL_SUM]: (a, b) => a + b,
+    [CALCULATOR_SYMBOL_SUBTRACT]: (a, b) => a - b,
+  };
 
   // 첫번째 값이 -인 경우 두번째 값을 -로 변환
   if (expressionArray[0] === CALCULATOR_SYMBOL_SUBTRACT) {
@@ -69,10 +39,10 @@ function calculate(expression) {
     expressionArray[1] = `${-expressionArray[1]}`;
   }
 
-  calculator(expressionArray, CALCULATOR_SYMBOL_MULTIPLY, multiply);
-  calculator(expressionArray, CALCULATOR_SYMBOL_DIVIDE, divide);
-  calculator(expressionArray, CALCULATOR_SYMBOL_SUM, sum);
-  calculator(expressionArray, CALCULATOR_SYMBOL_SUBTRACT, subtract);
+  // 사칙연산
+  for (const operation in operations) {
+    calculator(expressionArray, operation, operations[operation]);
+  }
 
   return parseInt(expressionArray[0], 10);
 }
