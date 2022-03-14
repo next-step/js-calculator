@@ -128,7 +128,7 @@ class Calculator {
         throw Error(MESSAGE.OPERAND_LENGTH);
       }
     } catch (error) {
-      alert(error);
+      alert(error.message);
       return false;
     }
     return true;
@@ -142,7 +142,7 @@ class Calculator {
         throw Error(MESSAGE.OPERATOR_ORDER);
       }
     } catch (error) {
-      alert(error);
+      alert(error.message);
       return false;
     }
     return true;

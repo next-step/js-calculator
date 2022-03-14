@@ -1,4 +1,4 @@
-import constant from "../../src/js/constant/index.js";
+import { MESSAGE } from "../../src/js/constant/index.js";
 const BASE_URL = "http://localhost:5500";
 
 const clickDigit = digit => cy.get(".digit").contains(digit).click();
@@ -79,16 +79,15 @@ describe("계산기 테스트", () => {
       });
     });
 
-    // it("3자리 수 이상이 입력되면 에러가 발생한다.", () => {
-    //   const { MESSAGE } = constant;
-    //   const alertStub = cy.stub();
-    //   cy.on("window:alert", alertStub);
-    //   clickDigit(1);
-    //   clickDigit(2);
-    //   clickDigit(3);
-    //   clickDigit(3).then(() => {
-    //     expect(alertStub).to.be.calledWith(MESSAGE.OPERAND_LENGTH);
-    //   });
-    // });
+    it("3자리 수 이상이 입력되면 에러가 발생한다.", () => {
+      const alertStub = cy.stub();
+      cy.on("window:alert", alertStub);
+      clickDigit(1);
+      clickDigit(2);
+      clickDigit(3);
+      clickDigit(3).then(() => {
+        expect(alertStub).to.be.calledWith(MESSAGE.OPERAND_LENGTH);
+      });
+    });
   });
 });
