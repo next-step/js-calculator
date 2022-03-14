@@ -1,5 +1,9 @@
 import { DOM } from '../../src/js/constants.js';
 
+beforeEach(() => {
+  cy.visit('/');
+});
+
 Cypress.Commands.add('clickDigit', digit =>
   cy.get(`${DOM.digits} > ${DOM.digit}`).contains(digit).click(),
 );

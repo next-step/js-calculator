@@ -1,10 +1,6 @@
 import { OPERATION } from '../../src/js/constants.js';
 
 describe('더하기 연산', () => {
-  beforeEach(() => {
-    cy.visit('/');
-  });
-
   it('2개의 숫자에 대해 덧셈이 가능하다.', () => {
     cy.clickDigit('1');
     cy.clickOperation(OPERATION.plus);
