@@ -18,7 +18,8 @@ class Calculator {
     if (!Number.isNaN(+value)) return 'number';
     if (Object.values(operations).includes(value)) return 'operation';
 
-    return alert('알 수 없는 값을 입력하셨습니다?!');
+    alert('알 수 없는 값을 입력하셨습니다?!');
+    return false;
   }
 
   #numberInput(value) {
@@ -43,7 +44,8 @@ class Calculator {
 
   static #isNumberInputAdd(target) {
     if (target.length >= MAX_INPUT_DIGITS) {
-      return alert('세자리 이하의 숫자만 가능합니다!');
+      alert('세자리 이하의 숫자만 가능합니다!');
+      return false;
     }
 
     return true;
@@ -71,7 +73,8 @@ class Calculator {
 
   static #isOperationInputPush(target) {
     if (Object.values(operations).includes(target) || target === '') {
-      return alert('숫자를 먼저 입력해주세요!');
+      alert('숫자를 먼저 입력해주세요!');
+      return false;
     }
 
     return true;
