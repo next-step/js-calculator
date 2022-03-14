@@ -1,81 +1,94 @@
-import { calculatorInitValue } from '../../src/js/constants';
+import {
+  CALCULATOR_INIT_VALUE,
+  CALCULATOR_SYMBOL_SUM,
+  CALCULATOR_SYMBOL_SUBTRACT,
+  CALCULATOR_SYMBOL_MULTIPLY,
+  CALCULATOR_SYMBOL_DIVIDE,
+  CALCULATOR_SYMBOL_EQUAL,
+} from '../../src/js/constants';
 
 describe('계산기 테스트', () => {
-  let digitElement;
-  let operationElement;
-  let totalElement;
-  let allClearElement;
+  const digitClick = (digit) => {
+    cy.get('.digit').contains(digit).click();
+  };
+
+  const operationClick = (operation) => {
+    cy.get('.operation').contains(operation).click();
+  };
+
+  const allClearClick = () => {
+    cy.get('.modifier').contains('AC').click();
+  };
+
+  const totalShouldHaveText = (value) => {
+    cy.get('#total').should('have.text', value);
+  };
 
   beforeEach(() => {
     cy.visit('../../index.html');
-    digitElement = cy.get('.digit');
-    operationElement = cy.get('.operation');
-    totalElement = cy.get('#total');
-    allClearElement = cy.get('.modifier').contains('AC');
   });
 
   it('2개 숫자에 대해 덧셈이 가능하다.', () => {
-    digitElement.contains('1').click();
-    operationElement.contains('+').click();
-    digitElement.contains('9').click();
-    operationElement.contains('=').click();
-    totalElement.should('have.text', '10');
+    digitClick('1');
+    operationClick(CALCULATOR_SYMBOL_SUM);
+    digitClick('9');
+    operationClick(CALCULATOR_SYMBOL_EQUAL);
+    totalShouldHaveText('10');
   });
 
   it('2개 숫자에 대해 뺏셈이 가능하다.', () => {
-    digitElement.contains('9').click();
-    operationElement.contains('-').click();
-    digitElement.contains('1').click();
-    operationElement.contains('=').click();
-    totalElement.should('have.text', '8');
+    digitClick('9');
+    operationClick(CALCULATOR_SYMBOL_SUBTRACT);
+    digitClick('1');
+    operationClick(CALCULATOR_SYMBOL_EQUAL);
+    totalShouldHaveText('8');
   });
 
   it('2개 숫자에 대해 곱셈이 가능하다.', () => {
-    digitElement.contains('3').click();
-    operationElement.contains('X').click();
-    digitElement.contains('2').click();
-    operationElement.contains('=').click();
-    totalElement.should('have.text', '6');
+    digitClick('3');
+    operationClick(CALCULATOR_SYMBOL_MULTIPLY);
+    digitClick('2');
+    operationClick(CALCULATOR_SYMBOL_EQUAL);
+    totalShouldHaveText('6');
   });
 
   it('2개 숫자에 대해 나눗셈이 가능하다.', () => {
-    digitElement.contains('4').click();
-    operationElement.contains('/').click();
-    digitElement.contains('2').click();
-    operationElement.contains('=').click();
-    totalElement.should('have.text', '2');
+    digitClick('4');
+    operationClick(CALCULATOR_SYMBOL_DIVIDE);
+    digitClick('2');
+    operationClick(CALCULATOR_SYMBOL_EQUAL);
+    totalShouldHaveText('2');
   });
 
   it('2개 숫자에 대해 나눗셈이 가능하다.', () => {
-    digitElement.contains('4').click();
-    operationElement.contains('/').click();
-    digitElement.contains('2').click();
-    operationElement.contains('=').click();
-    totalElement.should('have.text', '2');
+    digitClick('4');
+    operationClick(CALCULATOR_SYMBOL_DIVIDE);
+    digitClick('2');
+    operationClick(CALCULATOR_SYMBOL_EQUAL);
+    totalShouldHaveText('2');
   });
 
   it('AC(All Clear)버튼을 누르면 0으로 초기화 된다.', () => {
-    digitElement.contains('3').click();
-    operationElement.contains('+').click();
-    digitElement.contains('3').click();
-    allClearElement.click();
-    totalElement.should('have.text', calculatorInitValue);
+    digitClick('3');
+    operationClick(CALCULATOR_SYMBOL_SUM);
+    digitClick('3');
+    allClearClick();
+    totalShouldHaveText(CALCULATOR_INIT_VALUE);
   });
 
   it('숫자는 한번에 3자리 수 까지 입력 가능하다.', () => {
-    digitElement.contains('1').click();
-    digitElement.contains('2').click();
-    digitElement.contains('3').click();
-    digitElement.contains('4').click();
-    allClearElement.click();
-    totalElement.should('have.text', '123');
+    digitClick('1');
+    digitClick('2');
+    digitClick('3');
+    digitClick('4');
+    totalShouldHaveText('123');
   });
 
   it('계산 결과를 표현할 떄는 소수점 이하는 버린다.', () => {
-    digitElement.contains('7').click();
-    operationElement.contains('/').click();
-    digitElement.contains('2').click();
-    allClearElement.click();
-    totalElement.should('have.text', '3');
+    digitClick('7');
+    operationClick(CALCULATOR_SYMBOL_DIVIDE);
+    digitClick('2');
+    operationClick(CALCULATOR_SYMBOL_EQUAL);
+    totalShouldHaveText('3');
   });
 });
