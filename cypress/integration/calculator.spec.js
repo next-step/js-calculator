@@ -5,14 +5,6 @@ describe('js-calculator', () => {
     cy.visit('/');
   });
 
-  it('2개의 숫자에 대해 덧셈이 가능하다.', () => {
-    cy.clickDigit('1');
-    cy.clickOperation(OPERATION.plus);
-    cy.clickDigit('2');
-    cy.clickOperation(OPERATION.equal);
-    cy.totalShouldBe('3');
-  });
-
   it('2개의 숫자에 대해 뺄셈이 가능하다.', () => {
     cy.clickDigit('3');
     cy.clickOperation(OPERATION.minus);
