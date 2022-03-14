@@ -31,7 +31,7 @@ class App {
 		this.render();
 	}
 
-	digits(e) {
+	setNumber(e) {
 		const digit = e.target.innerText;
 
 		if (this.operator === '') {
@@ -61,6 +61,7 @@ class App {
 		if (e.target.innerText === EQUAL_SIGN) {
 			this.calculate();
 			this.render();
+			this.firstValue = this.result; 
 		}
 
 		this.operator = e.target.innerText;
