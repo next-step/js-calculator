@@ -1,3 +1,13 @@
-export const calculatorInitValue = '0';
-export const calculatorDigitMaxLength = 3;
-export const calculatorSymbols = ['X', '/', '+', '-'];
+export const CALCULATOR_INIT_VALUE = '0';
+export const CALCULATOR_DIGIT_MAX_LENGTH = 3;
+export const CALCULATOR_SYMBOL_SUM = '+';
+export const CALCULATOR_SYMBOL_SUBTRACT = '-';
+export const CALCULATOR_SYMBOL_MULTIPLY = 'X';
+export const CALCULATOR_SYMBOL_DIVIDE = '/';
+export const CALCULATOR_SYMBOL_EQUAL = '=';
+export const CALCULATOR_SYMBOLS = [
+  CALCULATOR_SYMBOL_MULTIPLY,
+  CALCULATOR_SYMBOL_DIVIDE,
+  CALCULATOR_SYMBOL_SUM,
+  CALCULATOR_SYMBOL_SUBTRACT,
+];
