@@ -1,26 +1,17 @@
-import { OPERATIONS } from './constants';
-
-const operations = Object.values(OPERATIONS);
-
 const controller = (calculator) => {
-  const $digits = document.querySelector('.digits');
-  const $operations = document.querySelector('.operations');
-  const $modifier = document.querySelector('.modifier');
+  const $calc = document.querySelector('.calculator');
 
-  $digits.addEventListener('click', (e) => {
-    const value = e.target.textContent;
-    calculator.input(value);
-  });
-
-  $operations.addEventListener('click', (e) => {
+  $calc.addEventListener('click', (e) => {
+    const eventClassName = e.target.className;
     const value = e.target.textContent;
 
-    if (e.target.textContent === operations.CALCULATE) calculator.calculate();
-    else calculator.input(value);
-  });
+    if (eventClassName === 'digit') calculator.input(value);
+    if (eventClassName === 'operation' && value !== '=')
+      calculator.input(value);
 
-  $modifier.addEventListener('click', () => {
-    calculator.allClear();
+    if (eventClassName === 'operation' && value === '=') calculator.calculate();
+
+    if (eventClassName === 'modifier') calculator.allClear();
   });
 };
 
