@@ -1,0 +1,41 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "description": "Vanilla Javascript Calculator",
+  "main": "./src/js/index.js",
+  "scripts": {
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "cy:spec": "cypress run --spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/youngminss/js-calculator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/youngminss/js-calculator/issues"
+  },
+  "homepage": "https://github.com/youngminss/js-calculator#readme",
+  "devDependencies": {
+    "@babel/core": "^7.17.5",
+    "@babel/eslint-parser": "^7.17.0",
+    "@babel/preset-env": "^7.16.11",
+    "babel-loader": "^8.2.3",
+    "css-loader": "^6.7.1",
+    "cypress": "^9.5.1",
+    "eslint": "^8.10.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-cypress": "^2.12.1",
+    "eslint-plugin-import": "^2.25.4",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.0",
+    "prettier": "^2.5.1",
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4"
+  }
+}
