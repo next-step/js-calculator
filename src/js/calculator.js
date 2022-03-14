@@ -1,3 +1,10 @@
+import {
+  CALCULATOR_SYMBOL_SUM,
+  CALCULATOR_SYMBOL_SUBTRACT,
+  CALCULATOR_SYMBOL_MULTIPLY,
+  CALCULATOR_SYMBOL_DIVIDE,
+} from '../../src/js/constants';
+
 /**
  * @param {number} a
  * @param {number} b
@@ -21,7 +28,7 @@ function subtract(a, b) {
  * @param {number} b
  * @returns {number}
  */
-function multuply(a, b) {
+function multiply(a, b) {
   return a * b;
 }
 
@@ -30,17 +37,17 @@ function multuply(a, b) {
  * @param {number} b
  * @returns {number}
  */
-function divid(a, b) {
+function divide(a, b) {
   return a / b;
 }
 
 /**
- * @param {string} ceremony
+ * @param {string} expression
  * @returns {number}
  */
-function calculate(ceremony) {
+function calculate(expression) {
   const regExp = /(\+|\-|\X|\/)/;
-  const ceremonyArray = ceremony.split(regExp);
+  const expressionArray = expression.split(regExp);
   /**
    * @param {array} array
    * @param {'X' | '/' | '+' | '-'} symbol
@@ -57,17 +64,17 @@ function calculate(ceremony) {
   };
 
   // 첫번째 값이 -인 경우 두번째 값을 -로 변환
-  if (ceremonyArray[0] === '-') {
-    ceremonyArray.splice(0, 1);
-    ceremonyArray[1] = `${-ceremonyArray[1]}`;
+  if (expressionArray[0] === CALCULATOR_SYMBOL_SUBTRACT) {
+    expressionArray.splice(0, 1);
+    expressionArray[1] = `${-expressionArray[1]}`;
   }
 
-  calculator(ceremonyArray, 'X', multuply);
-  calculator(ceremonyArray, '/', divid);
-  calculator(ceremonyArray, '+', sum);
-  calculator(ceremonyArray, '-', subtract);
+  calculator(expressionArray, CALCULATOR_SYMBOL_MULTIPLY, multiply);
+  calculator(expressionArray, CALCULATOR_SYMBOL_DIVIDE, divide);
+  calculator(expressionArray, CALCULATOR_SYMBOL_SUM, sum);
+  calculator(expressionArray, CALCULATOR_SYMBOL_SUBTRACT, subtract);
 
-  return Math.floor(ceremonyArray[0]);
+  return parseInt(expressionArray[0], 10);
 }
 
 export { calculate };
