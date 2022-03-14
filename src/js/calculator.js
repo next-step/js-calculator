@@ -5,7 +5,6 @@ export class Calculator {
   #operator;
   #displayText;
   #hasClickedOperator;
-  #totalElement;
 
   constructor() {
     this.#firstNumberString = "";
@@ -13,12 +12,7 @@ export class Calculator {
     this.#operator = "";
     this.#displayText = "";
     this.#hasClickedOperator = false;
-    this.#totalElement = document.querySelector("#total");
   }
-
-  #updateDisplayText = (text) => {
-    this.#totalElement.innerText = text;
-  };
 
   #initializeInputData = () => {
     this.#firstNumberString = "";
@@ -49,7 +43,11 @@ export class Calculator {
     }
   };
 
-  #onClickDigits = (digit) => {
+  getDisplayText = () => {
+    return this.#displayText;
+  };
+
+  onClickDigits = (digit) => {
     if (this.#hasClickedOperator) {
       if (!this.#isLessThanThreeDigits(this.#secondNumberString)) {
         window.alert(MAX_LENGTH_ALERT_STRING);
@@ -66,17 +64,15 @@ export class Calculator {
       this.#firstNumberString += digit.textContent;
       this.#displayText = this.#firstNumberString;
     }
-    this.#updateDisplayText(this.#displayText);
   };
 
-  #onClickOperator = (operation) => {
+  onClickOperator = (operation) => {
     this.#hasClickedOperator = true;
     this.#operator = operation.textContent;
     this.#displayText += operation.textContent;
-    this.#updateDisplayText(this.#displayText);
   };
 
-  #onClickEqual = () => {
+  onClickEqual = () => {
     // calculate here
     const firstNumber = Number(this.#firstNumberString);
     const secondNumber = Number(this.#secondNumberString);
@@ -85,39 +81,11 @@ export class Calculator {
       secondNumber,
       this.#operator
     );
-    this.#updateDisplayText(this.#displayText);
     this.#initializeInputData();
   };
 
-  #onClickModifier = () => {
+  onClickModifier = () => {
     this.#displayText = "0";
     this.#initializeInputData();
-    this.#updateDisplayText(this.#displayText);
   };
-
-  setEventListeners() {
-    const digits = document.getElementsByClassName("digit");
-    for (const digit of digits) {
-      digit.addEventListener("click", () => {
-        this.#onClickDigits(digit);
-      });
-    }
-
-    const operations = document.getElementsByClassName("operation");
-    for (const operation of operations) {
-      operation.addEventListener("click", () => {
-        this.#onClickOperator(operation);
-      });
-    }
-
-    const equal = document.getElementById("equal");
-    equal.addEventListener("click", () => {
-      this.#onClickEqual();
-    });
-
-    const modifier = document.getElementsByClassName("modifier")[0];
-    modifier.addEventListener("click", () => {
-      this.#onClickModifier();
-    });
-  }
 }

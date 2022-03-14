@@ -1,4 +1,3 @@
-import { Calculator } from "./calculator.js";
+import { CalculatorView } from "./calculator-view.js";
 
-const calculator = new Calculator();
-calculator.setEventListeners();
+new CalculatorView();
