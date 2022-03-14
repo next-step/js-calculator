@@ -1,4 +1,6 @@
-import { operations } from './model';
+import { OPERATIONS } from './constants';
+
+const operations = Object.values(OPERATIONS);
 
 const controller = (calculator) => {
   const $digits = document.querySelector('.digits');

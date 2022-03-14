@@ -1,10 +1,6 @@
-export const operations = {
-  ADD: '+',
-  SUBSTRACT: '-',
-  MULTIPLY: 'X',
-  DIVIDE: '/',
-  CALCULATE: '=',
-};
+import { OPERATIONS, MAX_INPUT_DIGITS } from './constants';
+
+const operations = Object.values(OPERATIONS);
 
 class Calculator {
   #inputBuffer = [''];
@@ -46,7 +42,7 @@ class Calculator {
   }
 
   static #isNumberInputAdd(target) {
-    if (target.length >= 3) {
+    if (target.length >= MAX_INPUT_DIGITS) {
       return alert('세자리 이하의 숫자만 가능합니다!');
     }
 
