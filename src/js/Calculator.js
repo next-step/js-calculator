@@ -76,10 +76,7 @@ class Calculator {
 
   calculate() {
     const { operator, leftOperand, rightOperand } = this.state;
-    const total = Operator[`${operator}`](
-      Number(leftOperand),
-      Number(rightOperand)
-    );
+    const total = Operator[operator](Number(leftOperand), Number(rightOperand));
 
     this.setState({ key: STATE_KEY.TOTAL, newState: total });
   }
