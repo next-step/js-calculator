@@ -31,7 +31,7 @@ class App {
 		this.render();
 	}
 
-	digits(e) {
+	setNumber(e) {
 		const digit = e.target.innerText;
 
 		if (this.operator === '') {

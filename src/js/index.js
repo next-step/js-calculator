@@ -5,6 +5,6 @@ const Calculator = new App();
 
 $ac.addEventListener('click', Calculator.allClear.bind(Calculator));
 
-$digits.addEventListener('click', Calculator.digits.bind(Calculator));
+$digits.addEventListener('click', Calculator.setNumber.bind(Calculator));
 
 $operations.addEventListener('click', Calculator.setOperator.bind(Calculator));
