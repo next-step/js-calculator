@@ -61,6 +61,7 @@ class App {
 		if (e.target.innerText === EQUAL_SIGN) {
 			this.calculate();
 			this.render();
+			this.firstValue = this.result; 
 		}
 
 		this.operator = e.target.innerText;
