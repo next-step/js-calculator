@@ -5,7 +5,7 @@ import {
   CALCULATOR_SYMBOL_MULTIPLY,
   CALCULATOR_SYMBOL_DIVIDE,
   CALCULATOR_SYMBOL_EQUAL,
-} from '../../src/js/constants';
+} from './constants.js';
 
 describe('계산기 테스트', () => {
   const digitClick = (digit) => {

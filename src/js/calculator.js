@@ -3,7 +3,7 @@ import {
   CALCULATOR_SYMBOL_SUBTRACT,
   CALCULATOR_SYMBOL_MULTIPLY,
   CALCULATOR_SYMBOL_DIVIDE,
-} from '../../src/js/constants';
+} from './constants.js';
 
 /**
  * @param {number} a
