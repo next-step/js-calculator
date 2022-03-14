@@ -8,7 +8,7 @@
  * @param {IProps} props
  */
 function Modifiers({ $target, resetState }) {
-    this.onClickModifier = (event) => {
+    this.handleClickModifier = (event) => {
         const $modifier = event.target;
         const isModifier =
             $modifier.classList.contains('modifier') &&
@@ -19,7 +19,7 @@ function Modifiers({ $target, resetState }) {
         resetState();
     };
 
-    $target.addEventListener('click', this.onClickModifier);
+    $target.addEventListener('click', this.handleClickModifier);
 }
 
 export default Modifiers;

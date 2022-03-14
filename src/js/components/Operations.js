@@ -8,7 +8,7 @@
  * @param {IProps} props
  */
 function Operations({ $target, setOperation }) {
-    this.onClickOperation = (event) => {
+    this.handleClickOperation = (event) => {
         const $operation = event.target;
         const isOperation =
             $operation.classList.contains('operation') &&
@@ -21,7 +21,7 @@ function Operations({ $target, setOperation }) {
         setOperation(operation);
     };
 
-    $target.addEventListener('click', this.onClickOperation);
+    $target.addEventListener('click', this.handleClickOperation);
 }
 
 export default Operations;

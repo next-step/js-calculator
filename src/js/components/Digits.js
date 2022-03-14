@@ -8,7 +8,7 @@
  * @param {IProps} props
  */
 function Digits({ $target, updateOperand }) {
-    this.onClickDigit = (event) => {
+    this.handleClickDigit = (event) => {
         const $button = event.target;
         const isDigitButton =
             $button.classList.contains('digit') &&
@@ -21,7 +21,7 @@ function Digits({ $target, updateOperand }) {
         updateOperand(digit);
     };
 
-    $target.addEventListener('click', this.onClickDigit);
+    $target.addEventListener('click', this.handleClickDigit);
 }
 
 export default Digits;
