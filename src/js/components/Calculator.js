@@ -1,56 +1,34 @@
 import Modifiers from '../components/Modifiers.js';
 import Digits from '../components/Digits.js';
 import Operations from '../components/Operations.js';
-import {
-    isOperandFirst,
-    isMaxLength,
-    isOperandFull,
-} from '../common/validations.js';
-import { calculate } from '../common/utils.js';
+import { isOperandFirst, isOperandFull } from '../common/validations.js';
+import { calculate, formatOperand } from '../common/utils.js';
 
-/**
- * @typedef {object} IState
- * @prop {string} total
- * @prop {string} leftOperand
- * @prop {string | null} rightOperand
- * @prop {string | null} operation
- */
+const initialState = {
+    total: '0',
+    leftOperand: '0',
+    rightOperand: null,
+    operation: null,
+};
+class Calculator {
+    constructor() {
+        this.state = initialState;
+        this.$digits = document.querySelector('div.digits');
+        this.$modifiers = document.querySelector('div.modifiers');
+        this.$operations = document.querySelector('div.operations');
+        this.$total = document.querySelector('#total');
+        this.initializeComponents();
+    }
 
-/**
- * @typedef {object} IProps
- * @prop {IState} initialState
- */
-
-/**
- * @param {IProps} props
- */
-function Calculator({ initialState }) {
-    this.state = initialState;
-    this.$digits = document.querySelector('div.digits');
-    this.$modifiers = document.querySelector('div.modifiers');
-    this.$operations = document.querySelector('div.operations');
-    this.$total = document.querySelector('#total');
-
-    this.updateOperand = (digit) => {
-        const { operation } = this.state;
-        let { leftOperand, rightOperand } = this.state;
+    updateOperand(digit) {
+        const { state } = this;
+        const { operation } = state;
+        let { leftOperand, rightOperand } = state;
 
         if (!operation) {
-            if (isMaxLength(leftOperand)) return;
-
-            if (leftOperand === '0') {
-                leftOperand = digit;
-            } else {
-                leftOperand = leftOperand + digit;
-            }
+            leftOperand = formatOperand(leftOperand, digit);
         } else {
-            if (rightOperand && isMaxLength(rightOperand)) return;
-
-            if (rightOperand === '0' || !rightOperand) {
-                rightOperand = digit;
-            } else {
-                rightOperand = rightOperand + digit;
-            }
+            rightOperand = formatOperand(rightOperand, digit);
         }
 
         const total = operation
@@ -58,30 +36,21 @@ function Calculator({ initialState }) {
             : leftOperand;
 
         this.setState({
-            ...this.state,
+            ...state,
             total,
             leftOperand,
             rightOperand,
         });
-    };
+    }
 
-    new Digits({ $target: this.$digits, updateOperand: this.updateOperand });
+    setOperation(operation) {
+        const { state } = this;
 
-    this.resetState = () => {
-        this.setState(initialState);
-    };
-
-    new Modifiers({ $target: this.$modifiers, resetState: this.resetState });
-
-    this.setOperation = (operation) => {
-        let total;
-
-        if (isOperandFirst(this.state.leftOperand)) return;
+        if (isOperandFirst(state.leftOperand)) return;
 
         if (operation === '=') {
-            total = calculate(this.state);
+            const total = calculate(state);
             this.setState({
-                ...this.state,
                 total,
                 leftOperand: total,
                 rightOperand: null,
@@ -90,30 +59,45 @@ function Calculator({ initialState }) {
             return;
         }
 
-        if (isOperandFull(this.state.rightOperand)) return;
+        if (isOperandFull(state.rightOperand)) return;
 
-        total = this.state.leftOperand + operation;
         this.setState({
-            ...this.state,
-            total,
+            ...state,
+            total: state.leftOperand + operation,
             operation,
         });
-    };
+    }
 
-    new Operations({
-        $target: this.$operations,
-        setOperation: this.setOperation,
-    });
+    resetState() {
+        this.setState(initialState);
+    }
 
-    this.setState = (newState) => {
+    initializeComponents() {
+        new Digits({
+            $target: this.$digits,
+            updateOperand: this.updateOperand.bind(this),
+        });
+
+        new Modifiers({
+            $target: this.$modifiers,
+            resetState: this.resetState.bind(this),
+        });
+
+        new Operations({
+            $target: this.$operations,
+            setOperation: this.setOperation.bind(this),
+        });
+    }
+
+    setState(newState) {
         this.state = newState;
 
         this.render();
-    };
+    }
 
-    this.render = () => {
+    render() {
         this.$total.textContent = this.state.total;
-    };
+    }
 }
 
 export default Calculator;
