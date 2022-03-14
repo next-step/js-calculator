@@ -18,18 +18,17 @@ class App {
 	}
 
 	render() {
-		$total.innerText = `${this.firstValue} ${this.operator} ${this.secondValue}`;
-		if (this.operator === EQUAL_SIGN) {
-			$total.innerText = `${this.result}`;
-		}
+		$total.innerText = this.result
+			? this.result
+			: `${this.firstValue} ${this.operator} ${this.secondValue}`;
 	}
 
 	allClear() {
 		this.firstValue = '';
 		this.secondValue = '';
 		this.operator = '';
-		this.result = 0;
-		$total.innerText = '0';
+		this.result = '0';
+		this.render();
 	}
 
 	digits(e) {
@@ -92,7 +91,7 @@ class App {
 
 const Calculator = new App();
 
-$ac.addEventListener('click', Calculator.allClear);
+$ac.addEventListener('click', Calculator.allClear.bind(Calculator));
 
 $digits.addEventListener('click', Calculator.digits.bind(Calculator));
 
