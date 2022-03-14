@@ -11,7 +11,7 @@ before(() => cy.visit(BASE_URL));
 
 context("calculator", () => {
     beforeEach(() => {
-        cy.get("#total").then(($total) => ($total.textContent = RANDOM_NUMBER));
+        cy.clickModifierButton(MODIFIER.AC);
     })
 
     it("should append given two integers", () => {
@@ -89,7 +89,7 @@ context("calculator", () => {
 
         // then
         cy.on("window:alert", (text) => {
-            expect(text).to.be(ALERT_MESSAGE.EXCEEDED_MAX_DIGIT_COUNT(text));
+            expect(text).to.contains(ALERT_MESSAGE.EXCEEDED_MAX_DIGIT_COUNT(text));
         })
     })
 
@@ -140,7 +140,7 @@ context("calculator", () => {
 
         // then
         cy.on("window:alert", (text) => {
-            expect(text).to.be(ALERT_MESSAGE.EXCEEDED_OPERATION_COUNT);
+            expect(text).to.contains(ALERT_MESSAGE.EXCEEDED_OPERATION_COUNT);
         })
     })
 
@@ -154,7 +154,7 @@ context("calculator", () => {
 
         // then
         cy.on("window:alert", (text) => {
-            expect(text).to.be(ALERT_MESSAGE.NO_OPERATION);
+            expect(text).to.contains(ALERT_MESSAGE.NO_OPERATION);
         })
     })
 
@@ -169,7 +169,7 @@ context("calculator", () => {
 
         // then
         cy.on("window:alert", (text) => {
-            expect(text).to.be(ALERT_MESSAGE.NO_RIGHT_VALUE);
+            expect(text).to.contains(ALERT_MESSAGE.NO_RIGHT_VALUE);
         })
     })
 })
