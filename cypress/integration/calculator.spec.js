@@ -7,6 +7,25 @@ const clickOperator = operator =>
 const clickAC = () => cy.get(".modifier").click();
 const checkTotal = total => cy.get("#total").should("have.text", total);
 
+const calculateTwoNumbers = ({ numbers, total, operator }) => {
+  const LEFT_OPERAND_END_INDEX = 1;
+  const RIGHT_OPERAND_END_INDEX = 3;
+
+  numbers.forEach((number, idx) => {
+    clickDigit(number);
+
+    if (idx === LEFT_OPERAND_END_INDEX) clickOperator(operator);
+
+    if (idx === RIGHT_OPERAND_END_INDEX) clickOperator("=");
+  });
+
+  checkTotal(total);
+};
+
+const repeatNumberClick = numbers => {
+  numbers.forEach(number => clickDigit(number));
+};
+
 describe("계산기 테스트", () => {
   beforeEach(() => {
     cy.visit(BASE_URL);
@@ -14,43 +33,19 @@ describe("계산기 테스트", () => {
 
   describe("연산이 가능하다.", () => {
     it("2개의 숫자에 대해 덧셈이 가능하다.", () => {
-      clickDigit(1);
-      clickDigit(0);
-      clickOperator("+");
-      clickDigit(1);
-      clickDigit(1);
-      clickOperator("=");
-      checkTotal(21);
+      calculateTwoNumbers({ numbers: [1, 0, 1, 1], total: 21, operator: "+" });
     });
 
     it("2개의 숫자에 대해 뺄셈이 가능하다.", () => {
-      clickDigit(2);
-      clickDigit(2);
-      clickOperator("-");
-      clickDigit(1);
-      clickDigit(1);
-      clickOperator("=");
-      checkTotal(11);
+      calculateTwoNumbers({ numbers: [2, 2, 1, 1], total: 11, operator: "-" });
     });
 
     it("2개의 숫자에 대해 곱셈이 가능하다.", () => {
-      clickDigit(1);
-      clickDigit(0);
-      clickOperator("X");
-      clickDigit(1);
-      clickDigit(0);
-      clickOperator("=");
-      checkTotal(100);
+      calculateTwoNumbers({ numbers: [1, 0, 1, 0], total: 100, operator: "X" });
     });
 
     it("2개의 숫자에 대해 나눗셈이 가능하다.", () => {
-      clickDigit(3);
-      clickDigit(0);
-      clickOperator("/");
-      clickDigit(1);
-      clickDigit(0);
-      clickOperator("=");
-      checkTotal(3);
+      calculateTwoNumbers({ numbers: [3, 0, 1, 0], total: 3, operator: "/" });
     });
   });
 
@@ -63,9 +58,7 @@ describe("계산기 테스트", () => {
 
   describe("입력을 테스트 한다.", () => {
     it("숫자는 한번에 최대 3자리 수까지 입력 가능하다.", () => {
-      clickDigit(1);
-      clickDigit(2);
-      clickDigit(3);
+      repeatNumberClick([1, 2, 3]);
       checkTotal(123);
     });
 
@@ -82,10 +75,10 @@ describe("계산기 테스트", () => {
     it("3자리 수 이상이 입력되면 에러가 발생한다.", () => {
       const alertStub = cy.stub();
       cy.on("window:alert", alertStub);
-      clickDigit(1);
-      clickDigit(2);
-      clickDigit(3);
-      clickDigit(3).then(() => {
+
+      repeatNumberClick([1, 2, 3]);
+
+      clickDigit(2).then(() => {
         expect(alertStub).to.be.calledWith(MESSAGE.OPERAND_LENGTH);
       });
     });
