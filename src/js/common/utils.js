@@ -24,7 +24,7 @@ export function calculate(data) {
 export function formatOperand(operand, digit) {
     if (!operand) return digit;
 
-    if (isMaxLength(operand, 3)) return;
+    if (isMaxLength(operand, 3)) return operand;
 
     return `${Number(operand + digit)}`;
 }
