@@ -16,7 +16,7 @@ class Calculator {
 
   static #inputValidator(value) {
     if (!Number.isNaN(+value)) return 'number';
-    if (Object.values(operations).includes(value)) return 'operation';
+    if (operations.includes(value)) return 'operation';
 
     alert('알 수 없는 값을 입력하셨습니다?!');
     return false;
@@ -39,7 +39,7 @@ class Calculator {
   }
 
   static #isNumberInputPush(target) {
-    return Object.values(operations).includes(target);
+    return operations.includes(target);
   }
 
   static #isNumberInputAdd(target) {
@@ -72,7 +72,7 @@ class Calculator {
   }
 
   static #isOperationInputPush(target) {
-    if (Object.values(operations).includes(target) || target === '') {
+    if (operations.includes(target) || target === '') {
       alert('숫자를 먼저 입력해주세요!');
       return false;
     }
@@ -83,19 +83,24 @@ class Calculator {
   calculate() {
     if (this.#inputBuffer[0] === '') return;
 
-    const operators = Object.values(operations).filter((oper) => oper !== '=');
+    const operators = operations.filter((oper) => oper !== '=');
 
     if (operators.includes(this.#inputBuffer[this.#inputBuffer.length - 1])) {
       this.#inputBuffer.pop();
     }
 
-    this.#inputBuffer = this.#inputBuffer.map((buf) => buf.replace('X', '*'));
+    while (this.#inputBuffer.length > 1) {
+      let total = 0;
+      const [prevValue, operator, nextValue] = this.#inputBuffer.splice(0, 3);
+      const [prevNum, nextNum] = [Number(prevValue), Number(nextValue)];
 
-    // eslint-disable-next-line no-eval
-    const total = eval(this.#inputBuffer.join(''));
-    const roundDownTotal = [Math.floor(total)];
+      if (operator === OPERATIONS.ADD) total = prevNum + nextNum;
+      if (operator === OPERATIONS.SUBSTRACT) total = prevNum - nextNum;
+      if (operator === OPERATIONS.MULTIPLY) total = prevNum * nextNum;
+      if (operator === OPERATIONS.DIVIDE) total = prevNum / nextNum;
 
-    this.#inputBuffer = roundDownTotal;
+      this.#inputBuffer.unshift(Math.trunc(total));
+    }
 
     this.#setDisplay();
     this.#inputBuffer = [''];
