@@ -4,9 +4,7 @@ export default function TotalDisplay({ initState }) {
   this.$totalDisplay = $(SELECTORS.ID.TOTAL);
 
   this.state = initState;
-
   this.setState = (newState) => {
-    // validation 필요
     this.state = newState;
     this.render();
   };
