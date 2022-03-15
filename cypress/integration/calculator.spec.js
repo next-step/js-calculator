@@ -1,4 +1,8 @@
-import { INVALID_LENGTH } from '../../src/js/validation.js';
+import { INVALID_LENGTH,NOT_ENTER_NUMBER,NOT_OVERLAP_NUMBER } from '../../src/js/validation.js';
+
+const getNumber = (numbers) => numbers.map(number=>cy.get('.digits').contains(number).click())
+const getOperator = (operator) => cy.get('.operations').contains(operator).click()
+const getAnswer = (answer) => cy.get('#total').should('have.text', answer);
 
 describe('calculator', () => {
   beforeEach(() => {
@@ -6,16 +10,16 @@ describe('calculator', () => {
   });
   it('숫자버튼을 눌렀을 경우 결과디스플레이에 제대로 표시되는지 테스트 한다.', () => {
     cy.get('#total').then(() => {
-      cy.get('.digits').contains('1').click();
-      cy.get('#total').should('have.text', '1');
+      getNumber(['1'])
+      getAnswer('1')
     });
   });
 
   it('숫자버튼 입력 후 연산자를 클릭했을 경우 결과디스플레이에 제대로 표시되는지 테스트 한다.', () => {
     cy.get('#total').then(() => {
-      cy.get('.digits').contains('1').click();
-      cy.get('.operations').contains('/').click();
-      cy.get('#total').should('have.text', '1/');
+      getNumber(['1'])
+      getOperator('/')
+      getAnswer('1/');
     });
   });
 
@@ -24,19 +28,16 @@ describe('calculator', () => {
     cy.on('window:alert', stub);
 
     cy.get('#total').then(() => {
-      for (let i = 0; i < 3; i++) {
-        cy.get('.digits').contains('1').click();
-      }
+      
+      getNumber(['1','1','1'])
       cy.get('.digits')
         .contains('1')
         .click()
         .then(() => {
           expect(stub.getCall(0)).to.be.calledWith(INVALID_LENGTH);
         });
-      cy.get('.operations').contains('/').click();
-      for (let i = 0; i < 3; i++) {
-        cy.get('.digits').contains('1').click();
-      }
+      getOperator('/')
+      getNumber(['1','1','1'])
       cy.get('.digits')
         .contains('1')
         .click()
@@ -44,106 +45,83 @@ describe('calculator', () => {
           expect(stub.getCall(0)).to.be.calledWith(INVALID_LENGTH);
         });
 
-      cy.get('#total').should('have.text', '111/111');
+      getAnswer('111/111');
     });
   });
 
   it('덧셈 연산 1 + 999의 결과값이 1000이 나오는지 확인한다.', () => {
     cy.get('#total').then(() => {
-      cy.get('.digits').contains('1').click();
+      getNumber(['1'])
+      getOperator('+')
 
-      cy.get('.operations').contains('+').click();
+      getNumber(['9'])
+      getNumber(['9'])
+      getNumber(['9'])
 
-      cy.get('.digits').contains('9').click();
-      cy.get('.digits').contains('9').click();
-      cy.get('.digits').contains('9').click();
+      getOperator('=')
 
-      cy.get('.operations').contains('=').click();
-
-      cy.get('#total').should('have.text', '1000');
+      getAnswer('1000');
     });
   });
 
   it('뺄셈 연산 999 - 998의 결과값이 1이 나오는지 확인한다.', () => {
     cy.get('#total').then(() => {
-      cy.get('.digits').contains('9').click();
-      cy.get('.digits').contains('9').click();
-      cy.get('.digits').contains('9').click();
+      getNumber(['9','9','9'])
+      getOperator('-')
+      getNumber(['9','9','8'])
+      getOperator('=')
 
-      cy.get('.operations').contains('-').click();
-
-      cy.get('.digits').contains('9').click();
-      cy.get('.digits').contains('9').click();
-      cy.get('.digits').contains('8').click();
-
-      cy.get('.operations').contains('=').click();
-
-      cy.get('#total').should('have.text', '1');
+      getAnswer('1');
     });
   });
 
   it('곱셈 연산 999 * 999 의 결과값이 998001이 나오는지 확인한다.', () => {
     cy.get('#total').then(() => {
-      cy.get('.digits').contains('9').click();
-      cy.get('.digits').contains('9').click();
-      cy.get('.digits').contains('9').click();
+      getNumber(['9','9','9'])
+      getOperator('X')
+      getNumber(['9','9','9'])
 
-      cy.get('.operations').contains('X').click();
+      getOperator('=')
 
-      cy.get('.digits').contains('9').click();
-      cy.get('.digits').contains('9').click();
-      cy.get('.digits').contains('9').click();
-
-      cy.get('.operations').contains('=').click();
-
-      cy.get('#total').should('have.text', '998001');
+      getAnswer('998001');
     });
   });
 
   it('나눗셈 연산 500 / 10 의 결과값이 50이 나오는지 확인한다.', () => {
     cy.get('#total').then(() => {
-      cy.get('.digits').contains('5').click();
-      cy.get('.digits').contains('0').click();
-      cy.get('.digits').contains('0').click();
+      getNumber(['5','0','0'])
+      getOperator('/')
 
-      cy.get('.operations').contains('/').click();
+      getNumber(['1','0'])
 
-      cy.get('.digits').contains('1').click();
-      cy.get('.digits').contains('0').click();
+      getOperator('=')
 
-      cy.get('.operations').contains('=').click();
-
-      cy.get('#total').should('have.text', '50');
+      getAnswer('50');
     });
   });
 
   it('나눗셈 연산 999 / 10 의 결과값이 99이 나오는지 확인한다.', () => {
     cy.get('#total').then(() => {
-      cy.get('.digits').contains('9').click();
-      cy.get('.digits').contains('9').click();
-      cy.get('.digits').contains('9').click();
+      getNumber(['9','9','9'])
 
-      cy.get('.operations').contains('/').click();
+      getOperator('/')
 
-      cy.get('.digits').contains('1').click();
-      cy.get('.digits').contains('0').click();
+      getNumber(['1','0'])
 
-      cy.get('.operations').contains('=').click();
+      getOperator('=')
 
-      cy.get('#total').should('have.text', '99');
+      getAnswer('99');
     });
   });
 
   it('AC버튼 클릭시 결과디스플레이의 값이 0으로 초기화되는지 확인한다.', () => {
     cy.get('#total').then(() => {
-      cy.get('.digits').contains('9').click();
-      cy.get('.digits').contains('9').click();
-      cy.get('.digits').contains('9').click();
-      cy.get('.operations').contains('/').click();
-      cy.get('.digits').contains('5').click();
+      getNumber(['9','9','9'])
+      getOperator('/')
+      getNumber(['5'])
       cy.get('.modifier').click();
 
-      cy.get('#total').should('have.text', '0');
+      getAnswer('0');
     });
   });
 
