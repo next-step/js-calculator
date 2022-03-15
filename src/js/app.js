@@ -81,11 +81,19 @@ class App {
   }
 
   evaluateCurrentTotal(currentTotal) {
-    const operationInExpression = extractor.operation(currentTotal);
-    const bothSidesOfOperation = currentTotal.split(operationInExpression);
-    const result = bothSidesOfOperation.reduce((acc, cur) =>
-      executor[operationInExpression](Number(acc), Number(cur)),
-    );
+    let result;
+    const operationCountSet = new Set(currentTotal.split('').filter(i => validator.isOperation(i)));
+
+    if (operationCountSet.size === 1) {
+      const operationInExpression = extractor.operation(currentTotal);
+      const bothSidesOfOperation = currentTotal.split(operationInExpression);
+      result = bothSidesOfOperation.reduce((acc, cur) =>
+        executor[operationInExpression](Number(acc), Number(cur)),
+      );
+    } else {
+      result = Math.floor(window.Function(`return ${currentTotal.replace('X', '*')}`)());
+    }
+
     this.setState({
       currentTotal: result,
       numberCount: String(result).length,
