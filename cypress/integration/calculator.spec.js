@@ -146,4 +146,41 @@ describe('calculator', () => {
       cy.get('#total').should('have.text', '0');
     });
   });
+
+  it('처음에 연산자를 먼저 입력하는 경우 경고메세지가 뜬다.', () => {
+    const stub = cy.stub();
+    cy.on('window:alert', stub);
+
+    getOperator('/').then(() => {
+      expect(stub.getCall(0)).to.be.calledWith(NOT_ENTER_NUMBER);
+    });
+  });
+
+  it('연산자를 중복 입력하는 경우 경고메세지가 뜬다.', () => {
+    const stub = cy.stub();
+    cy.on('window:alert', stub);
+
+    getNumber(['9','9','9'])
+    getOperator('/')
+    getOperator('/').then(() => {
+      expect(stub.getCall(0)).to.be.calledWith(NOT_OVERLAP_NUMBER);
+    });
+  });
+
+  it('계산 결과가 음수가 나오는 경우', () => {
+    getNumber(['3'])
+    getOperator('-')
+    getNumber(['5'])
+    getOperator('=')
+    getAnswer('-2');
+  });
+
+  it('계산 결과가 소수점이 나올 경우엔 소수점 이하는 버림한다.', () => {
+    getNumber(['5'])
+    getOperator('/')
+    getNumber(['3'])
+    getOperator('=')
+    getAnswer(Math.floor(5 / 3));
+  });
+
 });
