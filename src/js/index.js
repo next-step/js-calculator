@@ -3,8 +3,10 @@ import {
 	MAX_NUMBER_LENGTH,
 	OPERATORS,
 	MODIFIERS,
+	CHANGE_DISPLAY_VALUE,
 } from './constants/index.js';
 import is from './lib/is.js';
+import eventBus from './lib/bus.js';
 
 const $calculator = document.querySelector('.calculator');
 const $display = document.querySelector('#total');
@@ -26,6 +28,10 @@ $calculator.addEventListener('click', ({target}) => {
 	}
 });
 
+eventBus.on(CHANGE_DISPLAY_VALUE, ({detail}) => {
+	$display.innerText = detail.displayValue;
+});
+
 const state = new Proxy(
 	{
 		expression: [],
@@ -40,7 +46,9 @@ const state = new Proxy(
 			target[key] = value;
 
 			if (key === 'expression') {
-				$display.innerText = findLastNumber(value) ?? target.result;
+				eventBus.emit(CHANGE_DISPLAY_VALUE, {
+					displayValue: findLastNumber(value) ?? target.result,
+				});
 			}
 
 			return true;
