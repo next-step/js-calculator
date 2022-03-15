@@ -73,20 +73,9 @@ class Calculator {
   onDigitClick({ target }) {
     const currentValueKey =
       this.state.operation === null ? "leftValue" : "rightValue";
-    if (
-      this.state[currentValueKey] &&
-      this.state[currentValueKey].toString().length === MAXIMUM_DIGITS_LENGTH
-    ) {
-      alert(ALERT_MESSAGE.EXCEEDED_MAX_DIGIT_COUNT(MAXIMUM_DIGITS_LENGTH));
-      return;
-    }
-
-    // 3 -> 2 == 32
-    // 3 -> 2 -> 1 == 321
-    // 3 -> 2 -> 1 -> 8 == 3218
-    this.state[currentValueKey] =
+    const newValue =
       (this.state[currentValueKey] ?? 0) * 10 + Number(target.dataset.digit);
-    this.renderDisplay(this.state[currentValueKey]);
+    this.setCurrentValue(currentValueKey, newValue);
   }
 
   onOperationClick({ target }) {
@@ -114,6 +103,19 @@ class Calculator {
     }
 
     handlers[target.dataset.modifier]();
+  }
+
+  setCurrentValue(currentValueKey, newValue) {
+    if (
+      this.state[currentValueKey] &&
+      this.state[currentValueKey].toString().length === MAXIMUM_DIGITS_LENGTH
+    ) {
+      alert(ALERT_MESSAGE.EXCEEDED_MAX_DIGIT_COUNT(MAXIMUM_DIGITS_LENGTH));
+      return;
+    }
+
+    this.state[currentValueKey] = newValue;
+    this.renderDisplay(newValue);
   }
 }
 
