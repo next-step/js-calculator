@@ -44,17 +44,25 @@ export default class Calculator {
     num1 += getDigit(num1)
   };
 
-  clickOperators = (e) => {
-    const operator = e.target.textContent;
+  const clickOperators = (e) => {
+    const clikckOperator = e.target.textContent;
 
-    if (OPERATOR.EQUAL === operator) {
-      const result = calculate(this.num1, this.num2, this.operator);
-      this.showResult(result);
-      this.resetData();
-    } else {
-      this.$total.textContent += operator;
-      this.operator = operator;
+    if (num1 && num2 && operator) {
+      const result = calculate(num1, num2, operator);
+      showResult(result);
+      num2 = '';
+      operator = null;
+      if(clikckOperator !== OPERATOR.EQUAL) nextCalculation(clikckOperator)
+      
+      return
     }
+
+    if(isEnterFirstInputOperator(num1)) return
+    if(isOverlapOperator(num2,operator,clikckOperator)) return
+    
+    
+    operator = clikckOperator;
+    $total.textContent += clikckOperator;
   };
 
   clickModifier = () => {
