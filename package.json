@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/cozy60/js-calculator#readme",
   "devDependencies": {
+    "cypress": "^9.5.2",
     "eslint": "^8.2.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
