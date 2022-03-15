@@ -37,8 +37,8 @@ Cypress.Commands.add('inputDigits', (number) => {
 		});
 });
 
-Cypress.Commands.add('clickOperation', (operation) => {
-	cy.get('.operation').contains(operation).click();
+Cypress.Commands.add('clickOperator', (operator) => {
+	cy.get('.operator').contains(operator).click();
 });
 
 Cypress.Commands.add('clickModifier', (modifier) => {

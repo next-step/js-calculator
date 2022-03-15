@@ -23,8 +23,9 @@ $calculator.addEventListener('click', (event) => {
 		return;
 	}
 
-	if (isOperationButton(event.target)) {
-		inputOperation(event.target.innerText);
+	if (isOperatorButton(event.target)) {
+		inputOperator(event.target.innerText);
+
 		return;
 	}
 });
@@ -84,7 +85,7 @@ const applyModifier = (modifier) => {
 /**
  * @param {string} operation
  */
-const inputOperation = (operation) => {
+const inputOperator = (operation) => {
 	if (operation === OPERATORS.EQUALS) {
 		if (!state.expression.length) {
 			return;
@@ -131,7 +132,7 @@ const isModifierButton = (element) => element.classList.contains('modifier');
  * @param {HTMLElement} element
  * @returns {boolean}
  */
-const isOperationButton = (element) => element.classList.contains('operation');
+const isOperatorButton = (element) => element.classList.contains('operator');
 
 /**
  * @param {string[]} expression
