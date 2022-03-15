@@ -34,7 +34,7 @@ const state = new Proxy(
 	{
 		set: (target, key, value) => {
 			if (!(key in target)) {
-				return false;
+				return;
 			}
 
 			target[key] = value;
