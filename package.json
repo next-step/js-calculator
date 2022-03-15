@@ -19,6 +19,7 @@
   "dependencies": {
     "@cypress/xvfb": "^1.2.4",
     "cypress": "^9.5.2",
+    "live-server": "^1.2.1",
     "xvfb": "^0.4.0"
   }
 }
