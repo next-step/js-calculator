@@ -1,6 +1,5 @@
-import { DEFAULT_NUMBER, MODIFIER, OPERATION } from "./constants/calculator";
-import { ALERT_MESSAGE } from "./constants/messages";
-import { MAXIMUM_DIGITS_LENGTH } from "./utils/constant";
+import { ALERT_MESSAGE } from "./constants/messages.js";
+import { MAXIMUM_DIGITS_LENGTH, MODIFIER, OPERATION, DEFAULT_NUMBER } from "./constants/calculator.js";
 
 const operationExecutor = {
   [OPERATION.ADDITION]: (leftValue, rightValue) => leftValue + rightValue,
@@ -60,14 +59,16 @@ class Calculator {
 
     this.state.totalValue = calculatedValue;
     this.renderDisplay(calculatedValue);
+    this.resetOperationStates();
+  }
 
-    // reset operation states
+  resetOperationStates() {
     this.state = {
       ...this.state,
       leftValue: null,
       rightValue: null,
-      operation: null
-    }
+      operation: null,
+    };
   }
 
   onDigitClick({ target }) {
@@ -76,6 +77,7 @@ class Calculator {
     const newValue =
       (this.state[currentValueKey] ?? 0) * 10 + Number(target.dataset.digit);
     this.setCurrentValue(currentValueKey, newValue);
+    this.renderDisplay(this.state[currentValueKey]);
   }
 
   onOperationClick({ target }) {
@@ -118,8 +120,10 @@ class Calculator {
     if (this.state.operation !== null) {
       alert(ALERT_MESSAGE.EXCEEDED_OPERATION_COUNT);
       
-      this.state.operation(operation);
+      return;
     }
+
+    this.state.operation = operation;
   }
 }
 
