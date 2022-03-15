@@ -1,0 +1,7 @@
+{
+	"recommendations": [
+		"ritwickdey.LiveServer",
+		"editorconfig.editorconfig",
+		"esbenp.prettier-vscode"
+	]
+}

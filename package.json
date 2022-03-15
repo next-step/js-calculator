@@ -1,0 +1,42 @@
+{
+	"name": "@younho9/js-calculator",
+	"version": "1.0.0",
+	"private": true,
+	"description": "자바스크립트 계산기로 익혀보는 Cypress",
+	"keywords": [
+		"javascript",
+		"cypress",
+		"clean-code",
+		"study"
+	],
+	"homepage": "https://github.com/younho9/js-calculator#readme",
+	"bugs": {
+		"url": "https://github.com/younho9/js-calculator/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/younho9/js-calculator.git"
+	},
+	"license": "MIT",
+	"author": {
+		"name": "Younho Choo",
+		"email": "yo+github@younho9.com",
+		"url": "https://younho9.dev"
+	},
+	"scripts": {
+		"cypress": "cypress open",
+		"cypress:headless": "cypress run",
+		"format": "prettier . --write",
+		"start": "live-server --port=8080 --entry-file=index.html",
+		"test": "start-server-and-test 'yarn start --quiet' http://localhost:8080 'yarn cypress'",
+		"test:headless": "start-server-and-test 'yarn start --quiet' http://localhost:8080 'yarn cypress:headless'"
+	},
+	"prettier": "@younho9/prettier-config",
+	"devDependencies": {
+		"@younho9/prettier-config": "^2.3.1",
+		"cypress": "^9.5.1",
+		"live-server": "^1.2.1",
+		"prettier": "^2.5.1",
+		"start-server-and-test": "^1.14.0"
+	}
+}
