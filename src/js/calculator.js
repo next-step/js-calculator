@@ -87,11 +87,7 @@ class Calculator {
       return;
     }
 
-    if (this.state.operation !== null) {
-      alert(ALERT_MESSAGE.EXCEEDED_OPERATION_COUNT);
-
-      return;
-    }
+    this.setOperation(operation);
   }
 
   onModifierClick({ target }) {
@@ -116,6 +112,14 @@ class Calculator {
 
     this.state[currentValueKey] = newValue;
     this.renderDisplay(newValue);
+  }
+
+  setOperation(operation) {
+    if (this.state.operation !== null) {
+      alert(ALERT_MESSAGE.EXCEEDED_OPERATION_COUNT);
+      
+      this.state.operation(operation);
+    }
   }
 }
 
