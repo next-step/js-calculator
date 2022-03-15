@@ -1,13 +1,15 @@
+export const MAXIMUM_DIGITS_LENGTH = 3;
+
 export const MODIFIER = {
-    AC: 'all_clear'
+  AC: "all-clear"
 }
 
 export const OPERATION = {
-    DIVISION: "division",
-    MULTIPLICATION: "multiplication",
-    SUBTRACTION: "subtraction",
-    ADDITION: "addition",
-    CALCULATION: "calculation"
+  DIVISION: "division",
+  MULTIPLICATION: "multiplication",
+  SUBTRACTION: "subtraction",
+  ADDITION: "addition",
+  CALCULATION: "calculation"
 }
 
 export const DEFAULT_NUMBER = 0;
