@@ -12,5 +12,7 @@ export const calculate = (num1, num2, operator) => {
       return +num1 * +num2;
     case OPERATOR.DIVIDE:
       return Math.floor(num1 / num2);
+    default:
+      return num1;
   }
 };
