@@ -1,7 +1,7 @@
 import {
 	ALERT_MAX_NUMBER_LENGTH_MESSAGE,
 	MAX_NUMBER_LENGTH,
-	OPERATIONS,
+	OPERATORS,
 	MODIFIERS,
 } from './constants/index.js';
 
@@ -57,7 +57,7 @@ const state = new Proxy(
 const inputDigit = (digit) => {
 	const lastInput = state.expression.at(-1);
 
-	if (!lastInput || isOperation(lastInput)) {
+	if (!lastInput || isOperator(lastInput)) {
 		state.expression = [...state.expression, digit];
 		return;
 	}
@@ -74,7 +74,7 @@ const inputDigit = (digit) => {
  * @param {string} modifier
  */
 const applyModifier = (modifier) => {
-	if (modifier === MODIFIERS.allClear) {
+	if (modifier === MODIFIERS.ALL_CLEAR) {
 		state.result = 0;
 		state.expression = [];
 		return;
@@ -85,7 +85,7 @@ const applyModifier = (modifier) => {
  * @param {string} operation
  */
 const inputOperation = (operation) => {
-	if (operation === OPERATIONS.eq) {
+	if (operation === OPERATORS.EQUALS) {
 		if (!state.expression.length) {
 			return;
 		}
@@ -107,7 +107,7 @@ const inputOperation = (operation) => {
  * @param {any} value
  * @returns boolean
  */
-const isOperation = (value) => Object.values(OPERATIONS).includes(value);
+const isOperator = (value) => Object.values(OPERATORS).includes(value);
 
 /**
  * @param {any} element
@@ -137,7 +137,9 @@ const isOperationButton = (element) => element.classList.contains('operation');
  * @param {string[]} expression
  */
 const calculate = (expression) => {
-	const expressionString = expression.join('').replaceAll(OPERATIONS.mul, '*');
+	const expressionString = expression
+		.join('')
+		.replaceAll(OPERATORS.MULTIPLICATION, '*');
 	const calculator = new Function('return ' + expressionString);
 
 	return Math.trunc(calculator());
@@ -147,5 +149,5 @@ const calculate = (expression) => {
  * @param {string[]} expression
  */
 const findLastNumber = (expression) => {
-	return [...expression].reverse().find((value) => !isOperation(value));
+	return [...expression].reverse().find((value) => !isOperator(value));
 };
