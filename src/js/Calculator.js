@@ -25,21 +25,23 @@ export default class Calculator {
   }
 
   clickDigits = (e) => {
+  const clickDigits = (e) => {
     const digit = e.target.textContent;
 
-    if (!this.num1) this.firstClickDigit();
+    const getDigit = (num) => {
+      if (isOverMaxNumber(num)) return 0
 
-    if (this.operator) {
-      if (!isOverMaxNumber(this.num2)) {
-        this.num2 += digit;
-        this.showTotal(digit);
-      }
-    } else {
-      if (!isOverMaxNumber(this.num1)) {
-        this.num1 += digit;
-        this.showTotal(digit);
-      }
+      showTotal(digit)
+      return digit
     }
+
+    if (!num1) firstClickDigit();
+
+    if(operator) {
+      num2 += getDigit(num2)
+      return
+    } 
+    num1 += getDigit(num1)
   };
 
   clickOperators = (e) => {
