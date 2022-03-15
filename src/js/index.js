@@ -7,7 +7,8 @@ export default function Calculator() {
   const $digits = document.querySelector('.digits');
   const $operations = document.querySelector('.operations');
   const $equalSign = document.querySelector('#equal-sign');
-  const $modifier = document.querySelector('.modifier');
+  const $modifier = document.querySelector('.modifiers');
+  const $total = document.querySelector('#total');
 
   $digits.addEventListener('click', putNumber);
   $operations.addEventListener('click', putOperator);

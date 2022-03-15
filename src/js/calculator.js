@@ -1,4 +1,4 @@
-import { DEFAULT_NUMBER, OPERATION } from "./constants/calculator";
+import { DEFAULT_NUMBER, MODIFIER, OPERATION } from "./constants/calculator";
 import { ALERT_MESSAGE } from "./constants/messages";
 import { MAXIMUM_DIGITS_LENGTH } from "./utils/constant";
 
@@ -41,6 +41,35 @@ class Calculator {
     this.$total.textContent = value;
   }
 
+  calculate() {
+    const { leftValue, rightValue, operation, totalValue } = this.state;
+
+    if (operation === null) {
+      alert(ALERT_MESSAGE.NO_OPERATION);
+      
+      return;
+    }
+
+    if (rightValue === null) {
+      alert(ALERT_MESSAGE.NO_RIGHT_VALUE);
+
+      return;
+    }
+
+    const calculatedValue = operationExecutor[operation](leftValue ?? totalValue, rightValue);
+
+    this.state.totalValue = calculatedValue;
+    this.renderDisplay(calculatedValue);
+
+    // reset operation states
+    this.state = {
+      ...this.state,
+      leftValue: null,
+      rightValue: null,
+      operation: null
+    }
+  }
+
   onDigitClick({ target }) {
     const currentValueKey =
       this.state.operation === null ? "leftValue" : "rightValue";
@@ -52,8 +81,40 @@ class Calculator {
       return;
     }
 
+    // 3 -> 2 == 32
+    // 3 -> 2 -> 1 == 321
+    // 3 -> 2 -> 1 -> 8 == 3218
     this.state[currentValueKey] =
       (this.state[currentValueKey] ?? 0) * 10 + Number(target.dataset.digit);
     this.renderDisplay(this.state[currentValueKey]);
   }
+
+  onOperationClick({ target }) {
+    const { operation } = target.dataset;
+
+    if (operation === OPERATION.CALCULATION) {
+      this.calculate();
+
+      return;
+    }
+
+    if (this.state.operation !== null) {
+      alert(ALERT_MESSAGE.EXCEEDED_OPERATION_COUNT);
+
+      return;
+    }
+  }
+
+  onModifierClick({ target }) {
+    const handlers = {
+      [MODIFIER.AC]: () => {
+        this.state = { ...initialState };
+        this.renderDisplay(DEFAULT_NUMBER);
+      }
+    }
+
+    handlers[target.dataset.modifier]();
+  }
 }
+
+export default Calculator;
