@@ -1,9 +1,6 @@
-import { expect } from "chai";
-import { it } from "mocha";
 import { DEFAULT_NUMBER, MODIFIER, OPERATION } from "../../src/js/constants/calculator";
 import { ALERT_MESSAGE } from "../../src/js/constants/messages";
 import { RANDOM_NUMBER } from "../../src/js/constants/randomNumber";
-import { range } from "../../src/js/utils/Range";
 
 const BASE_URL = cy.config('baseUrl');
 
@@ -89,7 +86,7 @@ context("calculator", () => {
 
         // then
         cy.on("window:alert", (text) => {
-            expect(text).to.contains(ALERT_MESSAGE.EXCEEDED_MAX_DIGIT_COUNT(text));
+            expect(text).to.contains(ALERT_MESSAGE.EXCEEDED_MAX_DIGIT_COUNT(3));
         })
     })
 
