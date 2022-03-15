@@ -1,4 +1,4 @@
 import Calculator from './Calculator.js';
 
-const calculator = new Calculator();
-calculator.init();
+const app = new Calculator();
+app.init();

@@ -1,30 +1,27 @@
 import { $, calculate } from './utils.js';
 import { OPERATOR } from './constants.js';
-import { isOverMaxNumber } from './validation.js';
+import { isOverMaxNumber,isOverlapOperator,isEnterFirstInputOperator } from './validation.js';
 
-export default class Calculator {
-  constructor() {
-    this.num1 = '';
-    this.num2 = '';
-    this.operator = null;
+export default function Calculator() {
+  let num1 = '';
+  let num2 = '';
+  let operator = null;
 
-    this.$total = $('#total');
-    this.$modifier = $('.modifiers');
-    this.$digits = $('.digits');
-    this.$operations = $('.operations');
+  const $total = $('#total');
+  const $modifier = $('.modifiers');
+  const $digits = $('.digits');
+  const $operations = $('.operations');
+
+  this.init = () => {
+    setEvents();
   }
 
-  init() {
-    this.setEvents();
+  const setEvents= () =>{
+    $digits.addEventListener('click', clickDigits);
+    $operations.addEventListener('click', clickOperators);
+    $modifier.addEventListener('click', clickModifier);
   }
 
-  setEvents() {
-    this.$digits.addEventListener('click', this.clickDigits);
-    this.$operations.addEventListener('click', this.clickOperators);
-    this.$modifier.addEventListener('click', this.clickModifier);
-  }
-
-  clickDigits = (e) => {
   const clickDigits = (e) => {
     const digit = e.target.textContent;
 
@@ -65,30 +62,36 @@ export default class Calculator {
     $total.textContent += clikckOperator;
   };
 
-  clickModifier = () => {
-    this.resetData();
-    this.resetTotal();
+  const clickModifier = () => {
+    resetData();
+    resetTotal();
   };
 
-  resetData = () => {
-    this.num1 = '';
-    this.num2 = '';
-    this.operator = null;
+  const resetData = () => {
+    num1 = '';
+    num2 = '';
+    operator = null;
   };
 
-  resetTotal = () => {
-    this.$total.textContent = '0';
+  const resetTotal = () => {
+    $total.textContent = '0';
   };
 
-  showResult = (value) => {
-    this.$total.textContent = String(value);
+  const showResult = (value) => {
+    $total.textContent = String(value);
+    num1 = $total.textContent;
   };
 
-  firstClickDigit = () => {
-    this.$total.textContent = '';
+  const firstClickDigit = () => {
+    $total.textContent = '';
   };
 
-  showTotal = (value) => {
-    this.$total.textContent += String(value);
+  const showTotal = (value) => {
+    $total.textContent += String(value);
   };
+
+  const nextCalculation = (clikckOperator) => {
+      showTotal(clikckOperator)
+      operator = clikckOperator;
+  }
 }
