@@ -4,28 +4,24 @@ import {
 	OPERATORS,
 	MODIFIERS,
 } from './constants/index.js';
+import is from './lib/is.js';
 
 const $calculator = document.querySelector('.calculator');
 const $display = document.querySelector('#total');
 
-$calculator.addEventListener('click', (event) => {
-	if (!isHTMLElement(event.target)) {
+$calculator.addEventListener('click', ({target}) => {
+	if (is.digitButton(target)) {
+		inputDigit(target.innerText);
 		return;
 	}
 
-	if (isDigitButton(event.target)) {
-		inputDigit(event.target.innerText);
+	if (is.modifierButton(target)) {
+		applyModifier(target.innerText);
 		return;
 	}
 
-	if (isModifierButton(event.target)) {
-		applyModifier(event.target.innerText);
-		return;
-	}
-
-	if (isOperatorButton(event.target)) {
-		inputOperator(event.target.innerText);
-
+	if (is.operatorButton(target)) {
+		inputOperator(target.innerText);
 		return;
 	}
 });
@@ -58,7 +54,7 @@ const state = new Proxy(
 const inputDigit = (digit) => {
 	const lastInput = state.expression.at(-1);
 
-	if (!lastInput || isOperator(lastInput)) {
+	if (!lastInput || is.operator(lastInput)) {
 		state.expression = [...state.expression, digit];
 		return;
 	}
@@ -105,36 +101,6 @@ const inputOperator = (operation) => {
 };
 
 /**
- * @param {any} value
- * @returns boolean
- */
-const isOperator = (value) => Object.values(OPERATORS).includes(value);
-
-/**
- * @param {any} element
- * @returns boolean
- */
-const isHTMLElement = (element) => element instanceof HTMLElement;
-
-/**
- * @param {HTMLElement} element
- * @returns {boolean}
- */
-const isDigitButton = (element) => element.classList.contains('digit');
-
-/**
- * @param {HTMLElement} element
- * @returns {boolean}
- */
-const isModifierButton = (element) => element.classList.contains('modifier');
-
-/**
- * @param {HTMLElement} element
- * @returns {boolean}
- */
-const isOperatorButton = (element) => element.classList.contains('operator');
-
-/**
  * @param {string[]} expression
  */
 const calculate = (expression) => {
@@ -150,5 +116,5 @@ const calculate = (expression) => {
  * @param {string[]} expression
  */
 const findLastNumber = (expression) => {
-	return [...expression].reverse().find((value) => !isOperator(value));
+	return [...expression].reverse().find((value) => !is.operator(value));
 };
