@@ -79,25 +79,34 @@ const applyModifier = (modifier) => {
 };
 
 /**
- * @param {string} operation
+ * @param {string} operator
  */
-const inputOperator = (operation) => {
-	if (operation === OPERATORS.EQUALS) {
-		if (!state.expression.length) {
-			return;
-		}
+const inputOperator = (operator) => {
+	if (operator === OPERATORS.EQUALS) {
+		inputEqualsOperator();
+		return;
+	}
 
+	inputArithmeticOperator(operator);
+};
+
+const inputEqualsOperator = () => {
+	if (state.expression.length > 0) {
 		state.result = calculate(state.expression);
 		state.expression = [];
+	}
+};
+
+/**
+ * @param {string} operator
+ */
+const inputArithmeticOperator = (operator) => {
+	if (state.expression.length > 0) {
+		state.expression = [...state.expression, operator];
 		return;
 	}
 
-	if (state.expression.length === 0) {
-		state.expression = [state.result, operation];
-		return;
-	}
-
-	state.expression = [...state.expression, operation];
+	state.expression = [state.result, operator];
 };
 
 /**
