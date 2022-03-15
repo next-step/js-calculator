@@ -18,7 +18,7 @@
   "homepage": "https://github.com/jypthemiracle/js-calculator#readme",
   "dependencies": {
     "@cypress/xvfb": "^1.2.4",
-    "cypress": "^9.5.1",
+    "cypress": "^9.5.2",
     "xvfb": "^0.4.0"
   }
 }
