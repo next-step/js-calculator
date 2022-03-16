@@ -1,6 +1,3 @@
-<br/>
-<br/>
-
 <p align="middle" >
   <img width="100px;" src="src/images/calculator_icon.png"/>
 </p>
@@ -18,11 +15,6 @@
 <p align="middle">
   <img width="300" src="src/images/calculator_ui.png">
 </p>
-
-<p align="middle">
-  <a href="https://next-step.github.io/js-calculator/">🖥️ 데모 링크</a>
-</p>
-
 
 ## 🎯 기능 요구사항
 

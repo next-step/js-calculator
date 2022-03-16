@@ -1,0 +1,25 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "description": "<p align=\"middle\" >   <img width=\"100px;\" src=\"src/images/calculator_icon.png\"/> </p> <h2 align=\"middle\">level1 - 자바스크립트 계산기</h2> <p align=\"middle\">자바스크립트 계산기로 익혀보는 Cypress</p> <p align=\"middle\">   <img src=\"https://img.shields.io/badge/version-1.0.0-blue?style=flat-square\" alt=\"template version\"/>   <img src=\"https://img.shields.io/badge/language-html-red.svg?style=flat-square\"/>   <img src=\"https://img.shields.io/badge/language-css-blue.svg?style=flat-square\"/>   <img src=\"https://img.shields.io/badge/language-js-yellow.svg?style=flat-square\"/>   <img src=\"https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square\"/> </p>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jypthemiracle/js-calculator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jypthemiracle/js-calculator/issues"
+  },
+  "homepage": "https://github.com/jypthemiracle/js-calculator#readme",
+  "dependencies": {
+    "@cypress/xvfb": "^1.2.4",
+    "cypress": "^9.5.2",
+    "live-server": "^1.2.1",
+    "xvfb": "^0.4.0"
+  }
+}

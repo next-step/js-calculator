@@ -1,5 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iCalculator</title>
+  <link rel="stylesheet" type="text/css" href="src/css/index.css" />
+  <script defer type="module" src="./src/js/index.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <div id="app">
+      <div class="calculator">
+        <h1 id="total">0</h1>
+        <div class="js-digits digits flex">
+          <button class="digit" data-digit="9">9</button>
+          <button class="digit" data-digit="8">8</button>
+          <button class="digit" data-digit="7">7</button>
+          <button class="digit" data-digit="6">6</button>
+          <button class="digit" data-digit="5">5</button>
+          <button class="digit" data-digit="4">4</button>
+          <button class="digit" data-digit="3">3</button>
+          <button class="digit" data-digit="2">2</button>
+          <button class="digit" data-digit="1">1</button>
+          <button class="digit" data-digit="0">0</button>
+        </div>
+        <div class="js-modifiers modifiers subgrid">
+          <button class="modifier" data-modifier="all-clear">AC</button>
+        </div>
+        <div class="js-operations operations subgrid">
+          <button class="operation" data-operation="division">/</button>
+          <button class="operation" data-operation="multiplication">X</button>
+          <button class="operation" data-operation="subtraction">-</button>
+          <button class="operation" data-operation="addition">+</button>
+          <button class="operation" id="equal-sign" data-operation="calculation">=</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="./src/js/index.js"></script>
+</body>
+
+</html>
+=======
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
