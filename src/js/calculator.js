@@ -74,8 +74,8 @@ class Calculator {
   onDigitClick({ target }) {
     const currentValueKey =
       this.state.operation === null ? "leftValue" : "rightValue";
-    const newValue =
-      (this.state[currentValueKey] ?? 0) * 10 + Number(target.dataset.digit);
+    const memorizedValue = (this.state[currentValueKey] ?? 0) * 10;
+    const currentValue = memorizedValue + Number(target.dataset.digit);
     this.setCurrentValue(currentValueKey, newValue);
     this.renderDisplay(this.state[currentValueKey]);
   }
