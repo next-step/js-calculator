@@ -9,6 +9,6 @@
     "cypress": "^9.5.1"
   },
   "scripts": {
-    "test": "cypress open"
+    "test": "cypress run --headless"
   }
 }
