@@ -1,0 +1,17 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "cypress": "^9.5.1"
+  },
+  "scripts": {
+    "test": "yarn run cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/damilog/js-calculator.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
