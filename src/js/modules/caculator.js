@@ -2,7 +2,7 @@ function caculate(numberList, operator) {
     console.log('caculate!!!')
     console.log(numberList)
     console.log(operator)
-    let result = 0
+    let result = ''
     switch(operator) {
         case '+' :
             console.log('plus')
@@ -10,15 +10,15 @@ function caculate(numberList, operator) {
             break;
         case '-' :
             console.log('minus')
-            minus(numberList)
+            result = minus(numberList)
             break;
-        case 'x' :
+        case 'X' :
             console.log('multiply')
-            multiply(numberList)
+            result = multiply(numberList)
             break;
         case '/' :
             console.log('divide')
-            divide(numberList)
+            result = divide(numberList)
             break;
 
         
@@ -27,7 +27,25 @@ function caculate(numberList, operator) {
 }
 
 function plus(numberList) {
-    let result = parseInt(numberList[0]) + parseInt(numberList[1])
+    let result = String(parseInt(numberList[0]) + parseInt(numberList[1]))
+    document.getElementById('total').innerText = result
+
+    return result
+}
+function minus(numberList) {
+    let result = String(parseInt(numberList[0]) - parseInt(numberList[1]))
+    document.getElementById('total').innerText = result
+
+    return result
+}
+function multiply(numberList) {
+    let result = String(parseInt(numberList[0]) * parseInt(numberList[1]))
+    document.getElementById('total').innerText = result
+
+    return result
+}
+function divide(numberList) {
+    let result = String(Math.floor(parseInt(numberList[0]) / parseInt(numberList[1])))
     document.getElementById('total').innerText = result
 
     return result
