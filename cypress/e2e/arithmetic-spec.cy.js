@@ -1,4 +1,6 @@
 // 사칙연산 함수 테스트
+import { add, minus, multiply, divide } from '../../src/js/calculate';
+
 describe('arithmetic operation test', () => {
 	it('add two numbers', () => {
 		const result = add(1, 2);
@@ -11,7 +13,7 @@ describe('arithmetic operation test', () => {
 	});
 
 	it('multiply two numbers', () => {
-		const result = multiplty(50, 2);
+		const result = multiply(50, 2);
 		expect(result).to.equal(100);
 	});
 
