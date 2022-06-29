@@ -1,4 +1,4 @@
-import { CALCULATOR, TOTAL, DIGIT_WRAPPER } from '../../src/js/constants/selectors';
+import { CALCULATOR, TOTAL, dataSelector, MODIFIER } from '../../src/js/selectors';
 // [] 2개의 숫자에 대해 덧셈이 가능하다.
 // [] 2개의 숫자에 대해 뺄셈이 가능하다.
 // [] 2개의 숫자에 대해 곱셈이 가능하다.
@@ -13,9 +13,15 @@ describe('calculator-spec', () => {
 		cy.get(CALCULATOR);
 	});
 
-	it('clicked digit added to total', () => {
-		cy.get(TOTAL).should('have.text', 0);
-		cy.get(DIGIT_WRAPPER);
-		// .click((e) => cy.log(e));
+	it('click single digit changes total', () => {
+		for (let i = 0; i <= 9; i++) {
+			cy.get(MODIFIER).click();
+			const INITIAL_TOTAL_NUM = '0';
+			cy.get(TOTAL).invoke('text').should('eq', INITIAL_TOTAL_NUM);
+			cy.get(dataSelector('digit', `${i}`))
+				.should('have.text', `${i}`)
+				.click();
+			cy.get(TOTAL).should('have.text', `${i}`);
+		}
 	});
 });
