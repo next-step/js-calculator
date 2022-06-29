@@ -69,9 +69,7 @@ document.querySelectorAll('.operation').forEach(function(btn) {
 
 document.querySelector('.modifier').addEventListener('click', function(btn) {
     console.log('AC!!!!')
-    numberList = []
-    number = ''
-    operator = ''
+    initialize()
     document.getElementById('total').innerText = 0
     console.log('all initialize !!')
     console.log('numberList is ', numberList)
