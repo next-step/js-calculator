@@ -1,3 +1,4 @@
+import { MAXIMUM_NUMBER_LENGTH } from './constants.js';
 import { totalDisplayText } from './index.js';
 import { rIsNotNumber } from './regex.js';
 
@@ -8,7 +9,7 @@ const handleDisplayNumber = (number) => {
     .map((number) => number.length);
 
   for (const numberLength of numberLengthList) {
-    if (numberLength > 3) {
+    if (numberLength > MAXIMUM_NUMBER_LENGTH) {
       alert('숫자는 세 자리까지만 입력 가능합니다!');
       return;
     }
