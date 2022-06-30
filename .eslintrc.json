@@ -3,6 +3,10 @@
   "extends": ["airbnb-base", "plugin:prettier/recommended"],
   "parserOptions": { "ecmaVersion": "latest" },
   "rules": {
-    "import/extensions": ["error", "ignorePackages", { "js": "always" }]
+    "import/extensions": ["error", "ignorePackages", { "js": "always" }],
+    "import/no-extraneous-dependencies": [
+      "error",
+      { "devDependencies": ["cypress.config.js"] }
+    ]
   }
 }

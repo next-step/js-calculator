@@ -1,12 +1,22 @@
 {
   "private": true,
   "repository": "https://github.com/doinki/js-calculator.git",
+  "scripts": {
+    "cy:open": "cypress open",
+    "dev": "serve",
+    "test:open": "start-server-and-test 'yarn dev' http://localhost:3000 'yarn cy:open'"
+  },
   "devDependencies": {
+    "@testing-library/cypress": "^8.0.3",
+    "cypress": "^10.3.0",
     "eslint": "^8.18.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "serve": "^13.0.2",
+    "start-server-and-test": "^1.14.0"
   }
 }
