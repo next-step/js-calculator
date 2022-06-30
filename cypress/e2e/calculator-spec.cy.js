@@ -18,7 +18,7 @@ describe('calculator-spec', () => {
 			cy.get(MODIFIER).click();
 			const INITIAL_TOTAL_NUM = '0';
 			cy.get(TOTAL).invoke('text').should('eq', INITIAL_TOTAL_NUM);
-			cy.get(dataSelector('digit', `${i}`))
+			cy.get(dataSelector('digit-number', `${i}`))
 				.should('have.text', `${i}`)
 				.click();
 			cy.get(TOTAL).should('have.text', `${i}`);
