@@ -17,3 +17,14 @@ const updateTotalValue = function (value) {
 	const total = $(TOTAL)
 	total.innerText = value;
 }
+
+const isInputLengthValid = function (inputLength) {
+	const MAX_LENGTH = 3;
+	if(inputLength > MAX_LENGTH) return false;
+	return true;
+}
+
+
+
+
+
