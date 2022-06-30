@@ -6,6 +6,6 @@ export const $$ = function (selector) {
 	return document.querySelectorAll(selector);
 };
 
-export const attachEvent = function (target, eventType, callback) {
+export const addEvent = function (target, eventType, callback) {
 		target.addEventListener(eventType, callback)
 }
