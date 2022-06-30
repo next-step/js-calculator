@@ -1,5 +1,8 @@
-// 사칙연산 함수 테스트
 import { add, minus, multiply, divide } from '../../src/js/calculate';
+// [] 2개의 숫자에 대해 덧셈이 가능하다.
+// [] 2개의 숫자에 대해 뺄셈이 가능하다.
+// [] 2개의 숫자에 대해 곱셈이 가능하다.
+// [] 2개의 숫자에 대해 나눗셈이 가능하다.
 
 describe('arithmetic operation test', () => {
 	it('add two numbers', () => {
