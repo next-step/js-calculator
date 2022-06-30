@@ -13,10 +13,10 @@ describe('calculator-spec', () => {
 		cy.get(CALCULATOR);
 	});
 
-	it('click single digit changes total', () => {
+	it('click modifier and single digit changes total to digit', () => {
+		const INITIAL_TOTAL_NUM = '0';
 		for (let i = 0; i <= 9; i++) {
 			cy.get(MODIFIER).click();
-			const INITIAL_TOTAL_NUM = '0';
 			cy.get(TOTAL).invoke('text').should('eq', INITIAL_TOTAL_NUM);
 			cy.get(dataSelector('digit-number', `${i}`))
 				.should('have.text', `${i}`)
