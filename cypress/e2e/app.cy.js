@@ -8,7 +8,7 @@ describe("calculator", () => {
   const clickAC = () => cy.get(".modifier").contains("AC").click();
   const clickOperation = (operation) =>
     cy.get(".operation").contains(operation).click();
-  const clickEqual = () => cy.get("#equal-sign").click();
+  const clickEqual = () => cy.get(".operation").contains("=").click();
   const getTotal = () => cy.get("#total");
 
   beforeEach(() => {
