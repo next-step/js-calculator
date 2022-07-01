@@ -8,7 +8,9 @@ export class Model {
   constructor() {}
 
   calculate() {
-    return operators[this._operation].func(num1, num2);
+    if (this._operation) {
+      return operators[this._operation].func(num1, num2);
+    }
   }
 
   reset() {
