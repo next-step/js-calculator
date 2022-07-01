@@ -13,7 +13,7 @@ class App {
   renderTotal() {
     const { num1, num2, operation } = this.model;
 
-    if (num1 === undefined) {
+    if (num1 === 0) {
       this.total.setDetaultLabel();
       return;
     }
@@ -27,8 +27,8 @@ class App {
 new App(document.querySelector("#app"));
 
 const getLabel = (num1, num2, operation) => {
-  const numLabel1 = num1 === undefined ? "" : num1.toString();
-  const numLabel2 = num2 === undefined ? "" : num2.toString();
+  const numLabel1 = num1 || "";
+  const numLabel2 = num2 || "";
 
   const operationLabel =
     operation === undefined ? "" : operators[operation].icon;

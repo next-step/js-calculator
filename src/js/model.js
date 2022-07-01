@@ -1,9 +1,9 @@
 import { operators } from "./operators.js";
 
 export class Model {
-  num1;
+  num1 = 0;
+  num2 = 0;
   operation;
-  num2;
 
   constructor() {}
 
@@ -14,8 +14,8 @@ export class Model {
   }
 
   reset() {
-    this.num1 = undefined;
-    this.num2 = undefined;
+    this.num1 = 0;
+    this.num2 = 0;
     this.operation = undefined;
   }
 }
