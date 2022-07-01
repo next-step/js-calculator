@@ -16,6 +16,19 @@ class App {
     appElement.querySelector(".modifier").addEventListener("click", (e) => {
       this.allClear();
     });
+
+    appElement.querySelector(".operations").addEventListener("click", (e) => {
+      const icons = Object.values(operators).map((operator) => operator.icon);
+
+      const index = icons.indexOf(e.target.innerText);
+
+      if (index === -1) {
+        this.calculate();
+        return;
+      }
+
+      this.handleOperation(Object.keys(operators)[index]);
+    });
   }
 
   renderTotal() {
@@ -44,8 +57,28 @@ class App {
     this.renderTotal();
   }
 
+  handleOperation(operation) {
+    if (this.model.operation || this.model.num1 === 0) {
+      window.alert("숫자를 먼저 입력한 후 연산자를 입력해주세요!");
+      return;
+    }
+
+    this.model.operation = operation;
+
+    this.renderTotal();
+  }
+
+  calculate() {
+    const result = this.model.calculate();
+    this.model.reset();
+    this.model.num1 = result;
+
+    this.renderTotal();
+  }
+
   allClear() {
     this.model.reset();
+
     this.renderTotal();
   }
 }
