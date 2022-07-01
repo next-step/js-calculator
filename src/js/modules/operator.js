@@ -1,4 +1,4 @@
-function caculate(numberList, operator) {
+export default function operate(numberList, operator) {
     console.log('caculate!!!')
     console.log(numberList)
     console.log(operator)
@@ -50,5 +50,3 @@ function divide(numberList) {
 
     return result
 }
-
-export {caculate};

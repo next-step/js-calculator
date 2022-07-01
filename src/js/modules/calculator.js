@@ -1,11 +1,16 @@
-import operate from './modules/operator.js'
+import {operate} from "./modules/operator.js"
 
-let number = ''
-let operator = ''
-let numberList = []
+function calculate2() {
+    alert('abc')
+}
+function calculate() {
+    let number = ''
+    let operator = ''
+    let numberList = []
+    //result 
+    // document.getElementById('total').innerText
+    let app = document.querySelector("#app");
 
-function caculator() {
-    
     //select each number
     document.querySelectorAll('.digit').forEach(function(btn) {
         btn.addEventListener('click', function() {
@@ -25,6 +30,8 @@ function caculator() {
         })
     })
 
+
+
     document.querySelectorAll('.operation').forEach(function(btn) {
         btn.addEventListener('click', function() {
             //when comparator is clicked,
@@ -39,7 +46,7 @@ function caculator() {
                 numberList.push(number)
                 number = ''
             }
-    
+
             console.log('numberList.length!!', numberList.length)
             if(numberList.length === 1) {
                 console.log('get into numberList.length!!', numberList.length)
@@ -57,13 +64,13 @@ function caculator() {
             
                 operator = btn.innerText
             }
-    
+
             console.log('numberList is ', numberList)
             console.log('number after initialize is ', number)
             
         })
     })
-    
+
     document.querySelector('.modifier').addEventListener('click', function(btn) {
         console.log('AC!!!!')
         initialize()
@@ -81,5 +88,5 @@ function initialize() {
     numberList = []
 }
 
-caculator();
-
+export { calculate };
+export default calculate2;
