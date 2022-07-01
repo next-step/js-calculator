@@ -9,8 +9,12 @@ class App {
     this.model = new Model();
     this.total = new Total(appElement.querySelector("#total"));
 
-    document.querySelector(".digits").addEventListener("click", (e) => {
-      this.handleNumberClick(e);
+    appElement.querySelector(".digits").addEventListener("click", (e) => {
+      this.handleNumber(Number(e.target.innerText));
+    });
+
+    appElement.querySelector(".modifier").addEventListener("click", (e) => {
+      this.allClear();
     });
   }
 
@@ -27,7 +31,7 @@ class App {
     this.total.setLabel(label);
   }
 
-  handleNumberClick(e) {
+  handleNumber(input) {
     const targetKey = this.model.operation ? "num2" : "num1";
 
     if (this.model[targetKey] >= 100) {
@@ -35,8 +39,13 @@ class App {
       return;
     }
 
-    this.model.inputNum(targetKey, Number(e.target.innerText));
+    this.model.inputNum(targetKey, input);
 
+    this.renderTotal();
+  }
+
+  allClear() {
+    this.model.reset();
     this.renderTotal();
   }
 }
