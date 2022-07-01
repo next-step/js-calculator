@@ -18,4 +18,9 @@ export class Model {
     this.num2 = 0;
     this.operation = undefined;
   }
+
+  inputNum(key, value) {
+    this[key] *= 10;
+    this[key] += value;
+  }
 }
