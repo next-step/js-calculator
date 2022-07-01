@@ -1,7 +1,4 @@
 export default function operate(numberList, operator) {
-    console.log('caculate!!!')
-    console.log(numberList)
-    console.log(operator)
     let result = ''
     switch(operator) {
         case '+' :
