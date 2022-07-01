@@ -2,23 +2,17 @@ export default function operate(numberList, operator) {
     let result = ''
     switch(operator) {
         case '+' :
-            console.log('plus')
             result = plus(numberList)
             break;
         case '-' :
-            console.log('minus')
             result = minus(numberList)
             break;
         case 'X' :
-            console.log('multiply')
             result = multiply(numberList)
             break;
         case '/' :
-            console.log('divide')
             result = divide(numberList)
-            break;
-
-        
+            break;        
     }
     return result
 }

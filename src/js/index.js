@@ -4,9 +4,14 @@ let number = ''
 let operator = ''
 let numberList = []
 
-
 function caculator() {
-    
+    clickNumber()
+    clickOperator()
+    modifier()
+}
+caculator()
+
+function clickNumber() {
     document.querySelectorAll('.digit').forEach(function(btn) {
         btn.addEventListener('click', function() {
 
@@ -22,7 +27,9 @@ function caculator() {
             }
         })
     })
+}
 
+function clickOperator() {
     document.querySelectorAll('.operation').forEach(function(btn) {
         btn.addEventListener('click', function() {
 
@@ -42,17 +49,17 @@ function caculator() {
             }
         })
     })
-    
+}
+function modifier() {
     document.querySelector('.modifier').addEventListener('click', function(btn) {
         initialize()
         document.getElementById('total').innerText = 0
     })
 }
 
+
 function initialize() {
     operator = ''
     number = ''
     numberList = []
 }
-
-caculator();
