@@ -8,13 +8,16 @@ function caculator() {
     
     document.querySelectorAll('.digit').forEach(function(btn) {
         btn.addEventListener('click', function() {
+
             if(operator === '=') {
                 initialize()
             }
 
-            if(number.split('').length <= 2 && btn.innerText !== '0') {
-                number = number.concat(btn.innerText)
-                document.getElementById('total').innerText = number
+            if(number.split('').length <= 2) {
+                if(!(number === '' && btn.innerText === '0')) {
+                    number = number.concat(btn.innerText)
+                    document.getElementById('total').innerText = number
+                }
             }
         })
     })
