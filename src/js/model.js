@@ -1,4 +1,4 @@
-import { operators } from "./operators";
+import { operators } from "./operators.js";
 
 export class Model {
   num1;
