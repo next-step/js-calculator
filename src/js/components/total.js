@@ -2,6 +2,7 @@ export class Total {
   element;
   constructor(element) {
     this.element = element;
+    this.setDetaultLabel();
   }
 
   setDetaultLabel() {
