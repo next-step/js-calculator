@@ -8,6 +8,10 @@ class App {
   constructor(appElement) {
     this.model = new Model();
     this.total = new Total(appElement.querySelector("#total"));
+
+    document.querySelector(".digits").addEventListener("click", (e) => {
+      this.handleNumberClick(e);
+    });
   }
 
   renderTotal() {
@@ -21,6 +25,19 @@ class App {
     const label = getLabel(num1, num2, operation);
 
     this.total.setLabel(label);
+  }
+
+  handleNumberClick(e) {
+    const targetKey = this.model.operation ? "num2" : "num1";
+
+    if (this.model[targetKey] >= 100) {
+      window.alert("숫자는 세 자리까지만 입력 가능합니다!");
+      return;
+    }
+
+    this.model.inputNum(targetKey, Number(e.target.innerText));
+
+    this.renderTotal();
   }
 }
 
