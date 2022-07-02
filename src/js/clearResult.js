@@ -1,4 +1,4 @@
-import { totalDisplayText } from './index.js';
+import { totalDisplayText } from './DOM.js';
 
 const clearResult = () => {
   totalDisplayText.innerText = 0;

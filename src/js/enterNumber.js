@@ -1,5 +1,5 @@
 import { MAXIMUM_NUMBER_LENGTH } from './constants.js';
-import { totalDisplayText } from './index.js';
+import { totalDisplayText } from './DOM.js';
 import { rIsNotNumber } from './regex.js';
 
 const handleDisplayNumber = (number) => {

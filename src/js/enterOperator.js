@@ -1,4 +1,4 @@
-import { totalDisplayText } from './index.js';
+import { totalDisplayText } from './DOM.js';
 import { OPERATORS } from './constants.js';
 import { rIsNotNumber } from './regex.js';
 
