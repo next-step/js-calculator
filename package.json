@@ -1,0 +1,17 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/ippowe/js-calculator",
+  "author": "Jaemin Ahn <jae7415@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "cypress:open": "cypress open",
+    "start": "http-server -p 8888 -c-1",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^28.1.2",
+    "jest-environment-jsdom": "^28.1.2"
+  }
+}
