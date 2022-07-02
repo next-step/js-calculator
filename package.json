@@ -6,6 +6,7 @@
   "author": "largeKim <kdw4458@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "start": "live-server",
     "test": "jest --watch"
   },
   "dependencies": {
