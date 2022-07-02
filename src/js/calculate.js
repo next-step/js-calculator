@@ -35,7 +35,7 @@ const handleClickEqual = (operatorText, input) => {
 
 const handleDisplayOperator = (operator, input) => {
   const result = input.concat(operator);
-  const operatorLimitConditionLength = result.split(operator).length;
+  const operatorLimitConditionLength = result.split(checkNotNumber).length;
 
   // NOTE :operatorList이 두개이상 들어올경우 받아온 alert이후 input 그대로 return ("=")제외
   if (operatorLimitConditionLength > 2) {
