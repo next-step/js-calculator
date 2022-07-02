@@ -1,4 +1,10 @@
-import { LENGTH_LIMIT_OPERATOR, MAX_OPERATOR_LENGTH, OPERATORS } from './constants.js';
+import {
+  LENGTH_LIMIT_OPERATOR,
+  MAX_NUMBER_LENGTH,
+  MAX_OPERATOR_LENGTH,
+  OPERATORS,
+  SPLIT_NUMBER_ARRAY_LENGTH,
+} from './constants.js';
 import checkNotNumber from './regex.js';
 
 const handleDecimalPointFloor = (countedNumber) => String(Math.floor(countedNumber));
@@ -27,8 +33,15 @@ const handleClickEqual = (operatorText, input) => {
   }
 
   const splitNumberArray = input.split(checkNotNumber);
-  const [leftNumber, rightNumber] = splitNumberArray;
-  const [operator] = findOperatorArray;
+  let [leftNumber, rightNumber] = splitNumberArray;
+  let [operator] = findOperatorArray;
+
+  // NOTE : 결과값이 "-"가 나오는 케이스 대응로직
+  if (splitNumberArray.length === SPLIT_NUMBER_ARRAY_LENGTH && splitNumberArray[0] === '') {
+    leftNumber = `-${splitNumberArray[1]}`;
+    rightNumber = splitNumberArray[2];
+    operator = findOperatorArray[1];
+  }
 
   return handleCalculate(leftNumber, operator, rightNumber);
 };
@@ -38,7 +51,12 @@ const handleDisplayOperator = (operator, input) => {
   const operatorLimitConditionLength = result.split(checkNotNumber).length;
 
   // NOTE :operatorList이 두개이상 들어올경우 받아온 alert이후 input 그대로 return ("=")제외
-  if (operatorLimitConditionLength > MAX_OPERATOR_LENGTH) {
+  if (input[0] === OPERATORS.minus) {
+    if (operatorLimitConditionLength > MAX_NUMBER_LENGTH) {
+      alert(LENGTH_LIMIT_OPERATOR);
+      return input;
+    }
+  } else if (operatorLimitConditionLength > MAX_OPERATOR_LENGTH) {
     alert(LENGTH_LIMIT_OPERATOR);
     return input;
   }
