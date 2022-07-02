@@ -9,6 +9,11 @@ const operatorButton = document.querySelector('.operations');
 
 let input = '';
 
+const reset = () => {
+  input = '';
+  totalValue.innerText = 0;
+};
+
 digitsButton.addEventListener('click', (e) => {
   const { innerText: numberText } = e.target;
 
@@ -21,8 +26,7 @@ digitsButton.addEventListener('click', (e) => {
 });
 
 allClearButton.addEventListener('click', () => {
-  input = '';
-  totalValue.innerText = 0;
+  reset();
 });
 
 operatorButton.addEventListener('click', (e) => {
@@ -38,8 +42,7 @@ operatorButton.addEventListener('click', (e) => {
   if (operatorText === equal) {
     const calculatedValue = handleClickEqual(operatorText, input);
     if (calculatedValue === '0') {
-      input = '';
-      totalValue.innerText = 0;
+      reset();
     } else {
       input = calculatedValue;
       totalValue.innerText = input;
