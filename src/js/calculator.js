@@ -6,6 +6,7 @@ class CalCulator {
     this.$numberDisplay = document.querySelector("#total");
 
     this.currentOperator = null;
+    this.inputNumbers = [null, null];
     this.isReset = false;
 
     this.initEvent();
@@ -37,6 +38,9 @@ class CalCulator {
     if (this.currentOperator && !this.isReset) {
       this.$numberDisplay.innerText = 0;
       this.isReset = true;
+    }
+    if (this.$numberDisplay.innerText.length >= 3) {
+      return;
     }
     const nextNumber = Number(`${this.$numberDisplay.innerText}${number}`);
     this.$numberDisplay.innerText = nextNumber;
