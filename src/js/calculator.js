@@ -2,6 +2,7 @@ class CalCulator {
   constructor() {
     const $numberBtnGrp = document.querySelector(".digits");
     const $operatorBtnGrp = document.querySelector(".operations");
+    this.$numberDisplay = document.querySelector("#total");
 
     $numberBtnGrp.addEventListener("click", this.handleNumberBtnClick.bind(this));
     $operatorBtnGrp.addEventListener("click", this.handleOperatorBtnClick);
@@ -17,10 +18,8 @@ class CalCulator {
   }
 
   updateDisplay(number) {
-    const $numberDisplay = document.querySelector("#total");
     const nextNumber = Number(`${$numberDisplay.innerText}${number}`);
-
-    $numberDisplay.innerText = nextNumber;
+    this.$numberDisplay.innerText = nextNumber;
   }
 }
 
