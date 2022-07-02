@@ -99,3 +99,4 @@ $operations.addEventListener("click", clickOperation);
 $allClear.addEventListener("click", clickAllClear);
 
 console.log(buttons.length);
+console.log("test");
