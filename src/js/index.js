@@ -71,7 +71,7 @@ for (let operation of operations) {
 }
 
 for (let ac of allClears) {
-  ac.addEventListener('click', (e) => {
+  ac.addEventListener('click', () => {
     initialData();
   });
 }
