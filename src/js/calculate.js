@@ -1,4 +1,4 @@
-import { LENGTH_LIMIT_OPERATOR, OPERATORS } from './constants.js';
+import { LENGTH_LIMIT_OPERATOR, MAX_OPERATOR_LENGTH, OPERATORS } from './constants.js';
 import checkNotNumber from './regex.js';
 
 const handleDecimalPointFloor = (countedNumber) => String(Math.floor(countedNumber));
@@ -38,7 +38,7 @@ const handleDisplayOperator = (operator, input) => {
   const operatorLimitConditionLength = result.split(checkNotNumber).length;
 
   // NOTE :operatorList이 두개이상 들어올경우 받아온 alert이후 input 그대로 return ("=")제외
-  if (operatorLimitConditionLength > 2) {
+  if (operatorLimitConditionLength > MAX_OPERATOR_LENGTH) {
     alert(LENGTH_LIMIT_OPERATOR);
     return input;
   }
