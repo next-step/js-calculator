@@ -1,10 +1,12 @@
 import { LENGTH_LIMIT_OPERATOR } from './constants.js';
 import checkNotNumber from './regex.js';
 
+const handleDecimalPointFloor = (countedNumber) => String(Math.floor(countedNumber));
+
 const handleCalculate = (beforeNumber, operator, afterNumber) => {
   switch (operator) {
     case '+':
-      return String(parseInt(beforeNumber, 10) + parseInt(afterNumber, 10));
+      return handleDecimalPointFloor(parseInt(beforeNumber, 10) + parseInt(afterNumber, 10));
     default:
       break;
   }
