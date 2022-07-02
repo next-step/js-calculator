@@ -61,7 +61,6 @@ describe("test calculator", () => {
 
   it("click AC after clicking digits", () => {
     cy.get(".digit").contains("9").click();
-    cy.get(".digit").contains("9").click();
     cy.get(".modifiers").click();
     cy.get("#total").should("have.text", "0");
   });
