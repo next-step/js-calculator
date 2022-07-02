@@ -3,6 +3,11 @@ import { totalDisplayText } from './DOM.js';
 import { rIsNotNumber } from './regex.js';
 
 const handleDisplayNumber = (number) => {
+  if (totalDisplayText.innerText === '0') {
+    totalDisplayText.innerText = number;
+    return;
+  }
+
   const displayResult = totalDisplayText.innerText.concat(number);
   const numberLengthList = displayResult
     .split(rIsNotNumber)
@@ -20,11 +25,6 @@ const handleDisplayNumber = (number) => {
 
 const enterNumber = (e) => {
   const { innerText: number } = e.target;
-
-  if (totalDisplayText.innerText === '0') {
-    totalDisplayText.innerText = number;
-    return;
-  }
 
   handleDisplayNumber(number);
 };
