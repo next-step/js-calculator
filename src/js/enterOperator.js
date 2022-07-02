@@ -42,7 +42,7 @@ const handleDisplayOperator = (operator) => {
   const displayResult = totalDisplayText.innerText.concat(operator);
   const operatorList = displayResult
     .split('')
-    .filter((text) => isNaN(Number(text)));
+    .filter((text) => Number.isNaN(Number(text)));
 
   if (operatorList.length > 1) {
     alert('2개의 숫자에 대해서만 연산이 가능합니다!');
@@ -66,7 +66,7 @@ const enterOperator = (e) => {
     const [beforeNumber, afterNumber] = numberList;
     const [operator] = totalDisplayText.innerText
       .split('')
-      .filter((text) => isNaN(Number(text)));
+      .filter((text) => Number.isNaN(Number(text)));
     handleCalculate(beforeNumber, operator, afterNumber);
 
     return;
