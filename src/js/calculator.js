@@ -8,7 +8,7 @@ class CalCulator {
     this.currentOperator = null;
     this.leftNumber = null;
     this.rightNumber = null;
-    this.isReset = false;
+    this.operatorReset = false;
     this.isSolved = false;
 
     this.initEvent();
@@ -22,6 +22,10 @@ class CalCulator {
 
   handleNumberBtnClick(e) {
     const { target } = e;
+
+    if (this.isSolved) {
+      return;
+    }
     this.updateDisplay(target.innerText);
   }
 
@@ -37,7 +41,7 @@ class CalCulator {
   }
 
   handleCalcBtnClick() {
-    if (this.leftNumber === null || this.currentOperator === null) {
+    if (this.leftNumber === null || this.currentOperator === null || this.isSolved) {
       return;
     }
     this.rightNumber = Number(this.$numberDisplay.innerText);
@@ -50,7 +54,7 @@ class CalCulator {
   resetDisplay() {
     this.$numberDisplay.innerText = 0;
     this.currentOperator = null;
-    this.isReset = false;
+    this.operatorReset = false;
     this.isSolved = false;
   }
 
@@ -60,9 +64,9 @@ class CalCulator {
       return;
     }
 
-    if (this.currentOperator && !this.isReset) {
+    if (this.currentOperator && !this.operatorReset) {
       this.$numberDisplay.innerText = 0;
-      this.isReset = true;
+      this.operatorReset = true;
     }
 
     if (this.$numberDisplay.innerText.length >= 3) {
