@@ -5,10 +5,9 @@
   "repository": "https://github.com/ippowe/js-calculator",
   "author": "Jaemin Ahn <jae7415@gmail.com>",
   "license": "MIT",
+  "type": "module",
   "scripts": {
-    "cypress:open": "cypress open",
-    "start": "http-server -p 8888 -c-1",
-    "test": "jest"
+    "test": "yarn node --experimental-vm-modules $(yarn bin jest)"
   },
   "devDependencies": {
     "jest": "^28.1.2",

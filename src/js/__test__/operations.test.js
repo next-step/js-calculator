@@ -1,4 +1,4 @@
-const { sum, subtract, multiple, divide } = require("../operations.js");
+import { sum, subtract, multiple, divide } from "../operations.js";
 
 test("adds 1 + 2 to equal 3", () => {
   expect(sum(1, 2)).toBe(3);
