@@ -36,8 +36,14 @@ operatorButton.addEventListener('click', (e) => {
   const { equal } = OPERATORS;
 
   if (operatorText === equal) {
-    input = handleClickEqual(operatorText, input);
-    totalValue.innerText = input;
+    const calculatedValue = handleClickEqual(operatorText, input);
+    if (calculatedValue === '0') {
+      input = '';
+      totalValue.innerText = 0;
+    } else {
+      input = calculatedValue;
+      totalValue.innerText = input;
+    }
   } else {
     input = handleDisplayOperator(operatorText, input);
     totalValue.innerText = input;
