@@ -1,13 +1,19 @@
 class CalCulator {
   constructor() {
-    const $numberBtnGrp = document.querySelector(".digits");
-    const $operatorBtnGrp = document.querySelector(".operations");
-    const $resetBtn = document.querySelector(".modifier");
+    this.$numberBtnGrp = document.querySelector(".digits");
+    this.$operatorBtnGrp = document.querySelector(".operations");
+    this.$resetBtn = document.querySelector(".modifier");
     this.$numberDisplay = document.querySelector("#total");
 
-    $numberBtnGrp.addEventListener("click", this.handleNumberBtnClick.bind(this));
-    $operatorBtnGrp.addEventListener("click", this.handleOperatorBtnClick);
-    $resetBtn.addEventListener("click", this.resetDisplay.bind(this));
+    this.currentOperator = null;
+
+    this.initEvent();
+  }
+
+  initEvent() {
+    this.$numberBtnGrp.addEventListener("click", this.handleNumberBtnClick.bind(this));
+    this.$operatorBtnGrp.addEventListener("click", this.handleOperatorBtnClick);
+    this.$resetBtn.addEventListener("click", this.resetDisplay.bind(this));
   }
 
   handleNumberBtnClick(e) {
@@ -17,10 +23,12 @@ class CalCulator {
 
   handleOperatorBtnClick(e) {
     const { target } = e;
+    this.currentOperator = target.innerText;
   }
 
   resetDisplay() {
     this.$numberDisplay.innerHTML = 0;
+    this.currentOperator = null;
   }
 
   updateDisplay(number) {
