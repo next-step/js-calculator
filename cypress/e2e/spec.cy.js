@@ -38,4 +38,13 @@ describe("계산기 요구사항 테스트", () => {
 
     getAnswer("800");
   });
+
+  it("2개의 숫자에 대해 곱셈이 가능하다", () => {
+    clickDigits("40");
+    clickOperator("X");
+    clickDigits("32");
+    clickOperator("=");
+
+    getAnswer("1280");
+  });
 });
