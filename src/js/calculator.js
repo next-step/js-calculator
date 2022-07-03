@@ -20,18 +20,14 @@ class CalCulator {
     this.$resetBtn.addEventListener("click", this.resetDisplay.bind(this));
   }
 
-  handleNumberBtnClick(e) {
-    const { target } = e;
-
+  handleNumberBtnClick({ target }) {
     if (this.isSolved) {
       return;
     }
     this.updateDisplay(target.innerText);
   }
 
-  handleOperatorBtnClick(e) {
-    const { target } = e;
-
+  handleOperatorBtnClick({ target }) {
     if (target.innerText === "=") {
       this.handleCalcBtnClick();
     } else {
