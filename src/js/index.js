@@ -8,15 +8,17 @@ import { DIGIT, DIGIT_WRAPPER, MODIFIER, OPERATION, OPERATION_WRAPPER, TOTAL } f
 */
 
 const updateTotalValue = function (newValue) {
-	const total = $(TOTAL);
+	const totalElem = $(TOTAL);
 	const INITIAL_TOTAL_NUM = '0';
-	const currentTotal = total.innerText;
-	if ((newValue === INITIAL_TOTAL_NUM && currentTotal === INITIAL_TOTAL_NUM) || !isInputLengthValid(currentTotal.length)) {
+	const currentTotal = totalElem.innerText;
+	if (newValue === INITIAL_TOTAL_NUM && currentTotal === INITIAL_TOTAL_NUM) {
+		return;
+	} else if (!isInputLengthValid(currentTotal.length)) {
 		return;
 	} else if (currentTotal === INITIAL_TOTAL_NUM) {
-		paintToDOM(total, newValue);
+		paintToDOM(totalElem, newValue);
 	} else {
-		paintToDOM(total, total.innerText + newValue);
+		paintToDOM(totalElem, currentTotal + newValue);
 	}
 };
 
@@ -44,7 +46,7 @@ const resetTotalToZero = () => {
 	const digitsWrapper = $(DIGIT_WRAPPER);
 	const modifier = $(MODIFIER);
 	addEvent(digitsWrapper, 'click', (ev) => {
-		const clickedValue = ev.target.innerText;
+		const clickedValue = ev.target.dataset.digitNumber;
 		updateTotalValue(clickedValue);
 	});
 	addEvent(modifier, 'click', resetTotalToZero);
