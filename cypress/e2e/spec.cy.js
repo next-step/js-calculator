@@ -1,4 +1,4 @@
-describe('test calculator', () => {
+describe('계산기 테스트', () => {
   before(() => {
     cy.visit();
   });
