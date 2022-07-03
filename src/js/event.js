@@ -1,7 +1,6 @@
-import { store } from './store/calculator-store.js';
-import { setTotalValue, setOperationState, saveNumberToStore, resetCalcultaor } from './model.js';
+import { operationHandler, saveNumberToStore, resetCalcultaor } from './model.js';
 
-export const onClickModifier = function (ev) {
+export const onClickModifier = function () {
 	resetCalcultaor();
 };
 
@@ -11,11 +10,6 @@ export const onClickDigit = function (ev) {
 };
 
 export const onClickOperation = function (ev) {
-	const { numberA, numberB } = store.getState();
-	if (!numberA && !numberB) return;
 	const clickedOperation = ev.target.dataset.operationRole;
-	if (clickedOperation === '=') {
-		setTotalValue(store.getState().operation);
-	}
-	setOperationState(clickedOperation);
+	operationHandler(clickedOperation);
 };

@@ -11,8 +11,17 @@ export const saveNumberToStore = function (value) {
 	}
 };
 
-export const setOperationState = function (clickedOperation) {
-	store.dispatch(setOperation(clickedOperation));
+export const operationHandler = function (clickedOperation) {
+	const { numberA, numberB } = store.getState();
+	if (!numberA && !numberB) return;
+	if (clickedOperation === '=') {
+		setTotalValue(store.getState().operation);
+	}
+	setOperationState(clickedOperation);
+};
+
+export const setOperationState = function (newOperation) {
+	store.dispatch(setOperation(newOperation));
 };
 
 export const setTotalValue = function (operation) {

@@ -1,5 +1,5 @@
 import { $, $$, addEvent } from './util.js';
-import { DIGIT, DIGIT_WRAPPER, MODIFIER, OPERATION, OPERATION_WRAPPER, TOTAL } from './selectors.js';
+import { DIGIT, DIGIT_WRAPPER, MODIFIER, OPERATION, OPERATION_WRAPPER } from './selectors.js';
 import { onClickDigit, onClickModifier, onClickOperation } from './event.js';
 
 const init = function () {
