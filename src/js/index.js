@@ -1,3 +1,5 @@
+import { Calculator } from './calculator.js';
+
 const total = document.querySelector('#total');
 const calculator = document.querySelector('.calculator');
 let input = '';
@@ -36,6 +38,25 @@ calculator.addEventListener('click', (e) => {
         input = '';
         return;
       }
+
+      if (e.target.innerText === '=') {
+        const seperator = /[X/+-]/gi;
+        const numbers = input.split(seperator);
+        const num1 = numbers[0];
+        const num2 = numbers[1];
+        const calc = new Calculator(num1, num2);
+
+        if (input.includes('+')) {
+          input = calc.add();
+        } else if (input.includes('-')) {
+          input = calc.substract();
+        } else if (input.includes('X')) {
+          input = calc.multiply();
+        } else if (input.includes('/')) {
+          input = calc.divide();
+        }
+      }
+
       break;
 
     case 'modifier':
