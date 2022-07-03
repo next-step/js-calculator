@@ -15,6 +15,14 @@ calculator.addEventListener('click', (e) => {
     return;
   }
 
+  // 계산에 관한 문자가 연속으로 입력되지 않도록
+  const continuedCharacters = /[X/+-]{2,}/;
+  if (continuedCharacters.test(input)) {
+    alert('숫자를 먼저 입력한 후 연산자를 입력해주세요!');
+    input = input.slice(0, -1);
+    return;
+  }
+
   // input 값에 '=' 문자열은 포함 시키지 않도록
   if (input.includes('=')) {
     input = input.replace('=', '');
