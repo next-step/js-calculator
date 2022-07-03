@@ -53,8 +53,6 @@ describe("Calculator", () => {
     expect(() => calculator.setOperation("operation")).toThrow();
   });
 
-  test("calculate", () => {});
-
   test("Reset calculator", () => {
     const calculator = initializeCalculator();
     calculator.setState("firstTerm", 10);

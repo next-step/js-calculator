@@ -22,12 +22,8 @@ const digitEventHandler = (e) => {
 const operationEventHandler = (e) => {
   const target = e.target;
   if (isButtonElement(target) && target.classList.contains("operation")) {
-    try {
-      const operation = target.innerText;
-      calculator.setOperation(operation);
-    } catch (e) {
-      window.alert(e.message);
-    }
+    const operation = target.innerText;
+    calculator.setOperation(operation);
   } else {
     return;
   }
