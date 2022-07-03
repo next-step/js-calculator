@@ -15,13 +15,13 @@ describe("calculator", () => {
     cy.visit("/");
   });
 
-  it("total은 defaultValue(0)으로 렌더", () => {
+  it("화면을 처음 들어오면 total창에 defaultValue를 보여줍니다.", () => {
     getTotal().should("have.text", defaultValue);
   });
 
   describe("입력", () => {
     describe("숫자", () => {
-      it("0은 클릭하더라도 default value에서 변화 없음", () => {
+      it("0을 먼저 클릭하면 total창에 defaultValue를 그대로 보여줍니다.", () => {
         clickDigit("0");
         clickDigit("0");
 
@@ -36,14 +36,14 @@ describe("calculator", () => {
         }
       });
 
-      it("3자리 숫자까지는 입력하면 total에 렌더", () => {
+      it("3자리까지 클릭한대로 total에 보여줍니다.", () => {
         clickDigit("9");
         clickDigit("0");
         clickDigit("5");
         getTotal().should("have.text", "905");
       });
 
-      it("4자리 숫자를 입력하면 입력되지 않고 alert 실행 -- 요구사항", () => {
+      it("4자리 숫자를 입력하면 alert 실행합니다", () => {
         clickDigit("1");
         clickDigit("4");
         clickDigit("0");
@@ -58,7 +58,7 @@ describe("calculator", () => {
     });
 
     describe("연산자", () => {
-      it("숫자를 입력한 후 연산자를 입력하면 화면에 렌더", () => {
+      it("숫자를 입력한 후 연산자를 입력하면 total 화면에 보여줍니다.", () => {
         operations.forEach((operation) => {
           clickDigit("3");
           clickOperation(operation);
@@ -67,14 +67,14 @@ describe("calculator", () => {
         });
       });
 
-      it("숫자를 입력하지 않고 연산자를 입력하면 alert 실행", () => {
+      it("숫자를 입력하지 않고 연산자를 입력하면 alert 실행합니다.", () => {
         clickOperation("-");
         cy.on("window:alert", (t) => {
           expect(t).to.contains("숫자를 먼저 입력한 후 연산자를 입력해주세요!");
         });
       });
 
-      it("연산자를 입력하고 연산자를 입력하면 alert 실행", () => {
+      it("연산자를 입력하고 연산자를 입력하면 alert 실행합니다.", () => {
         clickDigit("3");
         clickOperation("-");
         clickOperation("+");
@@ -84,7 +84,7 @@ describe("calculator", () => {
       });
     });
 
-    it("All Clear버튼을 누르면 초기화 -- 요구사항", () => {
+    it("All Clear버튼을 total창은 defaultValue를 보여줍니다. -- 요구사항", () => {
       clickDigit("1");
       clickDigit("8");
       clickOperation("-");
@@ -96,7 +96,7 @@ describe("calculator", () => {
   });
 
   describe("연산 -- 요구사항", () => {
-    it("2개의 숫자에 대해 덧셈이 가능하다", () => {
+    it("2개의 숫자에 대해 덧셈이 가능하다.", () => {
       clickDigit("4");
       clickOperation("+");
       clickDigit("1");
@@ -108,7 +108,7 @@ describe("calculator", () => {
     });
 
     describe("뺄셈", () => {
-      it("2개의 숫자에 대해 뺄셈이 가능하다", () => {
+      it("2개의 숫자에 대해 뺄셈이 가능하다.", () => {
         clickDigit("4");
         clickOperation("-");
         clickDigit("2");
