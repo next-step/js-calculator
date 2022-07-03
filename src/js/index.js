@@ -68,7 +68,7 @@ const arithmeticExpression = () => {
       operationIndexOf = operationTextArray.indexOf(operationArray[i]);
     }
   }
-  total.innerText = digitTextArray[0];
+  total.innerText = parseInt(digitTextArray[0]);
 };
 
 const onButtonClick = (event) => {
