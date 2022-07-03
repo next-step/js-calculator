@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "live-server",
+    "cypress:open": "cypress open",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,6 +19,7 @@
   },
   "homepage": "https://github.com/ag502/js-calculator#readme",
   "devDependencies": {
+    "cypress": "^10.3.0",
     "live-server": "^1.2.2"
   }
 }
