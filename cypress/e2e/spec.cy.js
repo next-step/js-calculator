@@ -12,6 +12,10 @@ const clickOperator = (operator) => {
   cy.get(".operation").contains(operator).click();
 };
 
+const clickAcBtn = () => {
+  cy.get(".modifier").click();
+};
+
 const getAnswer = (number) => {
   cy.get("#total").contains(number);
 };
@@ -55,5 +59,15 @@ describe("계산기 요구사항 테스트", () => {
     clickOperator("=");
 
     getAnswer("5");
+  });
+
+  it("AC(All Clear)버튼을 누르면 0으로 초기화 한다", () => {
+    clickDigits("901");
+    clickOperator("-");
+    clickDigits("809");
+    clickOperator("=");
+    clickAcBtn();
+
+    getAnswer("0");
   });
 });
