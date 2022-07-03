@@ -1,4 +1,5 @@
 import { Calculator, INITIAL_STATE } from "../calculator.js";
+import { Sum } from "../utils/operations.js";
 
 describe("Calculator", () => {
   beforeEach(() => {
@@ -27,19 +28,32 @@ describe("Calculator", () => {
   test("Set term", () => {
     const calculator = initializeCalculator();
     calculator.setTerm("firstTerm", 1);
-    expect(calculator.state.firstTerm).toBe("1");
+    expect(calculator.state.firstTerm).toBe(1);
     expect(getTotalEl().innerText).toBe("1");
 
     calculator.setTerm("firstTerm", 2);
-    expect(calculator.state.firstTerm).toBe("12");
+    expect(calculator.state.firstTerm).toBe(12);
     expect(getTotalEl().innerText).toBe("12");
 
     calculator.setTerm("firstTerm", 3);
-    expect(calculator.state.firstTerm).toBe("123");
+    expect(calculator.state.firstTerm).toBe(123);
     expect(getTotalEl().innerText).toBe("123");
 
     expect(() => calculator.setTerm("firstTerm", 5)).toThrow();
   });
+
+  test("Set operation", () => {
+    const calculator = initializeCalculator();
+    calculator.setOperation("+");
+    expect(calculator.state.operation).toStrictEqual(new Sum());
+
+    calculator.setOperation("=");
+    expect(calculator.state.operation).toBe(undefined);
+
+    expect(() => calculator.setOperation("operation")).toThrow();
+  });
+
+  test("calculate", () => {});
 
   test("Reset calculator", () => {
     const calculator = initializeCalculator();

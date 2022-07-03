@@ -1,7 +1,7 @@
+import { getOperations } from "./utils/operations.js";
+
 export const INITIAL_STATE = {
-  total: 0,
-  presentation: 0,
-  operator: undefined,
+  operation: undefined,
   firstTerm: undefined,
   secondTerm: undefined,
 };
@@ -24,23 +24,28 @@ export class Calculator {
   }
 
   render = () => {
-    this.$total.innerText = `${this.state.presentation}`;
+    const { firstTerm = "", secondTerm = "", operation = "" } = this.state;
+    const text = `${firstTerm}${operation}${secondTerm}`;
+    this.$total.innerText = text.trim().length === 0 ? "0" : text;
   };
 
   appendTerm = (key, value) => {
-    const nextTerm = this.state[key].concat(value);
+    const nextTerm = `${this.state[key]}`.concat(value);
     if (nextTerm.length > 3) throw new Error("3자리 수 이상은 입력할 수 없습니다.");
-    else this.setState(key, nextTerm);
+    else this.setState(key, Number(nextTerm));
   };
 
   setTerm = (key, value) => {
     const currentTerm = this.state[key];
+    if (value === undefined) {
+      this.setState(key, undefined);
+      return;
+    }
     if (currentTerm === undefined) {
-      this.setState(key, `${value}`);
+      this.setState(key, Number(value));
     } else {
       this.appendTerm(key, value);
     }
-    this.setState("presentation", this.state[key]);
   };
 
   setFirstTerm = (value) => {
@@ -49,6 +54,27 @@ export class Calculator {
 
   setSecondTerm = (value) => {
     this.setTerm("secondTerm", value);
+  };
+
+  setOperation = (operation) => {
+    if (operation === "=") {
+      this.calculate();
+    } else {
+      const Operation = getOperations(operation);
+      if (!Operation) throw new Error("Invalid operation");
+      this.setState("operation", new Operation());
+    }
+  };
+
+  calculate = () => {
+    const { operation, firstTerm, secondTerm } = this.state;
+    if (secondTerm === undefined) {
+      this.setState("operation", undefined);
+    } else {
+      const total = operation.operate(firstTerm, secondTerm);
+      this.state = { ...INITIAL_STATE };
+      this.setState("firstTerm", total);
+    }
   };
 
   clear = () => {
