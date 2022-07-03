@@ -1,4 +1,3 @@
-export const DUMP_SEPARATOR = ' ';
 export const MAX_NUM_COUNT = 3;
 export const OPERATIONS_LABEL = {
   DIV: '/',
