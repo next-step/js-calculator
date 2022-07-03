@@ -1,6 +1,7 @@
 import { $, $$, addEvent } from './util.js';
 import { paintToDOM } from './view.js';
 import { DIGIT, DIGIT_WRAPPER, MODIFIER, OPERATION, OPERATION_WRAPPER, TOTAL } from './selectors.js';
+import { NUMBER_LENGTH_ALERT_MSG } from '../constants.js';
 
 /* 
 	필요한 함수들 정의
@@ -14,6 +15,7 @@ const updateTotalValue = function (newValue) {
 	if (newValue === INITIAL_TOTAL_NUM && currentTotal === INITIAL_TOTAL_NUM) {
 		return;
 	} else if (!isInputLengthValid(currentTotal.length)) {
+		window.alert(NUMBER_LENGTH_ALERT_MSG);
 		return;
 	} else if (currentTotal === INITIAL_TOTAL_NUM) {
 		paintToDOM(totalElem, newValue);
