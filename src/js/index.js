@@ -15,7 +15,7 @@ const setEnterTextInTotal = (buttonText) => {
 };
 
 const digitValidationCheck = (buttonText) => {
-  if (digitGroup.length === 3) {
+  if (digitGroup.length >= 3) {
     alert('숫자는 세 자리까지만 입력 가능합니다!');
     return false;
   }
@@ -68,7 +68,11 @@ const arithmeticExpression = () => {
       operationIndexOf = operationTextArray.indexOf(operationArray[i]);
     }
   }
-  total.innerText = parseInt(digitTextArray[0]);
+
+  digitGroup = String(parseInt(digitTextArray[0]));
+  total.innerText = digitGroup;
+  digitTextArray.length = 0;
+  operationTextArray.length = 0;
 };
 
 const onButtonClick = (event) => {
