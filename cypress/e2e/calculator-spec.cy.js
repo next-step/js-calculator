@@ -19,6 +19,13 @@ describe('calculator-spec', () => {
 		}
 	});
 
+	// 계산 결과 관련 테스트마다 값 0으로 초기화
+	afterEach(() => {
+		const INITIAL_TOTAL_NUM = '0';
+		cy.get(MODIFIER).click();
+		cy.get(TOTAL).invoke('text').should('eq', INITIAL_TOTAL_NUM);
+	});
+
 	it('숫자는 한번에 최대 3자리 수까지 입력 가능하다.', () => {
 		cy.get(dataSelector('digit-number', '3')).click();
 		cy.get(dataSelector('digit-number', '9')).click();
@@ -29,11 +36,13 @@ describe('calculator-spec', () => {
 		});
 	});
 
-	// it('한번에 숫자를 4자리 수 이상 입력하면 alert 창이 뜬다.', () => {});
+	// it('2개의 숫자에 대해 덧셈이 가능하다.', () => {
+	// 	cy.get(TOTAL)
+	// 	cy.get(dataSelector('digit-number', '3')).click();
+	// 	cy.get(dataSelector('operation-role', '+'))
+	// });
 
 	// it('계산 결과를 표현할 때 소수점 이하는 버림한다.', () => {});
-
-	// it('2개의 숫자에 대해 덧셈이 가능하다.', () => {});
 
 	// it('2개의 숫자에 대해 뺄셈이 가능하다.', () => {});
 
