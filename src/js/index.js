@@ -61,9 +61,10 @@ const clickOperationBtn = () => {
     return;
   }
 
-  const lastOperation = Number($("#total").innerText.slice(-1));
-  if (!isNaN(lastOperation)) {
-    lastNumber = lastOperation;
+  const displayArray = $("#total").innerText.split(operator);
+
+  if (!isNaN(displayArray[1])) {
+    lastNumber = Number(displayArray[1]);
   }
   const result = calculate();
   $("#total").innerText = result;
@@ -106,6 +107,7 @@ const initEventListeners = () => {
         firstNumber = Number($("#total").innerText);
         operator = e.target.innerText;
         $("#total").innerText += e.target.innerText;
+        numberClicked = 0;
       }
     }
   });
