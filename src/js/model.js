@@ -1,13 +1,25 @@
 import { store } from './store/calculator-store.js';
 import { setNumberA, setNumberB, setOperation, setTotal, resetAll } from './action/calculator-actions.js';
 import { add, minus, multiply, divide } from './calculate.js';
+import { NUMBER_LENGTH_ALERT_MSG } from './constants.js';
+
+const isNumberLengthValid = function (length) {
+	const MAX_LENGTH = 3;
+	if (length <= MAX_LENGTH) {
+		return true;
+	}
+	window.alert(NUMBER_LENGTH_ALERT_MSG);
+	return false;
+};
 
 export const saveNumberToStore = function (value) {
 	const { numberA, numberB, operation } = store.getState();
 	if (operation) {
-		store.dispatch(setNumberB(numberB + value));
+		const newNumberB = numberB + value;
+		isNumberLengthValid(newNumberB.length) && store.dispatch(setNumberB(newNumberB));
 	} else {
-		store.dispatch(setNumberA(numberA + value));
+		const newNumberA = numberA + value;
+		isNumberLengthValid(newNumberA.length) && store.dispatch(setNumberA(newNumberA));
 	}
 };
 
