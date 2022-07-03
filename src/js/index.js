@@ -38,13 +38,34 @@ const calculateExpression = (expression) => {
   const numbers = expression.split(currentOperation);
   const firstNumber = parseInt(numbers[0]);
   const secondNumber = parseInt(numbers[1]);
-  setTotal(calculate(firstNumber, secondNumber));
+  setTotal(calculate(currentOperation, firstNumber, secondNumber));
 };
 
-const calculate = (firstNum, secondNum) => {
-  return plus(firstNum, secondNum);
+const calculate = (operation, firstNum, secondNum) => {
+  switch (operation) {
+    case '+':
+      return plus(firstNum, secondNum);
+    case '-':
+      return minus(firstNum, secondNum);
+    case 'X':
+      return multiply(firstNum, secondNum);
+    case '/':
+      return devide(firstNum, secondNum);
+  }
 };
 
 const plus = (firstNum, secondNum) => {
   return firstNum + secondNum;
+};
+
+const minus = (firstNum, secondNum) => {
+  return firstNum - secondNum;
+};
+
+const multiply = (firstNum, secondNum) => {
+  return firstNum * secondNum;
+};
+
+const devide = (firstNum, secondNum) => {
+  return Math.floor(firstNum / secondNum);
 };
