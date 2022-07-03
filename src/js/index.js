@@ -1,5 +1,5 @@
 const total = document.getElementById('total');
-const modifier = document.getElementsByClassName('modifier');
+const modifier = document.querySelector('.modifier');
 const digitButtons = document.querySelectorAll('.digit');
 const operationButtons = document.querySelectorAll('.operation');
 
@@ -72,7 +72,6 @@ const arithmeticExpression = () => {
 };
 
 const onButtonClick = (event) => {
-  console.log('test');
   const buttonText = event.target.innerText;
 
   const isCompleted = isNaN(buttonText)
@@ -92,3 +91,12 @@ const onButtonClick = (event) => {
 buttons.forEach((button) => {
   button.addEventListener('click', onButtonClick);
 });
+
+const onModifierClick = () => {
+  digitTextArray.length = 0;
+  operationTextArray.length = 0;
+  digitGroup = '';
+  total.innerText = 0;
+};
+
+modifier.addEventListener('click', onModifierClick);
