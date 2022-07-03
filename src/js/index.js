@@ -1,4 +1,4 @@
-import { OPERATORS } from './constants.js';
+import { AFTER_ENTER_NUMBER_FIRST, OPERATORS } from './constants.js';
 import handleNumber from './clickNumber.js';
 import { handleClickEqual, handleDisplayOperator } from './calculate.js';
 
@@ -32,7 +32,7 @@ allClearButton.addEventListener('click', () => {
 operatorButton.addEventListener('click', (e) => {
   // NOTE : 빈인풋에 연산자 click시 alert + return
   if (input === '') {
-    alert('숫자를 먼저 입력한 후 연산자를 입력해주세요!');
+    alert(AFTER_ENTER_NUMBER_FIRST);
     return;
   }
 
