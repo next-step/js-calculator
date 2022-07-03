@@ -1,3 +1,5 @@
+import { message } from "../util/constant.js";
+
 class CalCulator {
   constructor() {
     this.$numberBtnGrp = document.querySelector(".digits");
@@ -24,7 +26,12 @@ class CalCulator {
     if (this.isSolved) {
       return;
     }
-    this.updateDisplay(target.innerText);
+
+    try {
+      this.updateDisplay(target.innerText);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   handleOperatorBtnClick({ target }) {
@@ -33,7 +40,7 @@ class CalCulator {
     if (curOperator === "=") {
       this.handleCalcBtnClick();
     } else {
-      this.leftNumber = Number(this.$numberDisplay.innerText);
+      this.leftNumber = this.$numberDisplay.innerText;
       this.currentOperator = curOperator;
     }
   }
@@ -42,11 +49,15 @@ class CalCulator {
     if (this.leftNumber === null || this.currentOperator === null || this.isSolved) {
       return;
     }
-    this.rightNumber = Number(this.$numberDisplay.innerText);
-    const result = this.calculate();
-    this.isSolved = true;
+    this.rightNumber = this.$numberDisplay.innerText;
 
-    this.updateDisplay(result);
+    try {
+      const result = this.calculate();
+      this.isSolved = true;
+      this.updateDisplay(result);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   resetDisplay() {
@@ -71,23 +82,34 @@ class CalCulator {
       return;
     }
 
-    const nextNumber = Number(`${this.$numberDisplay.innerText}${number}`);
-    this.$numberDisplay.innerText = nextNumber;
+    const nextNumber = `${this.$numberDisplay.innerText}${number}`;
+    if (isNaN(nextNumber)) {
+      throw new Error(message.MALFORM_NUMBER);
+    } else {
+      this.$numberDisplay.innerText = Number(nextNumber);
+    }
   }
 
   calculate() {
+    if (isNaN(this.leftNumber) || isNaN(this.rightNumber)) {
+      throw new Error(message.MALFORM_NUMBER);
+    }
+
+    const leftNumber = Number(this.leftNumber);
+    const rightNumber = Number(this.rightNumber);
+
     switch (this.currentOperator) {
       case "/": {
-        return Math.floor(this.leftNumber / this.rightNumber);
+        return Math.floor(leftNumber / rightNumber);
       }
       case "X": {
-        return this.leftNumber * this.rightNumber;
+        return leftNumber * rightNumber;
       }
       case "-": {
-        return this.leftNumber - this.rightNumber;
+        return leftNumber - rightNumber;
       }
       case "+": {
-        return this.leftNumber + this.rightNumber;
+        return leftNumber + rightNumber;
       }
     }
   }
