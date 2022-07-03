@@ -1,6 +1,6 @@
-const clickDigits = (numbers) => {
-  [...numbers].forEach((number) => {
-    clickDigit(number);
+const clickDigits = (digits) => {
+  [...digits].forEach((digit) => {
+    clickDigit(digit);
   });
 };
 
@@ -13,7 +13,7 @@ const clickOperator = (operator) => {
 };
 
 const getAnswer = (number) => {
-  cy.get(".total");
+  cy.get("#total").contains(number);
 };
 
 describe("계산기 요구사항 테스트", () => {
@@ -27,6 +27,15 @@ describe("계산기 요구사항 테스트", () => {
     clickDigits("81");
     clickOperator("=");
 
-    cy.get("#total").contains("171");
+    getAnswer("171");
+  });
+
+  it("2개의 숫자에 대해 뺄셈이 가능하다", () => {
+    clickDigits("901");
+    clickOperator("-");
+    clickDigits("101");
+    clickOperator("=");
+
+    getAnswer("800");
   });
 });
