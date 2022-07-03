@@ -36,11 +36,13 @@ describe('calculator-spec', () => {
 		});
 	});
 
-	// it('2개의 숫자에 대해 덧셈이 가능하다.', () => {
-	// 	cy.get(TOTAL)
-	// 	cy.get(dataSelector('digit-number', '3')).click();
-	// 	cy.get(dataSelector('operation-role', '+'))
-	// });
+	it('2개의 숫자에 대해 덧셈이 가능하다.', () => {
+		cy.get(dataSelector('digit-number', '3')).click();
+		cy.get(dataSelector('operation-role', '+')).click();
+		cy.get(dataSelector('digit-number', '2')).click();
+		cy.get(dataSelector('operation-role', '=')).click();
+		cy.get(TOTAL).invoke('text').should('eq', '5');
+	});
 
 	// it('계산 결과를 표현할 때 소수점 이하는 버림한다.', () => {});
 
