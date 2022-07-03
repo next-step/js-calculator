@@ -1,4 +1,4 @@
-import { message } from "../util/constant.js";
+import { messages, utilValues } from "../util/constant.js";
 
 class CalCulator {
   constructor() {
@@ -56,6 +56,7 @@ class CalCulator {
       this.isSolved = true;
       this.updateDisplay(result);
     } catch (error) {
+      this.isSolved = false;
       console.log(error);
     }
   }
@@ -78,13 +79,13 @@ class CalCulator {
       this.operatorReset = true;
     }
 
-    if (this.$numberDisplay.innerText.length >= 3) {
+    if (this.$numberDisplay.innerText.length >= utilValues.MAX_NUMBER_LENGTH) {
       return;
     }
 
     const nextNumber = `${this.$numberDisplay.innerText}${number}`;
     if (isNaN(nextNumber)) {
-      throw new Error(message.MALFORM_NUMBER);
+      throw new Error(messages.MALFORM_NUMBER);
     } else {
       this.$numberDisplay.innerText = Number(nextNumber);
     }
@@ -92,7 +93,7 @@ class CalCulator {
 
   calculate() {
     if (isNaN(this.leftNumber) || isNaN(this.rightNumber)) {
-      throw new Error(message.MALFORM_NUMBER);
+      throw new Error(messages.MALFORM_NUMBER);
     }
 
     const leftNumber = Number(this.leftNumber);
