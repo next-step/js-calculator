@@ -6,4 +6,10 @@ const multiply = (preOperand, postOperand) => preOperand * postOperand;
 
 const divide = (preOperand, postOperand) => preOperand / postOperand;
 
-export { add, subtract, multiply, divide };
+const op = {
+  '+': add,
+  '-': subtract,
+  X: multiply,
+  '/': divide,
+};
+export { op };

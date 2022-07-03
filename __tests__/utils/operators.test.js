@@ -1,28 +1,28 @@
-import { add, subtract, multiply, divide } from "../../src/js/util/operators";
+import { op } from '../../src/js/util/operators';
 
-describe("operators", () => {
-  describe("add()", () => {
-    it("2개의 숫자에 대해 덧셈이 가능하다.", () => {
-      expect(add(4, 5)).toBe(4 + 5);
+describe('operators', () => {
+  describe('add()', () => {
+    it('2개의 숫자에 대해 덧셈이 가능하다.', () => {
+      expect(op['+'](4, 5)).toBe(4 + 5);
     });
   });
-  describe("subtract()", () => {
-    it("2개의 숫자에 대해 뺄셈이 가능하다.", () => {
-      expect(subtract(4, 5)).toBe(4 - 5);
+  describe('subtract()', () => {
+    it('2개의 숫자에 대해 뺄셈이 가능하다.', () => {
+      expect(op['-'](4, 5)).toBe(4 - 5);
     });
   });
-  describe("multiply()", () => {
-    it("2개의 숫자에 대해 곱셈이 가능하다.", () => {
-      expect(multiply(4, 5)).toBe(4 * 5);
+  describe('multiply()', () => {
+    it('2개의 숫자에 대해 곱셈이 가능하다.', () => {
+      expect(op['X'](4, 5)).toBe(4 * 5);
     });
   });
-  describe("divide()", () => {
-    it("2개의 숫자에 대해 나눗셈이 가능하다.", () => {
-      expect(divide(4, 5)).toBe(4 / 5);
+  describe('divide()', () => {
+    it('2개의 숫자에 대해 나눗셈이 가능하다.', () => {
+      expect(op['/'](4, 5)).toBe(4 / 5);
     });
 
-    it("숫자를 0으로 나눌경우 Infinity가 된다.", () => {
-      expect(divide(4, 0)).toBe(Infinity);
+    it('숫자를 0으로 나눌경우 Infinity가 된다.', () => {
+      expect(op['/'](4, 0)).toBe(Infinity);
     });
   });
 });
