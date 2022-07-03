@@ -1,7 +1,6 @@
 /*
 ## 🎯 기능 요구사항
 
-
 - [o]계산기에서 작업을 수행함에따라 계산기 화면이 업데이트된다.
   - [o] 화면에 표시된 숫자가 0일 경우
     - [o] 숫자를 클릭하면 값이 바뀐다.
@@ -27,10 +26,11 @@
 
 import { $ } from "./utils/dom.js";
 
-let numberClicked = 0;
+let numberCount = 0;
 let firstNumber = 0;
 let lastNumber = 0;
 let operator = "";
+
 function App() {
   this.init = () => {
     initEventListeners();
@@ -47,9 +47,9 @@ const updateDisplay = (e) => {
   }
 };
 
-const resetDisplay = () => {
-  $("#total").innerText = "0";
-  numberClicked = 0;
+const resetDisplay = (resetNumber, numCount) => {
+  $("#total").innerText = resetNumber;
+  numberCount = numCount;
   firstNumber = 0;
   lastNumber = 0;
   operator = "";
@@ -62,16 +62,12 @@ const clickOperationBtn = () => {
   }
 
   const displayArray = $("#total").innerText.split(operator);
-
   if (!isNaN(displayArray[1])) {
     lastNumber = Number(displayArray[1]);
   }
+
   const result = calculate();
-  $("#total").innerText = result;
-  numberClicked = 1;
-  firstNumber = 0;
-  lastNumber = 0;
-  operator = "";
+  resetDisplay(result, 1);
 };
 
 const calculate = () => {
@@ -107,24 +103,24 @@ const initEventListeners = () => {
         firstNumber = Number($("#total").innerText);
         operator = e.target.innerText;
         $("#total").innerText += e.target.innerText;
-        numberClicked = 0;
+        numberCount = 0;
       }
     }
   });
   // 숫자를 눌렀을 경우
   $(".digits").addEventListener("click", (e) => {
     if (e.target.classList.contains("digit")) {
-      if (numberClicked >= 3) {
+      if (numberCount >= 3) {
         alert("숫자는 세 자리까지만 입력 가능합니다!");
         return;
       }
       updateDisplay(e);
-      numberClicked++;
+      numberCount++;
     }
   });
   // AC(All Clear를 눌렀을 경우)
   $(".modifiers").addEventListener("click", (e) => {
-    resetDisplay();
+    resetDisplay("0", 0);
   });
 };
 
