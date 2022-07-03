@@ -47,4 +47,13 @@ describe("계산기 요구사항 테스트", () => {
 
     getAnswer("1280");
   });
+
+  it("2개의 숫자에 대해 나눗셈이 가능하다", () => {
+    clickDigits("55");
+    clickOperator("/");
+    clickDigits("11");
+    clickOperator("=");
+
+    getAnswer("5");
+  });
 });
