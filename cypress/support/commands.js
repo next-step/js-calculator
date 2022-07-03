@@ -47,9 +47,3 @@ Cypress.Commands.overwrite('visit', (originalFn, url, options) =>
   // make sure to add a return here!
   originalFn('../../index.html', options)
 );
-
-/**
- * Cypress.Commands.add('checkToken', (token) => {
-  cy.window().its('localStorage.token').should('eq', token)
-})
- */
