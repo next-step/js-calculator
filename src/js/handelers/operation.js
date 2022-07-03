@@ -40,7 +40,7 @@ export default function operationHandler() {
   };
 
   const pushOperation = value => {
-    const display = getDisplayNumbers() + value;
+    const display = getDisplayNumbers().join('') + value;
     setDisplay(display);
   };
 
