@@ -1,12 +1,10 @@
 {
   "name": "js-calculator",
   "version": "1.0.0",
-  "description": "<br/> <br/>",
   "main": "index.js",
   "scripts": {
     "start": "live-server",
-    "cypress:open": "cypress open",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "cypress:open": "cypress open"
   },
   "repository": {
     "type": "git",
