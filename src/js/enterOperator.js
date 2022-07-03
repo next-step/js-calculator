@@ -2,40 +2,19 @@ import { totalDisplayText } from './DOM.js';
 import { OPERATORS } from './constants.js';
 import { rIsNotNumber } from './regex.js';
 
-const getFloorNumber = (number) => {
-  return Math.floor(number);
-};
-
 const handleCalculate = (
   beforeNumber = 0,
   operator = OPERATORS.plus,
   afterNumber = 0
 ) => {
-  const { divide, multiple, minus, plus } = OPERATORS;
-  if (operator === divide) {
-    totalDisplayText.innerText = getFloorNumber(
-      Number(beforeNumber) / Number(afterNumber)
-    );
-    return;
-  }
-  if (operator === multiple) {
-    totalDisplayText.innerText = getFloorNumber(
-      Number(beforeNumber) * Number(afterNumber)
-    );
-    return;
-  }
-  if (operator === minus) {
-    totalDisplayText.innerText = getFloorNumber(
-      Number(beforeNumber) - Number(afterNumber)
-    );
-    return;
-  }
-  if (operator === plus) {
-    totalDisplayText.innerText = getFloorNumber(
-      Number(beforeNumber) + Number(afterNumber)
-    );
-    return;
-  }
+  const operators = {
+    '/': (x, y) => Math.floor(x / y),
+    X: (x, y) => x * y,
+    '+': (x, y) => x + y,
+    '-': (x, y) => x - y,
+  };
+
+  totalDisplayText.innerText = operators[operator](beforeNumber, afterNumber);
 };
 
 const handleDisplayOperator = (operator) => {
@@ -67,7 +46,7 @@ const enterOperator = (e) => {
     const [operator] = totalDisplayText.innerText
       .split('')
       .filter((text) => Number.isNaN(Number(text)));
-    handleCalculate(beforeNumber, operator, afterNumber);
+    handleCalculate(Number(beforeNumber), operator, Number(afterNumber));
 
     return;
   }
