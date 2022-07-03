@@ -76,4 +76,13 @@ describe("계산기 요구사항 테스트", () => {
 
     getAnswer("123");
   });
+
+  it("계산 결과를 표현할 때 소수점 이하는 버린다", () => {
+    clickDigits("901");
+    clickOperator("/");
+    clickDigits("90");
+    clickOperator("=");
+
+    getAnswer("10");
+  });
 });
