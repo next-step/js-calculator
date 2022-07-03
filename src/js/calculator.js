@@ -28,11 +28,13 @@ class CalCulator {
   }
 
   handleOperatorBtnClick({ target }) {
-    if (target.innerText === "=") {
+    const curOperator = target.innerText;
+
+    if (curOperator === "=") {
       this.handleCalcBtnClick();
     } else {
       this.leftNumber = Number(this.$numberDisplay.innerText);
-      this.currentOperator = target.innerText;
+      this.currentOperator = curOperator;
     }
   }
 
