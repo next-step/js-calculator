@@ -1,4 +1,5 @@
 import { $, $$, addEvent } from './util.js';
+import { paintToDOM } from './view.js';
 import { DIGIT, DIGIT_WRAPPER, MODIFIER, OPERATION, OPERATION_WRAPPER, TOTAL } from './selectors.js';
 
 /* 
@@ -13,9 +14,9 @@ const updateTotalValue = function (newValue) {
 	if ((newValue === INITIAL_TOTAL_NUM && currentTotal === INITIAL_TOTAL_NUM) || !isInputLengthValid(currentTotal.length)) {
 		return;
 	} else if (currentTotal === INITIAL_TOTAL_NUM) {
-		total.innerText = newValue;
+		paintToDOM(total, newValue);
 	} else {
-		total.innerText += newValue;
+		paintToDOM(total, total.innerText + newValue);
 	}
 };
 
@@ -28,7 +29,7 @@ const isInputLengthValid = function (inputLength) {
 const resetTotalToZero = () => {
 	const INITIAL_TOTAL_NUM = '0';
 	const total = $(TOTAL);
-	total.innerText = INITIAL_TOTAL_NUM;
+	paintToDOM(total, INITIAL_TOTAL_NUM);
 };
 
 // 초기화 IIFE
