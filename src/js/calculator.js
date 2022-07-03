@@ -112,6 +112,9 @@ class CalCulator {
       case "+": {
         return leftNumber + rightNumber;
       }
+      default: {
+        throw new Error(messages.MALFORM_OPERATOR);
+      }
     }
   }
 }
