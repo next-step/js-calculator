@@ -57,7 +57,7 @@ const calculate = (operation, firstNum, secondNum) => {
     case 'X':
       return multiply(firstNum, secondNum);
     case '/':
-      return devide(firstNum, secondNum);
+      return divide(firstNum, secondNum);
   }
 };
 
@@ -73,6 +73,6 @@ const multiply = (firstNum, secondNum) => {
   return firstNum * secondNum;
 };
 
-const devide = (firstNum, secondNum) => {
+const divide = (firstNum, secondNum) => {
   return Math.floor(firstNum / secondNum);
 };
