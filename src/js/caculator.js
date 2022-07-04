@@ -28,3 +28,7 @@ export const inputNumber = ({ target }) => {
 
   $total.innerText += target.innerText;
 };
+
+export const clearNumber = () => {
+  $total.innerText = DEFAULT_NUMBER;
+};
