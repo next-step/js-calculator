@@ -1,41 +1,32 @@
 import { Calculator } from "./calculator.js";
 import { alertOnError } from "./utils/alert.js";
-import { isButtonElement } from "./utils/validators.js";
+import { isButtonHasClassName } from "./utils/validators.js";
 
 const app = document.body.querySelector("#app");
 const calculator = new Calculator(app);
 
 const digitEventHandler = (e) => {
   const target = e.target;
-  if (isButtonElement(target) && target.classList.contains("digit")) {
-    const digit = target.innerText;
-    if (calculator.state.operation === undefined) {
-      calculator.setFirstTerm(digit);
-    } else {
-      calculator.setSecondTerm(digit);
-    }
+  if (!isButtonHasClassName("digit")) return;
+  const digit = target.innerText;
+  if (calculator.state.operation === undefined) {
+    calculator.setFirstTerm(digit);
   } else {
-    return;
+    calculator.setSecondTerm(digit);
   }
 };
 
 const operationEventHandler = (e) => {
   const target = e.target;
-  if (isButtonElement(target) && target.classList.contains("operation")) {
-    const operation = target.innerText;
-    calculator.setOperation(operation);
-  } else {
-    return;
-  }
+  if (isButtonHasClassName("operation")) return;
+  const operation = target.innerText;
+  calculator.setOperation(operation);
 };
 
 const modifierEventHandler = (e) => {
   const target = e.target;
-  if (isButtonElement(target) && target.classList.contains("modifier")) {
-    calculator.clear();
-  } else {
-    return;
-  }
+  if (!isButtonHasClassName("modifier")) return;
+  calculator.clear();
 };
 
 app.addEventListener("click", modifierEventHandler);
