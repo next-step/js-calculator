@@ -135,3 +135,64 @@ describe('AC(All Clear)버튼을 누르면 0으로 초기화 한다.', () => {
     cy.get('#total').should('have.text', '45');
   });
 });
+
+describe('숫자는 한번에 최대 3자리 수까지 입력 가능하다.', () => {
+  beforeEach(() => {
+    cy.visit('http://127.0.0.1:5500/index.html');
+  });
+
+  it('첫 번째 숫자를 3자리 수 이상 입력하려 하면 alert가 뜬다.', () => {
+    cy.get('.digit:nth-child(9)').click();
+    cy.get('.digit:nth-child(9)').click();
+    cy.get('.digit:nth-child(9)').click();
+    cy.get('.digit:nth-child(9)').click();
+    cy.on('window:alert', (text) => {
+      expect(text).to.contains('숫자는 세자리까지만 입력 가능합니다!');
+    });
+  });
+  it('두 번째 숫자를 3자리 수 이상 입력하려 하면 alert가 뜬다.', () => {
+    cy.get('.digit:nth-child(9)').click();
+    cy.get('.digit:nth-child(9)').click();
+    cy.get('.digit:nth-child(9)').click();
+    cy.get('.operation:nth-child(1)').click();
+    cy.get('.digit:nth-child(9)').click();
+    cy.get('.digit:nth-child(9)').click();
+    cy.get('.digit:nth-child(9)').click();
+    cy.get('.digit:nth-child(9)').click();
+    cy.on('window:alert', (text) => {
+      expect(text).to.contains('숫자는 세자리까지만 입력 가능합니다!');
+    });
+  });
+});
+
+describe('계산 결과를 표현할 때 소수점 이하는 버림한다.', () => {
+  beforeEach(() => {
+    cy.visit('http://127.0.0.1:5500/index.html');
+  });
+
+  it('1 / 3 = 0', () => {
+    cy.get('.digit:nth-child(9)').click();
+    cy.get('.operation:nth-child(1)').click();
+    cy.get('.digit:nth-child(7)').click();
+    cy.get('.operation:last-child').click();
+    cy.get('#total').should('have.text', '0');
+  });
+  it('2 / 3 = 0', () => {
+    cy.get('.digit:nth-child(8)').click();
+    cy.get('.operation:nth-child(1)').click();
+    cy.get('.digit:nth-child(7)').click();
+    cy.get('.operation:last-child').click();
+    cy.get('#total').should('have.text', '0');
+  });
+  it('999 / 100 = 9', () => {
+    cy.get('.digit:nth-child(1)').click();
+    cy.get('.digit:nth-child(1)').click();
+    cy.get('.digit:nth-child(1)').click();
+    cy.get('.operation:nth-child(1)').click();
+    cy.get('.digit:nth-child(9)').click();
+    cy.get('.digit:nth-child(10)').click();
+    cy.get('.digit:nth-child(10)').click();
+    cy.get('.operation:last-child').click();
+    cy.get('#total').should('have.text', '9');
+  });
+});
