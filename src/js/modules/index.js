@@ -17,7 +17,7 @@ export const handleDigitClick = (e) => {
 
 export const handleOperationClick = (e) => {
   const clickedOperation = e.target.innerText;
-  const operations = displayText.innerText.split('').filter((text) => isNaN(text));
+  const operations = displayText.innerText.split('').filter(isNaN);
   const [operation] = operations;
 
   if (validateOperation(clickedOperation, operations)) return;
