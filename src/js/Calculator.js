@@ -41,9 +41,7 @@ export default class Calculator {
   };
 
   handleDigit = (digit) => {
-    console.log(digit);
     this.checkExpression();
-    console.log('여기 : ', digit);
     if (this._limit === 0) {
       alert('숫자는 세자리까지만 입력 가능합니다!');
       return;
