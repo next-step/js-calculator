@@ -7,3 +7,5 @@ export function mergeState(state) {
 }
 
 export const operatorRegex = /X|\/|\-|\+/;
+
+export const findOperator = (state) => state.find(c => operatorRegex.test(c));
