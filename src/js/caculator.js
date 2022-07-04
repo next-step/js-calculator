@@ -32,3 +32,21 @@ export const inputNumber = ({ target }) => {
 export const clearNumber = () => {
   $total.innerText = DEFAULT_NUMBER;
 };
+
+export const inputOperator = ({ target }) => {
+  const expression = $total.innerText;
+  const selectedOperator = target.innerText;
+
+  if (selectedOperator === "=") {
+    return;
+  }
+
+  const existingOperator = expression.split("").find((el) => Object.keys(operators).includes(el));
+
+  if (existingOperator || expression === DEFAULT_NUMBER) {
+    alert("잘못된 입력입니다.");
+    return;
+  }
+
+  $total.innerText += selectedOperator;
+};
