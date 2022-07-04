@@ -18,7 +18,7 @@ function handleDigit(e) {
   }
   const digit = e.target.innerText;
   setState(digit);
-  render(total, state);
+  return render(total, state);
 }
 
 function handleOperators(e) {
@@ -40,7 +40,7 @@ function handleOperators(e) {
   }
 
   setState(operator);
-  render(total, state);
+  return render(total, state);
 }
 
 function handleModifier() {
