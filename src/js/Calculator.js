@@ -76,12 +76,25 @@ export default class Calculator {
     if (this._operation === '') {
       result = this._expression;
     } else {
-      const numbers = this._expression.split(this._operation);
-      const firstNumber = parseInt(numbers[0]);
-      const secondNumber = numbers[1] !== '' ? parseInt(numbers[1]) : 0;
+      const { firstNumber, secondNumber } = this.splitNumbers();
       result = this.calculate(this._operation, firstNumber, secondNumber);
     }
     this._expression = result.toString();
+  };
+
+  splitNumbers = () => {
+    let isNegative = false;
+    if (this._expression.startsWith('-')) {
+      isNegative = true;
+      this._expression = this._expression.substring(1);
+    }
+
+    const numbers = this._expression.split(this._operation);
+    const firstNumber = isNegative
+      ? -parseInt(numbers[0])
+      : parseInt(numbers[0]);
+    const secondNumber = numbers[1] !== '' ? parseInt(numbers[1]) : 0;
+    return { firstNumber, secondNumber };
   };
 
   calculate = (operation, firstNum, secondNum) => {
@@ -110,6 +123,11 @@ export default class Calculator {
   };
 
   divide = (firstNum, secondNum) => {
-    return Math.floor(firstNum / secondNum);
+    const result = firstNum / secondNum;
+    if (result > 0) {
+      return Math.floor(firstNum / secondNum);
+    } else {
+      return Math.ceil(firstNum / secondNum);
+    }
   };
 }

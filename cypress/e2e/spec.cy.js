@@ -45,6 +45,15 @@ describe('2개의 숫자에 대해 뺄셈이 가능하다.', () => {
     cy.get('.operation:last-child').click();
     cy.get('#total').should('have.text', '-808');
   });
+  it('-9 - 5 = -14', () => {
+    cy.get('.operation:nth-child(3)').click();
+    cy.get('.digit:nth-child(1)').click();
+    cy.get('.operation:last-child').click();
+    cy.get('.operation:nth-child(3)').click();
+    cy.get('.digit:nth-child(5)').click();
+    cy.get('.operation:last-child').click();
+    cy.get('#total').should('have.text', '-14');
+  });
 });
 
 describe('2개의 숫자에 대해 곱셈이 가능하다.', () => {
@@ -194,5 +203,15 @@ describe('계산 결과를 표현할 때 소수점 이하는 버림한다.', () 
     cy.get('.digit:nth-child(10)').click();
     cy.get('.operation:last-child').click();
     cy.get('#total').should('have.text', '9');
+  });
+  it('-10 / 3 = -3', () => {
+    cy.get('.operation:nth-child(3)').click();
+    cy.get('.digit:nth-child(9)').click();
+    cy.get('.digit:nth-child(10)').click();
+    cy.get('.operation:last-child').click();
+    cy.get('.operation:nth-child(1)').click();
+    cy.get('.digit:nth-child(7)').click();
+    cy.get('.operation:last-child').click();
+    cy.get('#total').should('have.text', '-3');
   });
 });
