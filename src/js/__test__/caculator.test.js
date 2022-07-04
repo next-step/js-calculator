@@ -1,4 +1,4 @@
-import { Sum } from "../operations.js";
+import { getOperations } from "../operations.js";
 import { Calculator, INITIAL_STATE } from "../calculator.js";
 
 describe("Calculator", () => {
@@ -45,7 +45,7 @@ describe("Calculator", () => {
   test("Set operation", () => {
     const calculator = initializeCalculator();
     calculator.setOperation("+");
-    expect(calculator.state.operation).toBe(Sum.getInstance());
+    expect(calculator.state.operation).toBe(getOperations("+"));
 
     calculator.setOperation("=");
     expect(calculator.state.operation).toBe(undefined);

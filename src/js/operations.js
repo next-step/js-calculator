@@ -13,7 +13,7 @@ export class Operation {
   }
 }
 
-export class Sum extends Operation {
+class Sum extends Operation {
   static operator = "+";
 
   static getInstance() {
@@ -32,7 +32,8 @@ export class Sum extends Operation {
     return Sum.operator;
   }
 }
-export class Subtract extends Operation {
+
+class Subtract extends Operation {
   static operator = "-";
 
   static getInstance() {
@@ -52,7 +53,7 @@ export class Subtract extends Operation {
   }
 }
 
-export class Multiple extends Operation {
+class Multiple extends Operation {
   static operator = "X";
 
   static getInstance() {
@@ -72,7 +73,7 @@ export class Multiple extends Operation {
   }
 }
 
-export class Divide extends Operation {
+class Divide extends Operation {
   static operator = "/";
 
   static getInstance() {
