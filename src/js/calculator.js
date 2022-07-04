@@ -1,4 +1,4 @@
-import { getOperations } from "./utils/operations.js";
+import { getOperations } from "./operations.js";
 
 export const INITIAL_STATE = {
   operation: undefined,

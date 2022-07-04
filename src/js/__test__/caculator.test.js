@@ -1,5 +1,5 @@
+import { Sum } from "../operations.js";
 import { Calculator, INITIAL_STATE } from "../calculator.js";
-import { Sum } from "../utils/operations.js";
 
 describe("Calculator", () => {
   beforeEach(() => {

@@ -1,53 +1,63 @@
 export class Operation {
+  static operator;
+
   operate(a, b) {
     throw new Error("Not implemented");
   }
 }
 
 export class Sum extends Operation {
+  static operator = "+";
+
   operate(a, b) {
     return a + b;
   }
 
   toString() {
-    return "+";
+    return Sum.operator;
   }
 }
 export class Subtract extends Operation {
+  static operator = "-";
+
   operate(a, b) {
     return a - b;
   }
 
   toString() {
-    return "-";
+    return Subtract.operator;
   }
 }
 
 export class Multiple extends Operation {
+  static operator = "X";
+
   operate(a, b) {
     return a * b;
   }
 
   toString() {
-    return "X";
+    return Multiple.operator;
   }
 }
 
 export class Divide extends Operation {
+  static operator = "/";
+
   operate(a, b) {
     return Math.floor(a / b);
   }
 
   toString() {
-    return "/";
+    return Divide.operator;
   }
 }
 
 const OPERATION_MAP = {
-  "/": Divide,
-  X: Multiple,
-  "-": Subtract,
-  "+": Sum,
+  [Sum.operator]: Sum,
+  [Subtract.operator]: Subtract,
+  [Divide.operator]: Divide,
+  [Multiple.operator]: Multiple,
 };
 
 export const getOperations = (operation) => {
