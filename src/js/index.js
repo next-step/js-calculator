@@ -30,9 +30,7 @@ calculator.addEventListener('click', (e) => {
 
   // 입력 숫자가 3자리를 넘어가면 경고문구
   const regex = /[X/+-]/gi;
-  const numbers = input.split(regex);
-  let num1 = numbers[0];
-  let num2 = numbers[1];
+  const [num1, num2] = input.split(regex);
 
   if ((num1 && num1.length >= 4) || (num2 && num2.length >= 4)) {
     alert('세자리 숫자까지만 입력이 가능합니다.');
