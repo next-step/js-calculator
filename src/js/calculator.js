@@ -56,13 +56,13 @@ export class Calculator {
     this.setTerm("secondTerm", value);
   };
 
-  setOperation = (operation) => {
-    if (operation === "=") {
+  setOperation = (operator) => {
+    if (operator === "=") {
       this.calculate();
     } else {
-      const Operation = getOperations(operation);
-      if (!Operation) throw new Error("Invalid operation");
-      this.setState("operation", new Operation());
+      const operation = getOperations(operator);
+      if (!operation) throw new Error("Invalid operation");
+      this.setState("operation", operation);
     }
   };
 

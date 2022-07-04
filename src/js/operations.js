@@ -1,13 +1,28 @@
+import { NotImplementedError } from "./utils/error";
+
 export class Operation {
   static operator;
+  static instance;
+
+  static getInstance() {
+    throw new NotImplementedError();
+  }
 
   operate(a, b) {
-    throw new Error("Not implemented");
+    throw new NotImplementedError();
   }
 }
 
 export class Sum extends Operation {
   static operator = "+";
+
+  static getInstance() {
+    if (!Sum.instance) {
+      Sum.instance = new Sum();
+    }
+
+    return Sum.instance;
+  }
 
   operate(a, b) {
     return a + b;
@@ -19,6 +34,14 @@ export class Sum extends Operation {
 }
 export class Subtract extends Operation {
   static operator = "-";
+
+  static getInstance() {
+    if (!Subtract.instance) {
+      Subtract.instance = new Subtract();
+    }
+
+    return Subtract.instance;
+  }
 
   operate(a, b) {
     return a - b;
@@ -32,6 +55,14 @@ export class Subtract extends Operation {
 export class Multiple extends Operation {
   static operator = "X";
 
+  static getInstance() {
+    if (!Multiple.instance) {
+      Multiple.instance = new Multiple();
+    }
+
+    return Multiple.instance;
+  }
+
   operate(a, b) {
     return a * b;
   }
@@ -44,6 +75,14 @@ export class Multiple extends Operation {
 export class Divide extends Operation {
   static operator = "/";
 
+  static getInstance() {
+    if (!Divide.instance) {
+      Divide.instance = new Divide();
+    }
+
+    return Divide.instance;
+  }
+
   operate(a, b) {
     return Math.floor(a / b);
   }
@@ -54,10 +93,10 @@ export class Divide extends Operation {
 }
 
 export const OPERATION_MAP = {
-  [Sum.operator]: Sum,
-  [Subtract.operator]: Subtract,
-  [Divide.operator]: Divide,
-  [Multiple.operator]: Multiple,
+  [Sum.operator]: Sum.getInstance(),
+  [Subtract.operator]: Subtract.getInstance(),
+  [Divide.operator]: Divide.getInstance(),
+  [Multiple.operator]: Multiple.getInstance(),
 };
 
 export const getOperations = (operation) => {

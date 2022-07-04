@@ -45,7 +45,7 @@ describe("Calculator", () => {
   test("Set operation", () => {
     const calculator = initializeCalculator();
     calculator.setOperation("+");
-    expect(calculator.state.operation).toStrictEqual(new Sum());
+    expect(calculator.state.operation).toBe(Sum.getInstance());
 
     calculator.setOperation("=");
     expect(calculator.state.operation).toBe(undefined);
