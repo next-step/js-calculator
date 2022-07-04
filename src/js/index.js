@@ -36,7 +36,7 @@ function handleOperators(e) {
     const result = calculate(state);
     resetState();
     setState(result);
-    return render(total, [result]);
+    return render(total, state);
   }
 
   setState(operator);
@@ -45,7 +45,7 @@ function handleOperators(e) {
 
 function handleModifier() {
   resetState();
-  render(total);
+  return render(total);
 }
 
 digits.addEventListener('click', handleDigit);
