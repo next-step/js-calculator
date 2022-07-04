@@ -70,12 +70,11 @@ const initEventListeners = () => {
       ) {
         alert("숫자를 먼저 입력한 후 연산자를 입력해주세요!");
         return;
-      } else {
-        firstNumber = Number($("#total").innerText);
-        operator = e.target.innerText;
-        $("#total").innerText += e.target.innerText;
-        numberCount = 0;
       }
+      firstNumber = Number($("#total").innerText);
+      operator = e.target.innerText;
+      $("#total").innerText += e.target.innerText;
+      numberCount = 0;
     }
   });
 
