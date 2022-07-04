@@ -57,8 +57,8 @@ const calculator = (function () {
   }
 
   function calculate() {
-    const operation = inputList[1];
-    return setTotal(operation, Number(inputList[0]), Number(inputList[2]));
+    const [numText1, operation, numText2] = inputList;
+    return setTotal(operation, Number(numText1), Number(numText2));
   }
 
   return {
