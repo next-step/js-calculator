@@ -39,7 +39,7 @@ const calculator = (function () {
     return num1 / num2;
   }
 
-  function setTotal(operation, num1 , num2 ) {
+  function setTotal(operation, num1, num2) {
     num1 = num1 || 0;
     num2 = num2 || 0;
     switch (operation) {
