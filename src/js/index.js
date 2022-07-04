@@ -85,6 +85,7 @@ calculator.addEventListener('click', (e) => {
       break;
 
     default:
+      input = '';
       break;
   }
 
