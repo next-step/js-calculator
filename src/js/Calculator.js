@@ -9,25 +9,9 @@ export default class Calculator {
     this._limit = 3;
   }
 
-  get operation() {
-    return this._operation;
-  }
-  set operation(value) {
-    this._operation = value;
-  }
   get expression() {
     return this._expression;
   }
-  set expression(value) {
-    this._expression = value;
-  }
-  get limit() {
-    return this._limit;
-  }
-  set limit(value) {
-    this._limit = value;
-  }
-
   resetOperation = () => {
     this._operation = '';
   };
@@ -44,6 +28,11 @@ export default class Calculator {
   addExpression = (value) => {
     this._expression = this._expression + value;
   };
+  checkExpression = () => {
+    if (this._expression === 'Infinity') {
+      this.resetExpression();
+    }
+  };
 
   handleAC = () => {
     this.resetDigitLimit();
@@ -52,6 +41,9 @@ export default class Calculator {
   };
 
   handleDigit = (digit) => {
+    console.log(digit);
+    this.checkExpression();
+    console.log('여기 : ', digit);
     if (this._limit === 0) {
       alert('숫자는 세자리까지만 입력 가능합니다!');
       return;
@@ -64,10 +56,11 @@ export default class Calculator {
   };
 
   handleOperation = (operation) => {
+    this.checkExpression();
     if (operation === '=') {
       this.calculateExpression();
       this.resetOperation();
-    } else if (this.operation === '') {
+    } else if (this._operation === '' && this._limit < 3) {
       this.addExpression(operation);
       this._operation = operation;
     } else {
@@ -78,11 +71,16 @@ export default class Calculator {
   };
 
   calculateExpression = () => {
-    const numbers = this._expression.split(this._operation);
-    const firstNumber = parseInt(numbers[0]);
-    const secondNumber = parseInt(numbers[1]) ?? 0;
-    const result = this.calculate(this._operation, firstNumber, secondNumber);
-    this._expression = result;
+    let result;
+    if (this._operation === '') {
+      result = this._expression;
+    } else {
+      const numbers = this._expression.split(this._operation);
+      const firstNumber = parseInt(numbers[0]);
+      const secondNumber = numbers[1] !== '' ? parseInt(numbers[1]) : 0;
+      result = this.calculate(this._operation, firstNumber, secondNumber);
+    }
+    this._expression = result.toString();
   };
 
   calculate = (operation, firstNum, secondNum) => {
