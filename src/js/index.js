@@ -8,6 +8,13 @@ const getTotal = () => {
   return total.innerText;
 };
 
+const modifier = document.querySelector('.modifier');
+const clickAC = () => {
+  setTotal(0);
+  currentOperation = '';
+};
+modifier.addEventListener('click', clickAC);
+
 const digits = document.querySelector('.digits');
 const clickDigit = (event) => {
   const digit = event.target.innerText;
