@@ -7,26 +7,25 @@ import {
 } from './constants.js';
 import checkNotNumber from './regex.js';
 
-const handleDecimalPointFloor = (countedNumber) =>
-  String(Math.floor(countedNumber));
+const removeDecimalPoint = (countedNumber) => String(Math.floor(countedNumber));
 
-const handleCalculate = (beforeNumber, operator, afterNumber) => {
+const calculate = (beforeNumber, operator, afterNumber) => {
   const { plus, minus, multiplication, divide } = OPERATORS;
   switch (operator) {
-    case `${plus}`:
-      return handleDecimalPointFloor(
+    case plus:
+      return removeDecimalPoint(
         parseInt(beforeNumber, 10) + parseInt(afterNumber, 10)
       );
-    case `${minus}`:
-      return handleDecimalPointFloor(
+    case minus:
+      return removeDecimalPoint(
         parseInt(beforeNumber, 10) - parseInt(afterNumber, 10)
       );
-    case `${multiplication}`:
-      return handleDecimalPointFloor(
+    case multiplication:
+      return removeDecimalPoint(
         parseInt(beforeNumber, 10) * parseInt(afterNumber, 10)
       );
-    case `${divide}`:
-      return handleDecimalPointFloor(
+    case divide:
+      return removeDecimalPoint(
         parseInt(beforeNumber, 10) / parseInt(afterNumber, 10)
       );
     default:
@@ -34,13 +33,12 @@ const handleCalculate = (beforeNumber, operator, afterNumber) => {
   }
 };
 
-const handleClickEqual = (operatorText, input) => {
+const calculatedResult = (operatorText, input) => {
   const findOperatorArray = input.match(checkNotNumber);
-  // NOTE : input에 연산자가 없거나, 연산자가 있지만 연산자 이후 바로 "="이 들어오는 경우 계산없이 받아온 input 그대로 return
-  if (
-    !findOperatorArray ||
-    input[input.length - 1] === String(findOperatorArray)
-  ) {
+
+  const hasNoOperator = !findOperatorArray;
+  const hasNoRightValue = input[input.length - 1] === String(findOperatorArray);
+  if (hasNoOperator || hasNoRightValue) {
     return input;
   }
 
@@ -58,10 +56,10 @@ const handleClickEqual = (operatorText, input) => {
     operator = findOperatorArray[1];
   }
 
-  return handleCalculate(leftNumber, operator, rightNumber);
+  return calculate(leftNumber, operator, rightNumber);
 };
 
-const handleDisplayOperator = (operator, input) => {
+const displayOperator = (operator, input) => {
   const result = input.concat(operator);
   const operatorLimitConditionLength = result.split(checkNotNumber).length;
 
@@ -79,4 +77,4 @@ const handleDisplayOperator = (operator, input) => {
   return result;
 };
 
-export { handleClickEqual, handleDisplayOperator };
+export { calculatedResult, displayOperator };

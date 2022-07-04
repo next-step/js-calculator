@@ -1,3 +1,3 @@
-const checkNotNumber = /[^0-9]/g;
+const checkNotNumber = /\D/g;
 
 export default checkNotNumber;

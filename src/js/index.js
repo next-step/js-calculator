@@ -1,6 +1,6 @@
 import { AFTER_ENTER_NUMBER_FIRST, OPERATORS } from './constants.js';
-import handleNumber from './clickNumber.js';
-import { handleClickEqual, handleDisplayOperator } from './calculate.js';
+import displayNumber from './displayNumber.js';
+import { calculatedResult, displayOperator } from './calculate.js';
 
 const totalValue = document.querySelector('#total');
 const allClearButton = document.querySelector('.modifier');
@@ -21,13 +21,11 @@ digitsButton.addEventListener('click', (e) => {
     return;
   }
 
-  input = handleNumber(numberText, input);
+  input = displayNumber(numberText, input);
   totalValue.innerText = input;
 });
 
-allClearButton.addEventListener('click', () => {
-  reset();
-});
+allClearButton.addEventListener('click', reset);
 
 operatorButton.addEventListener('click', (e) => {
   // NOTE : 빈인풋에 연산자 click시 alert + return
@@ -40,7 +38,7 @@ operatorButton.addEventListener('click', (e) => {
   const { equal } = OPERATORS;
 
   if (operatorText === equal) {
-    const calculatedValue = handleClickEqual(operatorText, input);
+    const calculatedValue = calculatedResult(operatorText, input);
     if (calculatedValue === '0') {
       reset();
     } else {
@@ -48,7 +46,7 @@ operatorButton.addEventListener('click', (e) => {
       totalValue.innerText = input;
     }
   } else {
-    input = handleDisplayOperator(operatorText, input);
+    input = displayOperator(operatorText, input);
     totalValue.innerText = input;
   }
 });

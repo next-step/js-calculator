@@ -5,7 +5,7 @@ import {
 } from './constants.js';
 import checkNotNumber from './regex.js';
 
-const handleNumber = (number, input) => {
+const displayNumber = (number, input) => {
   const result = input.concat(number);
   const numberLengthList = result
     .split(checkNotNumber)
@@ -28,4 +28,4 @@ const handleNumber = (number, input) => {
   return result;
 };
 
-export default handleNumber;
+export default displayNumber;
