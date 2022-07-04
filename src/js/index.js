@@ -1,18 +1,18 @@
 
-import { handleDigits, handleModifiers, handleOperations } from './modules/index.js';
+import { handleDigitClick, handleModifierClick, handleOperationClick } from './modules/index.js';
 import { $ } from './utils/index.js';
 
-function Calulator() {
-  const digits = $('.digits');
-  const operations = $('.operations');
-  const modifiers = $('.modifiers');
+function calulateNumber() {
+  const js_digits = $('.digits');
+  const js_operations = $('.operations');
+  const js_modifiers = $('.modifiers');
   
-  digits.addEventListener('click', handleDigits);
+  js_digits.addEventListener('click', handleDigitClick);
 
-  operations.addEventListener('click', handleOperations);
+  js_operations.addEventListener('click', handleModifierClick);
   
-  modifiers.addEventListener('click', handleModifiers);
+  js_modifiers.addEventListener('click', handleOperationClick);
   
 }
 
-Calulator();
+calulateNumber();

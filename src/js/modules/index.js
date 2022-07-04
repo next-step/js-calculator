@@ -2,7 +2,7 @@ import { displayText } from '../utils/index.js';
 import { INIT_DISPLAY_TEXT, OPERATIONS } from '../constants/index.js';
 import { validateDigit, validateOperation } from '../validations/index.js';
 
-export const handleDigits = (e) => {
+export const handleDigitClick = (e) => {
   const clickedNumber = e.target.innerText;
 
   if (validateDigit()) return;
@@ -15,7 +15,7 @@ export const handleDigits = (e) => {
   displayText.innerText += clickedNumber;
 }
 
-export const handleOperations = (e) => {
+export const handleOperationClick = (e) => {
   const clickedOperation = e.target.innerText;
   const operations = displayText.innerText.split('').filter((text) => isNaN(text));
   const [operation] = operations;
@@ -53,6 +53,6 @@ export const handleOperations = (e) => {
   displayText.innerText += clickedOperation;
 }
 
-export const handleModifiers = () => {
+export const handleModifierClick = () => {
   displayText.innerText = 0;
 }
