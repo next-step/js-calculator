@@ -9,11 +9,11 @@ const digitEventHandler = (e) => {
   const target = e.target;
   if (!isButtonHasClassName("digit")) return;
   const digit = target.innerText;
-  if (calculator.state.operation === undefined) {
+  if (!calculator.state.operation) {
     calculator.setFirstTerm(digit);
-  } else {
-    calculator.setSecondTerm(digit);
+    return;
   }
+  calculator.setSecondTerm(digit);
 };
 
 const operationEventHandler = (e) => {
