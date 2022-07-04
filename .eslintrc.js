@@ -4,8 +4,8 @@ module.exports = {
     es2021: true,
     'cypress/globals': true,
   },
-  plugins: ['cypress'],
-  extends: ['airbnb-base', 'plugin:cypress/recommended'],
+  plugins: ['cypress', 'prettier'],
+  extends: ['airbnb-base', 'plugin:cypress/recommended', 'eslint-config-prettier'],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',

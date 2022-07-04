@@ -7,19 +7,28 @@ import {
 } from './constants.js';
 import checkNotNumber from './regex.js';
 
-const handleDecimalPointFloor = (countedNumber) => String(Math.floor(countedNumber));
+const handleDecimalPointFloor = (countedNumber) =>
+  String(Math.floor(countedNumber));
 
 const handleCalculate = (beforeNumber, operator, afterNumber) => {
   const { plus, minus, multiplication, divide } = OPERATORS;
   switch (operator) {
     case `${plus}`:
-      return handleDecimalPointFloor(parseInt(beforeNumber, 10) + parseInt(afterNumber, 10));
+      return handleDecimalPointFloor(
+        parseInt(beforeNumber, 10) + parseInt(afterNumber, 10)
+      );
     case `${minus}`:
-      return handleDecimalPointFloor(parseInt(beforeNumber, 10) - parseInt(afterNumber, 10));
+      return handleDecimalPointFloor(
+        parseInt(beforeNumber, 10) - parseInt(afterNumber, 10)
+      );
     case `${multiplication}`:
-      return handleDecimalPointFloor(parseInt(beforeNumber, 10) * parseInt(afterNumber, 10));
+      return handleDecimalPointFloor(
+        parseInt(beforeNumber, 10) * parseInt(afterNumber, 10)
+      );
     case `${divide}`:
-      return handleDecimalPointFloor(parseInt(beforeNumber, 10) / parseInt(afterNumber, 10));
+      return handleDecimalPointFloor(
+        parseInt(beforeNumber, 10) / parseInt(afterNumber, 10)
+      );
     default:
       break;
   }
@@ -28,7 +37,10 @@ const handleCalculate = (beforeNumber, operator, afterNumber) => {
 const handleClickEqual = (operatorText, input) => {
   const findOperatorArray = input.match(checkNotNumber);
   // NOTE : input에 연산자가 없거나, 연산자가 있지만 연산자 이후 바로 "="이 들어오는 경우 계산없이 받아온 input 그대로 return
-  if (!findOperatorArray || input[input.length - 1] === String(findOperatorArray)) {
+  if (
+    !findOperatorArray ||
+    input[input.length - 1] === String(findOperatorArray)
+  ) {
     return input;
   }
 
@@ -37,7 +49,10 @@ const handleClickEqual = (operatorText, input) => {
   let [operator] = findOperatorArray;
 
   // NOTE : 결과값이 "-"가 나오는 케이스 대응로직
-  if (splitNumberArray.length === SPLIT_NUMBER_ARRAY_LENGTH && splitNumberArray[0] === '') {
+  if (
+    splitNumberArray.length === SPLIT_NUMBER_ARRAY_LENGTH &&
+    splitNumberArray[0] === ''
+  ) {
     leftNumber = `-${splitNumberArray[1]}`;
     rightNumber = splitNumberArray[2];
     operator = findOperatorArray[1];
