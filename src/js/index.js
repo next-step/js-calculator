@@ -9,14 +9,12 @@ calculator.addEventListener('click', (e) => {
   if (e.target.tagName !== 'BUTTON') return;
   input += e.target.innerText;
 
-  // AC 버튼 클릭 시 초기화
   if (e.target.innerText === 'AC') {
     total.innerText = '0';
     input = '';
     return;
   }
 
-  // 계산에 관한 문자가 연속으로 입력되지 않도록
   const continuedCharacters = /[X/+-]{2,}/;
   if (continuedCharacters.test(input)) {
     alert('숫자를 먼저 입력한 후 연산자를 입력해주세요!');
@@ -24,12 +22,10 @@ calculator.addEventListener('click', (e) => {
     return;
   }
 
-  // input 값에 '=' 문자열은 포함 시키지 않도록
   if (input.includes('=')) {
     input = input.replace('=', '');
   }
 
-  // 입력 숫자가 3자리를 넘어가면 경고문구
   const regex = /[X/+-]/gi;
   const [num1, num2] = input.split(regex);
 
@@ -44,7 +40,6 @@ calculator.addEventListener('click', (e) => {
 
   switch (e.target.className) {
     case 'digit':
-      // 최초 0 값은 입력이 불가
       if (input[0] === '0') {
         input = '';
         return;
@@ -52,7 +47,6 @@ calculator.addEventListener('click', (e) => {
       break;
 
     case 'operation':
-      // 최초 계산식에 관한 입력은 불가
       if (
         input[0] === '/' ||
         input[0] === 'X' ||
@@ -65,7 +59,6 @@ calculator.addEventListener('click', (e) => {
         return;
       }
 
-      // = 이 클릭되면 계산이 되도록
       if (e.target.innerText === '=') {
         const calc = new Calculator(num1, num2);
 
