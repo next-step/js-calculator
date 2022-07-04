@@ -29,7 +29,7 @@ export default class Calculator {
     this._expression = this._expression + value;
   };
   checkExpression = () => {
-    if (this._expression === 'Infinity') {
+    if (this._expression === 'Infinity' || this._expression === 'NaN') {
       this.resetExpression();
     }
   };
@@ -58,11 +58,14 @@ export default class Calculator {
     if (operation === '=') {
       this.calculateExpression();
       this.resetOperation();
-    } else if (this._operation === '' && this._limit < 3) {
+    } else if (this._operation === '') {
       this.addExpression(operation);
       this._operation = operation;
-    } else {
+    } else if (this._limit === 3) {
       alert('숫자를 먼저 입력한 후 연산자를 입력해주세요!');
+      return;
+    } else {
+      alert('두 개 이상의 숫자를 계산할 수 없습니다.');
       return;
     }
     this.resetDigitLimit();
