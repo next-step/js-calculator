@@ -1,4 +1,4 @@
-import { Calculator } from './calculator.js';
+import Calculator from './calculator.js';
 
 const total = document.querySelector('#total');
 const calculator = document.querySelector('.calculator');
