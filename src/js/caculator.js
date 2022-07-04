@@ -50,3 +50,22 @@ export const inputOperator = ({ target }) => {
 
   $total.innerText += selectedOperator;
 };
+
+export const setResult = () => {
+  const expression = $total.innerText;
+
+  const operator = expression.split("").find((el) => Object.keys(operators).includes(el));
+
+  if (!operator) {
+    return;
+  }
+
+  const [num1, num2] = expression.split(operator);
+
+  if (!num2) {
+    $total.innerText = num1;
+    return;
+  }
+
+  $total.innerText = operators[operator](Number(num1), Number(num2));
+};
