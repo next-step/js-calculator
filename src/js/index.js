@@ -68,7 +68,7 @@ calculator.addEventListener('click', (e) => {
         const calc = new Calculator(num1, num2);
 
         if (input.includes('+')) {
-          input = calc.add();
+          input = calc.sum();
         } else if (input.includes('-')) {
           input = calc.substract();
         } else if (input.includes('X')) {

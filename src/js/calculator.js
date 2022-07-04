@@ -4,7 +4,7 @@ class Calculator {
     this.num2 = Number(num2);
   }
 
-  add() {
+  sum() {
     return this.num1 + this.num2;
   }
 
