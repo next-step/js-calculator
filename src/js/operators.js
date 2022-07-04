@@ -2,8 +2,8 @@ import { operatorRegex, mergeState } from './lib.js';
 
 export function calculate(state) {
   const [num1, num2] = mergeState(state).split(operatorRegex);
-  const oper = state.find(c => operatorRegex.test(c));
-  switch(oper) {
+  const operator = state.find(c => operatorRegex.test(c));
+  switch(operator) {
     case '+': {
       return sum(num1, num2);
     }

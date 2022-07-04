@@ -1,5 +1,5 @@
 function useState() {
-  let store = [];
+  const store = [];
  
   function onChange(value) {
     store.push(value)
