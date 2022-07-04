@@ -11,7 +11,10 @@ export class Calculator {
 
   constructor($app) {
     this.$app = $app;
-    this.$total = $app.querySelector("#total");
+  }
+
+  get total() {
+    return this.$app.querySelector("#total");
   }
 
   setState(key, value) {
@@ -23,10 +26,13 @@ export class Calculator {
     }
   }
 
-  render = () => {
+  get result() {
     const { firstTerm = "", secondTerm = "", operation = "" } = this.state;
-    const text = `${firstTerm}${operation}${secondTerm}`;
-    this.$total.innerText = text.trim().length === 0 ? "0" : text;
+    return Number(`${firstTerm}${operation}${secondTerm}`).toString();
+  }
+
+  render = () => {
+    this.total.innerText = this.result;
   };
 
   appendTerm = (key, value) => {
