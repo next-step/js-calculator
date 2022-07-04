@@ -1,17 +1,12 @@
 {
   "name": "js-calculator",
   "version": "1.0.0",
-  "description": "<br/> <br/>",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jin-2/js-calculator.git"
   },
-  "keywords": [],
-  "author": "",
+  "author": "jin-2",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/jin-2/js-calculator/issues"
