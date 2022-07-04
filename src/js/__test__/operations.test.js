@@ -1,4 +1,4 @@
-import { Operation, Sum, Subtract, Multiple, Divide, getOperations } from "../operations";
+import { Operation, Sum, Subtract, Multiple, Divide, getOperations, OPERATION_MAP } from "../operations";
 
 describe("operation", () => {
   test("throw error when executing not implemented operator", () => {
@@ -42,6 +42,10 @@ describe("operation", () => {
     expect(new Divide().operate(1, 2)).toBe(0);
   });
 
+  test("divides -7 / 3 to equal -3", () => {
+    expect(new Divide().operate(-7, 3)).toBe(-3);
+  });
+
   test("divides 3 / 0 to equal infinity", () => {
     expect(new Divide().operate(3, 0)).toBe(Infinity);
   });
@@ -53,11 +57,7 @@ describe("operation", () => {
     expect(`${divide}`).toBe(expected);
   });
 
-  test("get operations", () => {
-    expect(getOperations("X")).toBe(Multiple);
-    expect(getOperations("/")).toBe(Divide);
-    expect(getOperations("-")).toBe(Subtract);
-    expect(getOperations("+")).toBe(Sum);
-    expect(getOperations("=")).toBe(undefined);
+  test.each(Object.entries(OPERATION_MAP))("get operation", (key, value) => {
+    expect(getOperations(key)).toBe(value);
   });
 });

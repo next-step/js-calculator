@@ -53,7 +53,7 @@ export class Divide extends Operation {
   }
 }
 
-const OPERATION_MAP = {
+export const OPERATION_MAP = {
   [Sum.operator]: Sum,
   [Subtract.operator]: Subtract,
   [Divide.operator]: Divide,
