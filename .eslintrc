@@ -6,6 +6,8 @@
   },
   "extends": ["prettier"],
   "plugins": [],
-
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
   "rules": {}
 }
