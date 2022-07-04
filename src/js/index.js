@@ -3,6 +3,7 @@ import Calculator from './calculator.js';
 const total = document.querySelector('#total');
 const calculator = document.querySelector('.calculator');
 let input = '';
+const MAXIMUM_DIGITS = 3;
 
 calculator.addEventListener('click', (e) => {
   if (e.target.tagName !== 'BUTTON') return;
@@ -32,7 +33,10 @@ calculator.addEventListener('click', (e) => {
   const regex = /[X/+-]/gi;
   const [num1, num2] = input.split(regex);
 
-  if ((num1 && num1.length >= 4) || (num2 && num2.length >= 4)) {
+  if (
+    (num1 && num1.length > MAXIMUM_DIGITS) ||
+    (num2 && num2.length > MAXIMUM_DIGITS)
+  ) {
     alert('세자리 숫자까지만 입력이 가능합니다.');
     input = input.slice(0, -1);
     return;
