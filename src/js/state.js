@@ -1,5 +1,3 @@
-import { mergeState } from './lib.js';
-
 function useState() {
   let store = [];
  

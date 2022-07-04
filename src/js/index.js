@@ -12,9 +12,9 @@ const operators = selector('.operations');
 const modifier = selector('.modifier');
 
 function handleDigit(e) {
-  const a = digitValidator(state);
-  if (!a.isValid){
-    return window.alert(a.msg);
+  const validator = digitValidator(state);
+  if (!validator.isValid){
+    return window.alert(validator.msg);
   }
   const digit = e.target.innerText;
   setState(digit);
