@@ -6,6 +6,7 @@
   "author": "smchoxx <grit.developer.asher@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "cypress": "^10.3.0",
     "eslint": "^7.32.0 || ^8.2.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.2"
