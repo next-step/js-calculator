@@ -1,12 +1,26 @@
 import { Model } from "./model.js";
 import { Total } from "./components/total.js";
-import { operators } from "./operators.js";
+import {
+  operatorsIcons,
+  MAX_LENGTH_OF_INPUT_NUMBER,
+  ERROR_MASAGES,
+} from "./constant.js";
+
 class App {
   model;
   total;
 
   constructor(appElement) {
-    this.model = new Model();
+    const onOverInputNumber = () =>
+      window.alert(ERROR_MASAGES.OVER_INPUT_NUMBER);
+    const onStepChanged = () => window.alert(ERROR_MASAGES.STEP_CHANGED);
+
+    this.model = new Model({
+      maxLengthOfInputNumber: MAX_LENGTH_OF_INPUT_NUMBER,
+      onOverInputNumber,
+      onStepChanged,
+    });
+
     this.total = new Total(appElement.querySelector("#total"));
 
     appElement.querySelector(".digits").addEventListener("click", (e) => {
@@ -18,41 +32,30 @@ class App {
     });
 
     appElement.querySelector(".operations").addEventListener("click", (e) => {
-      const icons = Object.values(operators).map((operator) => operator.icon);
+      const operator = getOperatorFromIcon(e.target.innerText);
 
-      const index = icons.indexOf(e.target.innerText);
-
-      if (index === -1) {
-        this.calculate();
+      if (operator) {
+        this.handleOperation(operator);
         return;
       }
 
-      this.handleOperation(Object.keys(operators)[index]);
+      this.calculate();
     });
   }
 
   renderTotal() {
-    const { num1, num2, operation } = this.model;
-
-    if (num1 === 0) {
+    if (this.model.isInitial()) {
       this.total.setDetaultLabel();
       return;
     }
 
-    const label = getLabel(num1, num2, operation);
+    const display = this.model.getDisplay();
 
-    this.total.setLabel(label);
+    this.total.setLabel(display);
   }
 
   handleNumber(input) {
-    const targetKey = this.model.operation ? "num2" : "num1";
-
-    if (this.model[targetKey] >= 100) {
-      window.alert("숫자는 세 자리까지만 입력 가능합니다!");
-      return;
-    }
-
-    this.model.inputNum(targetKey, input);
+    this.model.inputNum(input);
 
     this.renderTotal();
   }
@@ -69,9 +72,7 @@ class App {
   }
 
   calculate() {
-    const result = this.model.calculate();
-    this.model.reset();
-    this.model.num1 = result;
+    this.model.calculate();
 
     this.renderTotal();
   }
@@ -85,12 +86,10 @@ class App {
 
 new App(document.querySelector("#app"));
 
-const getLabel = (num1, num2, operation) => {
-  const numLabel1 = num1 || "";
-  const numLabel2 = num2 || "";
+function getOperatorFromIcon(icon) {
+  const icons = Object.values(operatorsIcons);
 
-  const operationLabel =
-    operation === undefined ? "" : operators[operation].icon;
+  const index = icons.indexOf(icon);
 
-  return `${numLabel1}${operationLabel}${numLabel2}`;
-};
+  return Object.keys(operatorsIcons)[index];
+}
