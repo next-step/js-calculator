@@ -100,6 +100,9 @@ class Calculator {
     const postfix = [];
     const stack = [];
 
+    const isLowerOrEqualOperatorPrecedence = (operatorA, operatorB) =>
+      operatorPrecedences[operatorA] <= operatorPrecedences[operatorB];
+
     infix.forEach((value) => {
       if (Number.isInteger(Number(value))) {
         postfix.push(value);
@@ -108,8 +111,7 @@ class Calculator {
 
       while (
         stack.length > 0 &&
-        operatorPrecedences[value] <=
-          operatorPrecedences[stack[stack.length - 1]]
+        isLowerOrEqualOperatorPrecedence(value, stack.at(-1))
       ) {
         postfix.push(stack.pop());
       }
