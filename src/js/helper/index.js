@@ -1,11 +1,18 @@
 import { displayText } from '../utils/index.js';
-import { INIT_DISPLAY_TEXT, OPERATIONS } from '../constants/index.js';
+import { ERROR_MESSAGE, INIT_DISPLAY_TEXT, OPERATIONS } from '../constants/index.js';
 import { validateDigit, validateOperation } from '../validations/index.js';
 
+// View 관련 로직
+
+// 일반 로직
 export const handleDigitClick = (e) => {
   const clickedNumber = e.target.innerText;
+  const errorMessage = validateDigit(displayText.innerText);
 
-  if (validateDigit()) return;
+  if (errorMessage !== ERROR_MESSAGE.NO_ERROR) {
+    alert(errorMessage);
+    return
+  };
   
   if (displayText.innerText === INIT_DISPLAY_TEXT) {
     displayText.innerText = clickedNumber;
@@ -18,9 +25,15 @@ export const handleDigitClick = (e) => {
 export const handleOperationClick = (e) => {
   const clickedOperation = e.target.innerText;
   const operations = displayText.innerText.split('').filter(isNaN);
+  const lastText = displayText.innerText.slice(-1);
+  const operationsValue = Object.values(OPERATIONS);
   const [operation] = operations;
+  const errorMessage = validateOperation(clickedOperation, operations, lastText, operationsValue);
 
-  if (validateOperation(clickedOperation, operations)) return;
+  if (errorMessage !== ERROR_MESSAGE.NO_ERROR) {
+    alert(errorMessage);
+    return
+  };
   
   if (clickedOperation === OPERATIONS.EQUAL) {
     const calculatedNumbers = displayText.innerText.split(operation);

@@ -1,34 +1,24 @@
-import { ALERT_MESSAGE, INIT_DISPLAY_TEXT, OPERATIONS } from '../constants/index.js';
+import { ERROR_MESSAGE, INIT_DISPLAY_TEXT, OPERATIONS } from '../constants/index.js';
 import { numberRegExp } from '../regex/index.js';
 import { displayText } from '../utils/index.js';
 
-export const validateDigit = () => {
-  if (numberRegExp.test(displayText.innerText)) {
-    alert(ALERT_MESSAGE.NO_MORE_THREE_DIGIT)
-    return true
-  };
+export const validateDigit = (digit) => {
+  return numberRegExp.test(digit) ? ERROR_MESSAGE.NO_MORE_THREE_DIGIT : ERROR_MESSAGE.NO_ERROR
+}
 
-  return false
-};
-
-export const validateOperation = (clickedOperation, operations) => {
-  const lastText = displayText.innerText.slice(-1);
-  const operationsValue = Object.values(OPERATIONS);
+export const validateOperation = (clickedOperation, operations, lastText, operationsValue) => {
 
   if (displayText.innerText === INIT_DISPLAY_TEXT) {
-    alert(ALERT_MESSAGE.FIRST_LETTER_NUMBER);
-    return true
+    return ERROR_MESSAGE.FIRST_LETTER_NUMBER
   };
   
   if (operationsValue.includes(lastText)) {
-    alert(ALERT_MESSAGE.NO_DOUBLE_FORMULA);
-    return true
+    return ERROR_MESSAGE.NO_DOUBLE_FORMULA
   };
     
   if (clickedOperation !== OPERATIONS.EQUAL && operations.length !== 0) {
-    alert(ALERT_MESSAGE.NO_THREE_NUMBER);
-    return true
+    return ERROR_MESSAGE.NO_THREE_NUMBER
   };
 
-  return false
+  return ERROR_MESSAGE.NO_ERROR
 }

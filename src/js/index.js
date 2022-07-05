@@ -1,5 +1,5 @@
 
-import { handleDigitClick, handleModifierClick, handleOperationClick } from './modules/index.js';
+import { handleDigitClick, handleModifierClick, handleOperationClick } from './helper/index.js';
 import { $ } from './utils/index.js';
 
 function calulateNumber() {
@@ -9,9 +9,9 @@ function calulateNumber() {
   
   js_digits.addEventListener('click', handleDigitClick);
 
-  js_operations.addEventListener('click', handleModifierClick);
+  js_operations.addEventListener('click',handleOperationClick);
   
-  js_modifiers.addEventListener('click', handleOperationClick);
+  js_modifiers.addEventListener('click', handleModifierClick);
   
 }
 
