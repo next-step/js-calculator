@@ -21,6 +21,7 @@ const operatorFunctions = {
 export const errorMessages = Object.freeze({
   SYNTAX_ERROR: '숫자를 먼저 입력한 후 연산자를 입력해주세요!',
   MAX_LENGTH_ERROR: '숫자는 세 자리까지만 입력 가능합니다!',
+  NOT_A_NUMBER_ERROR: '숫자만 연산이 가능합니다!',
 });
 const MAX_NUMBER_LENGTH = 3;
 
@@ -57,6 +58,19 @@ class Calculator {
     this.#buffer = '';
   }
 
+  #validate(value) {
+    if (!Number.isInteger(this.#result)) {
+      throw new Error(errorMessages.NOT_A_NUMBER_ERROR);
+    }
+
+    if (Number.isInteger(Number(value))) {
+      if (this.#buffer.length >= MAX_NUMBER_LENGTH)
+        throw new Error(errorMessages.MAX_LENGTH_ERROR);
+    } else if (this.#buffer === '') {
+      throw new Error(errorMessages.SYNTAX_ERROR);
+    }
+  }
+
   clearAll() {
     this.#buffer = '';
     this.#infix = [];
@@ -64,20 +78,8 @@ class Calculator {
   }
 
   push(value) {
-    // AC
     if (value === operators.AC) {
       this.clearAll();
-      return;
-    }
-
-    // Ifinity or NaN
-    if (!Number.isInteger(this.#result)) return;
-
-    if (Number.isInteger(Number(value))) {
-      if (this.#buffer.length >= MAX_NUMBER_LENGTH)
-        throw new Error(errorMessages.MAX_LENGTH_ERROR);
-
-      this.#buffer = Calculator.removeLeadingZero(this.#buffer + value);
       return;
     }
 
@@ -87,10 +89,14 @@ class Calculator {
       return;
     }
 
-    if (this.#buffer === '') throw new Error(errorMessages.SYNTAX_ERROR);
+    this.#validate(value);
 
-    this.#pushBuffer();
-    this.#infix.push(value);
+    if (Number.isInteger(Number(value))) {
+      this.#buffer = Calculator.removeLeadingZero(this.#buffer + value);
+    } else {
+      this.#pushBuffer();
+      this.#infix.push(value);
+    }
   }
 
   toString() {
