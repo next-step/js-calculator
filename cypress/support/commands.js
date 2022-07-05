@@ -1,14 +1,17 @@
 import '@testing-library/cypress/add-commands';
 
-Cypress.Commands.add('clicks', (string, options = {}) => {
-  const { atom = false } = options;
+Cypress.Commands.add('clickNumber', (number) => {
+  cy.findByRole('button', { name: number }).click();
+});
 
-  if (atom) {
-    cy.findByRole('button', { name: string }).click();
-    return;
-  }
+Cypress.Commands.add('clickOperator', (operator) => {
+  cy.findByRole('button', { name: operator }).click();
+});
 
-  string.split('').forEach((value) => {
-    cy.findByRole('button', { name: value }).click();
-  });
+Cypress.Commands.add('calculate', () => {
+  cy.findByRole('button', { name: '=' }).click();
+});
+
+Cypress.Commands.add('clearAll', (modifier = 'AC') => {
+  cy.findByRole('button', { name: modifier }).click();
 });
