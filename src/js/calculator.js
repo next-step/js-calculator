@@ -72,13 +72,11 @@ class Calculator {
     // Ifinity or NaN
     if (!Number.isInteger(this.#result)) return;
 
-    // Number
-    if (Number.isInteger(+value)) {
+    if (Number.isInteger(Number(value))) {
       if (this.#buffer.length >= 3)
         throw new Error(errorMessages.MAX_LENGTH_ERROR);
 
-      // remove leading zero
-      this.#buffer = (+(this.#buffer + value)).toString();
+      this.#buffer = Calculator.removeLeadingZero(this.#buffer + value);
       return;
     }
 
@@ -120,6 +118,10 @@ class Calculator {
     });
 
     return postfix.concat(stack.reverse());
+  }
+
+  static removeLeadingZero(numberString) {
+    return Number(numberString).toString();
   }
 
   static calculatePostfix(postfix) {
