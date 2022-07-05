@@ -6,7 +6,7 @@ const operations = document.getElementsByClassName('operations');
 const allClears = document.getElementsByClassName('modifier');
 
 const { onNumberClickEvent, onOperatorClickEvent, initialData } =
-  calculatorModule(total, numbers, operations, allClears);
+  calculatorModule(total);
 
 numbers[0]?.addEventListener('click', onNumberClickEvent);
 operations[0]?.addEventListener('click', onOperatorClickEvent);
