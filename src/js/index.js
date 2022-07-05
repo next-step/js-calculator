@@ -9,8 +9,7 @@ const renderResult = (string) => {
 };
 const onClick = (event) => {
   try {
-    const { textContent } = event.target;
-    calculator.push(textContent);
+    calculator.push(event.target.textContent);
 
     renderResult(calculator.toString());
   } catch (error) {
