@@ -1,0 +1,24 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "description": "<br/> <br/>",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress run",
+    "cypress:open" : "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/junzero741/js-calculator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/junzero741/js-calculator/issues"
+  },
+  "homepage": "https://github.com/junzero741/js-calculator#readme",
+  "devDependencies": {
+    "cypress": "^10.2.0"
+  }
+}
