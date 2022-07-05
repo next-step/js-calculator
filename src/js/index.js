@@ -4,6 +4,7 @@ import {
   operatorsIcons,
   MAX_LENGTH_OF_INPUT_NUMBER,
   ERROR_MASAGES,
+  DEFAULT_DISPLAY,
 } from "./constant.js";
 
 class App {
@@ -21,7 +22,7 @@ class App {
       onStepChanged,
     });
 
-    this.total = new Total(appElement.querySelector("#total"));
+    this.total = new Total(appElement.querySelector("#total"), DEFAULT_DISPLAY);
 
     appElement.querySelector(".digits").addEventListener("click", (e) => {
       this.handleNumber(Number(e.target.innerText));
@@ -45,13 +46,13 @@ class App {
 
   renderTotal() {
     if (this.model.isInitial()) {
-      this.total.setDetaultLabel();
+      this.total.setDetaultDisplay();
       return;
     }
 
     const display = this.model.getDisplay();
 
-    this.total.setLabel(display);
+    this.total.setDisplay(display);
   }
 
   handleNumber(input) {

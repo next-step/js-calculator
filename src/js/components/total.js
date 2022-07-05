@@ -1,17 +1,17 @@
 export class Total {
   element;
-  constructor(element) {
+  defaultDisplay;
+  constructor(element, defaultDisplay) {
     this.element = element;
-    this.setDetaultLabel();
+    this.defaultDisplay = defaultDisplay;
+    this.setDetaultDisplay();
   }
 
-  setDetaultLabel() {
-    this.element.innerHTML = defaultLabel;
+  setDetaultDisplay() {
+    this.element.innerHTML = this.defaultDisplay;
   }
 
-  setLabel(label) {
-    this.element.innerHTML = label;
+  setDisplay(display) {
+    this.element.innerHTML = display;
   }
 }
-
-const defaultLabel = "0";

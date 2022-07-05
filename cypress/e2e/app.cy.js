@@ -1,7 +1,5 @@
 // <reference types="cypress" />
-
-const defaultValue = "0";
-const operations = ["-", "+", "/", "X"];
+import { DEFAULT_DISPLAY } from "../../src/js/constant";
 
 describe("calculator", () => {
   const clickDigit = (number) => cy.get(".digit").contains(number).click();
@@ -15,19 +13,19 @@ describe("calculator", () => {
     cy.visit("/");
   });
 
-  it("화면을 처음 들어오면 total창에 defaultValue를 보여줍니다.", () => {
+  it("화면을 처음 들어오면 total창에 DEFAULT_DISPLAY를 보여줍니다.", () => {
     // Assert(검증)
-    getTotal().should("have.text", defaultValue);
+    getTotal().should("have.text", DEFAULT_DISPLAY);
   });
 
   describe("입력", () => {
     describe("숫자", () => {
-      it("0을 먼저 클릭하면 total창에 defaultValue를 그대로 보여줍니다.", () => {
+      it("0을 먼저 클릭하면 total창에 DEFAULT_DISPLAY를 그대로 보여줍니다.", () => {
         // Act(실행)
         clickDigit("0");
         clickDigit("0");
         // Assert(검증)
-        getTotal().should("have.text", defaultValue);
+        getTotal().should("have.text", DEFAULT_DISPLAY);
       });
 
       it("3자리까지 클릭한대로 total에 보여줍니다.", () => {
@@ -87,7 +85,7 @@ describe("calculator", () => {
       });
     });
 
-    it("All Clear버튼을 total창은 defaultValue를 보여줍니다. -- 요구사항", () => {
+    it("All Clear버튼을 total창은 DEFAULT_DISPLAY를 보여줍니다. -- 요구사항", () => {
       // Arrange(준비)
       clickDigit("1");
       clickDigit("8");
@@ -95,7 +93,7 @@ describe("calculator", () => {
       // Act(실행)
       clickAC();
       // Assertion(검증)
-      getTotal().should("have.text", defaultValue);
+      getTotal().should("have.text", DEFAULT_DISPLAY);
     });
   });
 
