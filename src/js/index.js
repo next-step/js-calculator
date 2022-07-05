@@ -7,7 +7,7 @@ const buttons = [$('.digits'), $('.modifiers'), $('.operations')];
 const renderResult = (string) => {
   $('#total').textContent = string;
 };
-const onClick = (event) => {
+const handleClick = (event) => {
   try {
     calculator.push(event.target.textContent);
 
@@ -19,7 +19,7 @@ const onClick = (event) => {
 };
 
 buttons.forEach((el) => {
-  el.addEventListener('click', onClick, true);
+  el.addEventListener('click', handleClick, true);
 });
 // AC
 $('.modifier').addEventListener('click', () => renderResult(calculator.result));
