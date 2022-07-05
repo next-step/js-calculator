@@ -1,5 +1,5 @@
-import { handleCalClicked } from "./handlers/handleCalClicked";
-import { $ } from "./utils/DOM";
+import { handleCalClicked } from "./handlers/handleCalClicked.js";
+import { $ } from "./utils/DOM.js";
 
 const calculator = () => {
   const $calculator = $(".calculator");

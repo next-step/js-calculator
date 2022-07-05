@@ -1,6 +1,6 @@
-import { INITIAL_VALUE, ERROR_MESSAGES, OPERATORS } from "../utils/constants";
-import { TOTAL, DIGITS, OPERATIONS, ALLCLEAR } from "../utils/DOM";
-import { isValidInput, isValidLength } from "./validator";
+import { INITAL_VALUE, ERROR_MESSAGES, OPERATORS } from "../utils/constants.js";
+import { TOTAL, DIGITS, OPERATIONS, ALLCLEAR } from "../utils/DOM.js";
+import { isValidInput, isValidLength } from "./validator.js";
 
 const displayDigit = (digit) => {
   if (isValidLength()) {
@@ -30,14 +30,13 @@ const displayTotal = () => {
   const operator = TOTAL.textContent
     .split("")
     .find((i) => OPERATORS.includes(i));
-  const nums = TOTAL.textContent.split(operator);
-  const num1 = nums[0];
-  const num2 = nums[1];
+  const [num1, num2] = TOTAL.textContent.split(operator);
   calculaton({ num1, num2, operator });
 };
 
+// 하나의 함수가 여러 일을 하고 있다. -> 분리
 export const handleCalClicked = ({ target }) => {
-  if (target.clasList.contains(".digit")) {
+  if (target.classList.contains(".digit")) {
     displayDigit(target.textContent);
     return;
   }
@@ -46,7 +45,7 @@ export const handleCalClicked = ({ target }) => {
     return;
   }
   if (target.classList.contains(".modifier")) {
-    TOTAL.textContent = INITIAL_VALUE;
+    TOTAL.textContent = INITAL_VALUE;
     return;
   }
 };
