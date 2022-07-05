@@ -39,9 +39,10 @@ const calculator = (function () {
     return num1 / num2;
   }
 
-  function setTotal(operation, num1, num2) {
-    num1 = num1 || 0;
-    num2 = num2 || 0;
+  function setTotal(operation, num1 = 0, num2 = 0) {
+    num1 = Number(num1);
+    num2 = Number(num2);
+
     switch (operation) {
       case '+':
         return addition(num1, num2);
@@ -58,7 +59,7 @@ const calculator = (function () {
 
   function calculate() {
     const [numText1, operation, numText2] = inputList;
-    return setTotal(operation, Number(numText1), Number(numText2));
+    return setTotal(operation, numText1, numText2);
   }
 
   return {
