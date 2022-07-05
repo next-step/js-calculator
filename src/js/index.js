@@ -1,29 +1,10 @@
+import { INITIAL_STATE } from './constants';
+
+import { calculate, isOverLength } from './utils';
+
 const $app = document.querySelector('#app');
 
-const calculatorFunctions = {
-  '+': (x, y) => x + y,
-  '-': (x, y) => x - y,
-  '*': (x, y) => x * y,
-  '/': (x, y) => y && x / y,
-};
-
-function defaultCalculatorFunction(x, y) {
-  return y === null ? x : y;
-}
-
-function calculate(operator, accumulator, number) {
-  return (calculatorFunctions[operator] || defaultCalculatorFunction)(accumulator, number);
-}
-
-const initialState = {
-  accumulator: 0,
-  number: null,
-  operator: '',
-};
-
 const render = ({ accumulator, number, operator }) => {
-  const isOverLength = (input) => (input && (`${input}`).length > 3);
-
   if (isOverLength(number)) {
     return;
   }
@@ -87,8 +68,8 @@ const render = ({ accumulator, number, operator }) => {
   });
 
   clearButton.addEventListener('click', () => {
-    render(initialState);
+    render(INITIAL_STATE);
   });
 };
 
-render(initialState);
+render(INITIAL_STATE);
