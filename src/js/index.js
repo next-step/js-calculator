@@ -24,6 +24,6 @@ buttons.forEach((el) => {
 // AC
 $('.modifier').addEventListener('click', () => renderResult(calculator.result));
 // =
-$('.operation:last-child').addEventListener('click', () =>
+$('#calculate').addEventListener('click', () =>
   renderResult(calculator.result)
 );
