@@ -3,6 +3,9 @@ import { ERROR_MESSAGE, INIT_DISPLAY_TEXT, OPERATIONS } from '../constants/index
 import { validateDigit, validateOperation } from '../validations/index.js';
 
 // View 관련 로직
+const updateDisplayText = (text) => {
+  displayText.innerText = text;
+};
 
 // 일반 로직
 export const handleDigitClick = (e) => {
@@ -15,7 +18,7 @@ export const handleDigitClick = (e) => {
   };
   
   if (displayText.innerText === INIT_DISPLAY_TEXT) {
-    displayText.innerText = clickedNumber;
+    updateDisplayText(clickedNumber);
     return
   };
 
@@ -41,25 +44,25 @@ export const handleOperationClick = (e) => {
 
     if (operation === OPERATIONS.ADD) {
      const result = Number(firstNumber) + Number(secondNumber);
-     displayText.innerText = result;
+     updateDisplayText(result);
      return
     };
 
     if (operation === OPERATIONS.MINUS) {
       const result = Number(firstNumber) - Number(secondNumber);
-      displayText.innerText = result;
+      updateDisplayText(result);
       return
     };
 
     if (operation === OPERATIONS.MULTIPLE) {
       const result = Number(firstNumber) * Number(secondNumber);
-      displayText.innerText = result;
+      updateDisplayText(result);
       return
     };
 
     if (operation === OPERATIONS.DIVISION) {
       const result = Math.floor(Number(firstNumber) / Number(secondNumber));
-      displayText.innerText = result;
+      updateDisplayText(result);
       return
     };
   };
@@ -67,5 +70,5 @@ export const handleOperationClick = (e) => {
 }
 
 export const handleModifierClick = () => {
-  displayText.innerText = 0;
+  updateDisplayText(INIT_DISPLAY_TEXT);
 }
