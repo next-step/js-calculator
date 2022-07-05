@@ -3,7 +3,6 @@ import { $ } from "./utils/DOM.js";
 
 const calculator = () => {
   const $calculator = $(".calculator");
-
   $calculator.addEventListener("click", handleCalClicked);
 };
 

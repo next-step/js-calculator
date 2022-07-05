@@ -1,5 +1,5 @@
 export const MAX_DIGIT_LENGTH = 3;
-export const INITAL_VALUE = "0";
+export const INITIAL_VALUE = "0";
 
 export const ADD = "+";
 export const SUB = "-";
