@@ -101,7 +101,7 @@ class Calculator {
     const stack = [];
 
     infix.forEach((value) => {
-      if (Number.isInteger(+value)) {
+      if (Number.isInteger(Number(value))) {
         postfix.push(value);
         return;
       }
@@ -128,8 +128,8 @@ class Calculator {
     const stack = [];
 
     postfix.forEach((value) => {
-      if (Number.isInteger(+value)) {
-        stack.push(+value);
+      if (Number.isInteger(Number(value))) {
+        stack.push(Number(value));
         return;
       }
 
