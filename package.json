@@ -1,0 +1,23 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "live-server",
+    "cypress:open": "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ag502/js-calculator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ag502/js-calculator/issues"
+  },
+  "homepage": "https://github.com/ag502/js-calculator#readme",
+  "devDependencies": {
+    "cypress": "^10.3.0",
+    "live-server": "^1.2.2"
+  }
+}
