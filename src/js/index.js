@@ -61,11 +61,6 @@ class App {
   }
 
   handleOperation(operation) {
-    if (this.model.operation || this.model.num1 === 0) {
-      window.alert("숫자를 먼저 입력한 후 연산자를 입력해주세요!");
-      return;
-    }
-
     this.model.operation = operation;
 
     this.renderTotal();
