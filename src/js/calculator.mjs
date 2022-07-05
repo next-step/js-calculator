@@ -8,7 +8,9 @@ const calculator = (function () {
     if (!prevValueLength && Number(nextValue) === 0) {
       return false;
     }
-    if (prevValueLength >= 3) {
+
+    const DIGITS_MAXLENGTH = 3;
+    if (prevValueLength >= DIGITS_MAXLENGTH) {
       alertFn('숫자는 세 자리까지만 입력 가능합니다!');
       return false;
     }
