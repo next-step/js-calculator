@@ -1,7 +1,7 @@
 import { selector } from './lib.js';
 import useState from './state.js'
 import render from './render.js';
-import { operatorValidator, digitValidator, calculrateValidator } from './validator.js';
+import { operatorValidator, digitValidator, calculateValidator } from './validator.js';
 import { calculate } from './operators.js';
 
 const [state, setState, resetState] = useState();
@@ -17,7 +17,9 @@ function handleDigit(e) {
     return window.alert(validator.msg);
   }
   const digit = e.target.innerText;
+
   setState(digit);
+  
   return render(total, state);
 }
 
@@ -29,13 +31,16 @@ function handleOperators(e) {
   }
 
   if (operator === '=') {
-    const validator = calculrateValidator(state);
+    const validator = calculateValidator(state);
     if (!validator.isValid) {
       return window.alert(validator.msg);
     }
     const result = calculate(state);
+
     resetState();
+
     setState(result);
+
     return render(total, state);
   }
 
@@ -45,9 +50,11 @@ function handleOperators(e) {
 
 function handleModifier() {
   resetState();
+
   return render(total);
 }
 
+render(total, state);
 digits.addEventListener('click', handleDigit);
 operators.addEventListener('click', handleOperators);
 modifier.addEventListener('click', handleModifier);

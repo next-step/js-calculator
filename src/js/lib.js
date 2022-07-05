@@ -3,7 +3,7 @@ export function selector(target) {
 }
 
 export function mergeState(state) {
-  return [...state].reduce((cur, sum) => cur += sum, '');
+  return [...state].reduce((current, sum) => current += sum, '');
 }
 
 export const operatorRegex = /X|\/|\-|\+/;

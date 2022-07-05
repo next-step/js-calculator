@@ -1,9 +1,10 @@
+import { MAX_INPUT_NUMBER_LENGTH } from './constants.js';
 import { mergeState, operatorRegex }from './lib.js'
 
 export function digitValidator(state) {
   const target = mergeState(state).split(operatorRegex).slice(-1)[0]; // Last
 
-  if (target && target.length > 2) {
+  if (target && target.length >= MAX_INPUT_NUMBER_LENGTH) {
     return {
       isValid: false,
       msg: '숫자는 3자리를 넘을 수 없습니다.'
@@ -12,7 +13,7 @@ export function digitValidator(state) {
   return { isValid: true }
 }
 
-export function calculrateValidator(state) {
+export function calculateValidator(state) {
   const [num1, num2] = mergeState(state).split(operatorRegex);
   if(!num1) {
     return {
