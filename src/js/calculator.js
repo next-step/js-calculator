@@ -22,6 +22,7 @@ export const errorMessages = Object.freeze({
   SYNTAX_ERROR: '숫자를 먼저 입력한 후 연산자를 입력해주세요!',
   MAX_LENGTH_ERROR: '숫자는 세 자리까지만 입력 가능합니다!',
 });
+const MAX_NUMBER_LENGTH = 3;
 
 class Calculator {
   #buffer;
@@ -73,7 +74,7 @@ class Calculator {
     if (!Number.isInteger(this.#result)) return;
 
     if (Number.isInteger(Number(value))) {
-      if (this.#buffer.length >= 3)
+      if (this.#buffer.length >= MAX_NUMBER_LENGTH)
         throw new Error(errorMessages.MAX_LENGTH_ERROR);
 
       this.#buffer = Calculator.removeLeadingZero(this.#buffer + value);
