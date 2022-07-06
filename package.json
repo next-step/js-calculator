@@ -1,0 +1,18 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/largeKim/js-calculator.git",
+  "author": "largeKim <kdw4458@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "live-server",
+    "test": "jest --watch"
+  },
+  "dependencies": {
+    "@babel/preset-env": "^7.18.6",
+    "eslint": "^8.18.0",
+    "jest": "^28.1.2",
+    "prettier": "^2.7.1"
+  }
+}
