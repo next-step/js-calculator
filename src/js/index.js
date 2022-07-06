@@ -1,10 +1,10 @@
-import { selector } from './lib.js';
-import useState from './state.js'
+import createValue from './state.js'
 import render from './render.js';
+import { selector } from './lib.js';
 import { operatorValidator, digitValidator } from './validator.js';
 import { calculate } from './operators.js';
 
-const [state, setState, resetState] = useState();
+const [value, onChangeValue, resetValue] = createValue();
 
 const total = selector('#total');
 const digits = selector('.digits');
@@ -12,40 +12,40 @@ const operators = selector('.operations');
 const modifier = selector('.modifier');
 
 function handleDigit(e) {
-  const validator = digitValidator(state);
+  const validator = digitValidator(value);
   if (!validator.isValid){
     return window.alert(validator.msg);
   }
   const digit = e.target.innerText;
 
-  setState(digit);
+  onChangeValue(digit);
   
-  return render(total, state);
+  return render(total, value);
 }
 
 function handleOperators(e) {
   const operator = e.target.innerText;
   if (operator === '=') {
-    const result = calculate(state);
+    const result = calculate(value);
 
-    resetState();
+    resetValue();
 
-    setState(result);
+    onChangeValue(result);
 
-    return render(total, state);
+    return render(total, value);
   }
 
-  const validator = operatorValidator(state, operator)
+  const validator = operatorValidator(value, operator)
   if (!validator.isValid) {
     return window.alert(validator.msg);
   }
 
-  setState(operator);
-  return render(total, state);
+  onChangeValue(operator);
+  return render(total, value);
 }
 
 function handleModifier() {
-  resetState();
+  resetValue();
   return render(total);
 }
 

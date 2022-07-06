@@ -1,15 +1,15 @@
-function useState() {
-  const store = [];
+function createValue() {
+  const value = [];
  
   function onChange(value) {
     store.push(value)
   }
 
-  function resetValue() {
+  function reset() {
     store.length = 0;
   }
 
-  return [store, onChange, resetValue];
+  return [value, onChange, reset];
 }
 
-export default useState;
+export default createValue;
