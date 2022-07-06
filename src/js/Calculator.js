@@ -1,3 +1,5 @@
+import { calculate } from './calculate.js';
+
 export default class Calculator {
   _operation;
   _expression;
@@ -77,7 +79,7 @@ export default class Calculator {
       result = this._expression;
     } else {
       const { firstNumber, secondNumber } = this.splitNumbers();
-      result = this.calculate(this._operation, firstNumber, secondNumber);
+      result = calculate(this._operation, firstNumber, secondNumber);
     }
     this._expression = result.toString();
   };
@@ -95,39 +97,5 @@ export default class Calculator {
       : parseInt(numbers[0]);
     const secondNumber = numbers[1] !== '' ? parseInt(numbers[1]) : 0;
     return { firstNumber, secondNumber };
-  };
-
-  calculate = (operation, firstNum, secondNum) => {
-    switch (operation) {
-      case '+':
-        return this.plus(firstNum, secondNum);
-      case '-':
-        return this.minus(firstNum, secondNum);
-      case 'X':
-        return this.multiply(firstNum, secondNum);
-      case '/':
-        return this.divide(firstNum, secondNum);
-    }
-  };
-
-  plus = (firstNum, secondNum) => {
-    return firstNum + secondNum;
-  };
-
-  minus = (firstNum, secondNum) => {
-    return firstNum - secondNum;
-  };
-
-  multiply = (firstNum, secondNum) => {
-    return firstNum * secondNum;
-  };
-
-  divide = (firstNum, secondNum) => {
-    const result = firstNum / secondNum;
-    if (result > 0) {
-      return Math.floor(firstNum / secondNum);
-    } else {
-      return Math.ceil(firstNum / secondNum);
-    }
   };
 }
