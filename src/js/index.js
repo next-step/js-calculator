@@ -1,7 +1,7 @@
 import { selector } from './lib.js';
 import useState from './state.js'
 import render from './render.js';
-import { operatorValidator, digitValidator, calculateValidator } from './validator.js';
+import { operatorValidator, digitValidator } from './validator.js';
 import { calculate } from './operators.js';
 
 const [state, setState, resetState] = useState();
