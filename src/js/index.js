@@ -18,7 +18,7 @@ const handleAc = () => {
 
 const handleDigit = (event) => {
   const digit = event.target.innerText;
-  calc.handleDigit(digit);
+  calc.handleAppendDigit(digit);
   setTotal(calc.expression);
 };
 

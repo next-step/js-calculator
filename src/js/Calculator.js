@@ -1,37 +1,37 @@
 import { calculate } from './calculate.js';
-
+import { DIGIT_LIMIT } from './constants.js';
 export default class Calculator {
-  _operation;
-  _expression;
-  _limit;
+  #operation;
+  #expression;
+  #limit;
 
   constructor() {
-    this._operation = '';
-    this._expression = '0';
-    this._limit = 3;
+    this.#operation = '';
+    this.#expression = '0';
+    this.#limit = DIGIT_LIMIT;
   }
 
   get expression() {
-    return this._expression;
+    return this.#expression;
   }
   resetOperation = () => {
-    this._operation = '';
+    this.#operation = '';
   };
   resetExpression = () => {
-    this._expression = '0';
+    this.#expression = '0';
   };
   resetDigitLimit = () => {
-    this._limit = 3;
+    this.#limit = DIGIT_LIMIT;
   };
   useDigitLimit = () => {
-    this._limit = this._limit - 1;
+    this.#limit = this.#limit - 1;
   };
 
   addExpression = (value) => {
-    this._expression = this._expression + value;
+    this.#expression = this.#expression + value;
   };
   checkExpression = () => {
-    if (this._expression === 'Infinity' || this._expression === 'NaN') {
+    if (this.#expression === 'Infinity' || this.#expression === 'NaN') {
       this.resetExpression();
     }
   };
@@ -42,17 +42,19 @@ export default class Calculator {
     this.resetExpression();
   };
 
-  handleDigit = (digit) => {
+  handleAppendDigit = (digit) => {
     this.checkExpression();
-    if (this._limit === 0) {
+    if (this.#limit === 0) {
       alert('숫자는 세자리까지만 입력 가능합니다!');
       return;
-    } else if (this._expression === '0') {
-      this._expression = digit.toString();
-    } else {
-      this.addExpression(digit);
     }
+
     this.useDigitLimit();
+    if (this.#expression === '0') {
+      this.#expression = digit.toString();
+      return;
+    }
+    this.addExpression(digit);
   };
 
   handleOperation = (operation) => {
@@ -60,38 +62,43 @@ export default class Calculator {
     if (operation === '=') {
       this.calculateExpression();
       this.resetOperation();
-    } else if (this._operation === '') {
-      this.addExpression(operation);
-      this._operation = operation;
-    } else if (this._limit === 3) {
-      alert('숫자를 먼저 입력한 후 연산자를 입력해주세요!');
-      return;
-    } else {
-      alert('두 개 이상의 숫자를 계산할 수 없습니다.');
+      this.resetDigitLimit();
       return;
     }
-    this.resetDigitLimit();
+
+    if (this.#operation === '') {
+      this.addExpression(operation);
+      this.#operation = operation;
+      this.resetDigitLimit();
+      return;
+    }
+
+    if (this.#limit === DIGIT_LIMIT) {
+      alert('숫자를 먼저 입력한 후 연산자를 입력해주세요!');
+      return;
+    }
+    alert('두 개 이상의 숫자를 계산할 수 없습니다.');
   };
 
   calculateExpression = () => {
     let result;
-    if (this._operation === '') {
-      result = this._expression;
+    if (this.#operation === '') {
+      result = this.#expression;
     } else {
       const { firstNumber, secondNumber } = this.splitNumbers();
-      result = calculate(this._operation, firstNumber, secondNumber);
+      result = calculate(this.#operation, firstNumber, secondNumber);
     }
-    this._expression = result.toString();
+    this.#expression = result.toString();
   };
 
   splitNumbers = () => {
     let isNegative = false;
-    if (this._expression.startsWith('-')) {
+    if (this.#expression.startsWith('-')) {
       isNegative = true;
-      this._expression = this._expression.substring(1);
+      this.#expression = this.#expression.substring(1);
     }
 
-    const numbers = this._expression.split(this._operation);
+    const numbers = this.#expression.split(this.#operation);
     const firstNumber = isNegative
       ? -parseInt(numbers[0])
       : parseInt(numbers[0]);
