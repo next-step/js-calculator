@@ -1,0 +1,1 @@
+export const DIGIT_LIMIT = 3;
