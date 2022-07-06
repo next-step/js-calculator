@@ -43,6 +43,8 @@ const init = ({
     }
 
     enterDigitGroup = setDigitGroup();
+    digitTextArray.push(enterDigitGroup);
+    operationTextArray.push(operationInnerText);
 
     setEnterTextInElement(ViewElement, operationInnerText);
   };
