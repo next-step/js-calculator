@@ -1,5 +1,5 @@
 import { MAX_INPUT_NUMBER_LENGTH } from './constants.js';
-import { mergeState, operatorRegex }from './lib.js'
+import { mergeState, operatorRegex, findOperator }from './lib.js'
 
 export function digitValidator(state) {
   const target = mergeState(state).split(operatorRegex).slice(-1)[0]; // Last
@@ -39,12 +39,13 @@ export function operatorValidator(state, value) {
     }
   }
 
-  const isOperatorExist = state.includes(value);
+  const isOperatorExist = findOperator(state);
   if (isOperatorExist) {
     return {
       isValid: false,
       msg: '숫자를 먼저 입력해야 합니다.'
     }
   }
+  
   return { isValid: true }
 }

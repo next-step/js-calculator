@@ -25,16 +25,7 @@ function handleDigit(e) {
 
 function handleOperators(e) {
   const operator = e.target.innerText;
-  const validator = operatorValidator(state, operator)
-  if (!validator.isValid) {
-    return window.alert(validator.msg);
-  }
-
   if (operator === '=') {
-    const validator = calculateValidator(state);
-    if (!validator.isValid) {
-      return window.alert(validator.msg);
-    }
     const result = calculate(state);
 
     resetState();
@@ -44,17 +35,20 @@ function handleOperators(e) {
     return render(total, state);
   }
 
+  const validator = operatorValidator(state, operator)
+  if (!validator.isValid) {
+    return window.alert(validator.msg);
+  }
+
   setState(operator);
   return render(total, state);
 }
 
 function handleModifier() {
   resetState();
-
   return render(total);
 }
 
-render(total, state);
 digits.addEventListener('click', handleDigit);
 operators.addEventListener('click', handleOperators);
 modifier.addEventListener('click', handleModifier);
