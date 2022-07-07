@@ -1,7 +1,7 @@
 const OPERATION = ['+', '-', 'X', '/'];
 
-const isOpertaionExist = (operationTextArray, operation) => {
-  return operationTextArray.indexOf(operation);
+const isOpertaionExist = (array, operation) => {
+  return array.indexOf(operation);
 };
 
 const arithmeticOperation = (leftPort, rightPort, operation) => {
