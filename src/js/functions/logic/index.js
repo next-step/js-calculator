@@ -1,34 +1,4 @@
-let digitGroup = '';
-const digitTextArray = [];
-const operationTextArray = [];
-
-export const setEnterTextInTotal = (buttonText) => {
-  const totalText = total.innerText === '0' ? '' : total.innerText;
-  total.innerText = totalText + buttonText;
-};
-
-export const digitValidationCheck = (buttonText) => {
-  if (digitGroup.length >= 3) {
-    alert('숫자는 세 자리까지만 입력 가능합니다!');
-    return false;
-  }
-
-  digitGroup = digitGroup + buttonText;
-  return true;
-};
-
-export const operationValidationCheck = (buttonText) => {
-  if (digitGroup === '') {
-    return false;
-  }
-
-  digitTextArray.push(digitGroup);
-  operationTextArray.push(buttonText);
-  digitGroup = '';
-  return true;
-};
-
-export const arithmeticOperation = (leftPort, rightPort, operation) => {
+const arithmeticOperation = (leftPort, rightPort, operation) => {
   switch (operation) {
     case 'X':
       return leftPort * rightPort;
