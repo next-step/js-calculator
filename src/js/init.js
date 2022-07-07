@@ -6,6 +6,7 @@ import {
   setEnterTextInElement,
   setDigitGroup,
 } from './functions/inputs/index.js';
+import { arithmeticExpression } from './functions/logic/index.js';
 
 const nodeListEventBind = (elements, event, handler) => {
   elements.forEach((element) => element.addEventListener(event, handler));
@@ -42,15 +43,27 @@ const init = ({
       return;
     }
 
-    enterDigitGroup = setDigitGroup();
     digitTextArray.push(enterDigitGroup);
     operationTextArray.push(operationInnerText);
+    enterDigitGroup = setDigitGroup();
+
+    if (operationInnerText === '=') {
+      arithmeticExpression(digitTextArray, operationTextArray);
+      enterDigitGroup = String(parseInt(digitTextArray[0]));
+      ViewElement.innerText = enterDigitGroup;
+      digitTextArray.length = 0;
+      operationTextArray.length = 0;
+      return;
+    }
 
     setEnterTextInElement(ViewElement, operationInnerText);
   };
 
   const modifierHandler = () => {
-    console.log('modifier');
+    enterDigitGroup = '';
+    ViewElement.innerText = 0;
+    digitTextArray.length = 0;
+    operationTextArray.length = 0;
   };
 
   nodeListEventBind(digitElements, 'click', digitHandler);

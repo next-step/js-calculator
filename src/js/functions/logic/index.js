@@ -1,3 +1,9 @@
+const OPERATION = ['+', '-', 'X', '/'];
+
+const isOpertaionExist = (operationTextArray, operation) => {
+  return operationTextArray.indexOf(operation);
+};
+
 const arithmeticOperation = (leftPort, rightPort, operation) => {
   switch (operation) {
     case 'X':
@@ -11,29 +17,31 @@ const arithmeticOperation = (leftPort, rightPort, operation) => {
   }
 };
 
-export const arithmeticExpression = () => {
-  const operationArray = ['/', 'X', '-', '+'];
+const calculate = (operationArray, digitTextArray, operationTextArray) => {
+  if (operationArray.length === 0) return;
 
-  for (let i = 0; i < operationArray.length; i++) {
-    let operationIndexOf = operationTextArray.indexOf(operationArray[i]);
-    while (0 <= operationIndexOf) {
-      const leftPort = Number(digitTextArray[operationIndexOf]);
-      const rightPort = Number(digitTextArray[operationIndexOf + 1]);
+  const operation = operationArray.pop();
+  let operationExist = isOpertaionExist(operationTextArray, operation);
 
-      digitTextArray[operationIndexOf] = arithmeticOperation(
-        leftPort,
-        rightPort,
-        operationArray[i]
-      );
+  while (0 <= operationExist) {
+    const leftPort = Number(digitTextArray[operationExist]);
+    const rightPort = Number(digitTextArray[operationExist + 1]);
 
-      operationTextArray.splice(operationIndexOf, 1);
-      digitTextArray.splice(operationIndexOf + 1, 1);
-      operationIndexOf = operationTextArray.indexOf(operationArray[i]);
-    }
+    digitTextArray[operationExist] = arithmeticOperation(
+      leftPort,
+      rightPort,
+      operation
+    );
+
+    operationTextArray.splice(operationExist, 1);
+    digitTextArray.splice(operationExist + 1, 1);
+    operationExist = isOpertaionExist(operationTextArray);
   }
 
-  digitGroup = String(parseInt(digitTextArray[0]));
-  total.innerText = digitGroup;
-  digitTextArray.length = 0;
-  operationTextArray.length = 0;
+  calculate(operationArray, digitTextArray, operationTextArray);
+};
+
+export const arithmeticExpression = (digitTextArray, operationTextArray) => {
+  const operationArray = [...OPERATION];
+  calculate(operationArray, digitTextArray, operationTextArray);
 };
