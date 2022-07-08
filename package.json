@@ -1,0 +1,20 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "description": "<br/> <br/>",
+  "main": "index.js",
+  "scripts": {
+    "test": "cd src/test && node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kimseongchan-kr/js-calculator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kimseongchan-kr/js-calculator/issues"
+  },
+  "homepage": "https://github.com/kimseongchan-kr/js-calculator#readme",
+  "type": "module"
+}
