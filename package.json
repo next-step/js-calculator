@@ -1,0 +1,14 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "main": "src/js/index.js",
+  "repository": "https://github.com/YunSeong-Park/js-calculator.git",
+  "author": "YunSeong Park <qkrdbstjd95@naver.com>",
+  "license": "MIT",
+  "scripts": {
+    "cypress": "cypress open"
+  },
+  "devDependencies": {
+    "cypress": "^10.2.0"
+  }
+}
