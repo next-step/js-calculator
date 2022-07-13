@@ -1,0 +1,16 @@
+{
+  "env": { "cypress/globals": true },
+  "extends": [
+    "airbnb-base",
+    "plugin:cypress/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "parserOptions": { "ecmaVersion": "latest" },
+  "root": true,
+  "rules": {
+    "import/no-extraneous-dependencies": [
+      "error",
+      { "devDependencies": ["**/*.js"] }
+    ]
+  }
+}

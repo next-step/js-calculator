@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+    "types": ["@testing-library/cypress", "cypress", "node"]
+  },
+  "include": ["**/*.js"]
+}
