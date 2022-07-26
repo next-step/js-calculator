@@ -1,114 +1,32 @@
-let inputArray = []
-let input = ''
+import { state } from './state.js'
+import { makeDigit } from './digit.js'
+import { reset } from './modifier.js'
+import { makeOperation } from './operation.js'
 
-const updateValue = (value) => {
-  const isLastValueOperation = Number.isNaN(Number(inputArray.at(-1)))
-
-  if (isLastValueOperation) {
-    input = ''
-  }
-
-  if (input.length === 3) {
-    alert('숫자는 세 자리까지만 입력 가능합니다!')
-    return
-  }
-
-  input += value
-
-  if (isLastValueOperation) {
-    inputArray[inputArray.length === 0 ? 0 : inputArray.length] = input
-  } else if (!isLastValueOperation) {
-    inputArray[inputArray.length - 1] = input
-  }
-
-  render()
-}
-
-const updateOperation = (operation) => {
-  if (!inputArray.at(-1) || Number.isNaN(Number(inputArray.at(-1)))) {
-    alert('숫자를 먼저 입력한 후 연산자를 입력해주세요!')
-    return
-  }
-
-  if (operation === '=') {
-    calculateInputArray()
-    return
-  }
-
-  const currentIndex = inputArray.length === 0 ? 0 : inputArray.length
-  inputArray[currentIndex] = operation
-
-  render()
-}
-
-const calculateInputArray = () => {
-  const [num1, operation, num2] = inputArray
-  const [number1, number2] = [+num1, +num2]
-
-  switch (true) {
-    case operation === '+':
-      render(number1 + number2)
-      break
-
-    case operation === '-':
-      render(number1 - number2)
-      break
-
-    case operation === 'X':
-      render(number1 * number2)
-      break
-
-    case operation === '/':
-      render(Number(number1 / number2).toFixed(0))
-      break
-  }
-}
-
-const resetInput = () => {
-  inputArray = []
-  input = ''
-
-  render()
-}
-
-const render = (calculateResult) => {
-  const total = document.querySelector('#total')
-  const expression = inputArray.length === 0 ? 0 : inputArray.join('')
-
-  total.innerHTML = calculateResult ?? expression
-
-  if (calculateResult) {
-    input = ''
-    inputArray = [calculateResult]
-  }
+const addEvent = (type, selector, handler) => {
+  const $el = document.querySelectorAll(selector)
+  Array.from($el).forEach((el) =>
+    el.addEventListener(type, (event) => handler(event))
+  )
 }
 
 const handlers = () => {
-  document.addEventListener('click', (event) => {
-    const { tagName, className: action, innerText: value } = event.target
-
-    const isTagButton = tagName.toLowerCase() === 'button'
-
-    if (!isTagButton) {
-      return
-    }
-
-    switch (true) {
-      case action === 'digit':
-        updateValue(value)
-        break
-
-      case action === 'operation':
-        updateOperation(value)
-        break
-
-      case action === 'modifier':
-        resetInput()
-        break
-    }
-  })
+  addEvent('click', '.digit', (event) => makeDigit(event))
+  addEvent('click', '.operation', (event) => makeOperation(event))
+  addEvent('click', '.modifier', () => reset())
 }
 
-window.addEventListener('load', () => {
+const render = (total) => {
+  const $total = document.querySelector('#total')
+  const expression = state.inputArr.join('')
+
+  $total.innerHTML = total ?? expression
+}
+
+const App = () => {
   handlers()
-})
+}
+
+App()
+
+export { addEvent, render }
