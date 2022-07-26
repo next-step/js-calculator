@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/blackMoja/js-calculator#readme",
   "dependencies": {
+    "cypress": "^10.3.1",
     "live-server": "^1.2.2"
   }
 }
