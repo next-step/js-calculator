@@ -4,6 +4,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "live-server ./",
+    "e2e": "cypress run",
+    "e2e:open": "cypress open",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
