@@ -1,4 +1,4 @@
-import { ADD, SUB, MUL, DIV } from "./constants.js";
+import { ADD, SUB, MUL, DIV } from "../utils/constants.js";
 
 export const operation = ({ num1, num2, operator }) => {
   const operators = {
