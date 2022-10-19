@@ -1,17 +1,21 @@
 export const MAX_DIGIT_LENGTH = 3;
+export const INITIAL_NUM_COUNT = 0;
 export const INITIAL_VALUE = "0";
 
 export const ADD = "+";
 export const SUB = "-";
 export const MUL = "X";
 export const DIV = "/";
-export const EQU = "=";
+export const EQUAL = "=";
 export const AC = "AC";
-export const OPERATORS = [ADD, SUB, MUL, DIV, EQU, AC];
+export const OPERATORS = [ADD, SUB, MUL, DIV, EQUAL, AC];
 
 export const Selectors = {
   CALC: ".calculator",
   TOTAL: "#total",
+  DIGIT: ".digit",
+  OPERATION: ".operation",
+  MODIFIER: ".modifier",
 };
 
 export const ERROR_MESSAGES = {
