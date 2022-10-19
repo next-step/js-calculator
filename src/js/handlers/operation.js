@@ -5,7 +5,7 @@ export const operation = ({ num1, num2, operator }) => {
     [ADD]: () => Number(num1) + Number(num2),
     [SUB]: () => Number(num1) - Number(num2),
     [MUL]: () => Number(num1) * Number(num2),
-    [DIV]: () => Math.floor(Number(num1) / Number(num2)),
+    [DIV]: () => (Number(num1) / Number(num2)).toFixed(2),
   };
 
   return operators[operator]();

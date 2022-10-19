@@ -3,12 +3,11 @@ import {
   ERROR_MESSAGES,
   OPERATORS,
 } from "../utils/constants.js";
-import { TOTAL } from "../utils/constants.js";
+import { Selectors, INITIAL_NUM_COUNT } from "../utils/constants.js";
 import { $ } from "../utils/dom.js";
 import { operation } from "./operation.js";
 
-
-let numberCount = 0;
+let numberCount = INITIAL_NUM_COUNT;
 
 export const handleCalculator = ({ target }) => {
   switch (target.classList[0]) {
@@ -19,48 +18,57 @@ export const handleCalculator = ({ target }) => {
       handleOperation(target.textContent);
       return;
     case "modifier":
-      $(TOTAL).textContent = INITIAL_VALUE;
-      numberCount = 0;
+      handleModifier();
       return;
   }
 };
 
-const handleDigit = ($digit) => {
+const handleDigit = (digit) => {
   if (numberCount >= 3) {
     alert(ERROR_MESSAGES.INVALID_DIGIT_LENGTH);
     throw new Error(ERROR_MESSAGES.INVALID_DIGIT_LENGTH);
   }
 
-  if ($(TOTAL).textContent === INITIAL_VALUE) {
-    $(TOTAL).textContent = $digit;
+  const $total = $(Selectors.TOTAL);
+  if ($total.textContent === INITIAL_VALUE) {
+    $total.textContent = digit;
     numberCount++;
   } else {
-    $(TOTAL).textContent += $digit;
+    $total.textContent += digit;
     numberCount++;
   }
 };
 
-const handleOperation = ($operator) => {
-  if ($(TOTAL).textContent === INITIAL_VALUE) {
+const handleOperation = (operator) => {
+  if ($(Selectors.TOTAL).textContent === INITIAL_VALUE) {
     alert(ERROR_MESSAGES.INVALID_INPUT);
     throw new Error(ERROR_MESSAGES.INVALID_DIGIT_LENGTH);
   }
 
-  if ($operator === "=") {
+  if (operator === "=") {
     getResult();
-    numberCount = 0;
+    numberCount = INITIAL_NUM_COUNT;
     return;
   }
-  $(TOTAL).innerText += $operator;
+  $(Selectors.TOTAL).innerText += operator;
 
   return;
+};
 
+const handleModifier = () => {
+  $(TOTAL).textContent = INITIAL_VALUE;
+  numberCount = INITIAL_NUM_COUNT;
 };
 
 const getResult = () => {
-  const operator = $(TOTAL)
-    .textContent.split("")
-    .find((i) => OPERATORS.includes(i));
-  const [num1, num2] = $(TOTAL).textContent.split(operator);
-  $(TOTAL).textContent = operation({ num1, num2, operator });
+  // const operator = $(Selectors.TOTAL)
+  //   .textContent.split("")
+  //   .find((i) => OPERATORS.includes(i));
+
+  const operator = [...$(Selectors.TOTAL).textContent].find(
+    OPERATORS.includes.bind(OPERATORS)
+  );
+
+  const [num1, num2] = $(Selectors.TOTAL).textContent.split(operator);
+  $(Selectors.TOTAL).textContent = operation({ num1, num2, operator });
 };
