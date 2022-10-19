@@ -19,33 +19,39 @@ export const handleCalculator = ({ target }) => {
       return;
     case "modifier":
       $(TOTAL).textContent = INITIAL_VALUE;
+      numberCount = 0;
       return;
   }
 };
 
 const handleDigit = ($digit) => {
-  // TODO: 숫자 입력시 0이 사라지도록
-
   if (numberCount >= 3) {
     alert(ERROR_MESSAGES.INVALID_DIGIT_LENGTH);
     throw new Error(ERROR_MESSAGES.INVALID_DIGIT_LENGTH);
   }
 
-  if (TOTAL.textContent === INITIAL_VALUE) {
+  if ($(TOTAL).textContent === INITIAL_VALUE) {
+    $(TOTAL).textContent = $digit;
+    numberCount++;
+  } else {
     $(TOTAL).textContent += $digit;
+    numberCount++;
   }
-  $(TOTAL).textContent += $digit;
-  numberCount++;
 };
 
-const handleOperation = (operator) => {
-  // TODO: 숫자가 입력되지 않은 상태라면 Invalid alert 뜨도록
-  if (operator === "=") {
+const handleOperation = ($operator) => {
+  if ($(TOTAL).textContent === INITIAL_VALUE) {
+    alert(ERROR_MESSAGES.INVALID_INPUT);
+    throw new Error(ERROR_MESSAGES.INVALID_DIGIT_LENGTH);
+  }
+
+  if ($operator === "=") {
     getResult();
     numberCount = 0;
     return;
   }
-  $(TOTAL).innerText += operator;
+  $(TOTAL).innerText += $operator;
+
   return;
 };
 
