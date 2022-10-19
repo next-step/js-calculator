@@ -8,22 +8,22 @@ import { $ } from "../utils/dom.js";
 import { operation } from "./operation.js";
 
 export const handleCalculator = ({ target }) => {
-  if (target.classList.contains("digit")) {
-    handleDigit(target.textContent);
-    return;
-  }
-  if (target.classList.contains("operation")) {
-    handleOperation(target.textContent);
-    return;
-  }
-  if (target.classList.contains("modifier")) {
-    $(TOTAL).textContent = INITIAL_VALUE;
-    return;
+  switch (target.classList[0]) {
+    case "digit":
+      handleDigit(target.textContent);
+      return;
+    case "operation":
+      handleOperation(target.textContent);
+      return;
+    case "modifier":
+      $(TOTAL).textContent = INITIAL_VALUE;
+      return;
   }
 };
+
 let numberCount = 0;
 const handleDigit = ($digit) => {
-  // 숫자 입력시 0이 사라지도록
+  // TODO: 숫자 입력시 0이 사라지도록
 
   if (numberCount >= 3) {
     alert(ERROR_MESSAGES.INVALID_DIGIT_LENGTH);
@@ -39,7 +39,7 @@ const handleDigit = ($digit) => {
 };
 
 const handleOperation = (operator) => {
-  // 숫자가 입력되지 않은 상태라면 Invalid alert 뜨도록
+  // TODO: 숫자가 입력되지 않은 상태라면 Invalid alert 뜨도록
   if (operator === "=") {
     getResult();
     return;
