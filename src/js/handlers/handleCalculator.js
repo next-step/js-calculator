@@ -7,6 +7,7 @@ import { TOTAL } from "../utils/constants.js";
 import { $ } from "../utils/dom.js";
 import { operation } from "./operation.js";
 
+
 let numberCount = 0;
 
 export const handleCalculator = ({ target }) => {
@@ -53,6 +54,7 @@ const handleOperation = ($operator) => {
   $(TOTAL).innerText += $operator;
 
   return;
+
 };
 
 const getResult = () => {
