@@ -37,6 +37,7 @@ describe("test calculator", () => {
 
   it("2개의 숫자에 대해 곱셈이 가능하다.", () => {
     handleClickDigit(9);
+
     handleClickOperator("X");
     handleClickDigit(1);
     handleClickOperator("=");
