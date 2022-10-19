@@ -9,11 +9,10 @@ export const EQU = "=";
 export const AC = "AC";
 export const OPERATORS = [ADD, SUB, MUL, DIV, EQU, AC];
 
-export const CALC = ".calculator";
-export const TOTAL = "#total";
-export const DIGITS = ".digits";
-export const OPERATIONS = ".operations";
-export const MODIFIER = ".modifiers";
+export const Selectors = {
+  CALC: ".calculator",
+  TOTAL: "#total",
+};
 
 export const ERROR_MESSAGES = {
   INVALID_DIGIT_LENGTH: `숫자는 최대 ${MAX_DIGIT_LENGTH}자리까지만 입력 가능합니다!`,

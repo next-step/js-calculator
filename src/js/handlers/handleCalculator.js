@@ -3,7 +3,7 @@ import {
   ERROR_MESSAGES,
   OPERATORS,
 } from "../utils/constants.js";
-import { TOTAL } from "../utils/constants.js";
+import { Selectors } from "../utils/constants.js";
 import { $ } from "../utils/dom.js";
 import { operation } from "./operation.js";
 
@@ -18,7 +18,7 @@ export const handleCalculator = ({ target }) => {
       handleOperation(target.textContent);
       return;
     case "modifier":
-      $(TOTAL).textContent = INITIAL_VALUE;
+      $(Selectors.TOTAL).textContent = INITIAL_VALUE;
       numberCount = 0;
       return;
   }
@@ -30,17 +30,17 @@ const handleDigit = ($digit) => {
     throw new Error(ERROR_MESSAGES.INVALID_DIGIT_LENGTH);
   }
 
-  if ($(TOTAL).textContent === INITIAL_VALUE) {
-    $(TOTAL).textContent = $digit;
+  if ($(Selectors.TOTAL).textContent === INITIAL_VALUE) {
+    $(Selectors.TOTAL).textContent = $digit;
     numberCount++;
   } else {
-    $(TOTAL).textContent += $digit;
+    $(Selectors.TOTAL).textContent += $digit;
     numberCount++;
   }
 };
 
 const handleOperation = ($operator) => {
-  if ($(TOTAL).textContent === INITIAL_VALUE) {
+  if ($(Selectors.TOTAL).textContent === INITIAL_VALUE) {
     alert(ERROR_MESSAGES.INVALID_INPUT);
     throw new Error(ERROR_MESSAGES.INVALID_DIGIT_LENGTH);
   }
@@ -50,15 +50,15 @@ const handleOperation = ($operator) => {
     numberCount = 0;
     return;
   }
-  $(TOTAL).innerText += $operator;
+  $(Selectors.TOTAL).innerText += $operator;
 
   return;
 };
 
 const getResult = () => {
-  const operator = $(TOTAL)
+  const operator = $(Selectors.TOTAL)
     .textContent.split("")
     .find((i) => OPERATORS.includes(i));
-  const [num1, num2] = $(TOTAL).textContent.split(operator);
-  $(TOTAL).textContent = operation({ num1, num2, operator });
+  const [num1, num2] = $(Selectors.TOTAL).textContent.split(operator);
+  $(Selectors.TOTAL).textContent = operation({ num1, num2, operator });
 };
