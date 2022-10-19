@@ -3,11 +3,11 @@ import {
   ERROR_MESSAGES,
   OPERATORS,
 } from "../utils/constants.js";
-import { Selectors } from "../utils/constants.js";
+import { Selectors, INITIAL_NUM_COUNT } from "../utils/constants.js";
 import { $ } from "../utils/dom.js";
 import { operation } from "./operation.js";
 
-let numberCount = 0;
+let numberCount = INITIAL_NUM_COUNT;
 
 export const handleCalculator = ({ target }) => {
   switch (target.classList[0]) {
@@ -18,8 +18,7 @@ export const handleCalculator = ({ target }) => {
       handleOperation(target.textContent);
       return;
     case "modifier":
-      $(Selectors.TOTAL).textContent = INITIAL_VALUE;
-      numberCount = 0;
+      handleModifier();
       return;
   }
 };
@@ -48,7 +47,7 @@ const handleOperation = (operator) => {
 
   if (operator === "=") {
     getResult();
-    numberCount = 0;
+    numberCount = INITIAL_NUM_COUNT;
     return;
   }
   $(Selectors.TOTAL).innerText += operator;
@@ -56,10 +55,20 @@ const handleOperation = (operator) => {
   return;
 };
 
+const handleModifier = () => {
+  $(TOTAL).textContent = INITIAL_VALUE;
+  numberCount = INITIAL_NUM_COUNT;
+};
+
 const getResult = () => {
-  const operator = $(Selectors.TOTAL)
-    .textContent.split("")
-    .find((i) => OPERATORS.includes(i));
+  // const operator = $(Selectors.TOTAL)
+  //   .textContent.split("")
+  //   .find((i) => OPERATORS.includes(i));
+
+  const operator = [...$(Selectors.TOTAL).textContent].find(
+    OPERATORS.includes.bind(OPERATORS)
+  );
+
   const [num1, num2] = $(Selectors.TOTAL).textContent.split(operator);
   $(Selectors.TOTAL).textContent = operation({ num1, num2, operator });
 };
