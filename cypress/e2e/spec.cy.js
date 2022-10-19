@@ -4,11 +4,15 @@ Cypress.on("uncaught:exception", (err, runnable) => {
 
 describe("test calculator", () => {
   const handleClickDigit = (num) => {
-    cy.get(".digit").contains(num.toString()).click();
+    return cy.get(".digit").contains(num.toString()).click();
   };
 
   const handleClickOperator = (operator) => {
-    cy.get(".operation").contains(operator).click();
+    return cy.get(".operation").contains(operator).click();
+  };
+
+  const getCyToTal = (num) => {
+    cy.get("#total").should("have.text", num.toString());
   };
 
   before(() => {
@@ -20,7 +24,7 @@ describe("test calculator", () => {
     handleClickOperator("+");
     handleClickDigit(1);
     handleClickOperator("=");
-    cy.get("#total").should("have.text", "10");
+    getCyToTal(10);
   });
 
   it("2개의 숫자에 대해 뺄셈이 가능하다.", () => {
@@ -28,12 +32,12 @@ describe("test calculator", () => {
     handleClickOperator("-");
     handleClickDigit(1);
     handleClickOperator("=");
-    cy.get("#total").should("have.text", "8");
+    getCyToTal(8);
   });
 
   it("2개의 숫자에 대해 곱셈이 가능하다.", () => {
     handleClickDigit(9);
-    handleClickOperator("*");
+    handleClickOperator("X");
     handleClickDigit(1);
     handleClickOperator("=");
     cy.get("#total").should("have.text", "9");
@@ -44,7 +48,7 @@ describe("test calculator", () => {
     handleClickOperator("/");
     handleClickDigit(1);
     handleClickOperator("=");
-    cy.get("#total").should("have.text", "9");
+    getCyToTal(9);
   });
 
   it("AC(All Clear)버튼을 누르면 0으로 초기화 한다.", () => {
@@ -64,7 +68,10 @@ describe("test calculator", () => {
   });
 
   it("계산 결과를 표현할 때 소수점 이하는 버림한다.", () => {
-    cy.get(".modifiers").click();
-    cy.get("#total").should("have.text", "0");
+    handleClickDigit(9);
+    handleClickOperator("/");
+    handleClickDigit(2);
+    handleClickOperator("=");
+    getCyTotal(Math.floor(9 / 2));
   });
 });
