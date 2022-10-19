@@ -24,7 +24,7 @@ export const handleCalculator = ({ target }) => {
   }
 };
 
-const handleDigit = ($digit) => {
+const handleDigit = (digit) => {
   if (numberCount >= 3) {
     alert(ERROR_MESSAGES.INVALID_DIGIT_LENGTH);
     throw new Error(ERROR_MESSAGES.INVALID_DIGIT_LENGTH);
@@ -32,26 +32,26 @@ const handleDigit = ($digit) => {
 
   const $total = $(Selectors.TOTAL);
   if ($total.textContent === INITIAL_VALUE) {
-    $total.textContent = $digit;
+    $total.textContent = digit;
     numberCount++;
   } else {
-    $total.textContent += $digit;
+    $total.textContent += digit;
     numberCount++;
   }
 };
 
-const handleOperation = ($operator) => {
+const handleOperation = (operator) => {
   if ($(Selectors.TOTAL).textContent === INITIAL_VALUE) {
     alert(ERROR_MESSAGES.INVALID_INPUT);
     throw new Error(ERROR_MESSAGES.INVALID_DIGIT_LENGTH);
   }
 
-  if ($operator === "=") {
+  if (operator === "=") {
     getResult();
     numberCount = 0;
     return;
   }
-  $(Selectors.TOTAL).innerText += $operator;
+  $(Selectors.TOTAL).innerText += operator;
 
   return;
 };
