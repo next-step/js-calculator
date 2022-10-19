@@ -7,6 +7,8 @@ import { TOTAL } from "../utils/constants.js";
 import { $ } from "../utils/dom.js";
 import { operation } from "./operation.js";
 
+let numberCount = 0;
+
 export const handleCalculator = ({ target }) => {
   switch (target.classList[0]) {
     case "digit":
@@ -21,32 +23,30 @@ export const handleCalculator = ({ target }) => {
   }
 };
 
-let numberCount = 0;
 const handleDigit = ($digit) => {
   // TODO: 숫자 입력시 0이 사라지도록
 
   if (numberCount >= 3) {
     alert(ERROR_MESSAGES.INVALID_DIGIT_LENGTH);
-    return;
+    throw new Error(ERROR_MESSAGES.INVALID_DIGIT_LENGTH);
   }
 
   if (TOTAL.textContent === INITIAL_VALUE) {
-    $(TOTAL).textContent = $digit;
-  } else {
     $(TOTAL).textContent += $digit;
-    numberCount++;
   }
+  $(TOTAL).textContent += $digit;
+  numberCount++;
 };
 
 const handleOperation = (operator) => {
   // TODO: 숫자가 입력되지 않은 상태라면 Invalid alert 뜨도록
   if (operator === "=") {
     getResult();
-    return;
-  } else {
-    $(TOTAL).innerText += operator;
+    numberCount = 0;
     return;
   }
+  $(TOTAL).innerText += operator;
+  return;
 };
 
 const getResult = () => {
