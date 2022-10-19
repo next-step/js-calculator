@@ -30,11 +30,12 @@ const handleDigit = ($digit) => {
     throw new Error(ERROR_MESSAGES.INVALID_DIGIT_LENGTH);
   }
 
-  if ($(Selectors.TOTAL).textContent === INITIAL_VALUE) {
-    $(Selectors.TOTAL).textContent = $digit;
+  const $total = $(Selectors.TOTAL);
+  if ($total.textContent === INITIAL_VALUE) {
+    $total.textContent = $digit;
     numberCount++;
   } else {
-    $(Selectors.TOTAL).textContent += $digit;
+    $total.textContent += $digit;
     numberCount++;
   }
 };
