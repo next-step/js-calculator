@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "cypress:open": "./node_modules/.bin/cypress open"
+  },
+  "devDependencies": {
+    "cypress": "^10.11.0"
+  }
+}
