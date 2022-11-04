@@ -3,13 +3,13 @@ class Calculator {
     return n + m;
   }
   subtract(n, m) {
-    return n + m; // TODO:
+    return n - m;
   }
   multiply(n, m) {
-    return n + m; // TODO:
+    return n * m;
   }
   divide(n, m) {
-    return n + m; // TODO:
+    return n / m;
   }
 }
 

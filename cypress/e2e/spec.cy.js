@@ -8,15 +8,15 @@ describe('계산기 Class 테스트', () => {
   });
 
   it('뺄셈', () => {
-    expect(calculator.add(2, 4)).to.equal(-2);
+    expect(calculator.subtract(2, 4)).to.equal(-2);
   });
 
   it('곱셈', () => {
-    expect(calculator.add(2, 4)).to.equal(8);
+    expect(calculator.multiply(2, 4)).to.equal(8);
   });
 
   it('나눗셈', () => {
     // 나머지 없는 숫자로 먼저 판단하기
-    expect(calculator.add(4, 2)).to.equal();
+    expect(calculator.divide(4, 2)).to.equal(2);
   });
 });
