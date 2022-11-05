@@ -1,29 +1,11 @@
-const divideOperatorAndNumber = (text) => {
-  if (text.includes('+')) {
-    const [a, b] = text.split('+');
-    return [a, b, '+'];
-  }
-  if (text.includes('-')) {
-    const [a, b] = text.split('-');
-    return [a, b, '-'];
-  }
-  if (text.includes('X')) {
-    const [a, b] = text.split('X');
-    return [a, b, 'X'];
-  }
-  if (text.includes('/')) {
-    const [a, b] = text.split('/');
-    return [a, b, '/'];
-  }
-  return [text, '', ''];
-};
+import { divideOperatorAndNumber } from '../utils/index.js';
 
 class App {
   constructor({ $target }) {
     this.$target = $target;
     this.sum = '';
-    this.total = document.getElementById('total');
     this.operator = '';
+    this.total = document.getElementById('total');
   }
 
   add(a, b) {
@@ -75,6 +57,7 @@ class App {
         if (a.length > 3 || b.length > 3) {
           return window.alert('숫자는 세 자리까지만 입력 가능합니다!');
         }
+        if (this.sum === '0') this.sum = '';
 
         this.sum += e.target.innerHTML;
         this.renderTotal();
@@ -86,8 +69,13 @@ class App {
     const operatorButtons = document.querySelectorAll('.operation');
     operatorButtons.forEach((element) => {
       element.addEventListener('click', (e) => {
+        //2개 이상의 연산자를 쓰려는 경우 경고
+        if (this.operator && e.target.innerText !== '=') {
+          return window.alert('두개의 숫자만 계산할 수 있습니다.');
+        }
+
         //연산자가 있고 적합한 숫자가 들어간 경우 결과를 만든다
-        if (e.target.innerText === '=' && this.operator && this.sum) {
+        if (this.operator && this.sum && e.target.innerText === '=') {
           this.makeResult();
         }
 
@@ -96,7 +84,6 @@ class App {
           this.operator = e.target.innerHTML;
           this.sum += e.target.innerHTML;
           this.renderTotal();
-          return;
         }
       });
     });

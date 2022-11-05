@@ -71,4 +71,18 @@ describe('<Calculator />', () => {
     cy.contains('button', '=').click();
     cy.get('#total').should('have.text', RESULT);
   });
+
+  //Extra
+  it('3가지 숫자를 연산하려는 경우 경고창 발생', () => {
+    const [INPUT, EXTRA] = ['234/123', '+'];
+
+    INPUT.split('').forEach((value) => {
+      cy.contains('button', value).click();
+    });
+    cy.contains('button', EXTRA).click();
+    cy.on('window:alert', (text) => {
+      expect(text).to.contains('두개의 숫자만 계산할 수 있습니다.');
+    });
+    cy.get('#total').should('have.text', INPUT);
+  });
 });
