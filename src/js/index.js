@@ -30,8 +30,22 @@ class Calculator {
   }
   clickEqual(e) {
     if (this.$total.innerText !== "0") {
-      const [num1, num2] = this.result.split("+");
-      this.result = this.sum(+num1, +num2);
+      if (this.$total.innerText.includes("+")) {
+        const [num1, num2] = this.result.split("+");
+        this.result = this.sum(+num1, +num2);
+      }
+      if (this.$total.innerText.includes("-")) {
+        const [num1, num2] = this.result.split("-");
+        this.result = this.minus(+num1, +num2);
+      }
+      if (this.$total.innerText.includes("X")) {
+        const [num1, num2] = this.result.split("X");
+        this.result = this.multiplication(+num1, +num2);
+      }
+      if (this.$total.innerText.includes("/")) {
+        const [num1, num2] = this.result.split("/");
+        this.result = this.division(+num1, +num2);
+      }
       this.$total.innerText = this.result;
     } else {
       this.$total.innerText = 0;
@@ -39,6 +53,15 @@ class Calculator {
   }
   sum(num1, num2) {
     return num1 + num2;
+  }
+  minus(num1, num2) {
+    return num1 - num2;
+  }
+  multiplication(num1, num2) {
+    return num1 * num2;
+  }
+  division(num1, num2) {
+    return num1 / num2;
   }
   clickModifier(e) {
     this.$total.innerText = "0";
@@ -55,7 +78,18 @@ class Calculator {
     const operation = e.target.closest(".operation").innerText;
     if (operation !== "=") {
       if (this.$total.innerText !== "0") {
-        this.$total.innerText += operation;
+        if (operation === "+") {
+          this.$total.innerText += "+";
+        }
+        if (operation === "-") {
+          this.$total.innerText += "-";
+        }
+        if (operation === "X") {
+          this.$total.innerText += "X";
+        }
+        if (operation === "/") {
+          this.$total.innerText += "/";
+        }
       } else {
         this.$total.innerText = 0;
       }
