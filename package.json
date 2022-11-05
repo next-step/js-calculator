@@ -1,0 +1,23 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "description": "<br/> <br/>",
+  "main": "index.js",
+  "scripts": {
+    "cy:open": "cypress open",
+    "cy:run": "cypress run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oyg0420/js-calculator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oyg0420/js-calculator/issues"
+  },
+  "homepage": "https://github.com/oyg0420/js-calculator#readme",
+  "dependencies": {
+    "cypress": "^10.11.0"
+  }
+}
