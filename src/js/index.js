@@ -72,6 +72,11 @@ class Calculator {
       this.$total.innerText = "";
     }
     this.$total.innerText += digit;
+    if (this.$total.innerText.length > 3) {
+      alert("nope");
+      this.result = this.$total.innerText.slice(0, this.$total.innerText.length - 1);
+      this.$total.innerText = this.result;
+    }
     this.result = this.$total.innerText;
   }
   clickOperation(e) {
@@ -80,15 +85,20 @@ class Calculator {
       if (this.$total.innerText !== "0") {
         if (operation === "+") {
           this.$total.innerText += "+";
+          this.result = "";
+          return;
         }
         if (operation === "-") {
           this.$total.innerText += "-";
+          return;
         }
         if (operation === "X") {
           this.$total.innerText += "X";
+          return;
         }
         if (operation === "/") {
           this.$total.innerText += "/";
+          return;
         }
       } else {
         this.$total.innerText = 0;

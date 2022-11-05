@@ -63,4 +63,11 @@ describe("calculator", () => {
     cy.get("#equal").click();
     cy.get("#total").should("have.text", "2");
   });
+  it("세자리 이상으로 입력한다면 alert로 경고", () => {
+    cy.clickDigit("9");
+    cy.clickDigit("4");
+    cy.clickDigit("2");
+    cy.clickDigit("1");
+    cy.get("#total").should("have.text", "942");
+  });
 });
