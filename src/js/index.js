@@ -61,7 +61,7 @@ class Calculator {
     return num1 * num2;
   }
   division(num1, num2) {
-    return num1 / num2;
+    return Math.floor(num1 / num2);
   }
   clickModifier(e) {
     this.$total.innerText = "0";
