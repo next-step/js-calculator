@@ -15,11 +15,18 @@ class Calculator {
     this.$digits.addEventListener("click", (e) => {
       this.clickDigits(e);
     });
+    this.$operations.addEventListener("click", (e) => {
+      this.clickOperation(e);
+    });
   }
 
   clickDigits(e) {
     const digit = e.target.closest(".digit").innerText;
     this.$total.innerText += digit;
+  }
+  clickOperation(e) {
+    const operation = e.target.closest(".operation").innerText;
+    this.$total.innerText += operation;
   }
 }
 

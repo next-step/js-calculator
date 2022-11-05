@@ -27,3 +27,6 @@
 Cypress.Commands.add("clickDigit", (number) => {
   cy.get(".digit").contains(number).click();
 });
+Cypress.Commands.add("clickOperation", (operation) => {
+  cy.get(".operation").contains(operation).click();
+});
