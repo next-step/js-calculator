@@ -4,6 +4,7 @@
   "description": "<br/> <br/>",
   "main": "index.js",
   "scripts": {
+    "start": "live-server",
     "cy:open": "cypress open",
     "cy:run": "cypress run"
   },
@@ -18,6 +19,7 @@
   },
   "homepage": "https://github.com/oyg0420/js-calculator#readme",
   "dependencies": {
-    "cypress": "^10.11.0"
+    "cypress": "^10.11.0",
+    "live-server": "^1.2.2"
   }
 }
