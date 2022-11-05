@@ -20,4 +20,12 @@ describe("calculator", () => {
     cy.clickOperation("X");
     cy.clickOperation("/");
   });
+  it("AC눌렀을 때 결과물이 0으로 바뀐다.", () => {
+    cy.clickDigit("9");
+    cy.clickDigit("4");
+    cy.clickDigit("9");
+    cy.clickDigit("8");
+    cy.clickDigit("1");
+    cy.get(".modifier").click();
+  });
 });
