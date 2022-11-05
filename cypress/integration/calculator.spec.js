@@ -28,4 +28,32 @@ describe("calculator", () => {
     cy.clickDigit("1");
     cy.get(".modifier").click();
   });
+  it("덧셈 기능이 작동된다.", () => {
+    cy.clickDigit("5");
+    cy.clickOperation("+");
+    cy.clickDigit("2");
+    cy.get("#equal").click();
+    cy.get("#total").should("have.text", "7");
+  });
+  it("뺄셈 기능이 작동된다.", () => {
+    cy.clickDigit("5");
+    cy.clickOperation("-");
+    cy.clickDigit("2");
+    cy.get("#equal").click();
+    cy.get("#total").should("have.text", "3");
+  });
+  it("곱셈 기능이 작동된다.", () => {
+    cy.clickDigit("5");
+    cy.clickOperation("X");
+    cy.clickDigit("2");
+    cy.get("#equal").click();
+    cy.get("#total").should("have.text", "10");
+  });
+  it("나눗셈 기능이 작동된다.", () => {
+    cy.clickDigit("9");
+    cy.clickOperation("/");
+    cy.clickDigit("3");
+    cy.get("#equal").click();
+    cy.get("#total").should("have.text", "3");
+  });
 });
