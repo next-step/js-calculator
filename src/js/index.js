@@ -29,41 +29,38 @@ class Calculator {
 const calculator = new Calculator();
 let total = null;
 
+const listeners = {
+  modifier() {
+    document.querySelector('.modifier').addEventListener('click', function () {
+      calculator.initialize();
+      setDisplay(0);
+    });
+  },
+  digits() {
+    const digits = document.querySelectorAll('.digit');
+    digits.forEach((digit) =>
+      digit.addEventListener('click', function () {
+        accumulateTotalNumber(parseInt(this.innerText));
+        updateDisplay();
+      })
+    );
+  },
+  operations() {
+    const operations = document.querySelectorAll('.operation');
+    operations.forEach((op) => {
+      op.addEventListener('click', function () {
+        setOperation(this.innerText);
+      });
+    });
+  },
+};
+
 window.addEventListener('load', function () {
   total = document.querySelector('#total');
-  addEventListenerForDigits();
-  addEventListenerForOperations();
-  addEventListenerForModifiers();
+  Object.keys(listeners).forEach((listener) => listeners[listener]());
 });
 
-function addEventListenerForModifiers() {
-  document.querySelector('.modifier').addEventListener('click', function () {
-    calculator.initialize();
-    setDisplay(0);
-  });
-}
-
-function addEventListenerForDigits() {
-  const digits = document.querySelectorAll('.digit');
-  digits.forEach((digit) =>
-    digit.addEventListener('click', function () {
-      accumulateTotalNumber(parseInt(this.innerText));
-      updateDisplay();
-    })
-  );
-}
-
-function addEventListenerForOperations() {
-  const operations = document.querySelectorAll('.operation');
-  operations.forEach((op) => {
-    op.addEventListener('click', function () {
-      setOperation(this.innerText);
-    });
-  });
-}
-
 function setOperation(operation) {
-  console.log(operation, '누름');
   if (operation === '=') {
     const operationFunction = {
       '+': calculator.add,
