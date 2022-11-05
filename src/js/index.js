@@ -2,6 +2,7 @@ class Calculator {
   constructor() {
     this.setDOM();
     this.setEvent();
+    this.result = 0;
   }
 
   setDOM() {
@@ -9,7 +10,7 @@ class Calculator {
     this.$digits = document.querySelector(".digits");
     this.$modifiers = document.querySelector(".modifiers");
     this.$operations = document.querySelector(".operations");
-    this.$equal = document.getElementById("equalOperation");
+    this.$equal = document.getElementById("equal");
     this.$modifier = document.querySelector(".modifier");
   }
 
@@ -23,6 +24,21 @@ class Calculator {
     this.$modifier.addEventListener("click", (e) => {
       this.clickModifier(e);
     });
+    this.$equal.addEventListener("click", (e) => {
+      this.clickEqual(e);
+    });
+  }
+  clickEqual(e) {
+    if (this.$total.innerText !== "0") {
+      const [num1, num2] = this.result.split("+");
+      this.result = this.sum(+num1, +num2);
+      this.$total.innerText = this.result;
+    } else {
+      this.$total.innerText = 0;
+    }
+  }
+  sum(num1, num2) {
+    return num1 + num2;
   }
   clickModifier(e) {
     this.$total.innerText = "0";
@@ -33,11 +49,17 @@ class Calculator {
       this.$total.innerText = "";
     }
     this.$total.innerText += digit;
+    this.result = this.$total.innerText;
   }
-
   clickOperation(e) {
     const operation = e.target.closest(".operation").innerText;
-    this.$total.innerText += operation;
+    if (operation !== "=") {
+      if (this.$total.innerText !== "0") {
+        this.$total.innerText += operation;
+      } else {
+        this.$total.innerText = 0;
+      }
+    }
   }
 }
 
