@@ -1,0 +1,16 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Seung-wan/js-calculator.git",
+  "author": "Seung-wan <tmddhks0104@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "cypress": "^10.11.0",
+    "eslint": "^8.26.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.7.1"
+  }
+}
