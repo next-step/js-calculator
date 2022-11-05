@@ -56,4 +56,11 @@ describe("calculator", () => {
     cy.get("#equal").click();
     cy.get("#total").should("have.text", "3");
   });
+  it("나눗셈 결과 소수점 이하는 버림", () => {
+    cy.clickDigit("9");
+    cy.clickOperation("/");
+    cy.clickDigit("4");
+    cy.get("#equal").click();
+    cy.get("#total").should("have.text", "2");
+  });
 });
