@@ -13,7 +13,7 @@ class Calculator {
     return n * m;
   }
   divide(n, m) {
-    return n / m;
+    return Math.floor(n / m);
   }
 }
 

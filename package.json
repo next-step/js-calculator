@@ -1,5 +1,4 @@
 {
-  "type": "module",
   "scripts": {
     "cypress:open": "./node_modules/.bin/cypress open"
   },

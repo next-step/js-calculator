@@ -26,14 +26,33 @@ window.addEventListener('load', function () {
 });
 
 function addEventListenerForDigits() {
-  const nodes = document.querySelectorAll('.digit');
-  nodes.forEach((node) =>
-    node.addEventListener('click', function () {
+  const digits = document.querySelectorAll('.digit');
+  digits.forEach((digit) =>
+    digit.addEventListener('click', function () {
       accumulateTotalNumber(parseInt(this.innerText));
       updateDisplay();
     })
   );
 }
+
+function addEventListenerForOperations() {
+  const operations = document.querySelectorAll('.operation');
+  operations.forEach((op) => {
+    op.addEventListener('click', function () {
+      setOperation(this.innerText);
+    });
+  });
+}
+
+function setOperation(operation) {
+  calculator.op = operation;
+}
+// const operationFunction = {
+//     '+': calculator.add,
+//     '-': calculator.subtract,
+//     '*': calculator.multiply,
+//     '/': calculator.divide
+// }
 
 function accumulateTotalNumber(number = 0) {
   const { total } = calculator;
