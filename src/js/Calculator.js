@@ -1,4 +1,8 @@
 class Calculator {
+  num1 = 0;
+  num2 = 0;
+  total = 0;
+
   add(n, m) {
     return n + m;
   }
