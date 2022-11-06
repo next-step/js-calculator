@@ -31,6 +31,14 @@ describe('계산기 테스트', () => {
   });
 
   describe('2개의 숫자에 대해 곱셈이 가능하다.', () => {
+    it('11 * 100 = 1100', () => {
+      cy.clickDigit([1, 1]);
+      cy.clickOperation(OPERATION.MULTIPLY);
+      cy.clickDigit([1, 0, 0]);
+      cy.clickOperation(OPERATION.EQUAL);
+
+      cy.getTotal(1100);
+    });
     it('2 * 0 = 0', () => {
       cy.clickDigit([2]);
       cy.clickOperation(OPERATION.MULTIPLY);
@@ -91,6 +99,81 @@ describe('계산기 테스트', () => {
       cy.clickDigit([2, 0]);
       cy.clickModifier();
       cy.getTotal(0);
+    });
+  });
+
+  describe('이전 계산 결과값을 이용해 게속 계산할 수 있다.', () => {
+    it('(2 + 40) * 2 = 84', () => {
+      cy.clickDigit([2]);
+      cy.clickOperation(OPERATION.PLUS);
+      cy.clickDigit([4, 0]);
+      cy.clickOperation(OPERATION.EQUAL);
+      cy.getTotal(42);
+
+      cy.clickOperation(OPERATION.MULTIPLY);
+      cy.clickDigit([2]);
+      cy.clickOperation(OPERATION.EQUAL);
+      cy.getTotal(84);
+    });
+    it('(2 - 4) / 2 = -1', () => {
+      cy.clickDigit([2]);
+      cy.clickOperation(OPERATION.MINUS);
+      cy.clickDigit([4]);
+      cy.clickOperation(OPERATION.EQUAL);
+      cy.getTotal(-2);
+
+      cy.clickOperation(OPERATION.DIVIDE);
+      cy.clickDigit([2]);
+      cy.clickOperation(OPERATION.EQUAL);
+      cy.getTotal(-1);
+    });
+  });
+
+  describe('3자리 숫자를 넘어가면 alert창이 뜬다.', () => {
+    it('첫 번째 숫자로 1111 입력하면 alert창이 뜬다.', () => {
+      cy.clickDigit([1, 1, 1, 1]);
+      cy.getTotal(111);
+      cy.on('window:alert', (text) => {
+        expect(text).to.contains(ALRERT_MESSAGE.NOT_OVER_NUMBER_LENGTH);
+      });
+    });
+    it('444 + 1111 입력한다.', () => {
+      cy.clickDigit([4, 4, 4]);
+      cy.clickOperation(OPERATION.PLUS);
+      cy.clickDigit([1, 1, 1, 1]);
+      cy.getTotal(`444${OPERATION.PLUS}111`);
+      cy.on('window:alert', (text) => {
+        expect(text).to.contains(ALRERT_MESSAGE.NOT_OVER_NUMBER_LENGTH);
+      });
+    });
+    it('(2 + 4) * 1000 입력한다.', () => {
+      cy.clickDigit([2]);
+      cy.clickOperation(OPERATION.PLUS);
+      cy.clickDigit([4]);
+      cy.clickOperation(OPERATION.EQUAL);
+      cy.getTotal(6);
+
+      cy.clickOperation(OPERATION.MULTIPLY);
+      cy.clickDigit([1, 0, 0, 0]);
+      cy.getTotal(`6${OPERATION.MULTIPLY}100`);
+      cy.on('window:alert', (text) => {
+        expect(text).to.contains(ALRERT_MESSAGE.NOT_OVER_NUMBER_LENGTH);
+      });
+    });
+  });
+
+  describe('맨 처음 연산자부터 클릭하면 alert창이 뜬다.', () => {
+    it('맨 처음 + 버튼을 클릭한다.', () => {
+      cy.clickOperation(OPERATION.PLUS);
+      cy.on('window:alert', (text) => {
+        expect(text).to.contains(ALRERT_MESSAGE.NOT_FIRSTNUMBER);
+      });
+    });
+    it('맨 처음 / 버튼을 클릭한다.', () => {
+      cy.clickOperation(OPERATION.DIVIDE);
+      cy.on('window:alert', (text) => {
+        expect(text).to.contains(ALRERT_MESSAGE.NOT_FIRSTNUMBER);
+      });
     });
   });
 });
