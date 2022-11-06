@@ -3,7 +3,7 @@ import { $ } from "./utils.js";
 class Calculator {
 	result = 0;
 	current = "";
-	operator = null;
+	operator = "";
 
 	add() {
 		this.result += Number(this.current);
@@ -41,6 +41,10 @@ const setEventListener = () => {
 
 	digits.addEventListener("click", (e) => {
 		const digit = e.target.closest(".digit").innerText;
+		if (calculator.current.length === 3) {
+			alert("3자리 이하의 수만 입력 가능합니다.");
+			return;
+		}
 		calculator.current += digit;
 		showCurrentNumber();
 	});
@@ -72,9 +76,12 @@ const setEventListener = () => {
 		showResult();
 	});
 
-	allClearButton.addEventListener("click", (e) =>
-		console.log(e.target.innerText)
-	);
+	allClearButton.addEventListener("click", () => {
+		calculator.current = "";
+		calculator.result = 0;
+		calculator.operator = "";
+		showResult();
+	});
 };
 
 const init = () => {
