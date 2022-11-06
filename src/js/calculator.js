@@ -1,4 +1,4 @@
-import { OPERATION, ALRERT_MESSAGE } from './constants.js';
+import { MAX_NUMBER_LENGTH, OPERATION, ALRERT_MESSAGE } from './constants.js';
 
 const calculateTotal = {
   [OPERATION.PLUS]: (firstNumber, secondNumber) => firstNumber + secondNumber,
@@ -44,8 +44,13 @@ class Calculator {
   clickDigit({ dataset }) {
     const clickedNumber = parseInt(dataset.digit, 10);
     const currentKey = this.state.operation ? 'secondNumber' : 'firstNumber';
-    this.state[currentKey] = (this.state[currentKey] * 10 ?? 0) + clickedNumber;
+    const newNumber = (this.state[currentKey] * 10 ?? 0) + clickedNumber;
 
+    if (String(newNumber).length > MAX_NUMBER_LENGTH) {
+      return alert(ALRERT_MESSAGE.NOT_OVER_NUMBER_LENGTH);
+    }
+
+    this.state[currentKey] = newNumber;
     this.renderTotal();
   }
 

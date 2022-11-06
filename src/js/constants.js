@@ -1,3 +1,5 @@
+export const MAX_NUMBER_LENGTH = 3;
+
 export const OPERATION = {
   PLUS: '+',
   MINUS: '-',
@@ -8,4 +10,5 @@ export const OPERATION = {
 
 export const ALRERT_MESSAGE = {
   NOT_FIRSTNUMBER: '연산자 입력하기 전에 숫자를 입력해주세요!',
+  NOT_OVER_NUMBER_LENGTH: '3자리 이하 숫자만 입력해주세요!',
 };
