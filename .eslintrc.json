@@ -11,10 +11,7 @@
     "sourceType": "module"
   },
   "rules": {
-    "prettier/prettier": ["error"],
-    "import/no-unresolved": "off",
-    "class-methods-use-this": "off",
-    "import/prefer-default-export": "off",
-    "import/extensions": "off"
+    "import/extensions": "off",
+    "no-plusplus": "off"
   }
 }
