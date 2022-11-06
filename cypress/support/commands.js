@@ -23,3 +23,15 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add('clickDigit', (numbers) => {
+  numbers.forEach((number) => cy.get(`button[data-digit="${number}"]`).click());
+});
+Cypress.Commands.add('clickOperation', (operation) => {
+  cy.get(`button[data-operation="${operation}"]`).click();
+});
+Cypress.Commands.add('clickModifier', (modifier) => {
+  cy.get(`button[data-modifier="${modifier}"]`).click();
+});
+Cypress.Commands.add('calculation', (total) => {
+  cy.get('#total').should('have.text', `${total}`);
+});
