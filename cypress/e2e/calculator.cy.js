@@ -176,4 +176,31 @@ describe('계산기 테스트', () => {
       });
     });
   });
+
+  describe('사칙 연산자(+,-,x,/)를 한 번 누르고 = 버튼을 클릭하면 alert창이 뜬다.', () => {
+    it('23 /=', () => {
+      cy.clickDigit([2, 3]);
+      cy.clickModifier(OPERATION.DIVIDE);
+      cy.clickModifier(OPERATION.EQUAL);
+      cy.on('window:alert', (text) => {
+        expect(text).to.contains(ALRERT_MESSAGE.NOT_SECONDNUMBER);
+      });
+    });
+    it('400 +=', () => {
+      cy.clickDigit([4,0,0]);
+      cy.clickModifier(OPERATION.PLUS);
+      cy.clickModifier(OPERATION.EQUAL);
+      cy.on('window:alert', (text) => {
+        expect(text).to.contains(ALRERT_MESSAGE.NOT_SECONDNUMBER);
+      });
+    });
+    it('5 *=', () => {
+      cy.clickDigit([5]);
+      cy.clickModifier(OPERATION.MULTIPLY);
+      cy.clickModifier(OPERATION.EQUAL);
+      cy.on('window:alert', (text) => {
+        expect(text).to.contains(ALRERT_MESSAGE.NOT_SECONDNUMBER);
+      });
+    });
+  });
 });
