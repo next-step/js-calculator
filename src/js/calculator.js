@@ -49,7 +49,10 @@ class Calculator {
     this.renderTotal();
   }
 
-  clickModifier() {}
+  clickModifier() {
+    this.state = { ...initialState };
+    this.renderTotal();
+  }
 
   clickOperation({ dataset }) {
     if (this.state.firstNumber === null) {
