@@ -29,6 +29,18 @@ class Calculator {
     this.$operations.addEventListener('click', (e) => this.clickOperation(e.target));
   }
 
+  setNewNumber(clickedNumber) {
+    const currentKey = this.state.operation ? 'secondNumber' : 'firstNumber';
+    const newNumber = (this.state[currentKey] * 10 ?? 0) + clickedNumber;
+
+    if (String(newNumber).length > MAX_NUMBER_LENGTH) {
+      alert(ALRERT_MESSAGE.NOT_OVER_NUMBER_LENGTH);
+      return;
+    }
+
+    this.state[currentKey] = newNumber;
+  }
+
   setTotal() {
     const { firstNumber, operation, secondNumber } = this.state;
 
@@ -43,14 +55,9 @@ class Calculator {
 
   clickDigit({ dataset }) {
     const clickedNumber = parseInt(dataset.digit, 10);
-    const currentKey = this.state.operation ? 'secondNumber' : 'firstNumber';
-    const newNumber = (this.state[currentKey] * 10 ?? 0) + clickedNumber;
 
-    if (String(newNumber).length > MAX_NUMBER_LENGTH) {
-      return alert(ALRERT_MESSAGE.NOT_OVER_NUMBER_LENGTH);
-    }
+    this.setNewNumber(clickedNumber);
 
-    this.state[currentKey] = newNumber;
     this.renderTotal();
   }
 
@@ -61,7 +68,8 @@ class Calculator {
 
   clickOperation({ dataset }) {
     if (this.state.firstNumber === null) {
-      return alert(ALRERT_MESSAGE.NOT_FIRSTNUMBER);
+      alert(ALRERT_MESSAGE.NOT_FIRSTNUMBER);
+      return;
     }
 
     const clickedOperation = dataset.operation;
