@@ -17,6 +17,10 @@ class Calculator {
     return Number(this.operand1) * Number(this.operand2);
   }
 
+  div() {
+    return Math.trunc(Number(this.operand1) / Number(this.operand2));
+  }
+
   reset() {
     this.operand1 = '';
     this.operand2 = '';
@@ -28,4 +32,6 @@ class Calculator {
   }
 }
 
-export const calculator = new Calculator();
+const calculator = new Calculator();
+
+export default calculator;

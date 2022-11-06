@@ -16,4 +16,8 @@ describe('calculator test', () => {
   it('multiply two number', () => {
     checkResultAfterClickTwoNumberAndOperator('3', '2', 'X', '6');
   });
+
+  it('divide two number', () => {
+    checkResultAfterClickTwoNumberAndOperator('9', '5', '/', '1');
+  });
 });

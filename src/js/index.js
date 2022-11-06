@@ -1,5 +1,5 @@
 /* eslint-disable no-alert */
-import { calculator } from './calculator.js';
+import calculator from './calculator.js';
 import { errorMessage, MAX_DIGIT_NUMBER, modifiers, operators } from './constants/index.js';
 import { $ } from './utils/dom.js';
 
@@ -7,6 +7,7 @@ const operatorsResult = {
   [operators.PLUS]: () => calculator.add(),
   [operators.MINUS]: () => calculator.sub(),
   [operators.MULTIPLY]: () => calculator.mul(),
+  [operators.DIVIDE]: () => calculator.div(),
 };
 
 const modifiersResult = {
