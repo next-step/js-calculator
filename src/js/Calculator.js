@@ -1,5 +1,6 @@
 import Total from "./Total.js";
 import Digits from "./Digits.js";
+import Modifier from "./Modifier.js";
 
 class Calculator {
   totalValue = "0";
@@ -30,6 +31,10 @@ class Calculator {
     new Digits({
       $calculator,
       getTotalValue: this.getTotalValue,
+      setTotalValue: this.setTotalValue,
+    });
+    new Modifier({
+      $calculator,
       setTotalValue: this.setTotalValue,
     });
   }
