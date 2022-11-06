@@ -48,4 +48,8 @@ describe('calculator test', () => {
 
     cy.getByDataset('total').should('have.text', '111+111');
   });
+
+  it('discarded decimal point when calculate result', () => {
+    checkResultAfterClickTwoNumberAndOperator('9', '2', '/', '4');
+  });
 });
