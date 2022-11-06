@@ -29,9 +29,9 @@ Cypress.Commands.add('clickDigit', (numbers) => {
 Cypress.Commands.add('clickOperation', (operation) => {
   cy.get(`button[data-operation="${operation}"]`).click();
 });
-Cypress.Commands.add('clickModifier', (modifier) => {
-  cy.get(`button[data-modifier="${modifier}"]`).click();
+Cypress.Commands.add('clickModifier', () => {
+  cy.get(`button[data-modifier="AC"]`).click();
 });
-Cypress.Commands.add('calculation', (total) => {
+Cypress.Commands.add('getTotal', (total) => {
   cy.get('#total').should('have.text', `${total}`);
 });

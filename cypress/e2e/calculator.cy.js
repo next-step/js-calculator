@@ -10,8 +10,7 @@ describe('계산기 테스트', () => {
     cy.clickOperation(OPERATION.PLUS);
     cy.clickDigit([2, 2, 2]);
     cy.clickOperation(OPERATION.EQUAL);
-
-    cy.calculation(244);
+    cy.getTotal(244);
   });
 
   describe('2개의 숫자에 대해 뺄셈이 가능하다.', () => {
@@ -20,16 +19,14 @@ describe('계산기 테스트', () => {
       cy.clickOperation(OPERATION.MINUS);
       cy.clickDigit([2, 0]);
       cy.clickOperation(OPERATION.EQUAL);
-
-      cy.calculation(280);
+      cy.getTotal(280);
     });
     it('10 - 20 = -10', () => {
       cy.clickDigit([1, 0]);
       cy.clickOperation(OPERATION.MINUS);
       cy.clickDigit([2, 0]);
       cy.clickOperation(OPERATION.EQUAL);
-
-      cy.calculation(-10);
+      cy.getTotal(-10);
     });
   });
 
@@ -40,7 +37,7 @@ describe('계산기 테스트', () => {
       cy.clickDigit([0]);
       cy.clickOperation(OPERATION.EQUAL);
 
-      cy.calculation(0);
+      cy.getTotal(0);
     });
     it('0 * 2 = 0', () => {
       cy.clickDigit([0]);
@@ -48,7 +45,7 @@ describe('계산기 테스트', () => {
       cy.clickDigit([2]);
       cy.clickOperation(OPERATION.EQUAL);
 
-      cy.calculation(0);
+      cy.getTotal(0);
     });
   });
 
@@ -58,24 +55,42 @@ describe('계산기 테스트', () => {
       cy.clickOperation(OPERATION.DIVIDE);
       cy.clickDigit([0]);
       cy.clickOperation(OPERATION.EQUAL);
-
-      cy.calculation(Infinity);
+      cy.getTotal(Infinity);
     });
     it('555 / 2 = 277', () => {
       cy.clickDigit([5, 5, 5]);
       cy.clickOperation(OPERATION.DIVIDE);
       cy.clickDigit([2]);
       cy.clickOperation(OPERATION.EQUAL);
-
-      cy.calculation(277);
+      cy.getTotal(277);
     });
     it('30 / 2 = 15', () => {
       cy.clickDigit([3, 0]);
       cy.clickOperation(OPERATION.DIVIDE);
       cy.clickDigit([2]);
       cy.clickOperation(OPERATION.EQUAL);
+      cy.getTotal(15);
+    });
+  });
 
-      cy.calculation(15);
+  describe('AC 버튼을 누르면 초기화가 가능하다.', () => {
+    it('첫 번째 숫자를 입력하고 초기화', () => {
+      cy.clickDigit([2, 0]);
+      cy.clickModifier();
+      cy.getTotal(0);
+    });
+    it('연산까지 입력하고 초기화', () => {
+      cy.clickDigit([2, 0]);
+      cy.clickOperation(OPERATION.DIVIDE);
+      cy.clickModifier();
+      cy.getTotal(0);
+    });
+    it('두 번째 숫자까지 입력하고 초기화', () => {
+      cy.clickDigit([2, 0]);
+      cy.clickOperation(OPERATION.DIVIDE);
+      cy.clickDigit([2, 0]);
+      cy.clickModifier();
+      cy.getTotal(0);
     });
   });
 });
