@@ -5,12 +5,28 @@ describe('계산기 테스트', () => {
     cy.visit('http://127.0.0.1:5500/index.html');
   });
 
-  it('2개의 숫자에 대해 덧셈이 가능하다.', () => {
-    cy.clickDigit([2, 2]);
-    cy.clickOperation(OPERATION.PLUS);
-    cy.clickDigit([2, 2, 2]);
-    cy.clickOperation(OPERATION.EQUAL);
-    cy.getTotal(244);
+  describe('2개의 숫자에 대해 덧셈이 가능하다.', () => {
+    it('22 + 222 = 244', () => {
+      cy.clickDigit([2, 2]);
+      cy.clickOperation(OPERATION.PLUS);
+      cy.clickDigit([2, 2, 2]);
+      cy.clickOperation(OPERATION.EQUAL);
+      cy.getTotal(244);
+    });
+    it('0 + 2 = 2', () => {
+      cy.clickDigit([0]);
+      cy.clickOperation(OPERATION.PLUS);
+      cy.clickDigit([2]);
+      cy.clickOperation(OPERATION.EQUAL);
+      cy.getTotal(2);
+    });
+    it('400 + 0 = 400', () => {
+      cy.clickDigit([4, 0, 0]);
+      cy.clickOperation(OPERATION.PLUS);
+      cy.clickDigit([0]);
+      cy.clickOperation(OPERATION.EQUAL);
+      cy.getTotal(400);
+    });
   });
 
   describe('2개의 숫자에 대해 뺄셈이 가능하다.', () => {
@@ -187,7 +203,7 @@ describe('계산기 테스트', () => {
       });
     });
     it('400 +=', () => {
-      cy.clickDigit([4,0,0]);
+      cy.clickDigit([4, 0, 0]);
       cy.clickModifier(OPERATION.PLUS);
       cy.clickModifier(OPERATION.EQUAL);
       cy.on('window:alert', (text) => {
