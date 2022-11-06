@@ -12,4 +12,8 @@ describe('calculator test', () => {
   it('subtract two number', () => {
     checkResultAfterClickTwoNumberAndOperator('3', '2', '-', '1');
   });
+
+  it('multiply two number', () => {
+    checkResultAfterClickTwoNumberAndOperator('3', '2', 'X', '6');
+  });
 });

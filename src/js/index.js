@@ -6,6 +6,7 @@ import { $ } from './utils/dom.js';
 const operatorsResult = {
   [operators.PLUS]: () => calculator.add(),
   [operators.MINUS]: () => calculator.sub(),
+  [operators.MULTIPLY]: () => calculator.mul(),
 };
 
 const modifiersResult = {
