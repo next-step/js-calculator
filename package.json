@@ -1,8 +1,10 @@
 {
   "scripts": {
-    "start": "serve ./"
+    "start": "serve ./",
+    "cypress:open": "cypress open"
   },
   "devDependencies": {
+    "cypress": "^10.11.0",
     "serve": "^14.0.1"
   }
 }
