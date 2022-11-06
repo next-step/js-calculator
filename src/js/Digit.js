@@ -15,12 +15,12 @@ class Digit {
     const $digit = contains(".digit", this.index)[0];
     const totalValue = this.getTotalValue();
 
-    function isThreeConsecutive() {
+    function isOverThreeConsecutive() {
       const sliced = totalValue
-        .slice(totalValue.length - 2, totalValue.length)
+        .slice(totalValue.length - 3, totalValue.length)
         .split("");
       if (
-        sliced.length < 2 ||
+        sliced.length < 3 ||
         !!sliced.find((text) => operators.indexOf(text) !== -1)
       ) {
         return false;
@@ -32,7 +32,7 @@ class Digit {
     $digit.addEventListener("click", () => {
       if (totalValue === "0") {
         this.setTotalValue(`${this.index}`);
-      } else if (isThreeConsecutive()) {
+      } else if (isOverThreeConsecutive()) {
         alert("숫자는 한번에 최대 3자리 수까지 입력 가능합니다.");
       } else {
         this.setTotalValue(`${totalValue}${this.index}`);
