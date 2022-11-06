@@ -1,0 +1,27 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "description": "<br/> <br/>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cypress:open": "./node_modules/.bin/cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yeomgahui/js-calculator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yeomgahui/js-calculator/issues"
+  },
+  "homepage": "https://github.com/yeomgahui/js-calculator#readme",
+  "devDependencies": {
+    "cypress": "^10.11.0",
+    "eslint": "^8.26.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "2.7.1"
+  }
+}
