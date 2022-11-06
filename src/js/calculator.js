@@ -15,8 +15,8 @@ class Calculator {
   #operator;
 
   constructor() {
-    this.#num1 = DEFAULT_NUMBER;
-    this.#num2 = DEFAULT_NUMBER;
+    this.#num1 = null;
+    this.#num2 = null;
     this.#output = null;
     this.#operator = null;
   }
@@ -30,28 +30,25 @@ class Calculator {
   };
 
   setOperator = (nextOperator) => {
-    if (!this.#operator) {
-      this.#operator = nextOperator;
-    }
+    this.#operator = nextOperator;
   };
 
   clear = () => {
-    this.#num1 = DEFAULT_NUMBER;
-    this.#num2 = DEFAULT_NUMBER;
+    this.#num1 = null;
+    this.#num2 = null;
     this.#output = null;
     this.#operator = null;
   };
 
   compute = () => {
-    this.#output =
-      OPERRATIONS[this.#operator](this.#num1, this.#num2) ?? DEFAULT_NUMBER;
+    this.#output = OPERRATIONS[this.#operator](this.#num1, this.#num2);
   };
 
   appendNumber = (nextNumber) => {
-    let currentNumber = this.#num1;
+    let currentNumber = this.#num1 ?? DEFAULT_NUMBER;
 
     if (this.#operator) {
-      currentNumber = this.#num2;
+      currentNumber = this.#num2 ?? DEFAULT_NUMBER;
     }
 
     if (currentNumber === DEFAULT_NUMBER) {
@@ -62,21 +59,15 @@ class Calculator {
   };
 
   getDisplay = () => {
-    let display = `${this.#num1}`;
-
-    if (this.#operator) {
-      display += `${this.#operator}`;
+    if (isNumber(this.#output)) {
+      return this.#output;
     }
 
-    if (this.#num2) {
-      display += `${this.#num2}`;
+    if (isNumber(this.#num2)) {
+      return this.#num2;
     }
 
-    if (this.#isComputed()) {
-      display = `${this.#output}`;
-    }
-
-    return display;
+    return this.#num1 ?? DEFAULT_NUMBER;
   };
 
   isOverMaxLength = (nextNumber) => {
@@ -85,10 +76,6 @@ class Calculator {
     }
 
     return false;
-  };
-
-  #isComputed = () => {
-    return isNumber(this.#output);
   };
 }
 
