@@ -1,3 +1,4 @@
+import { isNumber } from './utils.js';
 import { DEFAULT_NUMBER, MAX_LENGTH, OPERATOR } from './const.js';
 
 const OPERRATIONS = {
@@ -44,7 +45,7 @@ class Calculator {
       OPERRATIONS[this.#operator](this.#num1, this.#num2) ?? DEFAULT_NUMBER;
   }
 
-  appendNumber(nextNumber) {
+  getAppendedNumber(nextNumber) {
     let currentNumber = this.#num1;
 
     if (this.#operator) {
@@ -62,7 +63,7 @@ class Calculator {
     let display = `${this.#num1}`;
 
     if (this.#operator) {
-      display = `${this.#operator}`;
+      display += `${this.#operator}`;
     }
 
     if (this.#num2) {
@@ -85,7 +86,7 @@ class Calculator {
   }
 
   isComputed() {
-    return typeof this.#output === 'number';
+    return isNumber(this.#output);
   }
 }
 
