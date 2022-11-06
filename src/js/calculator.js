@@ -45,6 +45,7 @@ class Calculator {
     const { firstNumber, operation, secondNumber } = this.state;
 
     if (secondNumber === null) {
+      alert(ALRERT_MESSAGE.NOT_SECONDNUMBER);
       return;
     }
 
