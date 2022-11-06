@@ -1,4 +1,4 @@
-import { errorMessage } from '../../src/js/constants';
+import { ERROR_MESSAGES } from '../../src/js/constants';
 import {
   checkResultAfterClickTwoNumberAndOperator,
   clickElementNTimes,
@@ -38,13 +38,13 @@ describe('calculator test', () => {
 
   it('can enter 3 number digits at once', () => {
     clickElementNTimes('1', 4);
-    checkAlertMessage(errorMessage.MAX_DIGIT_NUMBER);
+    checkAlertMessage(ERROR_MESSAGES.MAX_DIGIT_NUMBER);
     cy.getByDataset('total').should('have.text', '111');
 
     clickElementNTimes('1', 1);
     cy.getByDataset('+').click();
     clickElementNTimes('1', 4);
-    checkAlertMessage(errorMessage.MAX_DIGIT_NUMBER);
+    checkAlertMessage(ERROR_MESSAGES.MAX_DIGIT_NUMBER);
 
     cy.getByDataset('total').should('have.text', '111+111');
   });
