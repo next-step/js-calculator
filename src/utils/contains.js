@@ -1,7 +1,7 @@
 function contains(selector, text) {
-  var elements = document.querySelectorAll(selector);
-  return [].filter.call(elements, function (element) {
-    return RegExp(text).test(element.textContent);
+  const elements = document.querySelectorAll(selector);
+  return [].filter.call(elements, (element) => {
+    return element.textContent === String(text);
   });
 }
 
