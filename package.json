@@ -5,6 +5,9 @@
   "repository": "git@github.com:Seung-wan/js-calculator.git",
   "author": "Seung-wan <tmddhks0104@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "test:e2e": "cypress open"
+  },
   "devDependencies": {
     "cypress": "^10.11.0",
     "eslint": "^8.26.0",
