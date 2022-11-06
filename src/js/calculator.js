@@ -1,9 +1,9 @@
 class Calculator {
-  constructor(operand1 = '', operand2 = '', operator = '') {
-    this.operand1 = operand1;
-    this.operand2 = operand2;
-    this.operator = operator;
-  }
+  operand1 = '';
+
+  operand2 = '';
+
+  operator = '';
 
   add() {
     return Number(this.operand1) + Number(this.operand2);
