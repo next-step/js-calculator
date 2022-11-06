@@ -9,6 +9,10 @@ class Calculator {
     return Number(this.operand1) + Number(this.operand2);
   }
 
+  sub() {
+    return Number(this.operand1) - Number(this.operand2);
+  }
+
   reset() {
     this.operand1 = '';
     this.operand2 = '';
