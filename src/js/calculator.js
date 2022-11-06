@@ -21,31 +21,33 @@ class Calculator {
     this.#operator = null;
   }
 
-  setNumber(nextNumber) {
+  setNumber = (nextNumber) => {
     if (this.#operator) {
       this.#num2 = nextNumber;
     } else {
       this.#num1 = nextNumber;
     }
-  }
+  };
 
-  setOperator(nextOperator) {
-    this.#operator = nextOperator;
-  }
+  setOperator = (nextOperator) => {
+    if (!this.#operator) {
+      this.#operator = nextOperator;
+    }
+  };
 
-  clear() {
+  clear = () => {
     this.#num1 = DEFAULT_NUMBER;
     this.#num2 = DEFAULT_NUMBER;
     this.#output = null;
     this.#operator = null;
-  }
+  };
 
-  compute() {
+  compute = () => {
     this.#output =
       OPERRATIONS[this.#operator](this.#num1, this.#num2) ?? DEFAULT_NUMBER;
-  }
+  };
 
-  getAppendedNumber(nextNumber) {
+  appendNumber = (nextNumber) => {
     let currentNumber = this.#num1;
 
     if (this.#operator) {
@@ -57,9 +59,9 @@ class Calculator {
     }
 
     return Number(`${currentNumber}${nextNumber}`);
-  }
+  };
 
-  getDisplay() {
+  getDisplay = () => {
     let display = `${this.#num1}`;
 
     if (this.#operator) {
@@ -70,24 +72,24 @@ class Calculator {
       display += `${this.#num2}`;
     }
 
-    if (this.isComputed()) {
+    if (this.#isComputed()) {
       display = `${this.#output}`;
     }
 
     return display;
-  }
+  };
 
-  isOverMaxLength(nextNumber) {
+  isOverMaxLength = (nextNumber) => {
     if (String(nextNumber).length > MAX_LENGTH) {
       return true;
     }
 
     return false;
-  }
+  };
 
-  isComputed() {
+  #isComputed = () => {
     return isNumber(this.#output);
-  }
+  };
 }
 
 export default Calculator;

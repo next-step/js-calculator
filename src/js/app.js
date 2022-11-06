@@ -10,39 +10,41 @@ class App {
   }
 
   updateDisplay() {
-    this.$target.querySelector('#total').innerHTML =
-      this.calculator.getDisplay();
+    const { getDisplay } = this.calculator;
+
+    this.$target.querySelector('#total').innerHTML = getDisplay();
   }
 
-  handleClickDigit = (e) => {
-    const nextNumber = this.calculator.getAppendedNumber(
-      Number(e.target.textContent)
-    );
+  handleClickDigit(digit) {
+    const { setNumber, appendNumber, isOverMaxLength } = this.calculator;
 
-    if (this.calculator.isOverMaxLength(nextNumber)) {
+    const nextNumber = appendNumber(Number(digit));
+    if (isOverMaxLength(nextNumber)) {
       alert('숫자는 한번에 최대 3자리 수까지 입력 가능합니다.');
     } else {
-      this.calculator.setNumber(nextNumber);
+      setNumber(nextNumber);
     }
-  };
+  }
 
-  handleClickAllClear = () => {
-    this.calculator.clear();
-  };
+  handleClickAllClear() {
+    const { clear } = this.calculator;
 
-  handleClickOperator = (e) => {
-    const nextOperator = e.target.textContent;
+    clear();
+  }
+
+  handleClickOperator(nextOperator) {
+    const { compute, setOperator } = this.calculator;
 
     if (nextOperator === OPERATOR.ASSIGNMENT) {
-      this.calculator.compute();
+      compute();
     } else {
-      this.calculator.setOperator(nextOperator);
+      setOperator(nextOperator);
     }
-  };
+  }
 
   handleClickTarget = (e) => {
     if (isNodeContains(this.querySelector('.digits'), e.target)) {
-      this.handleClickDigit(e);
+      this.handleClickDigit(e.target.textContent);
       this.updateDisplay();
     }
 
@@ -52,7 +54,7 @@ class App {
     }
 
     if (isNodeContains(this.querySelector('.operations'), e.target)) {
-      this.handleClickOperator(e);
+      this.handleClickOperator(e.target.textContent);
       this.updateDisplay();
     }
   };
