@@ -1,5 +1,5 @@
-import { OPERATOR } from './const.js';
-import { isNodeContains } from './utils.js';
+import { MAX_LENGTH, OPERATOR } from './const.js';
+import { isNodeContains, isOver } from './utils.js';
 
 class App {
   constructor($target, calculator) {
@@ -16,10 +16,10 @@ class App {
   }
 
   handleClickDigit(digit) {
-    const { setNumber, appendNumber, isOverMaxLength } = this.calculator;
+    const { setNumber, appendNumber } = this.calculator;
 
     const nextNumber = appendNumber(Number(digit));
-    if (isOverMaxLength(nextNumber)) {
+    if (isOver(MAX_LENGTH, nextNumber.toString())) {
       alert('숫자는 한번에 최대 3자리 수까지 입력 가능합니다.');
     } else {
       setNumber(nextNumber);

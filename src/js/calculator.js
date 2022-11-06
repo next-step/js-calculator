@@ -1,5 +1,5 @@
 import { isNumber } from './utils.js';
-import { DEFAULT_NUMBER, MAX_LENGTH, OPERATOR } from './const.js';
+import { DEFAULT_NUMBER, OPERATOR } from './const.js';
 
 const OPERRATIONS = {
   [OPERATOR.SUM]: (num1, num2) => num1 + num2,
@@ -68,14 +68,6 @@ class Calculator {
     }
 
     return this.#num1 ?? DEFAULT_NUMBER;
-  };
-
-  isOverMaxLength = (nextNumber) => {
-    if (String(nextNumber).length > MAX_LENGTH) {
-      return true;
-    }
-
-    return false;
   };
 }
 
