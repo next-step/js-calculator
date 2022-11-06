@@ -1,8 +1,11 @@
-export const DEFAULT_NUM = 0;
+export const DEFAULT_NUMBER = 0;
 
 export const OPERATOR = {
   SUM: '+',
   SUBSTRACT: '-',
   MULTIPLY: 'X',
   DIVIDE: '/',
+  ASSIGNMENT: '=',
 };
+
+export const MAX_LENGTH = 3;

@@ -1,59 +1,91 @@
-import { DEFAULT_NUM, MAX_LENGTH, OPERATOR } from './const.js';
+import { DEFAULT_NUMBER, MAX_LENGTH, OPERATOR } from './const.js';
+
+const OPERRATIONS = {
+  [OPERATOR.SUM]: (num1, num2) => num1 + num2,
+  [OPERATOR.SUBSTRACT]: (num1, num2) => num1 - num2,
+  [OPERATOR.MULTIPLY]: (num1, num2) => num1 * num2,
+  [OPERATOR.DIVIDE]: (num1, num2) => Math.floor(num1 / num2),
+};
 
 class Calculator {
-  constructor(num1, num2) {
-    this.num1 = num1;
-    this.num2 = num2;
-    this.operator = null;
+  #num1;
+  #num2;
+  #output;
+  #operator;
+
+  constructor() {
+    this.#num1 = DEFAULT_NUMBER;
+    this.#num2 = DEFAULT_NUMBER;
+    this.#output = null;
+    this.#operator = null;
   }
 
-  setNum(nextNum) {
-    if (this.operator) {
-      this.num2 = nextNum;
+  setNumber(nextNumber) {
+    if (this.#operator) {
+      this.#num2 = nextNumber;
     } else {
-      this.num1 = nextNum;
+      this.#num1 = nextNumber;
     }
   }
 
   setOperator(nextOperator) {
-    this.operator = nextOperator;
+    this.#operator = nextOperator;
   }
 
   clear() {
-    this.num1 = DEFAULT_NUM;
-    this.num2 = DEFAULT_NUM;
-    this.operator = null;
+    this.#num1 = DEFAULT_NUMBER;
+    this.#num2 = DEFAULT_NUMBER;
+    this.#output = null;
+    this.#operator = null;
   }
 
   compute() {
-    switch (this.operator) {
-      case OPERATOR.SUM:
-        return this.sum();
-      case OPERATOR.SUBSTRACT:
-        return this.subtract();
-      case OPERATOR.MULTIPLY:
-        return this.multiply();
-      case OPERATOR.DIVIDE:
-        return this.divide();
-      default:
-        return DEFAULT_NUM;
+    this.#output =
+      OPERRATIONS[this.#operator](this.#num1, this.#num2) ?? DEFAULT_NUMBER;
+  }
+
+  appendNumber(nextNumber) {
+    let currentNumber = this.#num1;
+
+    if (this.#operator) {
+      currentNumber = this.#num2;
     }
+
+    if (currentNumber === DEFAULT_NUMBER) {
+      return nextNumber;
+    }
+
+    return Number(`${currentNumber}${nextNumber}`);
   }
 
-  sum() {
-    return this.num1 + this.num2;
+  getDisplay() {
+    let display = `${this.#num1}`;
+
+    if (this.#operator) {
+      display = `${this.#operator}`;
+    }
+
+    if (this.#num2) {
+      display += `${this.#num2}`;
+    }
+
+    if (this.isComputed()) {
+      display = `${this.#output}`;
+    }
+
+    return display;
   }
 
-  subtract() {
-    return this.num1 - this.num2;
+  isOverMaxLength(nextNumber) {
+    if (String(nextNumber).length > MAX_LENGTH) {
+      return true;
+    }
+
+    return false;
   }
 
-  multiply() {
-    return this.num1 * this.num2;
-  }
-
-  divide() {
-    return Math.floor(this.num1 / this.num2);
+  isComputed() {
+    return typeof this.#output === 'number';
   }
 }
 
