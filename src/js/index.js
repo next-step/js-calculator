@@ -1,6 +1,6 @@
 /* eslint-disable no-alert */
 import calculator from './calculator.js';
-import { ERROR_MESSAGES, MAX_DIGIT_NUMBER, MODIFIERS, OPERATORS } from './constants/index.js';
+import { ERROR_MESSAGES, VALIDATIONS, MODIFIERS, OPERATORS } from './constants/index.js';
 import { $ } from './utils/dom.js';
 
 const operatorsResult = {
@@ -35,11 +35,11 @@ const renderResult = (result) => {
 $digits.addEventListener('click', ({ target }) => {
   const digit = target.textContent;
 
-  if (!calculator.operator && calculator.operand1.length >= MAX_DIGIT_NUMBER) {
+  if (!calculator.operator && calculator.operand1.length >= VALIDATIONS.MAX_DIGIT_NUMBER) {
     alert(ERROR_MESSAGES.MAX_DIGIT_NUMBER);
     return;
   }
-  if (calculator.operand2.length >= MAX_DIGIT_NUMBER) {
+  if (calculator.operand2.length >= VALIDATIONS.MAX_DIGIT_NUMBER) {
     alert(ERROR_MESSAGES.MAX_DIGIT_NUMBER);
     return;
   }
