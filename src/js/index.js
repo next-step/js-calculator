@@ -1,17 +1,17 @@
 /* eslint-disable no-alert */
 import calculator from './calculator.js';
-import { errorMessage, MAX_DIGIT_NUMBER, modifiers, operators } from './constants/index.js';
+import { ERROR_MESSAGES, MAX_DIGIT_NUMBER, MODIFIERS, OPERATORS } from './constants/index.js';
 import { $ } from './utils/dom.js';
 
 const operatorsResult = {
-  [operators.PLUS]: () => calculator.add(),
-  [operators.MINUS]: () => calculator.sub(),
-  [operators.MULTIPLY]: () => calculator.mul(),
-  [operators.DIVIDE]: () => calculator.div(),
+  [OPERATORS.PLUS]: () => calculator.add(),
+  [OPERATORS.MINUS]: () => calculator.sub(),
+  [OPERATORS.MULTIPLY]: () => calculator.mul(),
+  [OPERATORS.DIVIDE]: () => calculator.div(),
 };
 
 const modifiersResult = {
-  [modifiers.ALLCLEAR]: () => calculator.reset(),
+  [MODIFIERS.AC]: () => calculator.reset(),
 };
 
 const $total = $('#total');
@@ -36,11 +36,11 @@ $digits.addEventListener('click', ({ target }) => {
   const digit = target.textContent;
 
   if (!calculator.operator && calculator.operand1.length >= MAX_DIGIT_NUMBER) {
-    alert(errorMessage.MAX_DIGIT_NUMBER);
+    alert(ERROR_MESSAGES.MAX_DIGIT_NUMBER);
     return;
   }
   if (calculator.operand2.length >= MAX_DIGIT_NUMBER) {
-    alert(errorMessage.MAX_DIGIT_NUMBER);
+    alert(ERROR_MESSAGES.MAX_DIGIT_NUMBER);
     return;
   }
 

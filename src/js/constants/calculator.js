@@ -1,10 +1,12 @@
-export const MAX_DIGIT_NUMBER = 3;
+export const VALIDATIONS = {
+  MAX_DIGIT_NUMBER: 3,
+};
 
-export const errorMessage = {
+export const ERROR_MESSAGES = {
   MAX_DIGIT_NUMBER: '최대 3자리 수까지 입력이 가능합니다.',
 };
 
-export const operators = {
+export const OPERATORS = {
   PLUS: '+',
   MINUS: '-',
   MULTIPLY: 'X',
@@ -12,6 +14,6 @@ export const operators = {
   EQUAL: '=',
 };
 
-export const modifiers = {
-  ALLCLEAR: 'AC',
+export const MODIFIERS = {
+  AC: 'AC',
 };
