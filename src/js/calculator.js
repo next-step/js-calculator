@@ -23,7 +23,7 @@ class Calculator {
     this.state = { ...initialState };
   }
 
-  init() {
+  initEvents() {
     this.$digits.addEventListener('click', (e) => this.clickDigit(e.target));
     this.$modifier.addEventListener('click', (e) => this.clickModifier(e));
     this.$operations.addEventListener('click', (e) => this.clickOperation(e.target));

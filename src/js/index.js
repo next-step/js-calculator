@@ -8,4 +8,4 @@ const calculator = new Calculator({
   $operations: $('.operations'),
 });
 
-calculator.init();
+calculator.initEvents();
