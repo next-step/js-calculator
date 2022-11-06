@@ -12,6 +12,7 @@
   },
   "rules": {
     "import/extensions": "off",
-    "no-plusplus": "off"
+    "no-plusplus": "off",
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
   }
 }
