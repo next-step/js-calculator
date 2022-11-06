@@ -1,8 +1,13 @@
 {
+  "scripts": {
+    "cypress:open": "cypress open"
+  },
   "devDependencies": {
+    "cypress": "^10.11.0",
     "eslint": "^8.26.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-prettier": "^4.2.1",
