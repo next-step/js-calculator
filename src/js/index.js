@@ -9,11 +9,17 @@ class Calculator {
 		this.result += Number(this.current);
 	}
 
-	substract() {}
+	substract() {
+		this.result -= Number(this.current);
+	}
 
-	multiply() {}
+	multiply() {
+		this.result *= Number(this.current);
+	}
 
-	divide() {}
+	divide() {
+		this.result = Math.floor(this.result / Number(this.current));
+	}
 }
 
 const calculator = new Calculator();
@@ -47,14 +53,23 @@ const setEventListener = () => {
 				case "+":
 					calculator.add();
 					break;
+				case "-":
+					calculator.substract();
+					break;
+				case "X":
+					calculator.multiply();
+					break;
+				case "/":
+					calculator.divide();
+					break;
 			}
 		} else {
 			calculator.result = Number(calculator.current);
 		}
 
 		calculator.operator = operator;
-		showResult();
 		calculator.current = "";
+		showResult();
 	});
 
 	allClearButton.addEventListener("click", (e) =>
