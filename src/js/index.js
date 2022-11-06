@@ -6,8 +6,9 @@ class App {
   }
 
   render() {
-    const calculator = new Calculator({ $root: this.$root });
-    calculator.render();
+    new Calculator({
+      $root: this.$root,
+    });
   }
 }
 
