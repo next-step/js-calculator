@@ -1,4 +1,9 @@
-import { checkResultAfterClickTwoNumberAndOperator, clickElementNTimes } from '../support/calculator';
+import { errorMessage } from '../../src/js/constants';
+import {
+  checkResultAfterClickTwoNumberAndOperator,
+  clickElementNTimes,
+  checkAlertMessage,
+} from '../support/calculator';
 
 describe('calculator test', () => {
   beforeEach(() => {
@@ -29,5 +34,18 @@ describe('calculator test', () => {
     checkResultAfterClickTwoNumberAndOperator('6', '4', '+', '10');
     clickElementNTimes('AC', 1);
     cy.getByDataset('total').should('have.text', '0');
+  });
+
+  it('can enter 3 number digits at once', () => {
+    clickElementNTimes('1', 4);
+    checkAlertMessage(errorMessage.MAX_DIGIT_NUMBER);
+    cy.getByDataset('total').should('have.text', '111');
+
+    clickElementNTimes('1', 1);
+    cy.getByDataset('+').click();
+    clickElementNTimes('1', 4);
+    checkAlertMessage(errorMessage.MAX_DIGIT_NUMBER);
+
+    cy.getByDataset('total').should('have.text', '111+111');
   });
 });

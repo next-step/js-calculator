@@ -19,3 +19,9 @@ export const checkResultAfterClickTwoNumberAndOperator = (operand1, operand2, op
   cy.getByDataset('=').click();
   cy.getByDataset('total').should('have.text', result);
 };
+
+export const checkAlertMessage = (message) => {
+  cy.on('window:alert', (str) => {
+    expect(str).to.equal(message);
+  });
+};
