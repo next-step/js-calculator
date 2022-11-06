@@ -1,28 +1,5 @@
 import { $ } from "./utils.js";
-
-class Calculator {
-	result = 0;
-	current = "";
-	operator = "";
-
-	add() {
-		this.result += Number(this.current);
-	}
-
-	substract() {
-		this.result -= Number(this.current);
-	}
-
-	multiply() {
-		this.result *= Number(this.current);
-	}
-
-	divide() {
-		this.result = Math.floor(this.result / Number(this.current));
-	}
-}
-
-const calculator = new Calculator();
+import { calculator } from "./calculator.js";
 
 const showResult = () => {
 	const total = $("#total");
@@ -77,9 +54,7 @@ const setEventListener = () => {
 	});
 
 	allClearButton.addEventListener("click", () => {
-		calculator.current = "";
-		calculator.result = 0;
-		calculator.operator = "";
+		calculator.allClear();
 		showResult();
 	});
 };
