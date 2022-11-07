@@ -8,6 +8,7 @@ const operators = {
   X: (a, b) => a * b,
   "/": (a, b) => Math.floor(a / b),
 };
+
 const keyOfOperators = Object.keys(operators);
 
 const putResult = () => {
@@ -25,6 +26,8 @@ const putResult = () => {
 };
 
 const putOperation = (operator) => {
+  lengthChecker.reset();
+
   if (operator === "=") {
     putResult();
     return;
@@ -33,7 +36,32 @@ const putOperation = (operator) => {
   $total.textContent += operator;
 };
 
+const lengthChecker = (() => {
+  let length = 0;
+
+  return {
+    increase() {
+      return length++;
+    },
+
+    check() {
+      return length;
+    },
+
+    reset() {
+      return (length = 0);
+    },
+  };
+})();
+
 const putNumber = (value) => {
+  lengthChecker.increase();
+
+  if (lengthChecker.check() > 3) {
+    alert("숫자는 한번에 최대 3자리 수까지 입력 가능합니다!");
+    return $total.textContent;
+  }
+
   if ($total.textContent === "0") $total.textContent = value;
   else $total.textContent += value;
 };
@@ -51,6 +79,7 @@ const handleClickValue = ({target}) => {
   }
 
   if (target.classList.contains("modifier")) {
+    lengthChecker.reset();
     $total.textContent = 0;
   }
 };
