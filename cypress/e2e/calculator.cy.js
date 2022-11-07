@@ -42,4 +42,12 @@ describe('계산기 테스트', () => {
     getTotalValue('3');
   });
 
+  it('AC(All Clear)버튼을 누르면 0으로 초기화 한다.', () => {
+    handleClick.number('3');
+    handleClick.operator('X');
+    handleClick.number('2');
+    handleClick.clear();
+    getTotalValue('0');
+  });
+
 });
