@@ -13,7 +13,6 @@ const operators = {
   [MULTIPLICATION]: (a, b) => a * b,
   [DIVISION]: (a, b) => Math.floor(a / b),
 };
-
 const keyOfOperators = Object.keys(operators);
 
 const lengthChecker = (() => {
@@ -48,7 +47,6 @@ const putResult = () => {
   );
 };
 
-// event value 읽기
 const putOperation = (operator) => {
   lengthChecker.reset();
 
