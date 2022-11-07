@@ -3,6 +3,8 @@
     "cypress:open": "cypress open"
   },
   "devDependencies": {
+    "@babel/core": "^7.20.2",
+    "@babel/eslint-parser": "^7.19.1",
     "cypress": "^10.11.0",
     "eslint": "^8.26.0",
     "eslint-config-airbnb": "^19.0.4",
