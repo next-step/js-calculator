@@ -9,3 +9,37 @@ beforeEach(() => {
   cy.visit('/');
 });
 
+describe('계산기 테스트', () => {
+  it('2개의 숫자에 대해 덧셈이 가능하다.', () => {
+    handleClick.number('3');
+    handleClick.operator('+');
+    handleClick.number('2');
+    handleClick.operator('=');
+    getTotalValue('5');
+  });
+
+  it('2개의 숫자에 대해 뺄셈이 가능하다.', () => {
+    handleClick.number('3');
+    handleClick.operator('-');
+    handleClick.number('2');
+    handleClick.operator('=');
+    getTotalValue('1');
+  });
+
+  it('2개의 숫자에 대해 곱셈이 가능하다.', () => {
+    handleClick.number('3');
+    handleClick.operator('X');
+    handleClick.number('2');
+    handleClick.operator('=');
+    getTotalValue('6');
+  });
+
+  it('2개의 숫자에 대해 나눗셈이 가능하다.', () => {
+    handleClick.number('6');
+    handleClick.operator('/');
+    handleClick.number('2');
+    handleClick.operator('=');
+    getTotalValue('3');
+  });
+
+});
