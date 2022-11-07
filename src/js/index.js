@@ -16,6 +16,11 @@ window.addEventListener('load', () => {
   addACClickEventListener(clickReset);
 });
 
+const clickReset = () => {
+  calculator.reset();
+  total.innerText = '0';
+};
+
 const handleNumberClick = (e) => {
   const { innerText } = e.currentTarget;
 
