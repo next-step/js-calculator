@@ -1,5 +1,6 @@
 import CalculateTotal from './CalculateTotal.js';
-import { getTotal } from './utils/calculations.js';
+import { getTotal } from './utils/calculate.js';
+import { checkExceedDigit, checkCorrectOrder } from './utils/validate.js';
 
 export default function App({ $app, initialState }) {
   this.state = initialState;
@@ -13,12 +14,18 @@ export default function App({ $app, initialState }) {
 
     switch (type) {
       case 'digit':
-        newState = {
-          total: `${this.state.total}${newValue}`,
-          digitCount: this.state.digitCount + 1,
-        };
+        if (checkExceedDigit(this.state.digitCount)) {
+          newState = {
+            total: `${this.state.total}${newValue}`,
+            digitCount: this.state.digitCount + 1,
+          };
+        }
         break;
       case 'operation':
+        if (!checkCorrectOrder(this.state.total)) {
+          return;
+        }
+
         switch (newValue) {
           case '=':
             newState = getTotal({
@@ -39,6 +46,7 @@ export default function App({ $app, initialState }) {
         newState = {
           total: '',
           digitCount: 0,
+          operation: '',
         };
         break;
     }

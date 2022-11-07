@@ -4,20 +4,20 @@ export const getTotal = ({ operation, total }) => {
   let newTotal = '';
   switch (operation) {
     case '+':
-      newTotal = `${+firstNum + +secondNum}`;
+      newTotal = +firstNum + +secondNum;
       break;
     case '-':
-      newTotal = `${+firstNum - +secondNum}`;
+      newTotal = +firstNum - +secondNum;
       break;
     case 'X':
-      newTotal = `${+firstNum * +secondNum}`;
+      newTotal = +firstNum * +secondNum;
       break;
     case '/':
-      newTotal = `${+firstNum / +secondNum}`;
+      newTotal = +firstNum / +secondNum;
       break;
   }
   return {
-    total: newTotal,
+    total: `${Math.floor(newTotal)}`,
     digitCount: 0,
   };
 };
