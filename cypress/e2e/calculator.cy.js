@@ -50,4 +50,37 @@ describe('계산기 테스트', () => {
     getTotalValue('0');
   });
 
+  it('첫번째 숫자는 한번에 최대 3자리 수까지 입력 가능하다.', () => {
+    handleClick.number('1');
+    handleClick.number('2');
+    handleClick.number('3');
+    handleClick.number('4');
+    getTotalValue('123');
+  });
+
+  it('두번째 숫자도 한번에 최대 3자리 수까지 입력 가능하다.', () => {
+    handleClick.number('1');
+    handleClick.number('2');
+    handleClick.operator('+');
+    handleClick.number('1');
+    handleClick.number('2');
+    handleClick.number('3');
+    handleClick.number('4');
+    getTotalValue('12+123');
+  });
+
+  it('계산 결과를 표현할 때 소수점 이하는 버림한다.', () => {
+    handleClick.number('3');
+    handleClick.operator('/');
+    handleClick.number('2');
+    handleClick.operator('=');
+    getTotalValue('1');
+  });
+
+  it('계산을 담당하는 연산자는 연속해서 입력할 수 없다.', () => {
+    handleClick.number('3');
+    handleClick.operator('+');
+    handleClick.operator('+');
+    getTotalValue('3+');
+  });
 });
