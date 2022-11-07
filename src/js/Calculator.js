@@ -8,17 +8,19 @@ class Calculator {
 
   constructor({ $root }) {
     this.$root = $root;
+    this.getTotalValue = this.getTotalValue.bind(this);
+    this.setTotalValue = this.setTotalValue.bind(this);
     this.render();
   }
 
-  getTotalValue = () => {
+  getTotalValue() {
     return this.totalValue;
-  };
+  }
 
-  setTotalValue = (newTotalValue) => {
+  setTotalValue(newTotalValue) {
     this.totalValue = newTotalValue;
     this.render();
-  };
+  }
 
   render() {
     this.$root.innerHTML = `<div class="calculator"></div>`;
