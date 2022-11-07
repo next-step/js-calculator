@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack serve",
-    "test": "npx cypress open"
+    "test:gui": "npx cypress open",
+    "test:cli": "npx cypress run"
   },
   "repository": {
     "type": "git",
