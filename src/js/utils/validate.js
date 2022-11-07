@@ -1,7 +1,7 @@
 import { MAX_DIGITS } from './constant.js';
 
 export const checkExceedDigit = (digitCount) => {
-  if (digitCount === MAX_DIGITS) {
+  if (digitCount >= MAX_DIGITS) {
     alert('숫자는 세 자리까지만 입력 가능합니다!');
     return false;
   }
