@@ -1,0 +1,30 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "description": "<br/> <br/>",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack serve",
+    "test": "npx cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com-pyuung:pyuung/js-calculator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "clean-webpack-plugin": "^4.0.0"
+  },
+  "devDependencies": {
+    "css-loader": "^6.7.1",
+    "cypress": "^10.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1"
+  }
+}
