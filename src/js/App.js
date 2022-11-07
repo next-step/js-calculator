@@ -1,4 +1,5 @@
 import CalculateTotal from './CalculateTotal.js';
+import { getTotal } from './utils/calculates.js';
 
 export default function App({ $app, initialState }) {
   this.state = initialState;
@@ -18,19 +19,21 @@ export default function App({ $app, initialState }) {
         };
         break;
       case 'operation':
-        if (newValue === '+') {
-          newState = {
-            total: `${this.state.total}${newValue}`,
-            digitCount: 0,
-          };
-        } else if (newValue === '=') {
-          const [firstNum, secondNum] = this.state.total.split('+');
-          newState = {
-            total: `${+firstNum + +secondNum}`,
-            digitCount: 0,
-          };
+        switch (newValue) {
+          case '=':
+            newState = getTotal({
+              operation: this.state.operation,
+              total: this.state.total,
+            });
+            break;
+          default:
+            newState = {
+              total: `${this.state.total}${newValue}`,
+              digitCount: 0,
+              operation: newValue,
+            };
+            break;
         }
-        break;
     }
 
     this.state = { ...this.state, ...newState };
@@ -46,6 +49,7 @@ export default function App({ $app, initialState }) {
   $app.addEventListener('click', (e) => {
     const buttonType = e.target.className;
     const buttonValue = e.target.innerHTML;
+
     if (buttonType) {
       this.onClick(buttonValue, buttonType);
     }
