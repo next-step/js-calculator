@@ -1,5 +1,5 @@
 import CalculateTotal from './CalculateTotal.js';
-import { getTotal } from './utils/calculates.js';
+import { getTotal } from './utils/calculations.js';
 
 export default function App({ $app, initialState }) {
   this.state = initialState;
@@ -34,6 +34,13 @@ export default function App({ $app, initialState }) {
             };
             break;
         }
+        break;
+      case 'modifier':
+        newState = {
+          total: '',
+          digitCount: 0,
+        };
+        break;
     }
 
     this.state = { ...this.state, ...newState };
