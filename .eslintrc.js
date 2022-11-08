@@ -13,6 +13,7 @@ module.exports = {
   rules: {
     'import/extensions': 'off',
     'max-depth': ['error', 2],
+    'no-alert': 'off',
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
   },
 };
