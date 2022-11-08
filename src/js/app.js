@@ -49,7 +49,7 @@ class App {
 			}
 
 			calculator.operator = currentOperator;
-			calculator.current = "";
+			calculator.current = 0;
 			this.showNumber(calculator.result);
 		});
 

@@ -20,7 +20,7 @@ class Calculator {
 	}
 
 	allClear() {
-		this.current = "";
+		this.current = 0;
 		this.result = 0;
 		this.operator = "";
 	}
