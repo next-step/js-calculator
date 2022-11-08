@@ -45,10 +45,33 @@ describe("계산기", () => {
       cy.clickDigit("1");
       cy.totalIs("2");
     });
+
+    it("9/9", () => {
+      cy.clickDigit("9");
+      cy.clickOperator("/");
+      cy.clickDigit("9");
+      cy.totalIs("1");
+    });
+
+    it("9X9", () => {
+      cy.clickDigit("9");
+      cy.clickOperator("X");
+      cy.clickDigit("9");
+      cy.totalIs("81");
+    });
   });
   context("두 자리수 연산", () => {
     beforeEach(() => {
       cy.allClear();
+    });
+
+    it("10-22", () => {
+      cy.clickDigit("1");
+      cy.clickDigit("0");
+      cy.clickOperator("-");
+      cy.clickDigit("2");
+      cy.clickDigit("2");
+      cy.totalIs("-12");
     });
 
     it("10+10", () => {
@@ -80,6 +103,12 @@ describe("계산기", () => {
     beforeEach(() => {
       cy.allClear();
     });
+    it("0+4", () => {
+      cy.clickDigit("0");
+      cy.clickOperator("+");
+      cy.clickDigit("4");
+      cy.totalIs("4");
+    });
 
     it("0X4", () => {
       cy.clickDigit("0");
@@ -89,7 +118,8 @@ describe("계산기", () => {
     });
 
     it("10/4", () => {
-      cy.clickDigit("10");
+      cy.clickDigit("1");
+      cy.clickDigit("0");
       cy.clickOperator("/");
       cy.clickDigit("4");
       cy.totalIs("2");
