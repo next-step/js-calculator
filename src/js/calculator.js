@@ -1,4 +1,4 @@
-import { MAX_NUMBER_LENGTH, OPERATION, ALRERT_MESSAGE } from './constants.js';
+import { MAX_NUMBER_LENGTH, OPERATION, ALERT_MESSAGE } from './constants.js';
 
 const calculateTotal = {
   [OPERATION.PLUS]: (firstNumber, secondNumber) => firstNumber + secondNumber,
@@ -34,7 +34,7 @@ class Calculator {
     const newNumber = (this.state[currentKey] * 10 ?? 0) + clickedNumber;
 
     if (String(newNumber).length > MAX_NUMBER_LENGTH) {
-      alert(ALRERT_MESSAGE.NOT_OVER_NUMBER_LENGTH);
+      alert(ALERT_MESSAGE.NOT_OVER_NUMBER_LENGTH);
       return;
     }
 
@@ -45,7 +45,7 @@ class Calculator {
     const { firstNumber, operation, secondNumber } = this.state;
 
     if (secondNumber === null) {
-      alert(ALRERT_MESSAGE.NOT_SECONDNUMBER);
+      alert(ALERT_MESSAGE.NOT_SECOND_NUMBER);
       return;
     }
 
@@ -69,7 +69,7 @@ class Calculator {
 
   clickOperation({ dataset }) {
     if (this.state.firstNumber === null) {
-      alert(ALRERT_MESSAGE.NOT_FIRSTNUMBER);
+      alert(ALERT_MESSAGE.NOT_FIRST_NUMBER);
       return;
     }
 

@@ -1,4 +1,4 @@
-import { OPERATION, ALRERT_MESSAGE } from '../../src/js/constants.js';
+import { OPERATION, ALERT_MESSAGE } from '../../src/js/constants.js';
 
 describe('계산기 테스트', () => {
   beforeEach(() => {
@@ -150,7 +150,7 @@ describe('계산기 테스트', () => {
       cy.clickDigit([1, 1, 1, 1]);
       cy.getTotal(111);
       cy.on('window:alert', (text) => {
-        expect(text).to.contains(ALRERT_MESSAGE.NOT_OVER_NUMBER_LENGTH);
+        expect(text).to.contains(ALERT_MESSAGE.NOT_OVER_NUMBER_LENGTH);
       });
     });
     it('444 + 1111 입력한다.', () => {
@@ -159,7 +159,7 @@ describe('계산기 테스트', () => {
       cy.clickDigit([1, 1, 1, 1]);
       cy.getTotal(`444${OPERATION.PLUS}111`);
       cy.on('window:alert', (text) => {
-        expect(text).to.contains(ALRERT_MESSAGE.NOT_OVER_NUMBER_LENGTH);
+        expect(text).to.contains(ALERT_MESSAGE.NOT_OVER_NUMBER_LENGTH);
       });
     });
     it('(2 + 4) * 1000 입력한다.', () => {
@@ -173,7 +173,7 @@ describe('계산기 테스트', () => {
       cy.clickDigit([1, 0, 0, 0]);
       cy.getTotal(`6${OPERATION.MULTIPLY}100`);
       cy.on('window:alert', (text) => {
-        expect(text).to.contains(ALRERT_MESSAGE.NOT_OVER_NUMBER_LENGTH);
+        expect(text).to.contains(ALERT_MESSAGE.NOT_OVER_NUMBER_LENGTH);
       });
     });
   });
@@ -182,13 +182,13 @@ describe('계산기 테스트', () => {
     it('맨 처음 + 버튼을 클릭한다.', () => {
       cy.clickOperation(OPERATION.PLUS);
       cy.on('window:alert', (text) => {
-        expect(text).to.contains(ALRERT_MESSAGE.NOT_FIRSTNUMBER);
+        expect(text).to.contains(ALERT_MESSAGE.NOT_FIRST_NUMBER);
       });
     });
     it('맨 처음 / 버튼을 클릭한다.', () => {
       cy.clickOperation(OPERATION.DIVIDE);
       cy.on('window:alert', (text) => {
-        expect(text).to.contains(ALRERT_MESSAGE.NOT_FIRSTNUMBER);
+        expect(text).to.contains(ALERT_MESSAGE.NOT_FIRST_NUMBER);
       });
     });
   });
@@ -199,7 +199,7 @@ describe('계산기 테스트', () => {
       cy.clickModifier(OPERATION.DIVIDE);
       cy.clickModifier(OPERATION.EQUAL);
       cy.on('window:alert', (text) => {
-        expect(text).to.contains(ALRERT_MESSAGE.NOT_SECONDNUMBER);
+        expect(text).to.contains(ALERT_MESSAGE.NOT_SECOND_NUMBER);
       });
     });
     it('400 +=', () => {
@@ -207,7 +207,7 @@ describe('계산기 테스트', () => {
       cy.clickModifier(OPERATION.PLUS);
       cy.clickModifier(OPERATION.EQUAL);
       cy.on('window:alert', (text) => {
-        expect(text).to.contains(ALRERT_MESSAGE.NOT_SECONDNUMBER);
+        expect(text).to.contains(ALERT_MESSAGE.NOT_SECOND_NUMBER);
       });
     });
     it('5 *=', () => {
@@ -215,7 +215,7 @@ describe('계산기 테스트', () => {
       cy.clickModifier(OPERATION.MULTIPLY);
       cy.clickModifier(OPERATION.EQUAL);
       cy.on('window:alert', (text) => {
-        expect(text).to.contains(ALRERT_MESSAGE.NOT_SECONDNUMBER);
+        expect(text).to.contains(ALERT_MESSAGE.NOT_SECOND_NUMBER);
       });
     });
   });
