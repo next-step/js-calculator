@@ -60,7 +60,7 @@ class Calculator {
   }
 
   onOperator(event) {
-    const typedOperator = event.target.innerText;
+    const typedOperator = event.target.dataset.operation;
     const {
       OVER_TWO_OPERATOR_CONDITION,
       MAKE_RESULT_CONDITION,
@@ -88,7 +88,7 @@ class Calculator {
   }
 
   onNumber(event) {
-    const typedNumber = event.target.innerText;
+    const typedNumber = event.target.dataset.number;
     const [a, b] = divideOperatorAndNumber(this.state.sum + typedNumber);
 
     const OEVER_THREE_NUMBER_CONDITION =
