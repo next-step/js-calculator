@@ -15,14 +15,14 @@ class App {
 		const allClearButton = $(".modifiers");
 
 		digits.addEventListener("click", (e) => {
-			if (calculator.current.length === MAX_LENGTH) {
+			if (String(calculator.current).length === MAX_LENGTH) {
 				alert(`${MAX_LENGTH}자리 이하의 수만 입력 가능합니다.`);
 				return;
 			}
 
 			const digit = e.target.closest(".digit").innerText;
 			console.log(digit);
-			calculator.current += digit;
+			calculator.current = Number(`${calculator.current}${digit}`);
 			this.showNumber(calculator.current);
 		});
 

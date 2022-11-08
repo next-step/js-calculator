@@ -1,6 +1,6 @@
 class Calculator {
 	result = 0;
-	current = "";
+	current = 0;
 	operator = "";
 
 	add() {
