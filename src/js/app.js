@@ -1,5 +1,6 @@
 import { $ } from "./utils.js";
 import { calculator } from "./calculator.js";
+import { MAX_LENGTH } from "./const.js";
 
 class App {
 	total = $("#total");
@@ -14,12 +15,13 @@ class App {
 		const allClearButton = $(".modifiers");
 
 		digits.addEventListener("click", (e) => {
-			if (calculator.current.length === 3) {
-				alert("3자리 이하의 수만 입력 가능합니다.");
+			if (calculator.current.length === MAX_LENGTH) {
+				alert(`${MAX_LENGTH}자리 이하의 수만 입력 가능합니다.`);
 				return;
 			}
 
 			const digit = e.target.closest(".digit").innerText;
+			console.log(digit);
 			calculator.current += digit;
 			this.showNumber(calculator.current);
 		});
