@@ -1,3 +1,5 @@
+import { DIV_0 } from './constants.js';
+
 class Calculator {
   num1 = 0;
   num2 = 0;
@@ -14,6 +16,7 @@ class Calculator {
     return n * m;
   }
   divide(n, m) {
+    if (m === 0) throw new Error(DIV_0);
     return Math.floor(n / m);
   }
 
@@ -24,5 +27,12 @@ class Calculator {
     this.current = 0;
   }
 }
+
+export const useOperationFunction = (calculator) => ({
+  '+': calculator.add,
+  '-': calculator.subtract,
+  x: calculator.multiply,
+  '/': calculator.divide,
+});
 
 export default Calculator;
