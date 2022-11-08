@@ -3,44 +3,52 @@ import { divideOperatorAndNumber } from '../utils/index.js';
 class Calculator {
   constructor({ $target }) {
     this.$target = $target;
-    this.sum = '';
-    this.operator = '';
-    this.total = document.getElementById('total');
+    this.$total = $target.querySelector('#total');
+    this.state = {
+      sum: null,
+      opertator: null,
+    };
     this.initialize();
   }
 
-  add(a, b) {
-    this.sum = Number(a) + Number(b);
+  setState(nextState) {
+    if (Number.isNaN(nextState.sum)) {
+      nextState = {
+        ...nextState,
+        sum: 0,
+      };
+    }
+    this.state = nextState;
     this.renderTotal();
+  }
+
+  add(a, b) {
+    console.log(Number(a) + Number(b));
+    this.setState({ ...this.state, sum: Number(a) + Number(b) });
   }
 
   subtract(a, b) {
-    this.sum = a - b;
-    this.renderTotal();
+    this.setState({ ...this.state, sum: Number(a) - Number(b) });
   }
 
   multiple(a, b) {
-    this.sum = a * b;
-    this.renderTotal();
+    this.setState({ ...this.state, sum: Number(a) * Number(b) });
   }
 
   divide(a, b) {
-    this.sum = Math.round(a / b);
-    this.renderTotal();
+    this.setState({ ...this.state, sum: Math.round(Number(a) / Number(b)) });
   }
 
   clear() {
-    this.sum = '0';
-    this.operator = '';
-    this.renderTotal();
+    this.setState({ sum: '0', operator: null });
   }
 
   renderTotal() {
-    this.total.innerText = this.sum;
+    this.$total.innerText = this.state.sum;
   }
 
   makeResult() {
-    const [a, b, operator] = divideOperatorAndNumber(this.sum);
+    const [a, b, operator] = divideOperatorAndNumber(this.state.sum || '0');
     if (operator === '+') return this.add(a, b);
     if (operator === '-') return this.subtract(a, b);
     if (operator === 'X') return this.multiple(a, b);
@@ -51,17 +59,26 @@ class Calculator {
     const numberButtons = document.querySelectorAll('.digit');
     numberButtons.forEach((element) => {
       element.addEventListener('click', (e) => {
-        //숫자가 3자리수 이상 기입되는 경우 경고를 해준다.
-        const [a, b, _] = divideOperatorAndNumber(
-          this.sum + e.target.innerText
+        const [a, b] = divideOperatorAndNumber(
+          (this.state.sum || '') + e.target.innerHTML
         );
-        if (a.length > 3 || b.length > 3) {
+
+        const OEVER_THREE_NUMBER_CONDITION = a.length > 3 || b.length > 3;
+        if (OEVER_THREE_NUMBER_CONDITION) {
           return window.alert('숫자는 세 자리까지만 입력 가능합니다!');
         }
-        if (this.sum === '0') this.sum = '';
 
-        this.sum += e.target.innerHTML;
-        this.renderTotal();
+        if (this.state.sum === '0') {
+          this.setState({
+            ...this.state,
+            sum: null,
+          });
+        }
+
+        this.setState({
+          ...this.state,
+          sum: (this.state.sum || '') + e.target.innerHTML,
+        });
       });
     });
   }
@@ -70,21 +87,26 @@ class Calculator {
     const operatorButtons = document.querySelectorAll('.operation');
     operatorButtons.forEach((element) => {
       element.addEventListener('click', (e) => {
-        //2개 이상의 연산자를 쓰려는 경우 경고
-        if (this.operator && e.target.innerText !== '=') {
+        const OVER_TWO_OPERATOR_CONDITION =
+          this.state.operator && e.target.innerText !== '=';
+        const MAKE_RESULT_CONDITION =
+          this.state.operator && this.state.sum && e.target.innerText === '=';
+        const NO_OPERATOR_WITH_NUMBER =
+          !this.state.operator && this.state.sum && e.target.innerText !== '=';
+
+        if (OVER_TWO_OPERATOR_CONDITION) {
           return window.alert('두개의 숫자만 계산할 수 있습니다.');
         }
 
-        //연산자가 있고 적합한 숫자가 들어간 경우 결과를 만든다
-        if (this.operator && this.sum && e.target.innerText === '=') {
+        if (MAKE_RESULT_CONDITION) {
           this.makeResult();
         }
 
-        //연산자가 없는 상태이고 숫자가 있는 경우 숫자에 연산자를 붙여 보여주며 연산자 상태를 업데이트 해준.
-        if (!this.operator && this.sum && e.target.innerText !== '=') {
-          this.operator = e.target.innerHTML;
-          this.sum += e.target.innerHTML;
-          this.renderTotal();
+        if (NO_OPERATOR_WITH_NUMBER) {
+          this.setState({
+            operator: e.target.innerText,
+            sum: (this.state.sum || '') + e.target.innerText,
+          });
         }
       });
     });
@@ -93,7 +115,7 @@ class Calculator {
   addModifierListener() {
     const modifierButton = document.querySelector('.modifier');
     modifierButton.addEventListener('click', (_) => {
-      if (this.sum) this.clear();
+      if (this.state.sum !== null) this.clear();
     });
   }
 
