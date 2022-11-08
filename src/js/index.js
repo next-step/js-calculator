@@ -4,16 +4,14 @@ class Calculator {
     this.setEvent();
     this.result = 0;
   }
-
   setDOM() {
     this.$total = document.getElementById("total");
     this.$digits = document.querySelector(".digits");
     this.$modifiers = document.querySelector(".modifiers");
     this.$operations = document.querySelector(".operations");
-    this.$equal = document.getElementById("equal");
+    this.$equal = document.getElementById("equal-sign");
     this.$modifier = document.querySelector(".modifier");
   }
-
   setEvent() {
     this.$digits.addEventListener("click", (e) => {
       this.clickDigits(e);
@@ -47,8 +45,6 @@ class Calculator {
         this.result = this.division(+num1, +num2);
       }
       this.$total.innerText = this.result;
-    } else {
-      this.$total.innerText = 0;
     }
   }
   sum(num1, num2) {
