@@ -24,7 +24,7 @@ export const getTotal = ({ operation, total }) => {
   };
 };
 
-export const operationOnclick = ({ state, newValue }) => {
+export const addOperation = ({ state, newValue }) => {
   const { total, operation } = state;
 
   if (!checkCorrectOrder(total)) {

@@ -4,5 +4,8 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "2.7.1"
+  },
+  "dependencies": {
+    "cypress": "^10.11.0"
   }
 }

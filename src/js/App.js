@@ -1,5 +1,5 @@
-import CalculateTotal from './CalculateTotal.js';
-import { operationOnclick } from './utils/calculate.js';
+import CalculateTotal from './Components/CalculateTotal.js';
+import { addOperation } from './utils/calculate.js';
 import { checkExceedDigit } from './utils/validate.js';
 
 export default function App({ $app, initialState }) {
@@ -20,7 +20,7 @@ export default function App({ $app, initialState }) {
         break;
 
       case 'operation':
-        newState = operationOnclick({ state: this.state, newValue });
+        newState = addOperation({ state: this.state, newValue });
         break;
 
       case 'modifier':
@@ -38,7 +38,6 @@ export default function App({ $app, initialState }) {
 
   this.setState = (nextState) => {
     this.state = nextState;
-    console.log(this.state);
     this.calculateTotal.setState(this.state);
   };
 

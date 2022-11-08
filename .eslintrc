@@ -25,7 +25,7 @@
     "node": true
   },
   // ESLint가 무시할 디렉토리, 파일을 설정
-  "ignorePatterns": ["node_modules/"],
+  "ignorePatterns": ["node_modules/", "cypress/"],
 
   // ESLint 룰을 설정
   "rules": {
