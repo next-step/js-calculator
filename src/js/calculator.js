@@ -1,11 +1,14 @@
-import { divideOperatorAndNumber } from '../utils/index.js';
-
+import { CALCULATOR_DEFAULT_VALUE, MAX_NUMBER_LENGTH } from '../constants.js';
+import {
+  divideOperatorAndNumber,
+  makeOnOperatorConditions,
+} from '../utils/index.js';
 class Calculator {
   constructor({ $target }) {
     this.$target = $target;
     this.$total = $target.querySelector('#total');
     this.state = {
-      sum: null,
+      sum: CALCULATOR_DEFAULT_VALUE,
       opertator: null,
     };
     this.initialize();
@@ -15,7 +18,7 @@ class Calculator {
     if (Number.isNaN(nextState.sum)) {
       nextState = {
         ...nextState,
-        sum: 0,
+        sum: CALCULATOR_DEFAULT_VALUE,
       };
     }
     this.state = nextState;
@@ -40,7 +43,7 @@ class Calculator {
   }
 
   clear() {
-    this.setState({ sum: '0', operator: null });
+    this.setState({ sum: CALCULATOR_DEFAULT_VALUE, operator: null });
   }
 
   renderTotal() {
@@ -55,74 +58,75 @@ class Calculator {
     if (operator === '/') return this.divide(a, b);
   }
 
-  addNumberListener() {
-    const numberButtons = document.querySelectorAll('.digit');
-    numberButtons.forEach((element) => {
-      element.addEventListener('click', (e) => {
-        const [a, b] = divideOperatorAndNumber(
-          (this.state.sum || '') + e.target.innerHTML
-        );
+  onOperator(event) {
+    const typedOperator = event.target.innerText;
+    const {
+      OVER_TWO_OPERATOR_CONDITION,
+      MAKE_RESULT_CONDITION,
+      NO_OPERATOR_WITH_NUMBER,
+    } = makeOnOperatorConditions({ state: this.state, typedOperator });
 
-        const OEVER_THREE_NUMBER_CONDITION = a.length > 3 || b.length > 3;
-        if (OEVER_THREE_NUMBER_CONDITION) {
-          return window.alert('숫자는 세 자리까지만 입력 가능합니다!');
-        }
+    if (OVER_TWO_OPERATOR_CONDITION) {
+      return window.alert('두개의 숫자만 계산할 수 있습니다.');
+    }
 
-        if (this.state.sum === '0') {
-          this.setState({
-            ...this.state,
-            sum: null,
-          });
-        }
+    if (MAKE_RESULT_CONDITION) {
+      this.makeResult();
+    }
 
-        this.setState({
-          ...this.state,
-          sum: (this.state.sum || '') + e.target.innerHTML,
-        });
+    if (NO_OPERATOR_WITH_NUMBER) {
+      this.setState({
+        operator: typedOperator,
+        sum: (this.state.sum || '') + typedOperator,
       });
+    }
+  }
+  onModifier() {
+    if (this.state.sum !== CALCULATOR_DEFAULT_VALUE) this.clear();
+  }
+
+  onNumber(event) {
+    const typedNumber = event.target.innerText;
+    const [a, b] = divideOperatorAndNumber(this.state.sum + typedNumber);
+
+    const OEVER_THREE_NUMBER_CONDITION =
+      a.length > MAX_NUMBER_LENGTH || b.length > MAX_NUMBER_LENGTH;
+
+    if (OEVER_THREE_NUMBER_CONDITION) {
+      return window.alert('숫자는 세 자리까지만 입력 가능합니다!');
+    }
+
+    const sum =
+      this.state.sum === CALCULATOR_DEFAULT_VALUE
+        ? typedNumber
+        : this.state.sum + typedNumber;
+
+    this.setState({
+      ...this.state,
+      sum,
     });
   }
 
-  addOperatorListener() {
-    const operatorButtons = document.querySelectorAll('.operation');
-    operatorButtons.forEach((element) => {
-      element.addEventListener('click', (e) => {
-        const OVER_TWO_OPERATOR_CONDITION =
-          this.state.operator && e.target.innerText !== '=';
-        const MAKE_RESULT_CONDITION =
-          this.state.operator && this.state.sum && e.target.innerText === '=';
-        const NO_OPERATOR_WITH_NUMBER =
-          !this.state.operator && this.state.sum && e.target.innerText !== '=';
+  addListener() {
+    this.$target.addEventListener('click', (event) => {
+      const classList = event.target.classList;
 
-        if (OVER_TWO_OPERATOR_CONDITION) {
-          return window.alert('두개의 숫자만 계산할 수 있습니다.');
-        }
+      if (classList.contains('digit')) {
+        this.onNumber(event);
+      }
 
-        if (MAKE_RESULT_CONDITION) {
-          this.makeResult();
-        }
+      if (classList.contains('operation')) {
+        this.onOperator(event);
+      }
 
-        if (NO_OPERATOR_WITH_NUMBER) {
-          this.setState({
-            operator: e.target.innerText,
-            sum: (this.state.sum || '') + e.target.innerText,
-          });
-        }
-      });
-    });
-  }
-
-  addModifierListener() {
-    const modifierButton = document.querySelector('.modifier');
-    modifierButton.addEventListener('click', (_) => {
-      if (this.state.sum !== null) this.clear();
+      if (classList.contains('modifier')) {
+        this.onModifier();
+      }
     });
   }
 
   initialize() {
-    this.addNumberListener();
-    this.addOperatorListener();
-    this.addModifierListener();
+    this.addListener();
   }
 }
 
