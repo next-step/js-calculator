@@ -6,7 +6,6 @@ import {
 class Calculator {
   constructor({ $target }) {
     this.$target = $target;
-    this.$total = $target.querySelector('#total');
     this.state = {
       sum: CALCULATOR_DEFAULT_VALUE,
       opertator: null,
@@ -26,7 +25,6 @@ class Calculator {
   }
 
   add(a, b) {
-    console.log(Number(a) + Number(b));
     this.setState({ ...this.state, sum: Number(a) + Number(b) });
   }
 
@@ -47,15 +45,18 @@ class Calculator {
   }
 
   renderTotal() {
-    this.$total.innerText = this.state.sum;
+    this.$target.querySelector('#total').innerText = this.state.sum;
   }
 
   makeResult() {
     const [a, b, operator] = divideOperatorAndNumber(this.state.sum || '0');
-    if (operator === '+') return this.add(a, b);
-    if (operator === '-') return this.subtract(a, b);
-    if (operator === 'X') return this.multiple(a, b);
-    if (operator === '/') return this.divide(a, b);
+    const OPERATOR_MAP = new Map([
+      ['+', () => this.add(a, b)],
+      ['-', () => this.subtract(a, b)],
+      ['X', () => this.multiple(a, b)],
+      ['/', () => this.divide(a, b)],
+    ]);
+    OPERATOR_MAP.get(operator)();
   }
 
   onOperator(event) {
@@ -81,6 +82,7 @@ class Calculator {
       });
     }
   }
+
   onModifier() {
     if (this.state.sum !== CALCULATOR_DEFAULT_VALUE) this.clear();
   }
