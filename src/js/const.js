@@ -2,7 +2,7 @@ export const DEFAULT_NUMBER = 0;
 
 export const OPERATOR = {
   SUM: '+',
-  SUBSTRACT: '-',
+  SUBTRACT: '-',
   MULTIPLY: 'X',
   DIVIDE: '/',
   ASSIGNMENT: '=',

@@ -1,9 +1,13 @@
 import { MAX_LENGTH, OPERATOR } from './const.js';
-import { isNodeContains, isOver } from './utils.js';
+import { isOverMaxLength } from './utils.js';
 
 class App {
   constructor($target, calculator) {
     this.$target = $target;
+    this.$digits = $target.querySelector('.digits');
+    this.$modifiers = $target.querySelector('.modifiers');
+    this.$operations = $target.querySelector('.operations');
+    this.$total = $target.querySelector('#total');
     this.calculator = calculator;
     this.initEventHandler();
     this.updateDisplay();
@@ -12,14 +16,14 @@ class App {
   updateDisplay() {
     const { getDisplay } = this.calculator;
 
-    this.$target.querySelector('#total').innerHTML = getDisplay();
+    this.$total.innerText = getDisplay();
   }
 
   handleClickDigit(digit) {
     const { setNumber, appendNumber } = this.calculator;
 
     const nextNumber = appendNumber(Number(digit));
-    if (isOver(MAX_LENGTH, nextNumber.toString())) {
+    if (isOverMaxLength(MAX_LENGTH, nextNumber.toString())) {
       alert('숫자는 한번에 최대 3자리 수까지 입력 가능합니다.');
     } else {
       setNumber(nextNumber);
@@ -43,28 +47,27 @@ class App {
   }
 
   handleClickTarget = (e) => {
-    if (isNodeContains(this.querySelector('.digits'), e.target)) {
+    if (this.$digits.contains(e.target)) {
       this.handleClickDigit(e.target.textContent);
       this.updateDisplay();
+      return;
     }
 
-    if (isNodeContains(this.querySelector('.modifiers'), e.target)) {
+    if (this.$modifiers.contains(e.target)) {
       this.handleClickAllClear();
       this.updateDisplay();
+      return;
     }
 
-    if (isNodeContains(this.querySelector('.operations'), e.target)) {
+    if (this.$operations.contains(e.target)) {
       this.handleClickOperator(e.target.textContent);
       this.updateDisplay();
+      return;
     }
   };
 
   initEventHandler() {
     this.$target.addEventListener('click', this.handleClickTarget);
-  }
-
-  querySelector(query) {
-    return this.$target.querySelector(query);
   }
 }
 
