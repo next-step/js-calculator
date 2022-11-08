@@ -3,6 +3,11 @@ import {$} from "./utils/selector.js";
 
 const $total = $("#total");
 
+const calculateTwoNumber = (firstNum, secondNum, operator) => {
+  // validation 추가하기
+  return operatorFunctionMap[operator](firstNum, secondNum);
+};
+
 const operatorFunctionMap = {
   [OPERATOR.PLUS]: (a, b) => a + b,
   [OPERATOR.MINUS]: (a, b) => a - b,
@@ -30,17 +35,20 @@ const checkForMaxNumberOfDigits = (() => {
   };
 })();
 
-/** todo 명확히 개선 */
 const putResult = () => {
   const operator = $total.textContent
     .split("")
     .find((v) => keyOfOperatorFuncMap.includes(v));
 
-  const [firstNumber, secondNumber] = $total.textContent
+  const [firstInputNum, secondInputNum] = $total.textContent
     .split(operator)
     .map(Number);
 
-  $total.textContent = operatorFunctionMap[operator](firstNumber, secondNumber);
+  $total.textContent = calculateTwoNumber(
+    firstInputNum,
+    secondInputNum,
+    operator
+  );
 };
 
 const putOperation = (operator) => {
