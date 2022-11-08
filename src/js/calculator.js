@@ -29,16 +29,21 @@ class Calculator {
     this.$operations.addEventListener('click', (e) => this.clickOperation(e.target));
   }
 
+  isOverNumberLength(newNumber) {
+    if (String(newNumber).length > MAX_NUMBER_LENGTH) {
+      alert(ALERT_MESSAGE.NOT_OVER_NUMBER_LENGTH);
+      return true;
+    }
+    return false;
+  }
+
   setNewNumber(clickedNumber) {
     const currentKey = this.state.operation ? 'secondNumber' : 'firstNumber';
     const newNumber = (this.state[currentKey] * 10 ?? 0) + clickedNumber;
 
-    if (String(newNumber).length > MAX_NUMBER_LENGTH) {
-      alert(ALERT_MESSAGE.NOT_OVER_NUMBER_LENGTH);
-      return;
+    if (!this.isOverNumberLength(newNumber)) {
+      this.state[currentKey] = newNumber;
     }
-
-    this.state[currentKey] = newNumber;
   }
 
   setTotal() {
