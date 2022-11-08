@@ -4,9 +4,11 @@ const clickAllClear = () => cy.get(".modifier").click();
 const getDisplayNumber = (text) => cy.get("#total").should("have.text", text);
 
 describe("사칙연산 테스트", () => {
-	it("22 + 3 = 25", () => {
-		cy.visit("http://127.0.0.1:5500/index.html");
+	beforeEach(() => {
+		cy.visit("http://127.0.0.1:5501/index.html");
+	});
 
+	it("22 + 3 = 25", () => {
 		clickDigit("2");
 		clickDigit("2");
 		clickOperator("+");
@@ -17,8 +19,6 @@ describe("사칙연산 테스트", () => {
 	});
 
 	it("100 - 1 = 99", () => {
-		cy.visit("http://127.0.0.1:5500/index.html");
-
 		clickDigit("1");
 		clickDigit("0");
 		clickDigit("0");
@@ -30,8 +30,6 @@ describe("사칙연산 테스트", () => {
 	});
 
 	it("0 * 7 = 0", () => {
-		cy.visit("http://127.0.0.1:5500/index.html");
-
 		clickDigit("0");
 		clickOperator("X");
 		clickDigit("7");
@@ -41,7 +39,6 @@ describe("사칙연산 테스트", () => {
 	});
 
 	it("847 / 7 = 121", () => {
-		cy.visit("http://127.0.0.1:5500/index.html");
 		clickDigit("8");
 		clickDigit("4");
 		clickDigit("7");
@@ -54,9 +51,11 @@ describe("사칙연산 테스트", () => {
 });
 
 describe("AC 버튼 테스트", () => {
-	it("AC 버튼이 제대로 작동합니다.", () => {
-		cy.visit("http://127.0.0.1:5500/index.html");
+	beforeEach(() => {
+		cy.visit("http://127.0.0.1:5501/index.html");
+	});
 
+	it("AC 버튼이 제대로 작동합니다.", () => {
 		clickDigit("1");
 		clickDigit("4");
 		clickAllClear();
@@ -66,11 +65,13 @@ describe("AC 버튼 테스트", () => {
 });
 
 describe("자리 수 검사", () => {
+	beforeEach(() => {
+		cy.visit("http://127.0.0.1:5501/index.html");
+	});
+
 	it("3자리 수 이하만 입력할 수 있습니다.", () => {
 		const stub = cy.stub();
 		cy.on("window:alert", stub);
-
-		cy.visit("http://127.0.0.1:5500/index.html");
 
 		clickDigit("1");
 		clickDigit("2");
@@ -84,9 +85,11 @@ describe("자리 수 검사", () => {
 });
 
 describe("소수점 검사", () => {
-	it("결과의 소수점 이하는 버림합니다. 999 / 11 = 90", () => {
-		cy.visit("http://127.0.0.1:5500/index.html");
+	beforeEach(() => {
+		cy.visit("http://127.0.0.1:5501/index.html");
+	});
 
+	it("결과의 소수점 이하는 버림합니다. 999 / 11 = 90", () => {
 		clickDigit("9");
 		clickDigit("9");
 		clickDigit("9");
