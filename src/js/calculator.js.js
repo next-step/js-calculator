@@ -1,56 +1,52 @@
-import {$total} from "./index.js";
-import {
-  PLUS,
-  MINUS,
-  MULTIPLICATION,
-  DIVISION,
-  ALERT_MESSAGE,
-} from "./constants/constants.js";
+import {MAX_DIGIT_NUMBER, MESSAGE, OPERATOR} from "./constants/constants.js";
+import {$} from "./utils/selector.js";
 
-const operators = {
-  [PLUS]: (a, b) => a + b,
-  [MINUS]: (a, b) => a - b,
-  [MULTIPLICATION]: (a, b) => a * b,
-  [DIVISION]: (a, b) => Math.floor(a / b),
+const $total = $("#total");
+
+const operatorFunctionMap = {
+  [OPERATOR.PLUS]: (a, b) => a + b,
+  [OPERATOR.MINUS]: (a, b) => a - b,
+  [OPERATOR.MULTIPLICATION]: (a, b) => a * b,
+  [OPERATOR.DIVISION]: (a, b) => Math.floor(a / b),
 };
-const keyOfOperators = Object.keys(operators);
 
-const lengthChecker = (() => {
-  let length = 0;
+const keyOfOperatorFuncMap = Object.keys(operatorFunctionMap);
+
+const checkForMaxNumberOfDigits = (() => {
+  let DIGIT_NUMBER = 0;
 
   return {
     increase() {
-      return length++;
+      return DIGIT_NUMBER++;
     },
 
     check() {
-      return length;
+      return DIGIT_NUMBER;
     },
 
     reset() {
-      return (length = 0);
+      return (DIGIT_NUMBER = 0);
     },
   };
 })();
 
+/** todo 명확히 개선 */
 const putResult = () => {
-  const method = $total.textContent
+  const operator = $total.textContent
     .split("")
-    .find((v) => keyOfOperators.includes(v));
+    .find((v) => keyOfOperatorFuncMap.includes(v));
 
-  const firstNumber = $total.textContent.split(method).shift();
-  const secondNumber = $total.textContent.split(method).pop();
+  const [firstNumber, secondNumber] = $total.textContent
+    .split(operator)
+    .map(Number);
 
-  $total.textContent = operators[method](
-    Number(firstNumber),
-    Number(secondNumber)
-  );
+  $total.textContent = operatorFunctionMap[operator](firstNumber, secondNumber);
 };
 
 const putOperation = (operator) => {
-  lengthChecker.reset();
+  checkForMaxNumberOfDigits.reset();
 
-  if (operator === "=") {
+  if (operator === OPERATOR.EQUALS) {
     putResult();
     return;
   }
@@ -58,16 +54,16 @@ const putOperation = (operator) => {
   $total.textContent += operator;
 };
 
-const putNumber = (value) => {
-  lengthChecker.increase();
+const putNumber = (number) => {
+  checkForMaxNumberOfDigits.increase();
 
-  if (lengthChecker.check() > 3) {
-    alert(ALERT_MESSAGE);
+  if (checkForMaxNumberOfDigits.check() > MAX_DIGIT_NUMBER) {
+    alert(MESSAGE.INVALID_NUMBER_SIZE);
     return $total.textContent;
   }
 
-  if ($total.textContent === "0") $total.textContent = value;
-  else $total.textContent += value;
+  if ($total.textContent === "0") $total.textContent = number;
+  else $total.textContent += number;
 };
 
 export const handleClickValue = ({target}) => {
@@ -82,7 +78,7 @@ export const handleClickValue = ({target}) => {
   }
 
   if (target.classList.contains("modifier")) {
-    lengthChecker.reset();
+    checkForMaxNumberOfDigits.reset();
     $total.textContent = 0;
   }
 };
