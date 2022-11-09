@@ -1,7 +1,7 @@
 class Calculator {
-  operand1 = '';
+  operand1 = 0;
 
-  operand2 = '';
+  operand2 = 0;
 
   operator = '';
 
@@ -28,7 +28,7 @@ class Calculator {
   }
 
   toString() {
-    return this.operand1 + this.operator + this.operand2;
+    return (this.operand1 || '') + this.operator + (this.operand2 || '');
   }
 }
 

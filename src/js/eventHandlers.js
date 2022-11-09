@@ -24,14 +24,14 @@ const getDomElement = () => {
 
 const addDigitToOperand = (digit) => {
   if (!calculator.operator) {
-    calculator.operand1 += digit;
+    calculator.operand1 = calculator.operand1 === 0 ? digit : calculator.operand1 + digit;
   } else {
-    calculator.operand2 += digit;
+    calculator.operand2 = calculator.operand2 === 0 ? digit : calculator.operand2 + digit;
   }
 };
 
 const resetResult = () => {
-  getDomElement().$total.textContent = '0';
+  getDomElement().$total.textContent = 0;
 };
 
 const renderResult = (result) => {
