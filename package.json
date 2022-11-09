@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "yarn": "^1.22.19"
+  },
+  "devDependencies": {
+    "cypress": "^10.11.0"
+  },
+  "scripts": {
+    "cypress": "cypress open"
+  }
+}
