@@ -13,19 +13,25 @@ const modifiersResult = {
   [MODIFIERS.AC]: () => calculator.reset(),
 };
 
-const $total = $('#total');
+const getDomElement = () => {
+  const $total = $('#total');
+
+  return {
+    $total,
+  };
+};
 
 const resetResult = () => {
-  $total.textContent = '0';
+  getDomElement().$total.textContent = '0';
 };
 
 const renderResult = (result) => {
   if (result) {
-    $total.textContent = result;
+    getDomElement().$total.textContent = result;
     return;
   }
 
-  $total.textContent = calculator.toString();
+  getDomElement().$total.textContent = calculator.toString();
 };
 
 export const handleClickDigits = ({ target }) => {
