@@ -17,7 +17,7 @@ const operatorFunctionMap = {
 
 const keyOfOperatorFuncMap = Object.keys(operatorFunctionMap);
 
-const checkForMaxNumberOfDigits = (() => {
+const checkForDigits = (() => {
   let DIGIT_NUMBER = 0;
 
   return {
@@ -52,7 +52,7 @@ const putResult = () => {
 };
 
 const putOperation = (operator) => {
-  checkForMaxNumberOfDigits.reset();
+  checkForDigits.reset();
 
   if (operator === OPERATOR.EQUALS) {
     putResult();
@@ -63,9 +63,9 @@ const putOperation = (operator) => {
 };
 
 const putNumber = (number) => {
-  checkForMaxNumberOfDigits.increase();
+  checkForDigits.increase();
 
-  if (checkForMaxNumberOfDigits.check() > MAX_DIGIT_NUMBER) {
+  if (checkForDigits.check() > MAX_DIGIT_NUMBER) {
     alert(MESSAGE.INVALID_NUMBER_SIZE);
     return $total.textContent;
   }
@@ -86,7 +86,7 @@ export const handleClickValue = ({target}) => {
   }
 
   if (target.classList.contains("modifier")) {
-    checkForMaxNumberOfDigits.reset();
+    checkForDigits.reset();
     $total.textContent = 0;
   }
 };
