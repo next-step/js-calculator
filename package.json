@@ -6,7 +6,15 @@
   "repository": "https://github.com/eamon3481/js-calculator",
   "author": "Dongmin Ahn <eamon3481@naver.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "webpack serve",
+    "test": "cypress open"
+  },
   "devDependencies": {
-    "cypress": "^11.0.0"
+    "cypress": "^11.0.0",
+    "html-webpack-plugin": "^5.5.0",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1"
   }
 }
