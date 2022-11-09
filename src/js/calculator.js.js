@@ -3,16 +3,15 @@ import {$} from "./utils/selector.js";
 
 const $total = $("#total");
 
-const calculateTwoNumber = (firstNum, secondNum, operator) => {
-  // validation 추가하기
-  return operatorFunctionMap[operator](firstNum, secondNum);
+export const roundDown = (number) => {
+  return number >= 0 ? Math.floor(number) : Math.ceil(number);
 };
 
 const operatorFunctionMap = {
   [OPERATOR.PLUS]: (a, b) => a + b,
   [OPERATOR.MINUS]: (a, b) => a - b,
   [OPERATOR.MULTIPLICATION]: (a, b) => a * b,
-  [OPERATOR.DIVISION]: (a, b) => Math.floor(a / b),
+  [OPERATOR.DIVISION]: (a, b) => roundDown(a / b),
 };
 
 const keyOfOperatorFuncMap = Object.keys(operatorFunctionMap);
@@ -34,6 +33,10 @@ const checkForDigits = (() => {
     },
   };
 })();
+
+const calculateTwoNumber = (firstNum, secondNum, operator) => {
+  return operatorFunctionMap[operator](firstNum, secondNum);
+};
 
 const putResult = () => {
   const operator = $total.textContent

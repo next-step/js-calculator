@@ -1,8 +1,5 @@
 import {MESSAGE, OPERATOR} from "../../src/js/constants/constants";
-
-const roundDown = (number) => {
-  return number >= 0 ? Math.floor(number) : Math.ceil(number);
-};
+import {roundDown} from "../../src/js/calculator.js";
 
 describe("calculator test", () => {
   beforeEach(() => {
