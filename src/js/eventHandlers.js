@@ -36,50 +36,76 @@ const renderResult = (result) => {
 
 export const handleClickDigits = ({ target }) => {
   const { digit } = target.dataset;
+  if (!digit) return;
 
-  if (!calculator.operator && calculator.operand1.length >= VALIDATIONS.MAX_DIGIT_NUMBER) {
-    alert(ERROR_MESSAGES.MAX_DIGIT_NUMBER);
-    return;
-  }
-  if (calculator.operand2.length >= VALIDATIONS.MAX_DIGIT_NUMBER) {
-    alert(ERROR_MESSAGES.MAX_DIGIT_NUMBER);
-    return;
-  }
+  try {
+    if (!calculator.operator && calculator.operand1.length >= VALIDATIONS.MAX_DIGIT_NUMBER) {
+      throw Error(ERROR_MESSAGES.MAX_DIGIT_NUMBER);
+    }
+    if (calculator.operand2.length >= VALIDATIONS.MAX_DIGIT_NUMBER) {
+      throw Error(ERROR_MESSAGES.MAX_DIGIT_NUMBER);
+    }
 
-  if (!calculator.operator) {
-    calculator.operand1 += digit;
-  } else {
-    calculator.operand2 += digit;
-  }
+    if (!calculator.operator) {
+      calculator.operand1 += digit;
+    } else {
+      calculator.operand2 += digit;
+    }
 
-  renderResult();
+    renderResult();
+  } catch (error) {
+    console.error(error);
+    alert(error.message);
+  }
 };
 
 export const handleClickOperations = ({ target }) => {
   const { operation } = target.dataset;
+  if (!operation) return;
 
-  if (!calculator.operator) {
+  try {
+    const isEmptyNumber = !calculator.operand1;
+
+    if (isEmptyNumber) {
+      throw Error(ERROR_MESSAGES.OPERATOR_WITH_NO_NUMBER);
+    }
+
+    if (!calculator.operator) {
+      calculator.operator = operation;
+      renderResult();
+      return;
+    }
+
+    const result = operatorsResult[calculator.operator]();
+    renderResult(result);
+
+    if (operation === '=') {
+      return;
+    }
+
+    calculator.reset();
+    calculator.operand1 = result;
     calculator.operator = operation;
     renderResult();
-    return;
+  } catch (error) {
+    console.error(error);
+    alert(error.message);
   }
-
-  const result = operatorsResult[calculator.operator]();
-  renderResult(result);
-
-  if (operation === '=') {
-    return;
-  }
-
-  calculator.reset();
-  calculator.operand1 = result;
-  calculator.operator = operation;
-  renderResult();
 };
 
 export const handleClickModifiers = ({ target }) => {
   const { modifier } = target.dataset;
+  if (!modifier) return;
 
-  modifiersResult[modifier]();
-  resetResult();
+  try {
+    const modify = modifiersResult[modifier];
+    if (modify === undefined) {
+      throw Error(ERROR_MESSAGES.NOT_EXISTS_MODIFIER);
+    }
+    modify();
+    resetResult();
+  } catch (error) {
+    console.error(error);
+    alert(error.message);
+  }
 };
