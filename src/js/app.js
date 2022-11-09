@@ -1,67 +1,39 @@
 import { $ } from "./utils.js";
 import { calculator } from "./calculator.js";
-import { MAX_LENGTH } from "./const.js";
 
 class App {
-	total = $("#total");
+  total = $("#total");
 
-	init() {
-		this.setEventListener();
-	}
+  init() {
+    this.setEventListener();
+  }
 
-	setEventListener() {
-		const digits = $(".digits");
-		const operators = $(".operations");
-		const allClearButton = $(".modifiers");
+  setEventListener() {
+    const digits = $(".digits");
+    const operators = $(".operations");
+    const allClearButton = $(".modifiers");
 
-		digits.addEventListener("click", (e) => {
-			if (String(calculator.current).length === MAX_LENGTH) {
-				alert(`${MAX_LENGTH}자리 이하의 수만 입력 가능합니다.`);
-				return;
-			}
+    digits.addEventListener("click", (e) => {
+      const digit = e.target.closest(".digit").innerText;
+      calculator.pressDigit(digit);
+      this.showNumber(calculator.current);
+    });
 
-			const digit = e.target.closest(".digit").innerText;
-			console.log(digit);
-			calculator.current = Number(`${calculator.current}${digit}`);
-			this.showNumber(calculator.current);
-		});
+    operators.addEventListener("click", (e) => {
+      const currentOperator = e.target.closest(".operation").innerText;
+      calculator.pressOperator(currentOperator);
+      this.showNumber(calculator.result);
+    });
 
-		operators.addEventListener("click", (e) => {
-			const currentOperator = e.target.closest(".operation").innerText;
+    allClearButton.addEventListener("click", () => {
+      calculator.allClear();
+      this.showNumber(calculator.result);
+    });
+  }
 
-			if (currentOperator === "=") {
-				switch (calculator.operator) {
-					case "+":
-						calculator.add();
-						break;
-					case "-":
-						calculator.substract();
-						break;
-					case "X":
-						calculator.multiply();
-						break;
-					case "/":
-						calculator.divide();
-						break;
-				}
-			} else {
-				calculator.result = Number(calculator.current);
-			}
-
-			calculator.operator = currentOperator;
-			calculator.current = 0;
-			this.showNumber(calculator.result);
-		});
-
-		allClearButton.addEventListener("click", () => {
-			calculator.allClear();
-			this.showNumber(calculator.result);
-		});
-	}
-
-	showNumber(displayNumber) {
-		total.innerText = displayNumber;
-	}
+  showNumber(displayNumber) {
+    total.innerText = displayNumber;
+  }
 }
 
 export default App;
