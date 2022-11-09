@@ -6,11 +6,11 @@ const multiply = (first, second) => first * second;
 
 const divide = (first, second) => Math.floor(first / second);
 
-const calculator = {
+const calculate = {
   plus,
   minus,
   multiply,
   divide,
 };
 
-export default calculator;
+export default calculate;

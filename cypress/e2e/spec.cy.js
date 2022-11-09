@@ -5,7 +5,7 @@
  * 4. 제출
  */
 
-import calculator from "../../src/js/calculator";
+import calculator from "../../src/js/calculate";
 
 describe("계산기", () => {
   before(() => {
@@ -43,6 +43,13 @@ describe("계산기", () => {
       cy.clickDigit("1");
       cy.clickOperator("+");
       cy.clickDigit("1");
+      cy.totalIs("2");
+    });
+
+    it("6-4", () => {
+      cy.clickDigit("6");
+      cy.clickOperator("-");
+      cy.clickDigit("4");
       cy.totalIs("2");
     });
 
@@ -137,6 +144,16 @@ describe("계산기", () => {
   });
 
   it("AC(All Clear)버튼을 누르면 0으로 초기화 한다.", () => {
+    cy.clickDigit("1");
+    cy.clickDigit("1");
+    cy.allClear();
+    cy.totalIs("0");
+  });
+
+  it("AC(All Clear)버튼을 누르면 0으로 초기화 한다.", () => {
+    cy.clickDigit("1");
+    cy.clickDigit("1");
+    cy.clickOperator("-");
     cy.clickDigit("1");
     cy.clickDigit("1");
     cy.allClear();
