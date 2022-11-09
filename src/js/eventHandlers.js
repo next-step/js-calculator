@@ -46,7 +46,7 @@ export const handleClickDigits = ({ target }) => {
       throw Error(ERROR_MESSAGES.MAX_DIGIT_NUMBER);
     }
 
-    if (!calculator.operator) {
+    if (calculator.operator === '') {
       calculator.operand1 += digit;
     } else {
       calculator.operand2 += digit;
@@ -64,19 +64,24 @@ export const handleClickOperations = ({ target }) => {
   if (!operation) return;
 
   try {
-    const isEmptyNumber = !calculator.operand1;
-
+    const isEmptyNumber = calculator.operand1 === '';
     if (isEmptyNumber) {
       throw Error(ERROR_MESSAGES.OPERATOR_WITH_NO_NUMBER);
     }
 
-    if (!calculator.operator) {
+    const isEmptyOperator = calculator.operator === '';
+    if (isEmptyOperator) {
       calculator.operator = operation;
       renderResult();
       return;
     }
 
-    const result = operatorsResult[calculator.operator]();
+    const operate = operatorsResult[calculator.operator];
+    if (operate === undefined) {
+      throw Error(ERROR_MESSAGES.NOT_EXISTS_OPERATOR);
+    }
+
+    const result = operate();
     renderResult(result);
 
     if (operation === '=') {
@@ -102,6 +107,7 @@ export const handleClickModifiers = ({ target }) => {
     if (modify === undefined) {
       throw Error(ERROR_MESSAGES.NOT_EXISTS_MODIFIER);
     }
+
     modify();
     resetResult();
   } catch (error) {
