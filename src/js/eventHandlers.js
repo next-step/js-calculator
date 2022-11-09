@@ -1,6 +1,7 @@
 import calculator from './calculator.js';
-import { ERROR_MESSAGES, VALIDATIONS, MODIFIERS, OPERATORS } from './constants/index.js';
+import { ERROR_MESSAGES, MODIFIERS, OPERATORS } from './constants/index.js';
 import { $ } from './utils/dom.js';
+import { validateOperand } from './utils/validation.js';
 
 const operatorsResult = {
   [OPERATORS.PLUS]: () => calculator.add(),
@@ -39,10 +40,7 @@ export const handleClickDigits = ({ target }) => {
   if (!digit) return;
 
   try {
-    if (!calculator.operator && calculator.operand1.length >= VALIDATIONS.MAX_DIGIT_NUMBER) {
-      throw Error(ERROR_MESSAGES.MAX_DIGIT_NUMBER);
-    }
-    if (calculator.operand2.length >= VALIDATIONS.MAX_DIGIT_NUMBER) {
+    if (!validateOperand(calculator)) {
       throw Error(ERROR_MESSAGES.MAX_DIGIT_NUMBER);
     }
 
