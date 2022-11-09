@@ -13,10 +13,10 @@ const operators = Object.keys(operations);
 window.addEventListener('load', () => {
   addNumberClickEventListener(handleNumberClick);
   addOperationClickEventListener(handleOperatorClick);
-  addACClickEventListener(clickReset);
+  addACClickEventListener(handleResetClick);
 });
 
-const clickReset = () => {
+const handleResetClick = () => {
   calculator.reset();
   total.innerText = '0';
 };
