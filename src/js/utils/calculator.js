@@ -1,6 +1,6 @@
 import { VALIDATIONS } from '../constants/index.js';
 
-export const validateOperand = ({ operand1, operand2, operator }) => {
+export const isValidateOperand = ({ operand1, operand2, operator }) => {
   const isInValidOperand1 = operator === '' && operand1.length >= VALIDATIONS.MAX_DIGIT_NUMBER;
   const isInValidOperand2 = operand2.length >= VALIDATIONS.MAX_DIGIT_NUMBER;
 
