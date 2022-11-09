@@ -9,30 +9,33 @@ class App {
   }
 
   setEventListener() {
-    const digits = $(".digits");
-    const operators = $(".operations");
-    const allClearButton = $(".modifiers");
+    const calculatorArea = $(".calculator");
 
-    digits.addEventListener("click", (e) => {
-      const digit = e.target.closest(".digit").innerText;
-      calculator.pressDigit(digit);
-      this.showNumber(calculator.current);
-    });
+    calculatorArea.addEventListener("click", (e) => {
+      if (e.target.className === "digit") {
+        const digit = e.target.innerText;
+        calculator.pressDigit(digit);
+        this.showNumber(calculator.current);
+        return;
+      }
 
-    operators.addEventListener("click", (e) => {
-      const currentOperator = e.target.closest(".operation").innerText;
-      calculator.pressOperator(currentOperator);
-      this.showNumber(calculator.result);
-    });
+      if (e.target.className === "operation") {
+        const currentOperator = e.target.innerText;
+        calculator.pressOperator(currentOperator);
+        this.showNumber(calculator.result);
 
-    allClearButton.addEventListener("click", () => {
-      calculator.allClear();
-      this.showNumber(calculator.result);
+        return;
+      }
+
+      if (e.target.className === "modifier") {
+        calculator.allClear();
+        this.showNumber(calculator.result);
+      }
     });
   }
 
-  showNumber(displayNumber) {
-    total.innerText = displayNumber;
+  showNumber(number) {
+    total.innerText = number;
   }
 }
 
