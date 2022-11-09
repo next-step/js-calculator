@@ -1,0 +1,12 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "description": "next-step TDD js-calculator 1week",
+  "main": "index.js",
+  "repository": "https://github.com/eamon3481/js-calculator",
+  "author": "Dongmin Ahn <eamon3481@naver.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "cypress": "^11.0.0"
+  }
+}
