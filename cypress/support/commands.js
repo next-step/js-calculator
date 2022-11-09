@@ -23,3 +23,18 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.addAll({
+  clickDigits(digits) {
+    digits.split("").forEach((digit) => cy.contains(".digit", digit).click());
+  },
+  clickOperator(op) {
+    cy.contains(".operation", op).click();
+  },
+  clickAllClear() {
+    cy.get(".modifier").click();
+  },
+  getDisplayNumber(number) {
+    cy.get("#total").should("have.text", number);
+  },
+});

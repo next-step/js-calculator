@@ -1,52 +1,42 @@
-const clickDigit = (text) => cy.contains(".digit", text).click();
-const clickOperator = (text) => cy.contains(".operation", text).click();
-const clickAllClear = () => cy.get(".modifier").click();
-const getDisplayNumber = (text) => cy.get("#total").should("have.text", text);
-
 describe("사칙연산 테스트", () => {
   beforeEach(() => {
     cy.visit("http://127.0.0.1:5500/index.html");
   });
 
-  it("22 + 3 = 25", () => {
-    clickDigit("2");
-    clickDigit("2");
-    clickOperator("+");
-    clickDigit("3");
-    clickOperator("=");
+  it("두 숫자를 더한 결과가 정상적으로 출력된다", () => {
+    cy.clickDigits("22");
+    cy.clickOperator("+");
+    cy.clickDigits("3");
+    cy.clickOperator("=");
 
-    getDisplayNumber("25");
+    cy.getDisplayNumber("25");
   });
 
-  it("100 - 1 = 99", () => {
-    clickDigit("1");
-    clickDigit("0");
-    clickDigit("0");
-    clickOperator("-");
-    clickDigit("1");
-    clickOperator("=");
+  it("두 숫자를 뺀 결과가 정상적으로 출력된다", () => {
+    cy.clickDigits("100");
+    cy.clickOperator("-");
+    cy.clickDigits("1");
+    cy.clickOperator("=");
 
-    getDisplayNumber("99");
+    cy.getDisplayNumber("99");
   });
 
-  it("0 * 7 = 0", () => {
-    clickDigit("0");
-    clickOperator("X");
-    clickDigit("7");
-    clickOperator("=");
+  it("두 숫자를 곱한 결과가 정상적으로 출력된다", () => {
+    cy.clickDigits("0");
+    cy.clickOperator("X");
+    cy.clickDigits("78");
+    cy.clickOperator("=");
 
-    getDisplayNumber("0");
+    cy.getDisplayNumber("0");
   });
 
-  it("847 / 7 = 121", () => {
-    clickDigit("8");
-    clickDigit("4");
-    clickDigit("7");
-    clickOperator("/");
-    clickDigit("7");
-    clickOperator("=");
+  it("두 숫자를 나눈 결과가 정상적으로 출력된다", () => {
+    cy.clickDigits("847");
+    cy.clickOperator("/");
+    cy.clickDigits("7");
+    cy.clickOperator("=");
 
-    getDisplayNumber("121");
+    cy.getDisplayNumber("121");
   });
 });
 
@@ -55,12 +45,11 @@ describe("AC 버튼 테스트", () => {
     cy.visit("http://127.0.0.1:5500/index.html");
   });
 
-  it("AC 버튼이 제대로 작동합니다.", () => {
-    clickDigit("1");
-    clickDigit("4");
-    clickAllClear();
+  it("AC버튼을 누르면 입력했던 정보들이 초기화된다.", () => {
+    cy.clickDigits("144");
+    cy.clickAllClear();
 
-    getDisplayNumber("0");
+    cy.getDisplayNumber("0");
   });
 });
 
@@ -69,14 +58,12 @@ describe("자리 수 검사", () => {
     cy.visit("http://127.0.0.1:5500/index.html");
   });
 
-  it("3자리 수 이하만 입력할 수 있습니다.", () => {
+  it("3자리 초과해 입력했을 때 경고창이 표시된다.", () => {
     const stub = cy.stub();
     cy.on("window:alert", stub);
 
-    clickDigit("1");
-    clickDigit("2");
-    clickDigit("3");
-    clickDigit("4").then(() => {
+    cy.clickDigits("123");
+    cy.clickDigits("4").then(() => {
       expect(stub.getCall(0)).to.be.calledWith(
         "3자리 이하의 수만 입력 가능합니다."
       );
@@ -89,15 +76,12 @@ describe("소수점 검사", () => {
     cy.visit("http://127.0.0.1:5500/index.html");
   });
 
-  it("결과의 소수점 이하는 버림합니다. 999 / 11 = 90", () => {
-    clickDigit("9");
-    clickDigit("9");
-    clickDigit("9");
-    clickOperator("/");
-    clickDigit("1");
-    clickDigit("1");
-    clickOperator("=");
+  it("결과의 소수점 이하는 버림한다.", () => {
+    cy.clickDigits("999");
+    cy.clickOperator("/");
+    cy.clickDigits("11");
+    cy.clickOperator("=");
 
-    getDisplayNumber("90");
+    cy.getDisplayNumber("90");
   });
 });

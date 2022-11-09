@@ -20,8 +20,8 @@ class App {
       }
 
       if (e.target.className === "operation") {
-        const currentOperator = e.target.innerText;
-        calculator.pressOperator(currentOperator);
+        const operator = e.target.innerText;
+        calculator.pressOperator(operator);
         this.showNumber(calculator.result);
 
         return;
