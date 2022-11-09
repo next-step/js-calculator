@@ -35,7 +35,7 @@ const renderResult = (result) => {
 };
 
 export const handleClickDigits = ({ target }) => {
-  const digit = target.textContent;
+  const { digit } = target.dataset;
 
   if (!calculator.operator && calculator.operand1.length >= VALIDATIONS.MAX_DIGIT_NUMBER) {
     alert(ERROR_MESSAGES.MAX_DIGIT_NUMBER);
@@ -56,7 +56,7 @@ export const handleClickDigits = ({ target }) => {
 };
 
 export const handleClickOperations = ({ target }) => {
-  const operation = target.textContent;
+  const { operation } = target.dataset;
 
   if (!calculator.operator) {
     calculator.operator = operation;
@@ -78,7 +78,7 @@ export const handleClickOperations = ({ target }) => {
 };
 
 export const handleClickModifiers = ({ target }) => {
-  const modifier = target.textContent;
+  const { modifier } = target.dataset;
 
   modifiersResult[modifier]();
   resetResult();
