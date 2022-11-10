@@ -3,7 +3,7 @@ import { calculator } from "./calculator.js";
 
 const buttonTypeResultKeyMapper = {
 	digit: "current",
-	operation: "result",
+	operator: "result",
 	modifier: "result",
 };
 
@@ -18,15 +18,15 @@ class App {
 		const calculatorArea = $(".calculator");
 
 		calculatorArea.addEventListener("click", (e) => {
+			const buttons = e.target.closest("div");
+			const { buttonType } = buttons.dataset;
 			const buttonText = e.target.innerText;
-			const currentButtonType = e.target.className;
 
-			if (currentButtonType === "digit") this.handleClickDigit(buttonText);
-			if (currentButtonType === "operation")
-				this.handleClickOperator(buttonText);
-			if (currentButtonType === "modifier") this.handleClickAC();
+			if (buttonType === "digit") this.handleClickDigit(buttonText);
+			if (buttonType === "operator") this.handleClickOperator(buttonText);
+			if (buttonType === "modifier") this.handleClickAC();
 
-			this.showNumber(calculator[buttonTypeResultKeyMapper[currentButtonType]]);
+			this.showNumber(calculator[buttonTypeResultKeyMapper[buttonType]]);
 		});
 	}
 
