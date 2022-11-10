@@ -35,7 +35,10 @@ class Calculator {
 	}
 
 	pressDigit(digit) {
-		if (isOverMaxLength(this.current)) return;
+		if (isOverMaxLength(this.current)) {
+			alert(`${MAX_LENGTH}자리 이하의 수만 입력 가능합니다.`);
+			return;
+		}
 		this.current = Number(`${this.current}${digit}`);
 	}
 
@@ -52,11 +55,6 @@ class Calculator {
 	}
 }
 
-const isOverMaxLength = (number) => {
-	if (String(number).length >= MAX_LENGTH) {
-		alert(`${MAX_LENGTH}자리 이하의 수만 입력 가능합니다.`);
-		return true;
-	}
-};
+const isOverMaxLength = (number) => String(number).length >= MAX_LENGTH;
 
 export const calculator = new Calculator();
