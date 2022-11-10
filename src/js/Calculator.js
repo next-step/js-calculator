@@ -1,4 +1,4 @@
-import ERROR_MESSAGE from "../const/ERROR_MESSAGE";
+import ERROR_MESSAGE from "../const/ERROR_MESSAGE.js";
 
 export default function Calculator() {
   this.setPrev = function (num) {
@@ -25,7 +25,14 @@ export default function Calculator() {
     return this.operator;
   };
 
-  this.cal = function () {
+  this.setRoundingModeDown = function (func) {
+    return function () {
+      let result = func.call(this);
+      return Math.floor(result);
+    };
+  };
+
+  this.cal = this.setRoundingModeDown(function () {
     if (
       this.prev == null ||
       this.prev == "undefined" ||
@@ -38,12 +45,12 @@ export default function Calculator() {
       return this.sum();
     } else if (this.operator == "-") {
       return this.abstract();
-    } else if (this.operator == "*") {
+    } else if (this.operator == "X") {
       return this.multiply();
     } else if (this.operator == "/") {
       return this.divide();
     }
-  };
+  });
 
   this.sum = function () {
     return this.getPrev() + this.getCur();
@@ -57,6 +64,6 @@ export default function Calculator() {
   };
 
   this.divide = function () {
-    return Math.floor(this.getPrev() / this.getCur());
+    return this.getPrev() / this.getCur();
   };
 }

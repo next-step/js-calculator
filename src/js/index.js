@@ -1,5 +1,4 @@
-import Calculator from "./Calculaotr";
-import CalculatorView from "./CalculatorView";
+import App from "./App.js";
 
-const calculator = new Calculator();
-const calculatorView = new CalculatorView();
+const appDiv = document.querySelector("#app");
+new App(appDiv);

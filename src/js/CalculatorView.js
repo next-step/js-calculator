@@ -1,5 +1,5 @@
-import ERROR_MESSAGE from "../const/ERROR_MESSAGE";
-import Calculator from "./Calculaotr";
+import ERROR_MESSAGE from "../const/ERROR_MESSAGE.js";
+import Calculator from "./Calculator.js";
 
 export default function CalculatorView(calculator, $target) {
   if (!(calculator instanceof Calculator)) {
@@ -7,14 +7,10 @@ export default function CalculatorView(calculator, $target) {
   }
   this.calculator = calculator;
 
-  const $result = document.createElement("div");
-  const $num1 = document.createElement("input");
-  const $num2 = document.createElement("input");
-  const calBtn = document.createElement("button");
-  const plusBtn = document.createElement("button");
-  const minusBtn = document.createElement("button");
-  const multiBtn = document.createElement("button");
-  const divideiBtn = document.createElement("button");
+  const $result = $target.querySelector("#total");
+  const $digits = $target.querySelector(".digits");
+  const $operations = $target.querySelector(".operations");
+  const $modifiers = $target.querySelector(".modifiers");
 
   this.isValidInput = (numstr) => {
     if (numstr.length > 3) throw new Error(ERROR_MESSAGE.WRONG_NUMINPUT);
@@ -23,45 +19,62 @@ export default function CalculatorView(calculator, $target) {
     return true;
   };
 
-  this.updateNumber = (inputnum) => {
-    let numstr = String(inputnum); // new String x
-    let num = Number(inputnum);
-
-    if (this.isValidInput(numstr)) {
-      if (!this.calculator.getPrev()) {
-        this.calculator.setPrev(num);
-      } else if (!this.calculator.getCur()) {
-        this.calculator.setCur(num);
-      }
-      return num;
+  this.updateNumber = (inputNum) => {
+    // 첫번째 숫자, 두번째 숫자
+    const prevNum = this.calculator.getOperator()
+      ? this.calculator.getCur() || 0
+      : this.calculator.getPrev() || 0;
+    const nextNum = Number(String(prevNum) + String(inputNum));
+    if (String(nextNum).length > 3) {
+      throw ERROR_MESSAGE.WRONG_NUMINPUT;
     }
+
+    $result.textContent = nextNum;
+    if (!this.calculator.getOperator()) {
+      this.calculator.setPrev(nextNum);
+    } else {
+      this.calculator.setCur(nextNum);
+    }
+    return nextNum;
   };
 
   this.updateOperator = (operator) => {
+    if (operator == "=") {
+      alert("=");
+      return this.updateResult();
+    }
     this.calculator.setOperator(operator);
+
     return this.calculator.getOperator();
   };
+
   this.updateResult = () => {
     let result = this.calculator.cal();
-    $result.value = result;
+    $result.textContent = result;
     return $result.value;
-  };
-
-  this.oninputEventHandler = (event) => {
-    const inputnum = event.target.textContent;
-    this.updateNumber(inputnum);
   };
 
   this.onclickOperEventHandler = (event) => {
     const operator = event.target.textContent;
-    this.updateNumber(operator);
+    this.updateOperator(operator);
   };
 
-  $num1.addEventListener("input", this.oninputEventHandler);
-  $num2.addEventListener("input", this.oninputEventHandler);
-  plusBtn.addEventListener("click", this.onclickOperEventHandler);
+  this.onclickDigitEventHandler = (event) => {
+    const inputnum = event.target.textContent;
+    this.updateNumber(inputnum);
+  };
 
-  calBtn.addEventListener("click", () => {
-    this.updateResult();
-  });
+  this.oonclickModifierEventHandler = (event) => {
+    const modifier = event.target.textContent;
+    if (modifier == "AC") {
+      this.calculator.setPrev();
+      this.calculator.setOperator();
+      this.calculator.setCur();
+      $result.textContent = 0;
+    }
+  };
+
+  $digits.addEventListener("click", this.onclickDigitEventHandler);
+  $operations.addEventListener("click", this.onclickOperEventHandler);
+  $modifiers.addEventListener("click", this.oonclickModifierEventHandler);
 }
