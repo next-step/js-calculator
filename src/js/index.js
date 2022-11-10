@@ -71,7 +71,7 @@ function handleClickBtn(event) {
     const b = Number(calculatingValue.currentValue)
     switch (calculatingValue.operator) {
         case "/": {
-            return (a / b);
+            return Math.floor(a / b);
             break;
         }
         case "X": {
