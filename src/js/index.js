@@ -1,6 +1,13 @@
 const calculator = document.querySelectorAll(".calculator");
 const total = document.getElementById("total");
 
+// Properties
+let calculatingValue = {
+    currentValue: 0,
+    previousValue: 0,
+    operator: ""
+  };
+
 // Initial Setting
 calculator.forEach((button) => {
     button.addEventListener("click", handleClickBtn);
@@ -14,6 +21,7 @@ function handleClickBtn(event) {
     }
   
     if (value === "AC") {
+      return reset();
     }
   
     if (value === "=") {
@@ -21,5 +29,11 @@ function handleClickBtn(event) {
   
     return setOperation(value);
   }
+
+  function reset() {
+    calculatingValue = {};
+    total.innerText = 0;
+  }
+
   function setOperation(value) {
   }
