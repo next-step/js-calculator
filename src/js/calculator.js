@@ -5,29 +5,6 @@ class Calculator {
 	current = 0;
 	operator = "";
 
-	calculate = {
-		"+": () => this.add(),
-		"-": () => this.substract(),
-		X: () => this.multiply(),
-		"/": () => this.divide(),
-	};
-
-	add() {
-		this.result += this.current;
-	}
-
-	substract() {
-		this.result -= this.current;
-	}
-
-	multiply() {
-		this.result *= this.current;
-	}
-
-	divide() {
-		this.result = Math.floor(this.result / this.current);
-	}
-
 	allClear() {
 		this.current = 0;
 		this.result = 0;
@@ -42,19 +19,27 @@ class Calculator {
 		this.current = Number(`${this.current}${digit}`);
 	}
 
-	pressOperator(currentOperator) {
+	calculate(currentOperator) {
+		const operate = operates[calculator.operator];
+
 		if (currentOperator === "=") {
-			this.calculate[this.operator]();
-			this.current = this.result;
+			this.result = operate(this.result, this.current);
 		} else {
 			this.result = this.current;
-			this.current = 0;
 		}
 
+		this.current = 0;
 		this.operator = currentOperator;
 	}
 }
 
 const isOverMaxLength = (number) => String(number).length >= MAX_LENGTH;
+
+const operates = {
+	"+": (num1, num2) => num1 + num2,
+	"-": (num1, num2) => num1 - num2,
+	X: (num1, num2) => num1 * num2,
+	"/": (num1, num2) => Math.floor(num1 / num2),
+};
 
 export const calculator = new Calculator();

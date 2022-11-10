@@ -21,7 +21,7 @@ class App {
 
 			if (e.target.className === "operation") {
 				const operator = e.target.innerText;
-				calculator.pressOperator(operator);
+				calculator.calculate(operator);
 				this.showNumber(calculator.result);
 
 				return;
