@@ -90,6 +90,10 @@ function handleClickBtn(event) {
   }
 
   function setOperation(value) {
+    if (calculatingValue.operator && calculatingValue.currentValue) {
+        alert("두 숫자까지만 계산이 가능합니다 🎃");
+    }
+
     if (calculatingValue.previousValue && !calculatingValue.currentValue) {
         total.innerText = 0
         calculatingValue.operator = value;
