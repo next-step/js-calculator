@@ -33,7 +33,17 @@ function handleClickBtn(event) {
 
   function setNumber(value) {
     let inputNumber = String(total.innerText) + value;      
+    renderNumber(String(Number(inputNumber)));
   }
+
+  function renderNumber(number) {
+    if (calculatingValue.operator) {
+        calculatingValue.currentValue = total.innerText;
+    } else {
+        calculatingValue.previousValue = total.innerText;
+    }
+  }  
+
   function reset() {
     calculatingValue = {};
     total.innerText = 0;
