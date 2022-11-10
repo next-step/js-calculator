@@ -18,6 +18,7 @@ function handleClickBtn(event) {
     const value = event.target.innerText;
 
     if (/[0-9]/.test(value)) {
+      return setNumber(value);
     }
   
     if (value === "AC") {
@@ -30,6 +31,9 @@ function handleClickBtn(event) {
     return setOperation(value);
   }
 
+  function setNumber(value) {
+    let inputNumber = String(total.innerText) + value;      
+  }
   function reset() {
     calculatingValue = {};
     total.innerText = 0;
