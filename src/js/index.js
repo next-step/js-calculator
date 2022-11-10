@@ -8,4 +8,18 @@ calculator.forEach((button) => {
 
 // Functions
 function handleClickBtn(event) {
+    const value = event.target.innerText;
+
+    if (/[0-9]/.test(value)) {
+    }
+  
+    if (value === "AC") {
+    }
+  
+    if (value === "=") {
+    }
+  
+    return setOperation(value);
+  }
+  function setOperation(value) {
   }
