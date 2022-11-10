@@ -34,7 +34,7 @@ class Calculator {
 		this.operator = "";
 	}
 
-	pressDigit(digit) {
+	setDigit(digit) {
 		if (isOverMaxLength(this.current)) {
 			alert(`${MAX_LENGTH}자리 이하의 수만 입력 가능합니다.`);
 			return;
