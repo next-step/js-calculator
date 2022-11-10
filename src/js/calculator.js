@@ -1,5 +1,14 @@
 import { MAX_LENGTH } from "./const.js";
 
+const isOverMaxLength = (number) => String(number).length >= MAX_LENGTH;
+
+const operates = {
+	"+": (num1, num2) => num1 + num2,
+	"-": (num1, num2) => num1 - num2,
+	X: (num1, num2) => num1 * num2,
+	"/": (num1, num2) => Math.floor(num1 / num2),
+};
+
 class Calculator {
 	result = 0;
 	current = 0;
@@ -32,14 +41,5 @@ class Calculator {
 		this.operator = currentOperator;
 	}
 }
-
-const isOverMaxLength = (number) => String(number).length >= MAX_LENGTH;
-
-const operates = {
-	"+": (num1, num2) => num1 + num2,
-	"-": (num1, num2) => num1 - num2,
-	X: (num1, num2) => num1 * num2,
-	"/": (num1, num2) => Math.floor(num1 / num2),
-};
 
 export const calculator = new Calculator();

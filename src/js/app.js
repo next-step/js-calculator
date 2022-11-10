@@ -1,6 +1,12 @@
 import { $ } from "./utils.js";
 import { calculator } from "./calculator.js";
 
+const buttonTypeResultKeyMapper = {
+	digit: "current",
+	operation: "result",
+	modifier: "result",
+};
+
 class App {
 	total = $("#total");
 
@@ -12,26 +18,28 @@ class App {
 		const calculatorArea = $(".calculator");
 
 		calculatorArea.addEventListener("click", (e) => {
-			if (e.target.className === "digit") {
-				const digit = e.target.innerText;
-				calculator.setDigit(digit);
-				this.showNumber(calculator.current);
-				return;
-			}
+			const buttonText = e.target.innerText;
+			const currentButtonType = e.target.className;
 
-			if (e.target.className === "operation") {
-				const operator = e.target.innerText;
-				calculator.calculate(operator);
-				this.showNumber(calculator.result);
+			if (currentButtonType === "digit") this.handleClickDigit(buttonText);
+			if (currentButtonType === "operation")
+				this.handleClickOperator(buttonText);
+			if (currentButtonType === "modifier") this.handleClickAC();
 
-				return;
-			}
-
-			if (e.target.className === "modifier") {
-				calculator.allClear();
-				this.showNumber(calculator.result);
-			}
+			this.showNumber(calculator[buttonTypeResultKeyMapper[currentButtonType]]);
 		});
+	}
+
+	handleClickDigit(digit) {
+		calculator.setDigit(digit);
+	}
+
+	handleClickOperator(operator) {
+		calculator.calculate(operator);
+	}
+
+	handleClickAC() {
+		calculator.allClear();
 	}
 
 	showNumber(number) {
