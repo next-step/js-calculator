@@ -37,12 +37,23 @@ function handleClickBtn(event) {
   }
 
   function renderNumber(number) {
+    const checkFigures = lessThanFourFigures(number);
+    total.innerText = (checkFigures ? number : total.innerText);
     if (calculatingValue.operator) {
         calculatingValue.currentValue = total.innerText;
     } else {
         calculatingValue.previousValue = total.innerText;
     }
   }  
+
+  function lessThanFourFigures(number) {
+    if (number.length > 3) {
+        alert("숫자는 3자리까지 입력 가능합니다 👻")
+        return false
+    } else {
+        return true
+    }
+  }
 
   function reset() {
     calculatingValue = {};
