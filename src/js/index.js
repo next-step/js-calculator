@@ -90,4 +90,8 @@ function handleClickBtn(event) {
   }
 
   function setOperation(value) {
+    if (calculatingValue.previousValue && !calculatingValue.currentValue) {
+        total.innerText = 0
+        calculatingValue.operator = value;
+    } 
   }
