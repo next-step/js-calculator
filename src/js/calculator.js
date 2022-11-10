@@ -13,19 +13,19 @@ class Calculator {
 	};
 
 	add() {
-		this.result += Number(this.current);
+		this.result += this.current;
 	}
 
 	substract() {
-		this.result -= Number(this.current);
+		this.result -= this.current;
 	}
 
 	multiply() {
-		this.result *= Number(this.current);
+		this.result *= this.current;
 	}
 
 	divide() {
-		this.result = Math.floor(this.result / Number(this.current));
+		this.result = Math.floor(this.result / this.current);
 	}
 
 	allClear() {
@@ -44,7 +44,7 @@ class Calculator {
 			this.calculate[this.operator]();
 			this.current = this.result;
 		} else {
-			this.result = Number(this.current);
+			this.result = this.current;
 			this.current = 0;
 		}
 
