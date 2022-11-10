@@ -104,3 +104,4 @@ dist
 .tern-port
 
 cypress/videos
+cypress/screenshots
