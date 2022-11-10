@@ -26,6 +26,7 @@ function handleClickBtn(event) {
     }
   
     if (value === "=") {
+      return complete();
     }
   
     return setOperation(value);
@@ -58,6 +59,34 @@ function handleClickBtn(event) {
   function reset() {
     calculatingValue = {};
     total.innerText = 0;
+  }
+
+  function complete() {
+    const calculated = calculate();
+    total.innerText = calculated;
+  }
+
+  function calculate() {
+    const a = Number(calculatingValue.previousValue)
+    const b = Number(calculatingValue.currentValue)
+    switch (calculatingValue.operator) {
+        case "/": {
+            return (a / b);
+            break;
+        }
+        case "X": {
+            return (a * b);
+            break;
+        }
+        case "-": {
+            return (a - b);
+            break;
+        }
+        case "+": {
+            return (a + b);
+            break;
+        }
+    }
   }
 
   function setOperation(value) {
