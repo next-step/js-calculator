@@ -1,16 +1,18 @@
 import contains from "../utils/contains.js";
 import operators from "../constants/operators.js";
 
+const MAX_NUMBER_OF_DIGITS = 3;
+
 class Digit {
   setEvent({ index, totalValue, setTotalValue }) {
     const $digit = contains(".digit", index)[0];
 
     function isOverThreeConsecutive() {
       const sliced = totalValue
-        .slice(totalValue.length - 3, totalValue.length)
+        .slice(totalValue.length - MAX_NUMBER_OF_DIGITS, totalValue.length)
         .split("");
       if (
-        sliced.length < 3 ||
+        sliced.length < MAX_NUMBER_OF_DIGITS ||
         !!sliced.find((text) => operators.indexOf(text) !== -1)
       ) {
         return false;
