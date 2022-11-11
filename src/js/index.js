@@ -21,17 +21,19 @@ export default class App {
    return;
   }
   const targetText = target.textContent;
-  if (classList.contains(select.DIGIT)) {
-   this.number.setNumber(targetText);
-   this.dom.print(this.number.getNumber());
+  if (classList.contains(select.OPERATION)) {
+   //
    return;
   }
 
-  if (classList.contains(select.OPERATION)) {
-   //
-   console.log(targetText);
-   return;
+  if (classList.contains(select.DIGIT)) {
+   this.number.setNumber(targetText);
   }
+
+  if (classList.contains(select.MODIFIER)) {
+   this.number.reset();
+  }
+  this.dom.print(this.number.getNumber());
  }
 }
 const $root = document.querySelector('.calculator');
