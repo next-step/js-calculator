@@ -26,14 +26,16 @@ export default class App {
   const targetText = target.textContent;
   if (classList.contains(select.OPERATION)) {
    const nextNum = this.number.getNumber();
-   if (targetText === '=' && this.operationFn) {
+
+   if (targetText === '=') {
+    if (!this.operationFn) return;
     const newNum = this.operationFn(nextNum);
-    console.log(newNum);
+
     this.number = new Digit(newNum.toString());
     this.dom.print(newNum);
+    this.operationFn = null;
     return;
    }
-
    this.operationFn = new Calculate(nextNum).getOperator(targetText);
 
    this.number.reset();

@@ -26,7 +26,7 @@ export default class Calculate {
     return this.minus();
    case '/':
     return this.divide();
-   case '*':
+   case 'X':
     return this.multiple();
   }
  }
