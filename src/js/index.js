@@ -6,6 +6,8 @@ import {
   addOperationClickEventListener,
 } from './eventListeners.js';
 
+import { isValidForDigits, isValidForZero } from './validators.js';
+
 const calculator = new Calculator();
 const total = document.getElementById('total');
 const operators = Object.keys(operations);
@@ -18,14 +20,22 @@ const handleResetClick = () => {
 const handleNumberClick = (e) => {
   const { innerText } = e.target;
 
-  if (!isValidForZero(innerText)) return;
-  if (!isValidForDigits()) {
+  if (
+    !isValidForZero({
+      inputText: innerText,
+      totalInnerText: total.innerText,
+      hasOperator: !!calculator.operator,
+    })
+  ) {
+    return;
+  }
+  if (!isValidForDigits({ savedOperator: calculator.operator, totalInnerText: total.innerText })) {
     alert('3자리까지만 입력이 가능합니다.');
     return;
   }
-
+  total.innerText = innerText;
   calculator.setInputs(innerText);
-  total.innerText += innerText;
+  total.innerText = calculator.inputs.join('');
 };
 
 const handleOperatorClick = (e) => {
@@ -53,33 +63,6 @@ const handleOperatorClick = (e) => {
   calculator.setOperator(innerText);
   calculator.setInputs(innerText);
   total.innerText += innerText;
-};
-
-const isValidForZero = (inputText) => {
-  const isZeroRemain = total.innerText.length === 1 && total.innerText === '0';
-  if (isZeroRemain && inputText === '0') {
-    return false;
-  }
-  if (isZeroRemain && inputText !== '0') {
-    total.innerText = inputText;
-    calculator.setInputs(total.innerText);
-    return false;
-  }
-  return true;
-};
-
-const isValidForDigits = () => {
-  const savedOperator = calculator.operator;
-  if (!savedOperator && total.innerText.length === 3) {
-    return false;
-  }
-  if (savedOperator) {
-    const indexOfOperator = total.innerText.indexOf(savedOperator);
-    if (total.innerText.slice(indexOfOperator + 1).length === 3) {
-      return false;
-    }
-  }
-  return true;
 };
 
 addNumberClickEventListener(handleNumberClick);
