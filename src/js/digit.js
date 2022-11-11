@@ -1,6 +1,7 @@
 export default class Digit {
  constructor(stringNumber = '') {
-  this.totalNumber = stringNumber || '';
+  const digitNumber = stringNumber.split('.');
+  this.totalNumber = digitNumber[0] || '';
  }
 
  setNumber(stringNumber) {

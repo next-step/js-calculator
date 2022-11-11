@@ -32,7 +32,7 @@ export default class App {
     const newNum = this.operationFn(nextNum);
 
     this.number = new Digit(newNum.toString());
-    this.dom.print(newNum);
+    this.dom.print(this.number.getNumber());
     this.operationFn = null;
     return;
    }
