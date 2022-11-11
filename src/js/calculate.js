@@ -1,15 +1,33 @@
 export default class Calculate {
- plus(num1, num2) {
-  return num1 + num2;
+ constructor(number) {
+  this.number = number;
+ }
+ plus() {
+  return (nextNumber) => this.number + nextNumber;
  }
 
- minus(num1, num2) {
-  return num1 - num2;
+ minus() {
+  return (nextNumber) => this.number - nextNumber;
  }
- multiple(num1, num2) {
-  return num1 * num2;
+
+ multiple() {
+  return (nextNumber) => this.number * nextNumber;
  }
- divide(num1, num2) {
-  return num1 / num2;
+
+ divide() {
+  return (nextNumber) => this.number / nextNumber;
+ }
+
+ getOperator(operation) {
+  switch (operation) {
+   case '+':
+    return this.plus();
+   case '-':
+    return this.minus();
+   case '/':
+    return this.divide();
+   case '*':
+    return this.multiple();
+  }
  }
 }
