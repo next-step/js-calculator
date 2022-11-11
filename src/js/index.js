@@ -16,7 +16,7 @@ const handleResetClick = () => {
 };
 
 const handleNumberClick = (e) => {
-  const { innerText } = e.currentTarget;
+  const { innerText } = e.target;
 
   if (!isValidForZero(innerText)) return;
   if (!isValidForDigits()) {
@@ -29,7 +29,7 @@ const handleNumberClick = (e) => {
 };
 
 const handleOperatorClick = (e) => {
-  const { innerText } = e.currentTarget;
+  const { innerText } = e.target;
   // 연산자 이미 존재하는지 확인
   if (calculator.operator && innerText !== '=') {
     alert('두 개의 숫자에 대해서만 연산이 가능합니다.');

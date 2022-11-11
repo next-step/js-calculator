@@ -1,11 +1,11 @@
 export const addNumberClickEventListener = (callback) => {
-  const digits = document.querySelectorAll('.digit');
-  digits.forEach((el) => el.addEventListener('click', callback));
+  const digitParent = document.querySelector('.digits');
+  digitParent.addEventListener('click', callback);
 };
 
 export const addOperationClickEventListener = (callback) => {
-  const operations = document.querySelectorAll('.operation');
-  operations.forEach((el) => el.addEventListener('click', callback));
+  const operationParent = document.querySelector('.operations');
+  operationParent.addEventListener('click', callback);
 };
 
 export const addACClickEventListener = (callback) => {
