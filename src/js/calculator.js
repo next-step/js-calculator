@@ -14,6 +14,11 @@ class Calculator {
     const num2 = this.inputs.slice(operatorIndex + 1).join('');
     const convertedNum1 = Number(num1);
     const convertedNum2 = Number(num2);
+    if (operator === '/' && num2 === '0') {
+      alert('0으로 나눌 수 없습니다!');
+      this.reset();
+      return;
+    }
     const result = operations[operator](convertedNum1, convertedNum2);
     this.result = result;
     this.inputs = [result];
