@@ -1,5 +1,5 @@
 import { getSelector } from './../utils';
-import { select } from './../constant';
+import { operator, select } from './../constant';
 import Digit from './digit';
 import Dom from './dom';
 import Calculate from './calculate';
@@ -15,6 +15,15 @@ export default class App {
   this.dom.setClickEvent(this.handelClick.bind(this));
  }
 
+ handleEq() {
+  if (!this.operationFn) return;
+  const newNum = this.operationFn(this.number.getNumber());
+
+  this.number = new Digit(newNum.toString());
+  this.dom.print(this.number.getNumber());
+  this.operationFn = null;
+ }
+
  handelClick(e) {
   if (!e.target) return;
   const target = e.target;
@@ -24,19 +33,15 @@ export default class App {
   }
 
   const targetText = target.textContent;
+
   if (classList.contains(select.OPERATION)) {
-   const nextNum = this.number.getNumber();
-
-   if (targetText === '=') {
-    if (!this.operationFn) return;
-    const newNum = this.operationFn(nextNum);
-
-    this.number = new Digit(newNum.toString());
-    this.dom.print(this.number.getNumber());
-    this.operationFn = null;
+   if (targetText === operator.EQ) {
+    this.handleEq();
     return;
    }
-   this.operationFn = new Calculate(nextNum).getOperator(targetText);
+   this.operationFn = new Calculate(this.number.getNumber()).getOperator(
+    targetText
+   );
 
    this.number.reset();
    return;
@@ -52,6 +57,6 @@ export default class App {
   this.dom.print(this.number.getNumber());
  }
 }
-const $root = document.querySelector('.calculator');
+const $root = document.querySelector(getSelector(select.CALCULATOR, 'class'));
 
 new App($root).init();
