@@ -83,4 +83,17 @@ describe('계산기 테스트', () => {
     handleClick.operator('+');
     assertTotalValue('3+');
   });
+
+  it('어떠한 숫자를 0으로 나누면 alert메세지를 띄우고 0으로 초기화 한다.', () => {
+    const alertStub = cy.stub();
+    cy.on('window:alert', alertStub);
+    handleClick.number('6');
+    handleClick.operator('/');
+    handleClick.number('0');
+    handleClick.operator('=').then(() => {
+      const actualMessage = alertStub.getCall(0).lastArg;
+      expect(actualMessage).to.equal('0으로 나눌 수 없습니다!');
+    });
+    assertTotalValue('0');
+  });
 });
