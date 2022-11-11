@@ -62,6 +62,8 @@ describe('2개의 숫자에 대해 덧셈이 가능하다', () => {
  });
 
  it('등호 연산버튼을 눌렀을 때 덧셈 계산 결과가 나와야한다.', () => {
+  cy.get('.operation').contains('+').click();
+  cy.get('.digit').contains('2').click();
   cy.get('.operation').contains('=').click();
   cy.get('#total').should('have.text', '80');
  });
