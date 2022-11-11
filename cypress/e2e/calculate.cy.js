@@ -42,7 +42,7 @@ describe('숫자를 입력하면 화면에 보인다.', () => {
  });
 });
 
-describe('2개의 숫자에 대해 덧셈이 가능하다', () => {
+describe('2개의 숫자에 대해 뺄셈이 가능하다', () => {
  beforeEach(() => {
   cy.visit('http://localhost:3000');
 
@@ -51,20 +51,62 @@ describe('2개의 숫자에 대해 덧셈이 가능하다', () => {
   cy.get('.digit').contains('8').click();
  });
 
- it('연산 버튼들이 존재한다.', () => {
-  cy.get('.operation').should('have.length', 5);
- });
-
- it('덧셈 연산 버튼을 누르고 숫자를 눌렀을 때는 새롭게 숫자를 입력한다.', () => {
-  cy.get('.operation').contains('+').click();
+ it('뺄셈 연산 버튼을 누르고 숫자를 눌렀을 때는 새롭게 숫자를 입력한다.', () => {
+  cy.get('.operation').contains('-').click();
   cy.get('.digit').contains('2').click();
   cy.get('#total').should('have.text', '2');
  });
 
- it('등호 연산버튼을 눌렀을 때 덧셈 계산 결과가 나와야한다.', () => {
-  cy.get('.operation').contains('+').click();
+ it('등호 연산버튼을 눌렀을 때 계산 결과가 나와야한다.', () => {
+  cy.get('.operation').contains('-').click();
   cy.get('.digit').contains('2').click();
   cy.get('.operation').contains('=').click();
-  cy.get('#total').should('have.text', '80');
+  cy.get('#total').should('have.text', '76');
+ });
+});
+
+describe('2개의 숫자에 대해 곱셈이 가능하다', () => {
+ beforeEach(() => {
+  cy.visit('http://localhost:3000');
+
+  cy.get('.digit').contains('7').click();
+
+  cy.get('.digit').contains('8').click();
+ });
+
+ it('곱셈 연산 버튼을 누르고 숫자를 눌렀을 때는 새롭게 숫자를 입력한다.', () => {
+  cy.get('.operation').contains('X').click();
+  cy.get('.digit').contains('2').click();
+  cy.get('#total').should('have.text', '2');
+ });
+
+ it('등호 연산버튼을 눌렀을 때 곱셈 계산 결과가 나와야한다.', () => {
+  cy.get('.operation').contains('X').click();
+  cy.get('.digit').contains('2').click();
+  cy.get('.operation').contains('=').click();
+  cy.get('#total').should('have.text', '156');
+ });
+});
+
+describe('2개의 숫자에 대해 나누셈이 가능하다', () => {
+ beforeEach(() => {
+  cy.visit('http://localhost:3000');
+
+  cy.get('.digit').contains('7').click();
+
+  cy.get('.digit').contains('8').click();
+ });
+
+ it('나누셈 연산 버튼을 누르고 숫자를 눌렀을 때는 새롭게 숫자를 입력한다.', () => {
+  cy.get('.operation').contains('/').click();
+  cy.get('.digit').contains('2').click();
+  cy.get('#total').should('have.text', '2');
+ });
+
+ it('등호 연산버튼을 눌렀을 때 계산 결과가 나와야한다.', () => {
+  cy.get('.operation').contains('/').click();
+  cy.get('.digit').contains('2').click();
+  cy.get('.operation').contains('=').click();
+  cy.get('#total').should('have.text', '39');
  });
 });
