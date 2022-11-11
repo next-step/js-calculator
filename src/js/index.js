@@ -19,7 +19,10 @@ const handleNumberClick = (e) => {
   const { innerText } = e.currentTarget;
 
   if (!isValidForZero(innerText)) return;
-  if (!isValidForDigits()) return;
+  if (!isValidForDigits()) {
+    alert('3자리까지만 입력이 가능합니다.');
+    return;
+  }
 
   calculator.setInputs(innerText);
   total.innerText += innerText;
@@ -69,17 +72,12 @@ const isValidForZero = (inputText) => {
 
 const isValidForDigits = () => {
   const savedOperator = calculator.operator;
-  // 3자리수 초과 불가 체크 (연산자 없는 경우)
   if (!savedOperator && total.innerText.length === 3) {
-    alert('3자리까지만 입력이 가능합니다.');
     return false;
   }
-  // 3자리수 초과 불가 체크 (연산자 있는 경우)
   if (savedOperator) {
-    // TODO: 추후 확장될 경우 리팩토링 필요
     const indexOfOperator = total.innerText.indexOf(savedOperator);
     if (total.innerText.slice(indexOfOperator + 1).length === 3) {
-      alert('3자리까지만 입력이 가능합니다.');
       return false;
     }
   }
