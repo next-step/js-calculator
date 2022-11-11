@@ -109,4 +109,11 @@ describe('2개의 숫자에 대해 나누셈이 가능하다', () => {
   cy.get('.operation').contains('=').click();
   cy.get('#total').should('have.text', '39');
  });
+
+ it('계산 결과를 표현할 때 소수점 이하는 버림한다.', () => {
+  cy.get('.operation').contains('/').click();
+  cy.get('.digit').contains('5').click();
+  cy.get('.operation').contains('=').click();
+  cy.get('#total').should('have.text', '15');
+ });
 });
