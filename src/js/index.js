@@ -24,7 +24,7 @@ const handleNumberClick = (e) => {
     !isValidForZero({
       inputText: innerText,
       totalInnerText: total.innerText,
-      hasOperator: !!calculator.operator,
+      operator: calculator.operator,
     })
   ) {
     return;
