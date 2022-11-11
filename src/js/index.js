@@ -10,12 +10,6 @@ const calculator = new Calculator();
 const total = document.getElementById('total');
 const operators = Object.keys(operations);
 
-window.addEventListener('load', () => {
-  addNumberClickEventListener(handleNumberClick);
-  addOperationClickEventListener(handleOperatorClick);
-  addACClickEventListener(handleResetClick);
-});
-
 const handleResetClick = () => {
   calculator.reset();
   total.innerText = '0';
@@ -91,3 +85,7 @@ const isValidForDigits = () => {
   }
   return true;
 };
+
+addNumberClickEventListener(handleNumberClick);
+addOperationClickEventListener(handleOperatorClick);
+addACClickEventListener(handleResetClick);
