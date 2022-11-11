@@ -57,11 +57,9 @@ const handleOperatorClick = (e) => {
 
 const isValidForZero = (inputText) => {
   const isZeroRemain = total.innerText.length === 1 && total.innerText === '0';
-  // 처음에 0이 들어오는지 확인
   if (isZeroRemain && inputText === '0') {
     return false;
   }
-  // 0이 아닌 경우 0을 없앰.
   if (isZeroRemain && inputText !== '0') {
     total.innerText = inputText;
     calculator.setInputs(total.innerText);
