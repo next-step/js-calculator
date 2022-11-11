@@ -6,43 +6,42 @@ import Operations from "./Operations.js";
 class Calculator {
   totalValue = "0";
 
-  constructor({ $root }) {
-    this.$root = $root;
-    this.getTotalValue = this.getTotalValue.bind(this);
+  constructor() {
     this.setTotalValue = this.setTotalValue.bind(this);
-    this.render();
-  }
 
-  getTotalValue() {
-    return this.totalValue;
+    this.Total = new Total();
+    this.Digits = new Digits();
+    this.Modifier = new Modifier();
+    this.Operations = new Operations();
   }
 
   setTotalValue(newTotalValue) {
     this.totalValue = newTotalValue;
     this.render();
+    this.setEvent();
+  }
+
+  setEvent() {
+    this.Modifier.setEvent({ setTotalValue: this.setTotalValue });
   }
 
   render() {
-    this.$root.innerHTML = `<div class="calculator"></div>`;
+    const $root = document.querySelector("#app");
+
+    $root.innerHTML = `<div class="calculator"></div>`;
 
     const $calculator = document.querySelector(".calculator");
 
-    new Total({
-      $calculator,
-      getTotalValue: this.getTotalValue,
-    });
-    new Digits({
-      $calculator,
-      getTotalValue: this.getTotalValue,
+    this.Total.render({ $parent: $calculator, totalValue: this.totalValue });
+    this.Digits.render({
+      $parent: $calculator,
+      totalValue: this.totalValue,
       setTotalValue: this.setTotalValue,
     });
-    new Modifier({
-      $calculator,
-      setTotalValue: this.setTotalValue,
-    });
-    new Operations({
-      $calculator,
-      getTotalValue: this.getTotalValue,
+    this.Modifier.render({ $parent: $calculator });
+    this.Operations.render({
+      $parent: $calculator,
+      totalValue: this.totalValue,
       setTotalValue: this.setTotalValue,
     });
   }

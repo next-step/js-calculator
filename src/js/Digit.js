@@ -2,18 +2,8 @@ import contains from "../utils/contains.js";
 import operators from "../constants/operators.js";
 
 class Digit {
-  constructor({ $digits, index, getTotalValue, setTotalValue }) {
-    this.$digits = $digits;
-    this.index = index;
-    this.getTotalValue = getTotalValue;
-    this.setTotalValue = setTotalValue;
-    this.render();
-    this.setEvent();
-  }
-
-  setEvent() {
-    const $digit = contains(".digit", this.index)[0];
-    const totalValue = this.getTotalValue();
+  setEvent({ index, totalValue, setTotalValue }) {
+    const $digit = contains(".digit", index)[0];
 
     function isOverThreeConsecutive() {
       const sliced = totalValue
@@ -31,19 +21,19 @@ class Digit {
 
     $digit.addEventListener("click", () => {
       if (totalValue === "0") {
-        this.setTotalValue(`${this.index}`);
+        setTotalValue(`${index}`);
       } else if (isOverThreeConsecutive()) {
         alert("숫자는 한번에 최대 3자리 수까지 입력 가능합니다.");
       } else {
-        this.setTotalValue(`${totalValue}${this.index}`);
+        setTotalValue(`${totalValue}${index}`);
       }
     });
   }
 
-  render() {
-    this.$digits.insertAdjacentHTML(
+  render({ $parent, index }) {
+    $parent.insertAdjacentHTML(
       "beforeend",
-      `<button class="digit">${this.index}</button>`
+      `<button class="digit">${index}</button>`
     );
   }
 }

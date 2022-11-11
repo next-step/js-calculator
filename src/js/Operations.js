@@ -2,15 +2,8 @@ import Operation from "./Operation.js";
 import operators from "../constants/operators.js";
 
 class Operations {
-  constructor({ $calculator, getTotalValue, setTotalValue }) {
-    this.$calculator = $calculator;
-    this.getTotalValue = getTotalValue;
-    this.setTotalValue = setTotalValue;
-    this.render();
-  }
-
-  render() {
-    this.$calculator.insertAdjacentHTML(
+  render({ $parent, totalValue, setTotalValue }) {
+    $parent.insertAdjacentHTML(
       "beforeend",
       `<div class="operations subgrid"></div>`
     );
@@ -18,12 +11,15 @@ class Operations {
     const $operations = document.querySelector(".operations");
 
     operators.forEach((operator) => {
-      new Operation({
-        $operations,
+      const OperationInstance = new Operation({
         operator,
-        getTotalValue: this.getTotalValue,
-        setTotalValue: this.setTotalValue,
+        totalValue,
+        setTotalValue,
       });
+
+      // 반복해서 인스턴스를 생성하는 경우에는 render와 setEvent를 어떻게 분리할 수 있을까
+      OperationInstance.render({ $parent: $operations, operator });
+      OperationInstance.setEvent({ operator, totalValue, setTotalValue });
     });
   }
 }

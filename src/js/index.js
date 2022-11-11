@@ -1,17 +1,6 @@
 import Calculator from "./Calculator.js";
 
-class App {
-  constructor() {
-    this.render();
-  }
+const CalculatorInstance = new Calculator();
 
-  render() {
-    const $root = document.querySelector("#app");
-
-    new Calculator({
-      $root,
-    });
-  }
-}
-
-new App();
+CalculatorInstance.render();
+CalculatorInstance.setEvent();

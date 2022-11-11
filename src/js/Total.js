@@ -1,14 +1,8 @@
 class Total {
-  constructor({ $calculator, getTotalValue }) {
-    this.$calculator = $calculator;
-    this.totalValue = getTotalValue();
-    this.render();
-  }
-
-  render() {
-    this.$calculator.insertAdjacentHTML(
+  render({ $parent, totalValue }) {
+    $parent.insertAdjacentHTML(
       "beforeend",
-      `<h1 id="total">${this.totalValue}</h1>`
+      `<h1 id="total">${totalValue}</h1>`
     );
   }
 }

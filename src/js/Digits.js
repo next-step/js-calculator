@@ -1,28 +1,17 @@
 import Digit from "./Digit.js";
 
 class Digits {
-  constructor({ $calculator, getTotalValue, setTotalValue }) {
-    this.$calculator = $calculator;
-    this.getTotalValue = getTotalValue;
-    this.setTotalValue = setTotalValue;
-    this.render();
-  }
-
-  render() {
-    this.$calculator.insertAdjacentHTML(
-      "beforeend",
-      `<div class="digits flex"></div>`
-    );
+  render({ $parent, totalValue, setTotalValue }) {
+    $parent.insertAdjacentHTML("beforeend", `<div class="digits flex"></div>`);
 
     const $digits = document.querySelector(".digits");
 
     for (let index = 9; index >= 0; index--) {
-      new Digit({
-        $digits,
-        index,
-        getTotalValue: this.getTotalValue,
-        setTotalValue: this.setTotalValue,
-      });
+      const DigitInstance = new Digit();
+
+      // 반복해서 인스턴스를 생성하는 경우에는 render와 setEvent를 어떻게 분리할 수 있을까
+      DigitInstance.render({ $parent: $digits, index });
+      DigitInstance.setEvent({ index, totalValue, setTotalValue });
     }
   }
 }
