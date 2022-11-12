@@ -3,7 +3,7 @@ import { operator, select } from './../constant';
 import Digit from './digit';
 import Dom from './dom';
 import Calculate from './calculate';
-
+import './../css/index.css';
 export default class App {
  constructor($root) {
   this.dom = new Dom($root, getSelector(select.TOTAL, 'id'));
