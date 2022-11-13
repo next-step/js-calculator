@@ -1,4 +1,17 @@
 {
+  "name": "caculator",
+  "version": "1.0.0",
+  "keywords": [],
+  "description": "TDD, 클린 코드 with JavaScript 4기 - 계산기 미션",
+  "main": "index.html",
+  "scripts": {
+    "test": "cypress open"
+  },
+  "author": {
+    "name": "Jo Semin",
+    "email": "awesummer.1021@gmail.com"
+  },
+  "private": true,
   "type": "module",
   "devDependencies": {
     "cypress": "^10.11.0",

@@ -45,11 +45,19 @@
                 "onlyEquality": true
             }
         ],
+        "import/prefer-default-export": "off",
         "import/extensions": "off",
         "class-methods-use-this": "off",
         "import/no-extraneous-dependencies": ["error",
             {
                 "devDependencies": true
+            }
+        ],
+        "lines-between-class-members": [
+            "error",
+            "always",
+            {
+                "exceptAfterSingleLine": true
             }
         ]
     }
