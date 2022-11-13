@@ -1,5 +1,3 @@
-import Calculator from '../../src/js/calculator.js';
-
 describe('계산기 기본 기능', () => {
   beforeEach(() => {
     cy.visit('/');

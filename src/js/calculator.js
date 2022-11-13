@@ -19,9 +19,9 @@ export default class Calculator {
     const modifiers = document.querySelector('.modifiers');
     const operations = document.querySelector('.operations');
 
-    digits?.addEventListener('click', this.clickDigit);
-    modifiers?.addEventListener('click', () => this.reset());
-    operations?.addEventListener('click', this.clickOperator);
+    digits.addEventListener('click', this.clickDigit);
+    modifiers.addEventListener('click', () => this.reset());
+    operations.addEventListener('click', this.clickOperator);
   }
 
   clickDigit = (e) => {
