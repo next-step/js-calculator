@@ -1,29 +1,17 @@
+import Operate from './operate.js';
+import { Operation } from '../common/enum.js';
+
 export default class Calculator {
+  prev = '';
+  current = '';
+  operation = null;
+  isOperating = false;
+
   constructor() {
-    this.prev = '';
-    this.current = '';
-    this.operation = null;
-    this.isOperating = false;
+    this.operate = new Operate();
     this.total = document.getElementById('total');
 
     this.setEventHandler();
-  }
-
-  sum(num1, num2) {
-    return +num1 + +num2;
-  }
-
-  subtract(num1, num2) {
-    return +num1 - +num2;
-  }
-
-  multiple(num1, num2) {
-    return +num1 * +num2;
-  }
-
-  divide(num1, num2) {
-    const res = +num1 / +num2;
-    return Math.floor(res);
   }
 
   setEventHandler() {
@@ -31,15 +19,15 @@ export default class Calculator {
     const modifiers = document.querySelector('.modifiers');
     const operations = document.querySelector('.operations');
 
-    digits?.addEventListener('click', (e) => this.setDigit(e));
+    digits?.addEventListener('click', this.clickDigit);
     modifiers?.addEventListener('click', () => this.reset());
-    operations?.addEventListener('click', (e) => this.setOperator(e));
+    operations?.addEventListener('click', this.clickOperator);
   }
 
-  setDigit(e) {
+  clickDigit = (e) => {
     const value = e.target.innerHTML;
 
-    if ('0' === value && !this.prev) {
+    if ('0' === value && (!this.prev || '0' === this.current)) {
       return;
     }
 
@@ -50,17 +38,13 @@ export default class Calculator {
       return;
     }
 
-    if ('0' === value && '0' === this.current) {
-      return;
-    }
-
     if (this.isOperating && this.current?.length < 3) {
       this.current += value;
       this.total.innerHTML = this.current;
     }
-  }
+  };
 
-  setOperator(e) {
+  clickOperator = (e) => {
     const value = e.target.innerHTML;
     let result;
 
@@ -72,38 +56,34 @@ export default class Calculator {
     }
 
     switch (this.operation) {
-    case '+':
-      result = this.sum(this.prev, this.current);
+    case Operation.PLUS:
+      result = this.operate.sum(this.prev, this.current);
       break;
 
-    case '-':
-      result = this.subtract(this.prev, this.current);
+    case Operation.MINUS:
+      result = this.operate.subtract(this.prev, this.current);
       break;
 
-    case 'X':
-      result = this.multiple(this.prev, this.current);
+    case Operation.MULTIPLICATION:
+      result = this.operate.multiple(this.prev, this.current);
       break;
 
-    case '/':
-      result = this.divide(this.prev, this.current);
+    case Operation.DIVISION:
+      result = this.operate.divide(this.prev, this.current);
       break;
 
     default:
       return;
     }
 
-    this.prev = '';
-    this.current = '';
-    this.operation = null;
-    this.isOperating = false;
-    this.total.innerHTML = String(result);
-  }
+    this.reset(String(result));
+  };
 
-  reset() {
+  reset(total = '0') {
     this.prev = '';
     this.current = '';
     this.operation = null;
     this.isOperating = false;
-    this.total.innerHTML = '0';
+    this.total.innerHTML = total;
   }
 }
