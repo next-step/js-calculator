@@ -1,4 +1,4 @@
-const selector = {
+const SELECT_CONST = {
  TOTAL: 'total',
  DIGIT: 'digit',
  OPERATION: 'operation',
@@ -6,4 +6,4 @@ const selector = {
  CALCULATOR: 'calculator',
 };
 
-export default selector;
+export default SELECT_CONST;

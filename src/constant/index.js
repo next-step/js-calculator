@@ -1,2 +1,2 @@
-export { default as select } from './selector.js';
-export { default as operation } from './operation.js';
+export { default as SELECT_CONST } from './selector.js';
+export { default as OPERATION_CONST } from './operation.js';

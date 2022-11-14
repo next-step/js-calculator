@@ -1,12 +1,13 @@
 import { getSelector } from './../utils';
-import { operation, select } from './../constant';
+import { OPERATION_CONST, SELECT_CONST } from './../constant';
 import Digit from './digit';
 import Dom from './dom';
-import Calculate from './calculate';
 import './../css/index.css';
+import operators from './operators';
+
 export default class App {
  constructor($root) {
-  this.dom = new Dom($root, getSelector(select.TOTAL, 'id'));
+  this.dom = new Dom($root, getSelector(SELECT_CONST.TOTAL, 'id'));
   this.digit = new Digit();
   this.operationFn = null;
  }
@@ -31,27 +32,31 @@ export default class App {
 
   const operator = target.textContent;
 
-  if (buttonType === select.OPERATION) {
-   if (operator === operation.EQ) {
+  if (buttonType === SELECT_CONST.OPERATION) {
+   if (operator === OPERATION_CONST.EQ) {
     this.handleEq();
     return;
    }
-   this.operationFn = new Calculate(this.digit.getNumber).getOperator(operator);
+   const operation = operators[operator];
+   const prevNumber = this.digit.getNumber;
+   this.operationFn = operation(prevNumber);
 
    this.digit.reset();
    return;
   }
 
-  if (buttonType === select.DIGIT) {
+  if (buttonType === SELECT_CONST.DIGIT) {
    this.digit.appendNumber = operator;
   }
 
-  if (buttonType === select.RESET) {
+  if (buttonType === SELECT_CONST.RESET) {
    this.digit.reset();
   }
   this.dom.print(this.digit.getNumber);
  }
 }
-const $root = document.querySelector(getSelector(select.CALCULATOR, 'class'));
+const $root = document.querySelector(
+ getSelector(SELECT_CONST.CALCULATOR, 'class')
+);
 
 new App($root).init();

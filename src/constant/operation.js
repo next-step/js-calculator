@@ -1,4 +1,4 @@
-const operation = {
+const OPERATION_CONST = {
  PULS: '+',
  MINUS: '-',
  DIVIDE: '/',
@@ -6,4 +6,4 @@ const operation = {
  EQ: '=',
 };
 
-export default operation;
+export default OPERATION_CONST;
