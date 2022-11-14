@@ -8,5 +8,12 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "extends": ["airbnb", "plugin:prettier/recommended", "plugin:cypress/recommended"]
+  "extends": ["airbnb", "plugin:prettier/recommended", "plugin:cypress/recommended"],
+  "rules": {
+    "import/extensions": [
+      "off"
+    ],
+    "max-depth": ["error", 2],
+    "lines-between-class-members": "off"
+  }
 }
