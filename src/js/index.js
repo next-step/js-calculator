@@ -7,7 +7,7 @@ import './../css/index.css';
 export default class App {
  constructor($root) {
   this.dom = new Dom($root, getSelector(select.TOTAL, 'id'));
-  this.number = new Digit();
+  this.digit = new Digit();
   this.operationFn = null;
  }
 
@@ -17,10 +17,10 @@ export default class App {
 
  handleEq() {
   if (!this.operationFn) return;
-  const newNum = this.operationFn(this.number.getNumber());
+  const newNum = this.operationFn(this.digit.getNumber);
 
-  this.number = new Digit(newNum.toString());
-  this.dom.print(this.number.getNumber());
+  this.digit = new Digit(newNum.toString());
+  this.dom.print(this.digit.getNumber);
   this.operationFn = null;
  }
 
@@ -39,22 +39,22 @@ export default class App {
     this.handleEq();
     return;
    }
-   this.operationFn = new Calculate(this.number.getNumber()).getOperator(
+   this.operationFn = new Calculate(this.digit.getNumber).getOperator(
     targetText
    );
 
-   this.number.reset();
+   this.digit.reset();
    return;
   }
 
   if (classList.contains(select.DIGIT)) {
-   this.number.setNumber(targetText);
+   this.digit.appendNumber = targetText;
   }
 
   if (classList.contains(select.MODIFIER)) {
-   this.number.reset();
+   this.digit.reset();
   }
-  this.dom.print(this.number.getNumber());
+  this.dom.print(this.digit.getNumber);
  }
 }
 const $root = document.querySelector(getSelector(select.CALCULATOR, 'class'));
