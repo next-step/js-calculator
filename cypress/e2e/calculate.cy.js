@@ -34,8 +34,8 @@ describe('숫자를 입력하면 화면에 보인다.', () => {
  });
 
  it('AC(All Clear)버튼을 누르면 0으로 초기화 한다.', () => {
+  cy.get('#total').should('not.have.text', '0');
   cy.get('.modifier').click();
-
   cy.get('#total').should('have.text', '0');
  });
 });
