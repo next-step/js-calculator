@@ -5,7 +5,8 @@ export default class Digit {
   this.#totalNumber = digitNumber[0] || '';
  }
  set appendNumber(stringNumber) {
-  if (this.#totalNumber.length >= 3) return;
+  const numberUnitLimit = 3;
+  if (this.#totalNumber.length >= numberUnitLimit) return;
   this.#totalNumber += stringNumber;
  }
 
