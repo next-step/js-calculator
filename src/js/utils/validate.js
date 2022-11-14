@@ -1,17 +1,24 @@
 import { MAX_DIGITS } from './constant.js';
+import { ERROR_MESSAGES } from '../utils/constant.js';
 
 export const checkExceedDigit = (digitCount) => {
   if (digitCount >= MAX_DIGITS) {
-    alert('숫자는 세 자리까지만 입력 가능합니다!');
-    return false;
+    throw Error(ERROR_MESSAGES.EXCEED_DIGITS);
   }
   return true;
 };
 
 export const checkCorrectOrder = (total) => {
   if (total === '') {
-    alert('숫자를 먼저 입력한 후 연산자를 입력해주세요!');
-    return false;
+    throw Error(ERROR_MESSAGES.INCORRECT_INPUT_ORDER);
   }
   return true;
+};
+
+export const checkInitialState = ({ total, digitCount, operation }) => {
+  return {
+    total: total || '',
+    digitCount: digitCount || 0,
+    operation: operation || '',
+  };
 };

@@ -1,35 +1,45 @@
 import CalculateTotal from './Components/CalculateTotal.js';
-import { addOperation } from './utils/calculate.js';
-import { checkExceedDigit } from './utils/validate.js';
+import { calculateOperation } from './utils/calculate.js';
+import { checkExceedDigit, checkInitialState } from './utils/validate.js';
 
-export default function App({ $app, initialState }) {
-  this.state = initialState;
-  this.calculateTotal = new CalculateTotal({ $app, state: this.state.total });
+export default function App({
+  $app,
+  initialState = { total: '', digitCount: 0, operation: '' },
+}) {
+  this.state = checkInitialState(initialState);
+  this.calculateTotal = new CalculateTotal({
+    $total: $app.querySelector('#total'),
+    state: this.state.total,
+  });
 
-  this.onClick = (newValue, type) => {
+  this.calculate = (newValue, newType) => {
     let newState = {};
 
-    switch (type) {
-      case 'digit':
-        if (checkExceedDigit(this.state.digitCount)) {
+    try {
+      switch (newType) {
+        case 'digit':
+          if (checkExceedDigit(this.state.digitCount)) {
+            newState = {
+              total: `${this.state.total}${newValue}`,
+              digitCount: this.state.digitCount + 1,
+            };
+          }
+          break;
+
+        case 'operation':
+          newState = calculateOperation({ state: this.state, newValue });
+          break;
+
+        case 'modifier':
           newState = {
-            total: `${this.state.total}${newValue}`,
-            digitCount: this.state.digitCount + 1,
+            total: '',
+            digitCount: 0,
+            operation: '',
           };
-        }
-        break;
-
-      case 'operation':
-        newState = addOperation({ state: this.state, newValue });
-        break;
-
-      case 'modifier':
-        newState = {
-          total: '',
-          digitCount: 0,
-          operation: '',
-        };
-        break;
+          break;
+      }
+    } catch (e) {
+      alert(e.message);
     }
 
     this.state = { ...this.state, ...newState };
@@ -39,14 +49,17 @@ export default function App({ $app, initialState }) {
   this.setState = (nextState) => {
     this.state = nextState;
     this.calculateTotal.setState(this.state);
+    console.log(this.state);
   };
 
-  $app.addEventListener('click', (e) => {
+  const handleButtOnClick = (e) => {
     const buttonType = e.target.className;
     const buttonValue = e.target.innerHTML;
 
-    if (buttonType) {
-      this.onClick(buttonValue, buttonType);
+    if (buttonType.length > 0) {
+      this.calculate(buttonValue, buttonType);
     }
-  });
+  };
+
+  $app.addEventListener('click', handleButtOnClick);
 }
