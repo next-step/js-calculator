@@ -1,5 +1,5 @@
 import { getSelector } from './../utils';
-import { operator, select } from './../constant';
+import { operation, select } from './../constant';
 import Digit from './digit';
 import Dom from './dom';
 import Calculate from './calculate';
@@ -32,23 +32,21 @@ export default class App {
    return;
   }
 
-  const targetText = target.textContent;
+  const operator = target.textContent;
 
   if (classList.contains(select.OPERATION)) {
-   if (targetText === operator.EQ) {
+   if (operator === operation.EQ) {
     this.handleEq();
     return;
    }
-   this.operationFn = new Calculate(this.digit.getNumber).getOperator(
-    targetText
-   );
+   this.operationFn = new Calculate(this.digit.getNumber).getOperator(operator);
 
    this.digit.reset();
    return;
   }
 
   if (classList.contains(select.DIGIT)) {
-   this.digit.appendNumber = targetText;
+   this.digit.appendNumber = operator;
   }
 
   if (classList.contains(select.MODIFIER)) {

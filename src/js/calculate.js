@@ -1,4 +1,4 @@
-import { operator } from '../constant';
+import { operation } from '../constant';
 
 export default class Calculate {
  constructor(number) {
@@ -20,15 +20,15 @@ export default class Calculate {
   return (nextNumber) => this.number / nextNumber;
  }
 
- getOperator(operation) {
-  switch (operation) {
-   case operator.PULS:
+ getOperator(operator) {
+  switch (operator) {
+   case operation.PULS:
     return this.plus();
-   case operator.MINUS:
+   case operation.MINUS:
     return this.minus();
-   case operator.DIVIDE:
+   case operation.DIVIDE:
     return this.divide();
-   case operator.MULTIPLE:
+   case operation.MULTIPLE:
     return this.multiple();
   }
  }
