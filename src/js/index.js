@@ -27,14 +27,11 @@ export default class App {
  handelClick(e) {
   if (!e.target) return;
   const target = e.target;
-  const classList = target.classList;
-  if (classList.length !== 1) {
-   return;
-  }
+  const buttonType = target.dataset.button;
 
   const operator = target.textContent;
 
-  if (classList.contains(select.OPERATION)) {
+  if (buttonType === select.OPERATION) {
    if (operator === operation.EQ) {
     this.handleEq();
     return;
@@ -45,11 +42,11 @@ export default class App {
    return;
   }
 
-  if (classList.contains(select.DIGIT)) {
+  if (buttonType === select.DIGIT) {
    this.digit.appendNumber = operator;
   }
 
-  if (classList.contains(select.MODIFIER)) {
+  if (buttonType === select.RESET) {
    this.digit.reset();
   }
   this.dom.print(this.digit.getNumber);
