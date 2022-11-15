@@ -15,7 +15,7 @@ describe("calculator", () => {
     getDigit("2").click();
     getOperation("=").click();
     getTotal().then(($total) => {
-      assert.equal(Number($total.text()), 3);
+      assert.equal($total.text(), "3");
     });
   });
 
@@ -25,7 +25,7 @@ describe("calculator", () => {
     getDigit("1").click();
     getOperation("=").click();
     getTotal().then(($total) => {
-      assert.equal(Number($total.text()), 1);
+      assert.equal($total.text(), "1");
     });
   });
 
@@ -35,7 +35,7 @@ describe("calculator", () => {
     getDigit("3").click();
     getOperation("=").click();
     getTotal().then(($total) => {
-      assert.equal(Number($total.text()), 6);
+      assert.equal($total.text(), "6");
     });
   });
 
@@ -45,7 +45,7 @@ describe("calculator", () => {
     getDigit("2").click();
     getOperation("=").click();
     getTotal().then(($total) => {
-      assert.equal(Number($total.text()), 2);
+      assert.equal($total.text(), "2");
     });
   });
 
@@ -53,7 +53,7 @@ describe("calculator", () => {
     getDigit("1").click();
     getAC().click();
     getTotal().then(($total) => {
-      assert.equal(Number($total.text()), 0);
+      assert.equal($total.text(), "0");
     });
   });
 
@@ -63,7 +63,7 @@ describe("calculator", () => {
     getDigit("3").click();
     getDigit("4").click();
     getTotal().then(($total) => {
-      assert.equal(Number($total.text()), 123);
+      assert.equal($total.text(), "123");
     });
   });
 
@@ -73,7 +73,17 @@ describe("calculator", () => {
     getDigit("2").click();
     getOperation("=").click();
     getTotal().then(($total) => {
-      assert.equal(Number($total.text()), 1);
+      assert.equal($total.text(), "1");
+    });
+  });
+
+  it("0으로 나누면 Infinity를 표시해준다.", () => {
+    getDigit("2").click();
+    getOperation("/").click();
+    getDigit("0").click();
+    getOperation("=").click();
+    getTotal().then(($total) => {
+      assert.equal($total.text(), "Infinity");
     });
   });
 });
