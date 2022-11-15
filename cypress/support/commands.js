@@ -24,10 +24,10 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-Cypress.Commands.add("clickDigit", (number) => {
-  const numbers = number.split("");
-  numbers.forEach((num) => {
-    cy.get(`[data-cy="digit-${num}"]`).click();
+Cypress.Commands.add("clickDigit", (input) => {
+  const digits = input.split("");
+  digits.forEach((digit) => {
+    cy.get(`[data-cy="digit-${digit}"]`).click();
   });
 });
 
