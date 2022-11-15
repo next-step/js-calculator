@@ -1,5 +1,4 @@
 import Ui from "./ui.js";
-import { OPERATION } from "./constants.js";
 
 window.onload = () => {
   const digits = document.querySelectorAll(".digit");
@@ -17,10 +16,7 @@ window.onload = () => {
 
   operators.forEach((operator) => {
     operator.addEventListener("click", () => {
-      const operation = operator
-        .getAttribute("data-cy")
-        .replace("operator-", "");
-      ui.onClickOperator(OPERATION[operation]);
+      ui.onClickOperator(operator.innerText);
     });
   });
 
