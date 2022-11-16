@@ -12,7 +12,7 @@ class Calculator {
   }
 
   get value() {
-    return Math.floor(this.#value);
+    return Math.trunc(this.#value);
   }
 
   sum(left, right) {
