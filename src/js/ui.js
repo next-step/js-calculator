@@ -40,6 +40,11 @@ class Ui {
     this.#syncCalculator();
   }
 
+  onSaveEnteredValue({ cur, operator }) {
+    this.#numbers.push(Number(cur));
+    this.#operators.push(operator);
+  }
+
   onClickDigit(input) {
     if (this.#current + input > ALLOWED_MAX_NUMBER) {
       alert(ALERT_MESSAGE.EXCEEDED_ALLOW_NUMBER);
@@ -52,7 +57,8 @@ class Ui {
   }
 
   onClickOperator(input) {
-    if (this.#current === "") {
+    const cur = this.#current;
+    if (cur === "") {
       alert(ALERT_MESSAGE.HAVE_NO_CALCULATION_NUMBER);
       return;
     }
@@ -68,8 +74,7 @@ class Ui {
       return;
     }
 
-    this.#numbers = [...this.#numbers, Number(this.#current)];
-    this.#operators = [...this.#operators, input];
+    this.onSaveEnteredValue({ cur, operator: input });
     this.#current = "";
     this.#render(input);
   }
