@@ -47,7 +47,7 @@ class Ui {
     });
 
     this.cleanUp();
-    this.#syncCalculator();
+    this.#total.innerText = this.#calculator.value;
   }
 
   onSaveEnteredValue({ cur, operator }) {
@@ -87,10 +87,6 @@ class Ui {
     this.onSaveEnteredValue({ cur, operator });
     this.#current = "";
     this.#addToTotalText(operator);
-  }
-
-  #syncCalculator() {
-    this.#total.innerText = this.#calculator.value;
   }
 
   #addToTotalText(input) {
