@@ -45,25 +45,24 @@ class Ui {
     this.#operators.push(operator);
   }
 
-  onClickDigit(input) {
-    if (this.#current + input > ALLOWED_MAX_NUMBER) {
+  onClickDigit(digit) {
+    if (this.#current + digit > ALLOWED_MAX_NUMBER) {
       alert(ALERT_MESSAGE.EXCEEDED_ALLOW_NUMBER);
       return;
     }
 
-    this.#current += input;
-
-    this.#render(input);
+    this.#current += digit;
+    this.#addToTotalText(digit);
   }
 
-  onClickOperator(input) {
+  onClickOperator(operator) {
     const cur = this.#current;
     if (cur === "") {
       alert(ALERT_MESSAGE.HAVE_NO_CALCULATION_NUMBER);
       return;
     }
 
-    if (input === "=") {
+    if (operator === "=") {
       this.haveBeenGetResult = true;
       this.#calculate();
       return;
@@ -74,16 +73,16 @@ class Ui {
       return;
     }
 
-    this.onSaveEnteredValue({ cur, operator: input });
+    this.onSaveEnteredValue({ cur, operator });
     this.#current = "";
-    this.#render(input);
+    this.#addToTotalText(operator);
   }
 
   #syncCalculator() {
     this.#total.innerText = this.#calculator.value;
   }
 
-  #render(input) {
+  #addToTotalText(input) {
     const isNewNumber = this.haveBeenGetResult || this.#total.innerText === "0";
 
     this.#total.innerText = isNewNumber
