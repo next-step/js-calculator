@@ -4,93 +4,74 @@ import {
   ALLOWED_MAX_OPERATOR_COUNT,
 } from "./constants.js";
 import Calculator from "./calculator.js";
+import { isEmpty, isEqual, isGreaterThan, isSame } from "./utils.js";
 
 class Ui {
-  #numbers;
-  #operators;
   #current;
   #total;
   #calculator;
-  #haveBeenGetResult;
+  #numbers;
+  #operators;
 
   constructor($total) {
     this.#current = "";
+    this.#total = $total;
+    this.#calculator = new Calculator();
+
     this.#numbers = [];
     this.#operators = [];
-    this.#total = $total;
-    this.#haveBeenGetResult = false;
-    this.#calculator = new Calculator();
+    this.haveBeenGetResult = false;
   }
 
-  set haveBeenGetResult(state) {
-    this.#haveBeenGetResult = state;
+  onSaveEnteredValue({ current, operator }) {
+    this.#numbers.push(Number(current));
+    this.#operators.push(operator);
   }
 
-  #calculate() {
-    if (this.#numbers.length < 1 || this.#operators.length === 0) {
-      alert(ALERT_MESSAGE.CANT_NOT_CALCULATION);
-      this.initialize();
-      return;
-    }
-
-    this.#operators.forEach((operator, idx) => {
-      const totalNumbers = [...this.#numbers, Number(this.#current)];
-      const prev = idx === 0 ? totalNumbers[idx] : this.#calculator.value;
-
-      if (operator === "+") this.#calculator.sum(prev, totalNumbers[idx + 1]);
-      if (operator === "-")
-        this.#calculator.subtract(prev, totalNumbers[idx + 1]);
-      if (operator === "X")
-        this.#calculator.multiple(prev, totalNumbers[idx + 1]);
-      if (operator === "/")
-        this.#calculator.divide(prev, totalNumbers[idx + 1]);
-    });
-
-    this.cleanUp();
-    this.#syncCalculator();
-  }
-
-  onClickDigit(input) {
-    if (this.#current + input > ALLOWED_MAX_NUMBER) {
+  onClickDigit(digit) {
+    if (isGreaterThan(Number(this.#current + digit), ALLOWED_MAX_NUMBER)) {
       alert(ALERT_MESSAGE.EXCEEDED_ALLOW_NUMBER);
       return;
     }
 
-    this.#current += input;
-
-    this.#render(input);
+    this.#current += digit;
+    this.#addToTotalText(digit);
   }
 
-  onClickOperator(input) {
-    if (this.#current === "") {
+  onClickOperator(operator) {
+    const current = this.#current;
+
+    if (isEmpty(current)) {
       alert(ALERT_MESSAGE.HAVE_NO_CALCULATION_NUMBER);
       return;
     }
 
-    if (input === "=") {
+    if (isEqual(operator, "=")) {
+      const result = this.#calculator.calculate({
+        current: this.#current,
+        numbers: this.#numbers,
+        operators: this.#operators,
+        initialize: () => this.initialize(),
+      });
+
+      this.#total.innerText = result;
       this.haveBeenGetResult = true;
-      this.#calculate();
+
       return;
     }
 
-    if (this.#operators.length + 1 === ALLOWED_MAX_OPERATOR_COUNT) {
+    if (isSame(this.#operators.length + 1, ALLOWED_MAX_OPERATOR_COUNT)) {
       alert(ALERT_MESSAGE.EXCEEDED_NUMBER_OF_ALLOWED_OPERATOR);
       return;
     }
 
-    this.#numbers = [...this.#numbers, Number(this.#current)];
-    this.#operators = [...this.#operators, input];
+    this.onSaveEnteredValue({ current, operator });
     this.#current = "";
-    this.#render(input);
+    this.#addToTotalText(operator);
   }
 
-  #syncCalculator() {
-    this.#total.innerText = this.#calculator.value;
-  }
-
-  #render(input) {
-    const isNewNumber =
-      this.#haveBeenGetResult || this.#total.innerText === "0";
+  #addToTotalText(input) {
+    const isNewNumber = this.haveBeenGetResult || this.#total.innerText === "0";
 
     this.#total.innerText = isNewNumber
       ? input
@@ -99,16 +80,12 @@ class Ui {
     this.haveBeenGetResult = false;
   }
 
-  cleanUp() {
+  initialize() {
     this.#numbers = [];
     this.#operators = [];
     this.#current = "";
-  }
-
-  initialize() {
-    this.cleanUp();
     this.#calculator.clear();
-    this.#total.innerText = 0;
+    this.#total.innerText = this.#calculator.value;
   }
 }
 

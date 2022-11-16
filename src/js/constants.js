@@ -1,11 +1,3 @@
-export const OPERATION = {
-  sum: "+",
-  subtract: "-",
-  multiple: "X",
-  divide: "/",
-  result: "=",
-};
-
 export const ALERT_MESSAGE = {
   EXCEEDED_ALLOW_NUMBER: "최대 999까지 입력이 가능합니다.",
   EXCEEDED_NUMBER_OF_ALLOWED_OPERATOR: "최대 1번의 연산만 가능합니다.",
