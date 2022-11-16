@@ -4,6 +4,13 @@ import {
   ALLOWED_MAX_OPERATOR_COUNT,
 } from "./constants.js";
 import Calculator from "./calculator.js";
+import {
+  isEmpty,
+  isEqual,
+  isGreaterThan,
+  isSame,
+  isSmallerThan,
+} from "./utils.js";
 
 class Ui {
   #numbers;
@@ -22,7 +29,10 @@ class Ui {
   }
 
   #calculate() {
-    if (this.#numbers.length < 1 || this.#operators.length === 0) {
+    if (
+      isSmallerThan(this.#numbers.length, 1) ||
+      isSame(this.#operators.length, 0)
+    ) {
       alert(ALERT_MESSAGE.CANT_NOT_CALCULATION);
       this.initialize();
       return;
@@ -46,7 +56,7 @@ class Ui {
   }
 
   onClickDigit(digit) {
-    if (Number(this.#current + digit) > ALLOWED_MAX_NUMBER) {
+    if (isGreaterThan(Number(this.#current + digit), ALLOWED_MAX_NUMBER)) {
       alert(ALERT_MESSAGE.EXCEEDED_ALLOW_NUMBER);
       return;
     }
@@ -57,18 +67,19 @@ class Ui {
 
   onClickOperator(operator) {
     const cur = this.#current;
-    if (cur === "") {
+
+    if (isEmpty(cur)) {
       alert(ALERT_MESSAGE.HAVE_NO_CALCULATION_NUMBER);
       return;
     }
 
-    if (operator === "=") {
+    if (isEqual(operator, "=")) {
       this.haveBeenGetResult = true;
       this.#calculate();
       return;
     }
 
-    if (this.#operators.length + 1 === ALLOWED_MAX_OPERATOR_COUNT) {
+    if (isSame(this.#operators.length + 1, ALLOWED_MAX_OPERATOR_COUNT)) {
       alert(ALERT_MESSAGE.EXCEEDED_NUMBER_OF_ALLOWED_OPERATOR);
       return;
     }
