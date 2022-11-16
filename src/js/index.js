@@ -13,14 +13,19 @@ const onHandledClick = (type, value) => {
     modifier: () => ui.initialize(),
   };
 
-  HANDLER_BY_TYPE[type]();
+  return (
+    HANDLER_BY_TYPE[type] ||
+    (() => {
+      throw new Error("해당하는 타입에 대한 정의가 존재하지 않습니다.");
+    })
+  );
 };
 
 const handler = (e) => {
   e.stopPropagation();
   const { className: targetType, innerText: targetValue } = e.target;
 
-  onHandledClick(targetType, targetValue);
+  onHandledClick(targetType, targetValue)();
 };
 
 $calculator.addEventListener("click", handler);
