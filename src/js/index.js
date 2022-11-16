@@ -1,24 +1,26 @@
 import Ui from "./ui.js";
 
-const digits = document.querySelectorAll(".digit");
-const operators = document.querySelectorAll(".operation");
-const modifier = document.querySelector(".modifier");
 const total = document.querySelector("#total");
 
 const ui = new Ui(total);
 
-digits.forEach((digit) => {
-  digit.addEventListener("click", () => {
-    ui.onClickDigit(digit.innerText);
-  });
-});
+const $calculator = document.querySelector(".calculator");
 
-operators.forEach((operator) => {
-  operator.addEventListener("click", () => {
-    ui.onClickOperator(operator.innerText);
-  });
-});
+const onHandledClick = (type, value) => {
+  const HANDLER_BY_TYPE = {
+    digit: () => ui.onClickDigit(value),
+    operation: () => ui.onClickOperator(value),
+    modifier: () => ui.initialize(),
+  };
 
-modifier.addEventListener("click", () => {
-  ui.initialize();
-});
+  HANDLER_BY_TYPE[type]();
+};
+
+const handler = (e) => {
+  e.stopPropagation();
+  const { className: targetType, innerText: targetValue } = e.target;
+
+  onHandledClick(targetType, targetValue);
+};
+
+$calculator.addEventListener("click", handler);
