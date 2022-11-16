@@ -46,7 +46,7 @@ class Ui {
   }
 
   onClickDigit(digit) {
-    if (this.#current + digit > ALLOWED_MAX_NUMBER) {
+    if (Number(this.#current + digit) > ALLOWED_MAX_NUMBER) {
       alert(ALERT_MESSAGE.EXCEEDED_ALLOW_NUMBER);
       return;
     }
