@@ -4,54 +4,27 @@ import {
   ALLOWED_MAX_OPERATOR_COUNT,
 } from "./constants.js";
 import Calculator from "./calculator.js";
-import {
-  isEmpty,
-  isEqual,
-  isGreaterThan,
-  isSame,
-  isSmallerThan,
-} from "./utils.js";
+import { isEmpty, isEqual, isGreaterThan, isSame } from "./utils.js";
 
 class Ui {
-  #numbers;
-  #operators;
   #current;
   #total;
   #calculator;
+  #numbers;
+  #operators;
 
   constructor($total) {
     this.#current = "";
-    this.#numbers = [];
-    this.#operators = [];
     this.#total = $total;
     this.#calculator = new Calculator();
+
+    this.#numbers = [];
+    this.#operators = [];
     this.haveBeenGetResult = false;
   }
 
-  #calculate() {
-    if (
-      isSmallerThan(this.#numbers.length, 1) ||
-      isSame(this.#operators.length, 0)
-    ) {
-      alert(ALERT_MESSAGE.CANT_NOT_CALCULATION);
-      this.initialize();
-      return;
-    }
-
-    this.#operators.forEach((operator, idx) => {
-      const totalNumbers = [...this.#numbers, Number(this.#current)];
-      const prev = idx === 0 ? totalNumbers[idx] : this.#calculator.value;
-      const cur = totalNumbers[idx + 1];
-
-      this.#calculator.calculate({ prev, cur, operator });
-    });
-
-    this.cleanUp();
-    this.#total.innerText = this.#calculator.value;
-  }
-
-  onSaveEnteredValue({ cur, operator }) {
-    this.#numbers.push(Number(cur));
+  onSaveEnteredValue({ current, operator }) {
+    this.#numbers.push(Number(current));
     this.#operators.push(operator);
   }
 
@@ -66,16 +39,24 @@ class Ui {
   }
 
   onClickOperator(operator) {
-    const cur = this.#current;
+    const current = this.#current;
 
-    if (isEmpty(cur)) {
+    if (isEmpty(current)) {
       alert(ALERT_MESSAGE.HAVE_NO_CALCULATION_NUMBER);
       return;
     }
 
     if (isEqual(operator, "=")) {
+      const result = this.#calculator.calculate({
+        current: this.#current,
+        numbers: this.#numbers,
+        operators: this.#operators,
+        initialize: () => this.initialize(),
+      });
+
+      this.#total.innerText = result;
       this.haveBeenGetResult = true;
-      this.#calculate();
+
       return;
     }
 
@@ -84,7 +65,7 @@ class Ui {
       return;
     }
 
-    this.onSaveEnteredValue({ cur, operator });
+    this.onSaveEnteredValue({ current, operator });
     this.#current = "";
     this.#addToTotalText(operator);
   }
@@ -99,16 +80,12 @@ class Ui {
     this.haveBeenGetResult = false;
   }
 
-  cleanUp() {
+  initialize() {
     this.#numbers = [];
     this.#operators = [];
     this.#current = "";
-  }
-
-  initialize() {
-    this.cleanUp();
     this.#calculator.clear();
-    this.#total.innerText = "0";
+    this.#total.innerText = this.#calculator.value;
   }
 }
 

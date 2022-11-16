@@ -1,3 +1,6 @@
+import { isSame, isSmallerThan } from "./utils.js";
+import { ALERT_MESSAGE } from "./constants.js";
+
 class Calculator {
   #value;
 
@@ -35,8 +38,26 @@ class Calculator {
     this.#value = 0;
   }
 
-  calculate({ prev, cur, operator }) {
-    this.CALCULATION_BY_OPERATOR[operator](prev, cur);
+  calculate({ current, numbers, operators, initialize }) {
+    if (isSmallerThan(numbers.length, 1) || isSame(operators.length, 0)) {
+      alert(ALERT_MESSAGE.CANT_NOT_CALCULATION);
+      initialize();
+      return "0";
+    }
+
+    operators.forEach((operator, idx) => {
+      const totalNumbers = [...numbers, Number(current)];
+      const prev = idx === 0 ? totalNumbers[idx] : this.#value;
+      const cur = totalNumbers[idx + 1];
+
+      this.CALCULATION_BY_OPERATOR[operator](prev, cur);
+    });
+
+    const result = this.value;
+
+    initialize();
+
+    return result;
   }
 }
 
