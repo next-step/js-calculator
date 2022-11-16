@@ -11,19 +11,14 @@ class Ui {
   #current;
   #total;
   #calculator;
-  #haveBeenGetResult;
 
   constructor($total) {
     this.#current = "";
     this.#numbers = [];
     this.#operators = [];
     this.#total = $total;
-    this.#haveBeenGetResult = false;
     this.#calculator = new Calculator();
-  }
-
-  set haveBeenGetResult(state) {
-    this.#haveBeenGetResult = state;
+    this.haveBeenGetResult = false;
   }
 
   #calculate() {
@@ -36,14 +31,9 @@ class Ui {
     this.#operators.forEach((operator, idx) => {
       const totalNumbers = [...this.#numbers, Number(this.#current)];
       const prev = idx === 0 ? totalNumbers[idx] : this.#calculator.value;
+      const cur = totalNumbers[idx + 1];
 
-      if (operator === "+") this.#calculator.sum(prev, totalNumbers[idx + 1]);
-      if (operator === "-")
-        this.#calculator.subtract(prev, totalNumbers[idx + 1]);
-      if (operator === "X")
-        this.#calculator.multiple(prev, totalNumbers[idx + 1]);
-      if (operator === "/")
-        this.#calculator.divide(prev, totalNumbers[idx + 1]);
+      this.#calculator.calculate({ prev, cur, operator });
     });
 
     this.cleanUp();
@@ -89,8 +79,7 @@ class Ui {
   }
 
   #render(input) {
-    const isNewNumber =
-      this.#haveBeenGetResult || this.#total.innerText === "0";
+    const isNewNumber = this.haveBeenGetResult || this.#total.innerText === "0";
 
     this.#total.innerText = isNewNumber
       ? input
@@ -108,7 +97,7 @@ class Ui {
   initialize() {
     this.cleanUp();
     this.#calculator.clear();
-    this.#total.innerText = 0;
+    this.#total.innerText = "0";
   }
 }
 

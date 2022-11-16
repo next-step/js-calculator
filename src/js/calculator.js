@@ -3,30 +3,40 @@ class Calculator {
 
   constructor() {
     this.#value = 0;
+    this.CALCULATION_BY_OPERATOR = {
+      "+": (prev, cur) => this.sum(prev, cur),
+      "-": (prev, cur) => this.subtract(prev, cur),
+      X: (prev, cur) => this.multiple(prev, cur),
+      "/": (prev, cur) => this.divide(prev, cur),
+    };
   }
 
   get value() {
     return Math.floor(this.#value);
   }
 
-  sum(pre, cur) {
-    this.#value = pre + cur;
+  sum(left, right) {
+    this.#value = left + right;
   }
 
-  subtract(pre, cur) {
-    this.#value = pre - cur;
+  subtract(left, right) {
+    this.#value = left - right;
   }
 
-  multiple(pre, cur) {
-    this.#value = pre * cur;
+  multiple(left, right) {
+    this.#value = left * right;
   }
 
-  divide(pre, cur) {
-    this.#value = pre / cur;
+  divide(left, right) {
+    this.#value = left / right;
   }
 
   clear() {
     this.#value = 0;
+  }
+
+  calculate({ prev, cur, operator }) {
+    this.CALCULATION_BY_OPERATOR[operator](prev, cur);
   }
 }
 
