@@ -15,6 +15,7 @@
 </p>
 
 ## 🔥 Projects!
+
 <p align="middle">
   <img width="300" src="src/images/calculator_ui.png">
 </p>
@@ -23,16 +24,15 @@
   <a href="https://next-step.github.io/js-calculator/">🖥️ 데모 링크</a>
 </p>
 
-
 ## 🎯 기능 요구사항
 
-- [ ] 2개의 숫자에 대해 덧셈이 가능하다.
-- [ ] 2개의 숫자에 대해 뺄셈이 가능하다.
-- [ ] 2개의 숫자에 대해 곱셈이 가능하다.
-- [ ] 2개의 숫자에 대해 나눗셈이 가능하다.
-- [ ] AC(All Clear)버튼을 누르면 0으로 초기화 한다.
-- [ ] 숫자는 한번에 최대 3자리 수까지 입력 가능하다.
-- [ ] 계산 결과를 표현할 때 소수점 이하는 버림한다.
+- [x] 2개의 숫자에 대해 덧셈이 가능하다.
+- [x] 2개의 숫자에 대해 뺄셈이 가능하다.
+- [x] 2개의 숫자에 대해 곱셈이 가능하다.
+- [x] 2개의 숫자에 대해 나눗셈이 가능하다.
+- [x] AC(All Clear)버튼을 누르면 0으로 초기화 한다.
+- [x] 숫자는 한번에 최대 3자리 수까지 입력 가능하다.
+- [x] 계산 결과를 표현할 때 소수점 이하는 버림한다.
 
 <br/>
 
@@ -43,19 +43,37 @@
 <br/>
 
 ## 📄 참고 사항
-* 숫자 입력은 **클릭**으로만 가능하다.
+
+- 숫자 입력은 **클릭**으로만 가능하다.
 
 <br/>
 
 ## 👏 Contributing
-만약 미션 수행 중에 개선사항이 보인다면, 언제든 자유롭게 PR을 보내주세요. 
+
+만약 미션 수행 중에 개선사항이 보인다면, 언제든 자유롭게 PR을 보내주세요.
 
 <br/>
 
 ## 🐞 Bug Report
+
 버그를 발견한다면, [Issues](https://github.com/next-step/js-calculator/issues) 에 등록 후 @eastjun에게 dm을 보내주세요.
 
 <br/>
 
 ## 📝 License
+
 This project is [MIT](https://github.com/next-step/js-calculator/blob/master/LICENSE) licensed.
+
+구현 과정
+요즘 객체지향을 (따로) 공부하고 있어서 객체간의 메시지들을 먼저 생각하고 구현해보려고 노력했습니다
+그렇기 때문에 TDD 이전에 객체 설계를 먼저 했습니다.
+
+![calculator drawio](https://user-images.githubusercontent.com/68339352/201017394-425746b9-f88e-44c6-935c-29d8beaf78c3.png)
+
+1. calculate 클래스에서 사칙연산 테스트를 만들고 통과하도록한다.
+
+2. App 클래스에서 clickevent 를 등록하도록한다. dom 클래스를 만든다.
+
+-> DOM 이라는 객체를 하나더 만든게 좋은 패턴일까? (역할 분리)
+
+3. digit 이라는 클래스에서 숫자를 만들고 현재 입력된 숫자를 getNumber 메서드로 알 수 있게 한다.
