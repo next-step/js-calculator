@@ -1,18 +1,23 @@
 import Digit from "./Digit.js";
 
+const DIGIT_COUNT = 10;
+
 class Digits {
+  constructor() {
+    this.DigitInstances = Array.from(Array(DIGIT_COUNT).keys())
+      .reverse()
+      .map((index) => new Digit({ index }));
+  }
+
   render({ $parent, totalValue, setTotalValue }) {
     $parent.insertAdjacentHTML("beforeend", `<div class="digits flex"></div>`);
 
     const $digits = document.querySelector(".digits");
 
-    for (let index = 9; index >= 0; index--) {
-      const DigitInstance = new Digit();
-
-      // 반복해서 인스턴스를 생성하는 경우에는 render와 setEvent를 어떻게 분리할 수 있을까
-      DigitInstance.render({ $parent: $digits, index });
-      DigitInstance.setEvent({ index, totalValue, setTotalValue });
-    }
+    this.DigitInstances.forEach((item) => {
+      item.render({ $parent: $digits });
+      item.setEvent({ totalValue, setTotalValue });
+    });
   }
 }
 

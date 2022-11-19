@@ -2,6 +2,12 @@ import Operation from "./Operation.js";
 import operators from "../constants/operators.js";
 
 class Operations {
+  constructor() {
+    this.OperatorInstances = operators.map(
+      (operator) => new Operation({ operator })
+    );
+  }
+
   render({ $parent, totalValue, setTotalValue }) {
     $parent.insertAdjacentHTML(
       "beforeend",
@@ -10,16 +16,9 @@ class Operations {
 
     const $operations = document.querySelector(".operations");
 
-    operators.forEach((operator) => {
-      const OperationInstance = new Operation({
-        operator,
-        totalValue,
-        setTotalValue,
-      });
-
-      // 반복해서 인스턴스를 생성하는 경우에는 render와 setEvent를 어떻게 분리할 수 있을까
-      OperationInstance.render({ $parent: $operations, operator });
-      OperationInstance.setEvent({ operator, totalValue, setTotalValue });
+    this.OperatorInstances.forEach((item) => {
+      item.render({ $parent: $operations });
+      item.setEvent({ totalValue, setTotalValue });
     });
   }
 }

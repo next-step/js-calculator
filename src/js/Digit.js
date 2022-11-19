@@ -4,8 +4,12 @@ import operators from "../constants/operators.js";
 const MAX_NUMBER_OF_DIGITS = 3;
 
 class Digit {
-  setEvent({ index, totalValue, setTotalValue }) {
-    const $digit = contains(".digit", index)[0];
+  constructor({ index }) {
+    this.index = index;
+  }
+
+  setEvent({ totalValue, setTotalValue }) {
+    const $digit = contains(".digit", this.index)[0];
 
     function isOverThreeConsecutive() {
       const sliced = totalValue
@@ -23,19 +27,19 @@ class Digit {
 
     $digit.addEventListener("click", () => {
       if (totalValue === "0") {
-        setTotalValue(`${index}`);
+        setTotalValue(`${this.index}`);
       } else if (isOverThreeConsecutive()) {
         alert("숫자는 한번에 최대 3자리 수까지 입력 가능합니다.");
       } else {
-        setTotalValue(`${totalValue}${index}`);
+        setTotalValue(`${totalValue}${this.index}`);
       }
     });
   }
 
-  render({ $parent, index }) {
+  render({ $parent }) {
     $parent.insertAdjacentHTML(
       "beforeend",
-      `<button class="digit">${index}</button>`
+      `<button class="digit">${this.index}</button>`
     );
   }
 }

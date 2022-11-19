@@ -2,8 +2,12 @@ import contains from "../utils/contains.js";
 import operators from "../constants/operators.js";
 
 class Operation {
-  setEvent({ operator, totalValue, setTotalValue }) {
-    const $operation = contains(".operation", operator)[0];
+  constructor({ operator }) {
+    this.operator = operator;
+  }
+
+  setEvent({ totalValue, setTotalValue }) {
+    const $operation = contains(".operation", this.operator)[0];
     const isLastValueOperator =
       operators.indexOf(totalValue[totalValue.length - 1]) !== -1;
 
@@ -18,18 +22,18 @@ class Operation {
         alert("연산자는 연속해서 입력할 수 없습니다.");
       } else if (totalValue === "0") {
         alert("숫자를 먼저 입력하세요.");
-      } else if (operator === "=") {
+      } else if (this.operator === "=") {
         calculate();
       } else {
-        setTotalValue(`${totalValue}${operator}`);
+        setTotalValue(`${totalValue}${this.operator}`);
       }
     });
   }
 
-  render({ $parent, operator }) {
+  render({ $parent }) {
     $parent.insertAdjacentHTML(
       "beforeend",
-      `<button class="operation">${operator}</button>`
+      `<button class="operation">${this.operator}</button>`
     );
   }
 }
