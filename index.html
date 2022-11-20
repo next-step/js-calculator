@@ -1,38 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Calculator</title>
-        <link rel="stylesheet" type="text/css" href="src/css/index.css" />
-    </head>
-    <body>
-        <div id="app">
-            <div class="calculator">
-                <h1 id="total">0</h1>
-                <div class="digits flex">
-                    <button class="digit">9</button>
-                    <button class="digit">8</button>
-                    <button class="digit">7</button>
-                    <button class="digit">6</button>
-                    <button class="digit">5</button>
-                    <button class="digit">4</button>
-                    <button class="digit">3</button>
-                    <button class="digit">2</button>
-                    <button class="digit">1</button>
-                    <button class="digit">0</button>
-                </div>
-                <div class="modifiers subgrid">
-                    <button class="modifier">AC</button>
-                </div>
-                <div class="operations subgrid">
-                    <button class="operation">/</button>
-                    <button class="operation">X</button>
-                    <button class="operation">-</button>
-                    <button class="operation">+</button>
-                    <button class="operation">=</button>
-                </div>
-            </div>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+    <link rel="stylesheet" type="text/css" href="src/css/index.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div class="calculator">
+        <h1 id="total" data-cy="total">0</h1>
+        <div class="digits flex">
+          <button class="digit" data-cy="digit-9">9</button>
+          <button class="digit" data-cy="digit-8">8</button>
+          <button class="digit" data-cy="digit-7">7</button>
+          <button class="digit" data-cy="digit-6">6</button>
+          <button class="digit" data-cy="digit-5">5</button>
+          <button class="digit" data-cy="digit-4">4</button>
+          <button class="digit" data-cy="digit-3">3</button>
+          <button class="digit" data-cy="digit-2">2</button>
+          <button class="digit" data-cy="digit-1">1</button>
+          <button class="digit" data-cy="digit-0">0</button>
         </div>
-    </body>
+        <div class="modifiers subgrid">
+          <button class="modifier" data-cy="modifier">AC</button>
+        </div>
+        <div class="operations subgrid">
+          <button class="operation" data-cy="operator-divide">/</button>
+          <button class="operation" data-cy="operator-multiple">X</button>
+          <button class="operation" data-cy="operator-subtract">-</button>
+          <button class="operation" data-cy="operator-sum">+</button>
+          <button class="operation" data-cy="operator-result">=</button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="./src/js/index.js" type="module"></script>
 </html>
