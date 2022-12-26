@@ -1,0 +1,22 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "description": "<br/> <br/>",
+  "main": "index.js",
+  "scripts": {
+    "dev": "live-server --open=./index.html --port=5000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jay-WKJun/js-calculator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jay-WKJun/js-calculator/issues"
+  },
+  "homepage": "https://github.com/Jay-WKJun/js-calculator#readme",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}
