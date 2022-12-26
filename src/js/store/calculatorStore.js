@@ -11,7 +11,7 @@ export function popHistoryStack() {
 }
 
 export function assignHistory(history) {
-  historyStack[0](history);
+  historyStack[0] = history;
 }
 
 export function getCurrentNumber() {
@@ -28,15 +28,15 @@ export function appendNumberToCurrentNumber(newNumber) {
   setCurrentNumber(Number(String(currentNumber) + newNumber));
 }
 
-export function setIsOperateState(newControlState) {
-  controlState = newControlState || false;
+export function setIsOperateState(newState) {
+  isOperateState = newState || false;
 }
 
 export function initHistoryStack() {
   assignHistory(defaultHistory);
 }
 
-function initCurrentNumber() {
+export function initCurrentNumber() {
   currentNumber = defaultCurrentNumber;
 }
 

@@ -4,6 +4,7 @@ import {
   popHistoryStack,
   assignHistory,
   initHistoryStack,
+  initCurrentNumber,
   setIsOperateState,
   isOperateState,
 } from "../store/calculatorStore.js";
@@ -12,59 +13,57 @@ import { operationViews } from "../views/operationViews.js";
 import { totalView } from "../views/totalView.js";
 
 operationViews.forEach((operationView) => {
-  if (operationView.rootElement.id === 'result') {
-    operationView.onClick(() => {
-      if (isOperateState) return blinkTotalView();
-      setIsOperateState(true);
-
-      const { tempSavedNumber, currentNumber, tempSavedOperator } = popHistoryStack();
-
-      initHistoryStack();
-      const newCurrentNumber = calcNumbers(currentNumber, tempSavedOperator, tempSavedNumber);
-      totalView.appendTextContent(setCurrentNumber(newCurrentNumber));
-    });
-    return;
-  }
-
   operationView.onClick((e) => {
     if (isOperateState) return blinkTotalView();
     setIsOperateState(true);
 
     const operation = e.target.textContent;
-
     const { tempNumber, tempOperator } = popHistoryStack();
+    const currentNumber = getCurrentNumber();
+
     if (!tempOperator) {
       assignHistory({ tempNumber: currentNumber, tempOperator: operation });
+      blinkTotalView(currentNumber);
 
-      blinkTotalView();
+      initCurrentNumberAndHistory();
       return;
     }
 
-    const newCurrentNumber = calcNumbers(getCurrentNumber(), tempOperator, tempNumber);
-    assignHistory({ tempNumber: currentNumber, tempOperator: operation });
-
+    const newCurrentNumber = calcNumbers(currentNumber, tempOperator, tempNumber);
+    assignHistory({ tempNumber: newCurrentNumber, tempOperator: operation });
     totalView.appendTextContent(setCurrentNumber(newCurrentNumber));
+
+    initCurrentNumberAndHistory()
   });
 });
 
-function blinkTotalView() {
-  settimeout(() => totalView.appendTextContent(getCurrentNumber()), 200);
+function initCurrentNumberAndHistory(operation) {
+  initCurrentNumber();
+  isEqualOperation(operation) && initHistoryStack();
+
+  function isEqualOperation(operation) {
+    return operation === '=';
+  }
+}
+
+function blinkTotalView(currentNumber) {
+  setTimeout(() => totalView.appendTextContent(currentNumber), 100);
   totalView.appendTextContent('');
 }
 
 function calcNumbers(number1, operation, number2) {
   switch(operation) {
     case('+'): {
-      return number1 + number2;
+      return number2 + number1;
     }
     case('-'): {
-      return number1 - number2;
+      return number2 - number1;
     }
     case('x'): {
-      return number1 * number2;
+      return number2 * number1;
     }
     case('/'): {
-      return Math.round(number1 / number2);
+      return Math.round(number2 / number1);
     }
   }
 
