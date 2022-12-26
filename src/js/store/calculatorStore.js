@@ -1,8 +1,10 @@
 const defaultHistory = { tempNumber: 0, tempOperator: '' };
 const defaultCurrentNumber = 0;
+const defaultControlState = false;
 
 const historyStack = [defaultHistory];
 let currentNumber = defaultCurrentNumber;
+export let isOperateState = defaultControlState;
 
 export function popHistoryStack() {
   return historyStack.pop();
@@ -26,6 +28,10 @@ export function appendNumberToCurrentNumber(newNumber) {
   setCurrentNumber(Number(String(currentNumber) + newNumber));
 }
 
+export function setIsOperateState(newControlState) {
+  controlState = newControlState || false;
+}
+
 export function initHistoryStack() {
   assignHistory(defaultHistory);
 }
@@ -34,7 +40,12 @@ function initCurrentNumber() {
   currentNumber = defaultCurrentNumber;
 }
 
+function initIsOperateState() {
+  isOperateState = defaultControlState;
+}
+
 export function initStore() {
   initHistoryStack();
   initCurrentNumber();
+  initIsOperateState();
 }

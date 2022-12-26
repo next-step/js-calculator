@@ -1,13 +1,22 @@
-import { setCurrentNumber, getCurrentNumber, popHistoryStack, assignHistory, initHistoryStack } from "../store/calculatorStore";
+import {
+  setCurrentNumber,
+  getCurrentNumber,
+  popHistoryStack,
+  assignHistory,
+  initHistoryStack,
+  setIsOperateState,
+  isOperateState,
+} from "../store/calculatorStore";
 
 import { operationViews } from "../views/operationViews";
 import { totalView } from "../views/totalView.js";
 
-// TODO: operation만을 지속적으로 누를 경우의 이슈 해결
-
 operationViews.forEach((operationView) => {
   if (operationView.rootElement.id === 'result') {
     operationView.onClick(() => {
+      if (isOperateState) return blinkTotalView();
+      setIsOperateState(true);
+
       const { tempSavedNumber, currentNumber, tempSavedOperator } = popHistoryStack();
 
       initHistoryStack();
@@ -18,24 +27,30 @@ operationViews.forEach((operationView) => {
   }
 
   operationView.onClick((e) => {
+    if (isOperateState) return blinkTotalView();
+    setIsOperateState(true);
+
     const operation = e.target.textContent;
 
     const { tempNumber, tempOperator } = popHistoryStack();
     if (!tempOperator) {
       assignHistory({ tempNumber: currentNumber, tempOperator: operation });
 
-      settimeout(() => totalView.appendTextContent(getCurrentNumber()), 200);
-      totalView.appendTextContent('');
+      blinkTotalView();
       return;
     }
 
     const newCurrentNumber = calcNumbers(getCurrentNumber(), tempOperator, tempNumber);
     assignHistory({ tempNumber: currentNumber, tempOperator: operation });
 
-    setCurrentNumber(newCurrentNumber);
-    totalView.appendTextContent(getCurrentNumber());
+    totalView.appendTextContent(setCurrentNumber(newCurrentNumber));
   });
 });
+
+function blinkTotalView() {
+  settimeout(() => totalView.appendTextContent(getCurrentNumber()), 200);
+  totalView.appendTextContent('');
+}
 
 function calcNumbers(number1, operation, number2) {
   switch(operation) {

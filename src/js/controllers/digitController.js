@@ -1,4 +1,4 @@
-import { getCurrentNumber, appendNumberToCurrentNumber } from "../store/calculatorStore";
+import { getCurrentNumber, appendNumberToCurrentNumber, setIsOperateState } from "../store/calculatorStore";
 
 import { digitViews } from "../views/digitViews.js";
 import { totalView } from "../views/totalView.js";
@@ -9,5 +9,6 @@ digitViews.forEach((digitView) => {
 
     appendNumberToCurrentNumber(buttonNumber);
     totalView.appendTextContent(getCurrentNumber());
+    setIsOperateState();
   });
 });
