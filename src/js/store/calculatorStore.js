@@ -24,7 +24,15 @@ export function setCurrentNumber(newCurrentNumber) {
   return currentNumber;
 }
 
+function checkIsValidNewCurrentNumber(newCurrentNumber) {
+  return newCurrentNumber / 100 > 10;
+}
+
 export function appendNumberToCurrentNumber(newNumber) {
+  const newCurrentNumber = Number(String(currentNumber) + newNumber);
+
+  if (checkIsValidNewCurrentNumber(newCurrentNumber)) return;
+
   setCurrentNumber(Number(String(currentNumber) + newNumber));
 }
 
