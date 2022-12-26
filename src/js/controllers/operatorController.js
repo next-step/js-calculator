@@ -6,9 +6,9 @@ import {
   initHistoryStack,
   setIsOperateState,
   isOperateState,
-} from "../store/calculatorStore";
+} from "../store/calculatorStore.js";
 
-import { operationViews } from "../views/operationViews";
+import { operationViews } from "../views/operationViews.js";
 import { totalView } from "../views/totalView.js";
 
 operationViews.forEach((operationView) => {

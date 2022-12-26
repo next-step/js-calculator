@@ -1,4 +1,4 @@
-import { getCurrentNumber, appendNumberToCurrentNumber, setIsOperateState } from "../store/calculatorStore";
+import { getCurrentNumber, appendNumberToCurrentNumber, setIsOperateState } from "../store/calculatorStore.js";
 
 import { digitViews } from "../views/digitViews.js";
 import { totalView } from "../views/totalView.js";
