@@ -4,7 +4,8 @@
   "description": "<br/> <br/>",
   "main": "index.js",
   "scripts": {
-    "dev": "live-server --open=./index.html --port=5000"
+    "dev": "live-server --open=./index.html --port=5000",
+    "cypress:open": "cypress open"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/Jay-WKJun/js-calculator#readme",
   "devDependencies": {
+    "cypress": "^12.2.0",
     "live-server": "^1.2.2"
   }
 }
